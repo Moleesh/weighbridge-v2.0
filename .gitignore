@@ -18,6 +18,7 @@
 *.db
 
 ### NetBeans ###
+/.vscode
 /nbproject/private/
 /nbbuild/
 /dist/
