@@ -33,6 +33,6 @@ if (inputs) {
 }
 
 function sample(){
-    console.log(1);
+    console.log( $('#dynamicWeight').html());
     alert("hi");
 }
