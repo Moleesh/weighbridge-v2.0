@@ -29,3 +29,5 @@ describe('AppComponent', () => {
         expect(compiled.querySelector('h1').textContent).toContain('Welcome to ng-byexamples-angular7-routing-thebasics!');
     });
 });
+
+

@@ -1,10 +1,39 @@
-<mat-toolbar class="mat-elevation-z4" color="primary">
 
-    <button [routerLink]="['/home'] " mat-button>Home</button>
-    <button [routerLink]="['/contact'] " mat-button>Contact</button>
-    <button [routerLink]="['/component-a'] " mat-button>Component A</button>
-    <button [routerLink]="['/component-b'] " mat-button>Component B</button>
-
-</mat-toolbar>
-
-<router-outlet></router-outlet>
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-heading text-center">
+                <div class="title">Babulens Enterprises</div>
+                <p class="title-description">Nagercoil</p>
+            </div>
+            <!-- Nav tabs -->
+            <div class="tabs-wrapper">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-toggle="tab" [routerLink]="['/weighing'] " role="tab" aria-selected="true">
+                            <i class="fa fa-balance-scale fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" [routerLink]="['/home'] " role="tab" aria-selected="false">
+                            <i class="fa fa-building fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#cars" role="tab" aria-selected="false">
+                            <i class="fa fa-car fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#cruises" role="tab" aria-selected="false">
+                            <i class="fa fa-ship fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+            <div class="tab-content">
+                <router-outlet></router-outlet>
+            </div>
+        </form>
+     </div>
+</div>

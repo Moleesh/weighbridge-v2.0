@@ -1,0 +1,114 @@
+/* ------------------------------------------
+	Page Style 
+------------------------------------------ */
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    color: #898989;
+    background: #fff center top no-repeat;
+}
+
+a {
+    color: #9c27b0;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #9c27b0;
+    text-decoration: underline;
+}
+
+h2 {
+    margin: 0 0 30px;
+}
+
+h3 {
+    font-size: 16px;
+    line-height: 18px;
+    color: #000;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 300;
+    color: #898989;
+    line-height: 24px;
+}
+
+b, strong {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #333;
+}
+
+.title {
+    letter-spacing: 1px;
+    font-size: 24px;
+    line-height: 32px;
+    color: #fff;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.title-description {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.62);
+}
+
+.title-description a {
+    color: #FFFFFF;
+}
+
+
+.header h1 {
+    margin: 50px 0;
+    font-size: 32px;
+    line-height: 32px;
+    color: #fff;
+    text-shadow: -1px 0px -1px #000;
+}
+
+.content {
+    margin-bottom: 0px;
+    padding: 50px 15px;
+    background: #fff;
+    border-radius: 6px;
+}
+
+.sidebar .nav {
+    margin-bottom: 50px;
+    font-size: 14px;
+}
+
+.nav li {
+    border-bottom: 1px solid #ececec;
+}
+
+.sidebar .nav-stacked > li + li {
+    margin: 0;
+}
+
+.sidebar .nav li a {
+    color: #898989;
+    font-weight: 300;
+}
+
+.sidebar .nav > li > a:hover,
+.sidebar .nav > li > a:focus {
+    color: #fff;
+    background: #f55a4e;
+    border: 1px solid #f55a4e;
+    box-shadow: 0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2);
+    border-radius: 6px;
+}
+
+.sidebar .nav > li.active > a {
+    color: #fff;
+    background: #f55a4e;
+    border: 1px solid #f55a4e;
+    box-shadow: 0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2);
+    border-radius: 6px;
+}
