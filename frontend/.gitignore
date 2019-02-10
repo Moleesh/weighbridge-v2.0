@@ -4,11 +4,12 @@
 /dist
 /tmp
 /out-tsc
+/dist
 /target
 
 # dependencies
+package-lock.json
 /node_modules
-/node
 
 # profiling files
 chrome-profiler-events.json
@@ -18,10 +19,12 @@ speed-measure-plugin.json
 /.idea
 .project
 .classpath
+.editorconfig
 .c9/
 *.launch
 .settings/
 *.sublime-workspace
+*.iml
 
 # IDE - VSCode
 .vscode/*

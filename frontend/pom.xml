@@ -17,6 +17,7 @@
   </properties>
 
   <build>
+    <directory>../target</directory>
     <resources>
       <resource>
         <directory>dist</directory>
@@ -26,6 +27,7 @@
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.6</version>
         <configuration>
           <nodeVersion>v11.9.0</nodeVersion>
         </configuration>
@@ -42,17 +44,19 @@
             <goals>
               <goal>npm</goal>
             </goals>
+            <configuration>
+              <arguments>install --production</arguments>
+            </configuration>
           </execution>
 
           <execution>
-            <id>prod</id>
+            <id>npm build</id>
             <goals>
               <goal>npm</goal>
             </goals>
             <configuration>
               <arguments>run-script build</arguments>
             </configuration>
-            <phase>generate-resources</phase>
           </execution>
         </executions>
       </plugin>

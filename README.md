@@ -4,4 +4,4 @@
 mvnw -q clean install
 
 ## To Run
-java -jar backend/target/WeighBridge.jar
+java -jar target/WeighBridge.jar
