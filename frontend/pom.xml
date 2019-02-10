@@ -12,12 +12,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <build>
-    <directory>../target</directory>
     <resources>
       <resource>
         <directory>dist</directory>
@@ -45,7 +40,7 @@
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>install --production</arguments>
+              <arguments>install</arguments>
             </configuration>
           </execution>
 
