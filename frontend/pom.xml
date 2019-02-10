@@ -43,7 +43,6 @@
               <arguments>install</arguments>
             </configuration>
           </execution>
-
           <execution>
             <id>npm build</id>
             <goals>
