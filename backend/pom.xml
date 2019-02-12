@@ -42,6 +42,12 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.fazecast</groupId>
+			<artifactId>jSerialComm</artifactId>
+			<version>LATEST</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
