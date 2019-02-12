@@ -1,7 +1,7 @@
 # WeighBridge
 
 ## To Build 
-mvnw -q clean install
+mvnw clean install
 
 ## To Run
 java -jar target/WeighBridge.jar

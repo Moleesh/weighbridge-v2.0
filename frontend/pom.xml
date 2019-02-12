@@ -52,6 +52,15 @@
               <arguments>run-script build</arguments>
             </configuration>
           </execution>
+          <execution>
+            <id>npm move</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run-script move</arguments>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
