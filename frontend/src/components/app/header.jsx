@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-import Alert from "react-bootstrap/Alert";
+import Navbar from "react-bootstrap/Navbar";
+import logo from '../../logo.svg';
 
 class Header extends Component {
   state = {};
   render() {
     return (
-      <Alert variant="success">
-        <Alert.Heading className="text-center">
-          Hey, nice to see you
-        </Alert.Heading>
-        <p className="mb-0 text-center">Company Address</p>
-      </Alert>
+      <Navbar bg="dark" variant="dark">
+    <Navbar.Brand href="/">
+    <img src={logo} 
+        alt=""
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+      />
+      {' Babulens Enterprises'}
+    </Navbar.Brand>
+  </Navbar>
     );
   }
 }
-
 export default Header;
