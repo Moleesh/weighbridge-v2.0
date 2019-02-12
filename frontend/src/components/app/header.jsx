@@ -1,22 +1,42 @@
 import React, { Component } from "react";
-import Navbar from "react-bootstrap/Navbar";
-import logo from '../../logo.svg';
+import logo from "../../logo.svg";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 
 class Header extends Component {
   state = {};
   render() {
     return (
-      <Navbar bg="dark" variant="dark">
-    <Navbar.Brand href="/">
-    <img src={logo} 
-        alt=""
-        width="30"
-        height="30"
-        className="d-inline-block align-top"
-      />
-      {' Babulens Enterprises'}
-    </Navbar.Brand>
-  </Navbar>
+      <Card
+        className="text-center w-100"
+        style={{
+          backgroundColor: "black",
+          color: "white"
+        }}
+      >
+        <Card.Header>
+          <Row>
+            <Col column sm="1">
+              <img
+                src={logo}
+                alt=""
+                width="60"
+                height="60"
+                className="d-inline-block align-top"
+              />
+            </Col>
+            <Col column sm="10">
+              <Row className="justify-content-center font-weight-bold  h3">
+                Babulens Enterprises
+              </Row>
+              <Row className="justify-content-center font-italic h5">
+                Address
+              </Row>
+            </Col>
+          </Row>
+        </Card.Header>
+      </Card>
     );
   }
 }

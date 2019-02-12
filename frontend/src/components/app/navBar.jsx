@@ -7,14 +7,19 @@ class NavBar extends Component {
   state = {};
   render() {
     return (
-      <Tabs defaultActiveKey="Weighing">
-        <Tab eventKey="Weighing" title="Weighing">
+      <Tabs
+        justify
+        variant="tabs"
+        defaultActiveKey="weighing"
+        className="mt-2 h5 font-italic"
+      >
+        <Tab eventKey="weighing" title="Weighing">
           <Weighing />
         </Tab>
-        <Tab eventKey="Report" title="Report">
+        <Tab eventKey="report" title="Report">
           <h1>2</h1>
         </Tab>
-        <Tab eventKey="Setting" title="Setting">
+        <Tab eventKey="setting" title="Setting">
           <h1>3</h1>
         </Tab>
       </Tabs>

@@ -3,41 +3,14 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-class ColumnOne extends Component {
+class ColumnTwo extends Component {
   state = {};
   render() {
     return (
-      <Col column sm="4" className="mt-2">
-        <Form.Group as={Row}>
-          <Col sm="1" />
-          <Form.Check
-            type="radio"
-            name="Gross-Tare-Selector"
-            label="Gross"
-            defaultChecked
-          />
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Col sm="1" />
-          <Form.Check
-            type="radio"
-            name="Gross-Tare-Selector"
-            label="Gross"
-            defaultChecked
-          />
-        </Form.Group>
+      <Col column sm="6">
         <Form.Group as={Row}>
           <Form.Label column sm="6">
-            Sl No
-          </Form.Label>
-          <Col sm="6">
-            <Form.Control />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row}>
-          <Form.Label column sm="6">
-            Date & Time
+            Custmer's Name
           </Form.Label>
           <Col sm="6">
             <Form.Control />
@@ -45,7 +18,7 @@ class ColumnOne extends Component {
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column sm="6">
-            Vehicle No
+            Dc. No
           </Form.Label>
           <Col sm="6">
             <Form.Control />
@@ -53,15 +26,7 @@ class ColumnOne extends Component {
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column sm="6">
-            Material
-          </Form.Label>
-          <Col sm="6">
-            <Form.Control type="select" />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm="6">
-            Charges
+            Gross Wt
           </Form.Label>
           <Col sm="6">
             <Form.Control />
@@ -69,7 +34,15 @@ class ColumnOne extends Component {
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column sm="6">
-            Remarks
+            Tare Wt
+          </Form.Label>
+          <Col sm="6">
+            <Form.Control />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm="6">
+            Net Wt
           </Form.Label>
           <Col sm="6">
             <Form.Control />
@@ -80,4 +53,4 @@ class ColumnOne extends Component {
   }
 }
 
-export default ColumnOne;
+export default ColumnTwo;
