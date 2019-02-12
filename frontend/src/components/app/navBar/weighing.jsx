@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 import GrossTareSelector from "./weighing/grossTareSelector";
+import ColumnOne from "./weighing/columnOne";
 
 class Weighing extends Component {
   state = {};
 
   render() {
     return (
-      <React.Fragment>
+      <Form>
         <Row>
           <Col>
             <GrossTareSelector />
@@ -22,24 +22,12 @@ class Weighing extends Component {
         </Row>
         <Row>
           <Col>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>With textarea</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl as="textarea" aria-label="With textarea" />
-            </InputGroup>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>With textarea</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl as="textarea" aria-label="With textarea" />
-            </InputGroup>
+            <ColumnOne />
           </Col>
           <Col>2 of 3</Col>
           <Col>3 of 3</Col>
-          <Col>3 of 3</Col>
         </Row>
-      </React.Fragment>
+      </Form>
     );
   }
 }
