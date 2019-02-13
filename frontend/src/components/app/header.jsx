@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import logo from "../../logo.svg";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
+import { Row, Col, Card } from "react-bootstrap";
 
 class Header extends Component {
   state = {};

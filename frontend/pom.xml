@@ -40,7 +40,7 @@
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>install</arguments>
+              <arguments>clean install</arguments>
             </configuration>
           </execution>
           <execution>

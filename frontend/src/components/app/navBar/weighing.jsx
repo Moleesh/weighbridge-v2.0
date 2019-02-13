@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
+import { Row, Col, Form, Card } from "react-bootstrap";
+
 import ColumnOne from "./weighing/columnOne";
 import ColumnTwo from "./weighing/columnTwo";
 import ColumnThree from "./weighing/columnThree";
 import Bottom from "./weighing/bottom";
-import Card from "react-bootstrap/Card";
 
 class Weighing extends Component {
   state = {};
@@ -30,8 +28,8 @@ class Weighing extends Component {
               </Card>
             </Row>
             <Row>
-                <ColumnTwo />
-                <ColumnThree />
+              <ColumnTwo />
+              <ColumnThree />
             </Row>
           </Col>
         </Row>

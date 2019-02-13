@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
+import { Tabs, Tab } from "react-bootstrap";
 import Weighing from "./navBar/weighing";
 
 class NavBar extends Component {

@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
+import { Form, Col, Row, Button } from "react-bootstrap";
 
 class ColumnThree extends Component {
   state = {};
