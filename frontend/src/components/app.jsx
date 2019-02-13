@@ -4,18 +4,25 @@ import Header from "./app/header";
 import NavBar from "./app/navBar";
 
 class App extends Component {
-  state = {};
+  state = {
+    headingLineOne: "Babulens Enterprises",
+    headingLineTwo: "Nagercoil",
+    Weight: "00000000",
+    SlNO: "1"
+  };
   render() {
+    let thisState = this.state;
+
     return (
       <Container fluid={true}>
         <Row>
           <Col>
-            <Header />
+            <Header preState={thisState} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <NavBar />
+            <NavBar preState={thisState} />
           </Col>
         </Row>
       </Container>
