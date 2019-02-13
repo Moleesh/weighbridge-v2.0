@@ -24,10 +24,13 @@ const ColumnOne = props => {
           Sl No
         </Form.Label>
         <Col sm="6">
-          <Form.Control disabled />
+          <Form.Control
+            className="text-center"
+            value={thisState.slNo}
+            disabled
+          />
         </Col>
       </Form.Group>
-
       <Form.Group as={Row}>
         <Form.Label column sm="6">
           Date & Time
@@ -43,7 +46,7 @@ const ColumnOne = props => {
           Vehicle No
         </Form.Label>
         <Col sm="6">
-          <Form.Control />
+          <Form.Control className="text-center" />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -51,7 +54,7 @@ const ColumnOne = props => {
           Material
         </Form.Label>
         <Col sm="6">
-          <Form.Control type="select" />
+          <Form.Control type="select" className="text-center" />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -59,7 +62,7 @@ const ColumnOne = props => {
           Charges
         </Form.Label>
         <Col sm="6">
-          <Form.Control />
+          <Form.Control className="text-center" />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -67,7 +70,7 @@ const ColumnOne = props => {
           Remarks
         </Form.Label>
         <Col sm="6">
-          <Form.Control />
+          <Form.Control className="text-center" />
         </Col>
       </Form.Group>
     </Col>

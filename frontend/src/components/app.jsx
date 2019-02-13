@@ -7,8 +7,8 @@ class App extends Component {
   state = {
     headingLineOne: "Babulens Enterprises",
     headingLineTwo: "Nagercoil",
+    slNo: "1",
     Weight: "00000000",
-    SlNO: "1"
   };
   render() {
     let thisState = this.state;
