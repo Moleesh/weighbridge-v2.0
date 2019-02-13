@@ -16,6 +16,9 @@ class NavBar extends Component {
         <Tab eventKey="weighing" title="Weighing">
           <Weighing />
         </Tab>
+        <Tab eventKey="autoWeighing" title="Auto Weighing">
+          <h1>1</h1>
+        </Tab>
         <Tab eventKey="report" title="Report">
           <h1>2</h1>
         </Tab>
