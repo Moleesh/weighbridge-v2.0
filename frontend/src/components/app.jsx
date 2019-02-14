@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Header from "./app/header";
-import NavBar from "./app/navBar";
+import NavTabs from "./app/navBar";
 
 class App extends Component {
   state = {
@@ -22,7 +22,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col>
-            <NavBar preState={thisState} />
+            <NavTabs preState={thisState} />
           </Col>
         </Row>
       </Container>

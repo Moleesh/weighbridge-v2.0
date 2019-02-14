@@ -22,7 +22,7 @@ const ColumnThree = props => {
           <Form.Control disabled />
         </Col>
         <Col sm="6">
-          <Button variant="primary" block disabled>
+          <Button className='adam-button' variant="primary" block disabled>
             Get Gross Details
           </Button>
         </Col>
@@ -32,7 +32,7 @@ const ColumnThree = props => {
           <Form.Control disabled />
         </Col>
         <Col sm="6">
-          <Button variant="primary" block disabled>
+          <Button className='adam-button' variant="primary" block disabled>
             Get Tare Details
           </Button>
         </Col>
@@ -42,7 +42,7 @@ const ColumnThree = props => {
           <Form.Control disabled />
         </Col>
         <Col sm="6">
-          <Button variant="primary" block disabled>
+          <Button className='adam-button' variant="primary" block disabled>
             Total
           </Button>
         </Col>

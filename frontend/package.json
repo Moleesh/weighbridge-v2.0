@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@coreui/coreui": "^2.1.6",
     "bootstrap": "^4.3.0",
     "fs-extra": "^7.0.1",
     "jquery": "^3.3.1",

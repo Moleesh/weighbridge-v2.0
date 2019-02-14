@@ -8,23 +8,23 @@ const Bottom = props => {
   return (
     <Row>
       <Col column sm="2">
-        <Button variant="primary" block>
+        <Button className='adam-button' variant="primary" block>
           Get Weight
         </Button>
       </Col>
       <Col column sm="2">
-        <Button variant="primary" block>
+        <Button className='adam-button' variant="primary" block>
           Save
         </Button>
-        <Button variant="primary" block>
+        <Button className='adam-button' variant="primary" block>
           Re Print
         </Button>
       </Col>
       <Col column sm="2">
-        <Button variant="primary" block>
+        <Button className='adam-button' variant="primary" block>
           Print
         </Button>
-        <Button variant="primary" block>
+        <Button className='adam-button' variant="primary" block>
           Clear
         </Button>
       </Col>
