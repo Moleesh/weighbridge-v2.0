@@ -5,10 +5,8 @@ const ColumnThree = props => {
   let thisState = props.preState;
   return (
     <Col column sm="6">
-      <Form.Group className="float-right bold">
-
-      </Form.Group>
-      <Form.Group>
+      <Form.Group className="py-2">
+        <Form.Control plaintext readOnly disabled />
         <Form.Control plaintext readOnly disabled />
       </Form.Group>
       <Form.Group as={Row}>

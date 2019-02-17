@@ -16,8 +16,15 @@ class App extends Component {
   state = {
     headingLineOne: "Babulens Enterprises",
     headingLineTwo: "Nagercoil",
-    slNo: "1",
+
     Weight: "00000000",
+
+    slipNo: "1",
+    vehicleNo: "AB12CB1234",
+    material: "EMPTY",
+    charges: "0",
+    remarks: "Hello",
+
     toggleActive: false
   };
 

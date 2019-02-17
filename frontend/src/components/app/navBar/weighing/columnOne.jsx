@@ -21,12 +21,12 @@ const ColumnOne = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="6">
-          Sl No
+          Slip No
         </Form.Label>
         <Col sm="6">
           <Form.Control
             className="text-center"
-            value={thisState.slNo}
+            value={thisState.slipNo}
             disabled
           />
         </Col>
@@ -46,7 +46,13 @@ const ColumnOne = props => {
           Vehicle No
         </Form.Label>
         <Col sm="6">
-          <Form.Control className="text-center" />
+          <Form.Control
+            className="text-center"
+            value={thisState.vehicleNo}
+            onChange={event =>
+              thisState.setMyState({ vehicleNo: event.target.value })
+            }
+          />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -54,7 +60,13 @@ const ColumnOne = props => {
           Material
         </Form.Label>
         <Col sm="6">
-          <Form.Control type="select" className="text-center" />
+          <Form.Control
+            className="text-center"
+            value={thisState.material}
+            onChange={event =>
+              thisState.setMyState({ material: event.target.value })
+            }
+          />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -62,7 +74,16 @@ const ColumnOne = props => {
           Charges
         </Form.Label>
         <Col sm="6">
-          <Form.Control className="text-center" />
+          <Form.Control
+            className="text-center"
+            value={thisState.charges}
+            onChange={event =>
+              thisState.setMyState({
+                charges:
+                  (event.target.value.match("[0-9a-zA-Z]+") || []).pop() || ""
+              })
+            }
+          />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -70,7 +91,13 @@ const ColumnOne = props => {
           Remarks
         </Form.Label>
         <Col sm="6">
-          <Form.Control className="text-center" />
+          <Form.Control
+            className="text-center"
+            value={thisState.remarks}
+            onChange={event =>
+              thisState.setMyState({ remarks: event.target.value })
+            }
+          />
         </Col>
       </Form.Group>
     </Col>
