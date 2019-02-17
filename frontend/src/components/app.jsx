@@ -21,9 +21,30 @@ class App extends Component {
 
     slipNo: "1",
     vehicleNo: "AB12CB1234",
+    customersName: "",
+    transporterName: "",
     material: "EMPTY",
     charges: "0",
     remarks: "Hello",
+    grossWeight: "",
+    grossTime: "",
+    tareWeight: "",
+    tareTime: "",
+    nettWeight: "",
+    nettTIme: "",
+
+    vehicleNoDisabled: false,
+    customersNameDisabled: false,
+    transporterNameDisabled: false,
+    materialDisabled: false,
+    chargesDisabled: false,
+    remarksDisabled: false,
+    grossWeightDisabled: true,
+    grossTimeDisabled: true,
+    tareWeightDisabled: true,
+    tareTimeDisabled: true,
+    nettWeightDisabled: true,
+    nettTImeDisabled: true,
 
     toggleActive: false
   };

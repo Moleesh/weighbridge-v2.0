@@ -11,7 +11,14 @@ const ColumnThree = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Col sm="6">
-          <Form.Control disabled />
+          <Form.Control
+            className="text-center"
+            disabled={thisState.grossTimeDisabled}
+            value={thisState.grossTime}
+            onChange={event =>
+              thisState.setMyState({ grossTime: event.target.value })
+            }
+          />
         </Col>
         <Col sm="6">
           <Button className="adam-button" variant="primary" block disabled>
@@ -21,7 +28,14 @@ const ColumnThree = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Col sm="6">
-          <Form.Control disabled />
+          <Form.Control
+            className="text-center"
+            disabled={thisState.tareTimeDisabled}
+            value={thisState.tareTime}
+            onChange={event =>
+              thisState.setMyState({ tareTime: event.target.value })
+            }
+          />
         </Col>
         <Col sm="6">
           <Button className="adam-button" variant="primary" block disabled>
@@ -31,7 +45,14 @@ const ColumnThree = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Col sm="6">
-          <Form.Control disabled />
+          <Form.Control
+            className="text-center"
+            disabled={thisState.nettTImeDisabled}
+            value={thisState.nettTIme}
+            onChange={event =>
+              thisState.setMyState({ nettTIme: event.target.value })
+            }
+          />
         </Col>
         <Col sm="6">
           <Button className="adam-button" variant="primary" block disabled>

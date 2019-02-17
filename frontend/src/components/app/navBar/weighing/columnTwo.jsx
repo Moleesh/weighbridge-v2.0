@@ -10,7 +10,14 @@ const ColumnTwo = props => {
           Customer's Name
         </Form.Label>
         <Col sm="6">
-          <Form.Control />
+          <Form.Control
+            className="text-center"
+            disabled={thisState.customersNameDisabled}
+            value={thisState.customersName}
+            onChange={event =>
+              thisState.setMyState({ customersName: event.target.value })
+            }
+          />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -18,7 +25,14 @@ const ColumnTwo = props => {
           Transporter Name
         </Form.Label>
         <Col sm="6">
-          <Form.Control />
+          <Form.Control
+            className="text-center"
+            disabled={thisState.transporterNameDisabled}
+            value={thisState.transporterName}
+            onChange={event =>
+              thisState.setMyState({ transporterName: event.target.value })
+            }
+          />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -26,7 +40,16 @@ const ColumnTwo = props => {
           Gross Weight
         </Form.Label>
         <Col sm="6">
-          <Form.Control disabled />
+          <Form.Control
+            className="text-right"
+            disabled={thisState.grossWeightDisabled}
+            value={thisState.rossWeight}
+            onChange={event =>
+              thisState.setMyState({
+                charges: (event.target.value.match("[0-9]+") || []).pop() || ""
+              })
+            }
+          />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -34,7 +57,17 @@ const ColumnTwo = props => {
           Tare Weight
         </Form.Label>
         <Col sm="6">
-          <Form.Control disabled />
+          <Form.Control
+            className="text-right"
+            disabled={thisState.tareWeightDisabled}
+            value={thisState.tareWeight}
+            onChange={event =>
+              thisState.setMyState({
+                tareWeight:
+                  (event.target.value.match("[0-9]+") || []).pop() || ""
+              })
+            }
+          />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -42,7 +75,17 @@ const ColumnTwo = props => {
           Nett Weight
         </Form.Label>
         <Col sm="6">
-          <Form.Control disabled />
+          <Form.Control
+            className="text-right"
+            disabled={thisState.nettWeightDisabled}
+            value={thisState.nettWeight}
+            onChange={event =>
+              thisState.setMyState({
+                nettWeight:
+                  (event.target.value.match("[0-9]+") || []).pop() || ""
+              })
+            }
+          />
         </Col>
       </Form.Group>
     </Col>
