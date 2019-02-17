@@ -5,24 +5,18 @@ const ColumnThree = props => {
   let thisState = props.preState;
   return (
     <Col column sm="6">
-      <Form.Group as={Row}>
-        <Form.Label column sm="6">
-          Transporter's Name
-        </Form.Label>
-        <Col sm="6">
-          <Form.Control />
-        </Col>
+      <Form.Group className="float-right bold">
+
       </Form.Group>
-      <Form.Group size="lg">
+      <Form.Group>
         <Form.Control plaintext readOnly disabled />
       </Form.Group>
-
       <Form.Group as={Row}>
         <Col sm="6">
           <Form.Control disabled />
         </Col>
         <Col sm="6">
-          <Button className='adam-button' variant="primary" block disabled>
+          <Button className="adam-button" variant="primary" block disabled>
             Get Gross Details
           </Button>
         </Col>
@@ -32,7 +26,7 @@ const ColumnThree = props => {
           <Form.Control disabled />
         </Col>
         <Col sm="6">
-          <Button className='adam-button' variant="primary" block disabled>
+          <Button className="adam-button" variant="primary" block disabled>
             Get Tare Details
           </Button>
         </Col>
@@ -42,7 +36,7 @@ const ColumnThree = props => {
           <Form.Control disabled />
         </Col>
         <Col sm="6">
-          <Button className='adam-button' variant="primary" block disabled>
+          <Button className="adam-button" variant="primary" block disabled>
             Total
           </Button>
         </Col>

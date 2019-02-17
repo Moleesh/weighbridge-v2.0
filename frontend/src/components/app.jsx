@@ -4,15 +4,25 @@ import Header from "./app/header";
 import NavTabs from "./app/navBar";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.setMyState = this.setMyState.bind(this);
+  }
+
+  setMyState(myState) {
+    this.setState(myState);
+  }
+
   state = {
     headingLineOne: "Babulens Enterprises",
     headingLineTwo: "Nagercoil",
     slNo: "1",
     Weight: "00000000",
+    toggleActive: false
   };
-  render() {
-    let thisState = this.state;
 
+  render() {
+    let thisState = { ...this.state, setMyState: this.setMyState };
     return (
       <Container fluid={true}>
         <Row>

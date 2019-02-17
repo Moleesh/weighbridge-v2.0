@@ -5,7 +5,7 @@ import Clock from "react-live-clock";
 const ColumnOne = props => {
   let thisState = props.preState;
   return (
-    <Col column sm="4" className="mt-2">
+    <Col column sm="4" className="mt-3">
       <Form.Group as={Row}>
         <Col sm="1" />
         <Form.Check

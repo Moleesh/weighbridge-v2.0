@@ -7,7 +7,7 @@ const ColumnTwo = props => {
     <Col column sm="6">
       <Form.Group as={Row}>
         <Form.Label column sm="6">
-          Custmer's Name
+          Customer's Name
         </Form.Label>
         <Col sm="6">
           <Form.Control />
@@ -15,7 +15,7 @@ const ColumnTwo = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="6">
-          Dc. No
+          Transporter Name
         </Form.Label>
         <Col sm="6">
           <Form.Control />
@@ -23,7 +23,7 @@ const ColumnTwo = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="6">
-          Gross Wt
+          Gross Weight
         </Form.Label>
         <Col sm="6">
           <Form.Control disabled />
@@ -31,7 +31,7 @@ const ColumnTwo = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="6">
-          Tare Wt
+          Tare Weight
         </Form.Label>
         <Col sm="6">
           <Form.Control disabled />
@@ -39,7 +39,7 @@ const ColumnTwo = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="6">
-          Net Wt
+          Nett Weight
         </Form.Label>
         <Col sm="6">
           <Form.Control disabled />
