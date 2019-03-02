@@ -41,15 +41,6 @@
             </configuration>
           </execution>
           <execution>
-            <id>npm clean</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>prune</arguments>
-            </configuration>
-          </execution>
-          <execution>
             <id>npm install</id>
             <goals>
               <goal>npm</goal>
