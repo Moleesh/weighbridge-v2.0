@@ -25,10 +25,10 @@ const Header = props => {
           </Col>
           <Col column sm="10">
             <Row className="justify-content-center font-weight-bold  h3">
-              {thisState.headingLineOne}
+              {thisState.weighing.headingLineOne}
             </Row>
             <Row className="justify-content-center font-italic h5">
-              {thisState.headingLineTwo}
+              {thisState.weighing.headingLineTwo}
             </Row>
           </Col>
         </Row>

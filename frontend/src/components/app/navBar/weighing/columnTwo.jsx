@@ -12,8 +12,8 @@ const ColumnTwo = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.customersNameDisabled}
-            value={thisState.customersName}
+            disabled={thisState.weighing.disable.customersNameDisabled}
+            value={thisState.weight.customersName}
             onChange={event =>
               thisState.setMyState({ customersName: event.target.value })
             }
@@ -27,8 +27,8 @@ const ColumnTwo = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.transporterNameDisabled}
-            value={thisState.transporterName}
+            disabled={thisState.weighing.disable.transporterNameDisabled}
+            value={thisState.weight.transporterName}
             onChange={event =>
               thisState.setMyState({ transporterName: event.target.value })
             }
@@ -42,8 +42,8 @@ const ColumnTwo = props => {
         <Col sm="6">
           <Form.Control
             className="text-right"
-            disabled={thisState.grossWeightDisabled}
-            value={thisState.rossWeight}
+            disabled={thisState.weighing.disable.grossWeightDisabled}
+            value={thisState.weight.grossWeight}
             onChange={event =>
               thisState.setMyState({
                 charges: (event.target.value.match("[0-9]+") || []).pop() || ""
@@ -59,8 +59,8 @@ const ColumnTwo = props => {
         <Col sm="6">
           <Form.Control
             className="text-right"
-            disabled={thisState.tareWeightDisabled}
-            value={thisState.tareWeight}
+            disabled={thisState.weighing.disable.tareWeightDisabled}
+            value={thisState.weight.tareWeight}
             onChange={event =>
               thisState.setMyState({
                 tareWeight:
@@ -77,8 +77,8 @@ const ColumnTwo = props => {
         <Col sm="6">
           <Form.Control
             className="text-right"
-            disabled={thisState.nettWeightDisabled}
-            value={thisState.nettWeight}
+            disabled={thisState.weighing.disable.nettWeightDisabled}
+            value={thisState.weight.nettWeight}
             onChange={event =>
               thisState.setMyState({
                 nettWeight:

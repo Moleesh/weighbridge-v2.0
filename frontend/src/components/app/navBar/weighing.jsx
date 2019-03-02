@@ -25,7 +25,7 @@ const Weighing = props => {
               <Card.Header
                 onClick={event => console.log(event.target.children)}
               >
-                {thisState.Weight}
+                {thisState.weighing.weight}
               </Card.Header>
             </Card>
           </Row>

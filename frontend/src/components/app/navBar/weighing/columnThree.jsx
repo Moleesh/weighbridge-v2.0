@@ -13,10 +13,12 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.grossTimeDisabled}
-            value={thisState.grossTime}
+            disabled={thisState.weighing.disable.grossTimeDisabled}
+            value={thisState.weight.grossTime}
             onChange={event =>
-              thisState.setMyState({ grossTime: event.target.value })
+              thisState.setMyState({
+                weight: { grossTime: event.target.value }
+              })
             }
           />
         </Col>
@@ -30,10 +32,12 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.tareTimeDisabled}
-            value={thisState.tareTime}
+            disabled={thisState.weighing.disable.tareTimeDisabled}
+            value={thisState.weight.tareTime}
             onChange={event =>
-              thisState.setMyState({ tareTime: event.target.value })
+              thisState.setMyState({
+                weight: { tareTime: event.target.value }
+              })
             }
           />
         </Col>
@@ -47,10 +51,12 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.nettTImeDisabled}
-            value={thisState.nettTIme}
+            disabled={thisState.weighing.disable.nettTImeDisabled}
+            value={thisState.weight.nettTIme}
             onChange={event =>
-              thisState.setMyState({ nettTIme: event.target.value })
+              thisState.setMyState({
+                weight: { nettTIme: event.target.value }
+              })
             }
           />
         </Col>
