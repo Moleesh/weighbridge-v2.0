@@ -6,6 +6,7 @@
     "bootstrap": "^4.3.1",
     "fs-extra": "^7.0.1",
     "jquery": "^3.3.1",
+    "moment": "^2.24.0",
     "perfect-scrollbar": "^1.4.0",
     "react": "^16.8.3",
     "react-autocomplete": "^1.8.1",
@@ -13,7 +14,6 @@
     "react-bootstrap-toggle": "^2.3.1",
     "react-bootstrap-typeahead": "^3.3.6",
     "react-dom": "^16.8.3",
-    "react-fluid-container": "^0.6.0",
     "react-live-clock": "^3.1.0",
     "react-scripts": "^2.1.5",
     "typescript": "^3.3.3333"

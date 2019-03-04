@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import FluidContainer from "react-fluid-container";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 
@@ -10,53 +9,62 @@ class App extends Component {
     this.setMyState = this.setMyState.bind(this);
   }
 
-  setMyState(myState) {
-    this.setState(
-      Object.assign(this.state, {
-        myState
-      })
-    );
+  async setMyState(myState) {
+    this.setState(myState);
   }
 
   state = {
     weighing: {
       headingLineOne: "Babulens Enterprises",
       headingLineTwo: "Nagercoil",
-      weight: "00000000",
+      weight: "1000000",
       grossSelector: true,
       tareSelector: false,
+
+      reference: {
+        vehicleNoReference: React.createRef(),
+        materialReference: {
+          reference: React.createRef(),
+          value: [{ material: "" }],
+          open: undefined
+        },
+        customersNameReference: React.createRef(),
+        transporterNameReference: React.createRef(),
+        chargesReference: React.createRef(),
+        remarksReference: React.createRef(),
+        getWeightReference: React.createRef(),
+        saveReference: React.createRef(),
+        printReference: React.createRef()
+      },
       disable: {
+        grossSelectorDisabled: false,
+        tareSelectorDisabled: false,
         vehicleNoDisabled: false,
+        materialDisabled: false,
         customersNameDisabled: false,
         transporterNameDisabled: false,
-        materialDisabled: false,
-        grossWeightDisabled: true,
-        grossTimeDisabled: true,
-        tareWeightDisabled: true,
-        tareTimeDisabled: true,
-        nettWeightDisabled: true,
-        nettTImeDisabled: true,
         chargesDisabled: false,
-        remarksDisabled: false
+        remarksDisabled: false,
+        getWeightDisabled: false,
+        saveDisabled: true,
+        printDisabled: true
       }
     },
     weight: {
-      slipNo: "slipNo",
-      vehicleNo: "vehicleNo",
-      customersName: "customersName",
-      transporterName: "transporterName",
-      material: [{ id: 1, name: "EMPTY" }],
-      grossWeight: "grossWeight",
-      grossTime: "grossTime",
-      tareWeight: "tareWeight",
-      tareTime: "tareTime",
-      nettWeight: "nettWeight",
-      nettTIme: "nettTIme",
-      charges: "charges",
-      remarks: "remarks"
+      slipNo: "",
+      vehicleNo: "",
+      material: "",
+      customersName: "",
+      transporterName: "",
+      grossWeight: "",
+      grossTime: "",
+      tareWeight: "",
+      tareTime: "",
+      nettWeight: "",
+      nettTIme: "",
+      charges: "",
+      remarks: ""
     },
-
-    materialRef: "",
 
     toggleActive: false
   };
@@ -64,15 +72,22 @@ class App extends Component {
   render() {
     let thisState = { ...this.state, setMyState: this.setMyState };
     return (
-      <FluidContainer>
-        <h1
+      <Container
+        fluid
+        onKeyDown={event => {
+          if (event.keyCode === 9) {
+            event.preventDefault();
+          }
+        }}
+      >
+        {/* <h1
           onClick={event => {
             console.log(thisState.materialRef.getInstance().getInput());
             thisState.materialRef.getInstance().getInput().value = "";
           }}
         >
           tets
-        </h1>
+        </h1> */}
         <Row>
           <Col>
             <Header preState={thisState} />
@@ -83,7 +98,7 @@ class App extends Component {
             <NavTabs preState={thisState} />
           </Col>
         </Row>
-      </FluidContainer>
+      </Container>
     );
   }
 }

@@ -4,7 +4,7 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 const ColumnThree = props => {
   let thisState = props.preState;
   return (
-    <Col column sm="6">
+    <Col sm="6">
       <Form.Group className="py-2">
         <Form.Control plaintext readOnly disabled />
         <Form.Control plaintext readOnly disabled />
@@ -13,13 +13,12 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.weighing.disable.grossTimeDisabled}
+            disabled
             value={thisState.weight.grossTime}
-            onChange={event =>
-              thisState.setMyState({
-                weight: { grossTime: event.target.value }
-              })
-            }
+            onChange={event => {
+              thisState.weight.grossTime = event.target.value;
+              thisState.setMyState(thisState);
+            }}
           />
         </Col>
         <Col sm="6">
@@ -32,13 +31,12 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.weighing.disable.tareTimeDisabled}
+            disabled
             value={thisState.weight.tareTime}
-            onChange={event =>
-              thisState.setMyState({
-                weight: { tareTime: event.target.value }
-              })
-            }
+            onChange={event => {
+              thisState.weight.tareTime = event.target.value;
+              thisState.setMyState(thisState);
+            }}
           />
         </Col>
         <Col sm="6">
@@ -51,13 +49,12 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            disabled={thisState.weighing.disable.nettTImeDisabled}
+            disabled
             value={thisState.weight.nettTIme}
-            onChange={event =>
-              thisState.setMyState({
-                weight: { nettTIme: event.target.value }
-              })
-            }
+            onChange={event => {
+              thisState.weight.nettTIme = event.target.value;
+              thisState.setMyState(thisState);
+            }}
           />
         </Col>
         <Col sm="6">

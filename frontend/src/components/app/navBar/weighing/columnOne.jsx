@@ -6,7 +6,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 const ColumnOne = props => {
   let thisState = props.preState;
   return (
-    <Col column sm="4" className="mt-3">
+    <Col sm="4" className="mt-3">
       <Form.Group as={Row}>
         <Col sm="1" />
         <Form.Check
@@ -14,14 +14,19 @@ const ColumnOne = props => {
           name="Gross-Tare-Selector"
           label="Gross"
           checked={thisState.weighing.grossSelector}
-          onChange={event =>
-            thisState.setMyState({
-              weighing: {
-                grossSelector: event.currentTarget.value,
-                tareSelector: !event.currentTarget.value
-              }
-            })
-          }
+          onClick={event => {
+            thisState.weighing.grossSelector = true;
+            thisState.weighing.tareSelector = false;
+            thisState.weight.material = "";
+            thisState.weight.material = "";
+            thisState.weighing.disable.materialDisabled = false;
+            thisState.weighing.reference.materialReference.value = [
+              { material: "" }
+            ];
+            thisState.setMyState(thisState);
+          }}
+          onChange={event => {}}
+          disabled={thisState.weighing.disable.grossSelectorDisabled}
         />
       </Form.Group>
       <Form.Group as={Row}>
@@ -31,14 +36,18 @@ const ColumnOne = props => {
           name="Gross-Tare-Selector"
           label="Tare"
           checked={thisState.weighing.tareSelector}
-          onChange={event =>
-            thisState.setMyState({
-              weighing: {
-                grossSelector: !event.currentTarget.value,
-                tareSelector: event.currentTarget.value
-              }
-            })
-          }
+          onClick={event => {
+            thisState.weighing.tareSelector = true;
+            thisState.weighing.grossSelector = false;
+            thisState.weight.material = "Empty";
+            thisState.weighing.reference.materialReference.value = [
+              { material: "Empty" }
+            ];
+            thisState.weighing.disable.materialDisabled = true;
+            thisState.setMyState(thisState);
+          }}
+          onChange={event => {}}
+          disabled={thisState.weighing.disable.tareSelectorDisabled}
         />
       </Form.Group>
       <Form.Group as={Row}>
@@ -49,11 +58,10 @@ const ColumnOne = props => {
           <Form.Control
             className="text-center"
             value={thisState.weight.slipNo}
-            onChange={event =>
-              thisState.setMyState({
-                weight: { slipNo: event.target.value }
-              })
-            }
+            onChange={event => {
+              thisState.weight.slipNo = event.target.value;
+              thisState.setMyState(thisState);
+            }}
             disabled
           />
         </Col>
@@ -64,12 +72,7 @@ const ColumnOne = props => {
         </Form.Label>
         <Col sm="6">
           <center>
-            <Clock
-              format={"MM-DD-YYYY HH:mm:ss"}
-              ticking={true}
-              interval={100000}
-              onChange={event => console.log(event)}
-            />
+            <Clock format={"MM-DD-YYYY HH:mm:ss"} ticking={true} />
           </center>
         </Col>
       </Form.Group>
@@ -82,11 +85,24 @@ const ColumnOne = props => {
             className="text-center"
             disabled={thisState.weighing.disable.vehicleNoDisabled}
             value={thisState.weight.vehicleNo}
-            onChange={event =>
-              thisState.setMyState({
-                weight: { vehicleNo: event.target.value }
-              })
-            }
+            ref={thisState.weighing.reference.vehicleNoReference}
+            onChange={event => {
+              thisState.weight.vehicleNo = event.target.value;
+              thisState.setMyState(thisState);
+            }}
+            onKeyDown={event => {
+              if (event.keyCode === 9 && event.shiftKey);
+              else if ((event.keyCode === 13) | (event.keyCode === 9)) {
+                thisState.weight.vehicleNo = thisState.weight.vehicleNo
+                  .toUpperCase()
+                  .replace(" ", "");
+                thisState.setMyState(thisState);
+                !thisState.weighing.disable.materialDisabled
+                  ? thisState.weighing.reference.materialReference.reference.current.focus()
+                  : thisState.weighing.reference.customersNameReference.current.focus();
+              }
+            }}
+            autoFocus={true}
           />
         </Col>
       </Form.Group>
@@ -98,21 +114,80 @@ const ColumnOne = props => {
           <Typeahead
             highlightOnlyResult
             selectHintOnEnter
-            filterBy={["id", "name"]}
-            labelKey={option => option.name}
+            filterBy={["materialId", "material"]}
+            labelKey={option => option.material}
+            emptyLabel={""}
             options={[
-              { id: "1", name: "John" },
-              { id: "2", name: "Miles" },
-              { id: "3", name: "Charles" },
-              { id: "4", name: "Herbie" }
+              { materialId: "1", material: "John" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" },
+              { materialId: "2", material: "Miles" },
+              { materialId: "3", material: "Charles" },
+              { materialId: "4", material: "Herbie" }
             ]}
-            selected={thisState.weight.material}
+            maxHeight={"200px"}
+            selected={thisState.weighing.reference.materialReference.value}
             disabled={thisState.weighing.disable.materialDisabled}
-            value=""
+            open={thisState.weighing.reference.materialReference.open}
             onChange={event => {
-              //  thisState.setMyState({ material: event });
+              thisState.weighing.reference.materialReference.value =
+                event.length === 0
+                  ? [
+                      {
+                        material: thisState.weighing.reference.materialReference.reference.current
+                          .getInstance()
+                          .getInput().value
+                      }
+                    ]
+                  : event;
+              thisState.weight.material =
+                thisState.weighing.reference.materialReference.value[0].material;
+              thisState.setMyState(thisState);
             }}
-            ref={material => (thisState.materialRef = material)}
+            ref={thisState.weighing.reference.materialReference.reference}
+            onKeyDown={event => {
+              if (event.keyCode === 9 && event.shiftKey)
+                thisState.weighing.reference.vehicleNoReference.current.focus();
+              else if ((event.keyCode === 13) | (event.keyCode === 9)) {
+                thisState.weighing.reference.materialReference.open = false;
+                thisState.weighing.reference.materialReference.value[0].material = thisState.weighing.reference.materialReference.value[0].material
+                  .toLowerCase()
+                  .split(" ")
+                  .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+                  .join(" ");
+                thisState.weight.material =
+                  thisState.weighing.reference.materialReference.value[0].material;
+                if (thisState.weight.material.toUpperCase() === "EMPTY") {
+                  thisState.weighing.tareSelector = true;
+                  thisState.weighing.grossSelector = false;
+                }
+                thisState.setMyState(thisState);
+                thisState.weighing.reference.customersNameReference.current.focus();
+              }
+            }}
+            onFocus={() => {
+              thisState.weighing.reference.materialReference.open = undefined;
+              thisState.setMyState(thisState);
+            }}
           />
         </Col>
       </Form.Group>
@@ -124,15 +199,19 @@ const ColumnOne = props => {
           <Form.Control
             className="text-center"
             disabled={thisState.weighing.disable.chargesDisabled}
+            ref={thisState.weighing.reference.chargesReference}
             value={thisState.weight.charges}
-            onChange={event =>
-              thisState.setMyState({
-                weight: {
-                  charges:
-                    (event.target.value.match("[0-9]+") || []).pop() || ""
-                }
-              })
-            }
+            onChange={event => {
+              thisState.weight.charges =
+                (event.target.value.match("[0-9]+") || []).pop() || "";
+              thisState.setMyState(thisState);
+            }}
+            onKeyDown={event => {
+              if (event.keyCode === 9 && event.shiftKey)
+                thisState.weighing.reference.transporterNameReference.current.focus();
+              else if ((event.keyCode === 13) | (event.keyCode === 9))
+                thisState.weighing.reference.remarksReference.current.focus();
+            }}
           />
         </Col>
       </Form.Group>
@@ -144,12 +223,18 @@ const ColumnOne = props => {
           <Form.Control
             className="text-center"
             disabled={thisState.weighing.disable.remarksDisabled}
+            ref={thisState.weighing.reference.remarksReference}
             value={thisState.weight.remarks}
-            onChange={event =>
-              thisState.setMyState({
-                weight: { remarks: event.target.value.substring(0, 15) }
-              })
-            }
+            onChange={event => {
+              thisState.weight.remarks = event.target.value.substring(0, 15);
+              thisState.setMyState(thisState);
+            }}
+            onKeyDown={event => {
+              if (event.keyCode === 9 && event.shiftKey)
+                thisState.weighing.reference.chargesReference.current.focus();
+              else if ((event.keyCode === 13) | (event.keyCode === 9))
+                thisState.weighing.reference.getWeightReference.current.focus();
+            }}
           />
         </Col>
       </Form.Group>

@@ -22,11 +22,7 @@ const Weighing = props => {
                 fontFamily: "sans-serif"
               }}
             >
-              <Card.Header
-                onClick={event => console.log(event.target.children)}
-              >
-                {thisState.weighing.weight}
-              </Card.Header>
+              <Card.Header>{thisState.weighing.weight}</Card.Header>
             </Card>
           </Row>
           <Row>

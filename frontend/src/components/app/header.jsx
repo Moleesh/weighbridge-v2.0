@@ -14,7 +14,7 @@ const Header = props => {
     >
       <Card.Header>
         <Row>
-          <Col column sm="1">
+          <Col sm="1">
             <img
               src={logo}
               alt=""
@@ -23,7 +23,7 @@ const Header = props => {
               className="d-inline-block align-top"
             />
           </Col>
-          <Col column sm="10">
+          <Col sm="10">
             <Row className="justify-content-center font-weight-bold  h3">
               {thisState.weighing.headingLineOne}
             </Row>
