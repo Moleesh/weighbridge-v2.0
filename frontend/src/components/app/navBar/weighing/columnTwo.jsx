@@ -73,7 +73,11 @@ const ColumnTwo = props => {
           <Form.Control
             className="text-right"
             disabled
-            value={thisState.weight.grossWeight}
+            value={
+              thisState.weight.grossWeight === 0
+                ? ""
+                : thisState.weight.grossWeight
+            }
             onChange={event => {
               thisState.weight.grossWeight = event.target.value;
               thisState.setMyState(thisState);
@@ -89,7 +93,11 @@ const ColumnTwo = props => {
           <Form.Control
             className="text-right"
             disabled
-            value={thisState.weight.tareWeight}
+            value={
+              thisState.weight.tareWeight === 0
+                ? ""
+                : thisState.weight.tareWeight
+            }
             onChange={event => {
               thisState.weight.tareWeight = event.target.value;
               thisState.setMyState(thisState);
@@ -105,7 +113,11 @@ const ColumnTwo = props => {
           <Form.Control
             className="text-right"
             disabled
-            value={thisState.weight.nettWeight}
+            value={
+              thisState.weight.nettWeight === 0
+                ? ""
+                : thisState.weight.nettWeight
+            }
             onChange={event => {
               thisState.weight.nettWeight = event.target.value;
               thisState.setMyState(thisState);

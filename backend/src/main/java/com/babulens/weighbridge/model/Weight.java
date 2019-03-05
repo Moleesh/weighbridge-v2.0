@@ -1,5 +1,7 @@
 package com.babulens.weighbridge.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -8,64 +10,49 @@ import java.util.Objects;
 @Entity
 public class Weight {
     @Id
-    private int slNo;
-    private int dcNo;
-    private Date dcNoDate;
-    private String customerName;
-    private String driverName;
+    private int slipNo;
     private String vehicleNo;
     private String material;
-    private double charges;
+    private String customersName;
+    private String transporterName;
     private long grossWeight;
-    private Date grossDateTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    private Date grossTime;
     private long tareWeight;
-    private Date tareDateTime;
-    private long netWeight;
-    private Date netDateTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    private Date tareTime;
+    private long nettWeight;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    private Date nettTIme;
+    private double charges;
     private String remarks;
     private boolean manual;
 
     public Weight() {
     }
-
-    private int getSlNo() {
-        return slNo;
+    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTIme, double charges, String remarks, boolean manual) {
+        this.slipNo = slipNo;
+        this.vehicleNo = vehicleNo;
+        this.material = material;
+        this.customersName = customersName;
+        this.transporterName = transporterName;
+        this.grossWeight = grossWeight;
+        this.grossTime = grossTime;
+        this.tareWeight = tareWeight;
+        this.tareTime = tareTime;
+        this.nettWeight = nettWeight;
+        this.nettTIme = nettTIme;
+        this.charges = charges;
+        this.remarks = remarks;
+        this.manual = manual;
     }
 
-    public void setSlNo(int slNo) {
-        this.slNo = slNo;
+    public int getSlipNo() {
+        return slipNo;
     }
 
-    public int getDcNo() {
-        return dcNo;
-    }
-
-    public void setDcNo(int dcNo) {
-        this.dcNo = dcNo;
-    }
-
-    public Date getDcNoDate() {
-        return dcNoDate;
-    }
-
-    public void setDcNoDate(Date dcNoDate) {
-        this.dcNoDate = dcNoDate;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getDriverName() {
-        return driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
+    public void setSlipNo(int slipNo) {
+        this.slipNo = slipNo;
     }
 
     public String getVehicleNo() {
@@ -84,12 +71,20 @@ public class Weight {
         this.material = material;
     }
 
-    public double getCharges() {
-        return charges;
+    public String getCustomersName() {
+        return customersName;
     }
 
-    public void setCharges(double charges) {
-        this.charges = charges;
+    public void setCustomersName(String customersName) {
+        this.customersName = customersName;
+    }
+
+    public String getTransporterName() {
+        return transporterName;
+    }
+
+    public void setTransporterName(String transporterName) {
+        this.transporterName = transporterName;
     }
 
     public long getGrossWeight() {
@@ -100,12 +95,12 @@ public class Weight {
         this.grossWeight = grossWeight;
     }
 
-    public Date getGrossDateTime() {
-        return grossDateTime;
+    public Date getGrossTime() {
+        return grossTime;
     }
 
-    public void setGrossDateTime(Date grossDateTime) {
-        this.grossDateTime = grossDateTime;
+    public void setGrossTime(Date grossTime) {
+        this.grossTime = grossTime;
     }
 
     public long getTareWeight() {
@@ -116,28 +111,36 @@ public class Weight {
         this.tareWeight = tareWeight;
     }
 
-    public Date getTareDateTime() {
-        return tareDateTime;
+    public Date getTareTime() {
+        return tareTime;
     }
 
-    public void setTareDateTime(Date tareDateTime) {
-        this.tareDateTime = tareDateTime;
+    public void setTareTime(Date tareTime) {
+        this.tareTime = tareTime;
     }
 
-    public long getNetWeight() {
-        return netWeight;
+    public long getNettWeight() {
+        return nettWeight;
     }
 
-    public void setNetWeight(long netWeight) {
-        this.netWeight = netWeight;
+    public void setNettWeight(long nettWeight) {
+        this.nettWeight = nettWeight;
     }
 
-    public Date getNetDateTime() {
-        return netDateTime;
+    public Date getNettTIme() {
+        return nettTIme;
     }
 
-    public void setNetDateTime(Date netDateTime) {
-        this.netDateTime = netDateTime;
+    public void setNettTIme(Date nettTIme) {
+        this.nettTIme = nettTIme;
+    }
+
+    public double getCharges() {
+        return charges;
+    }
+
+    public void setCharges(double charges) {
+        this.charges = charges;
     }
 
     public String getRemarks() {
@@ -158,38 +161,32 @@ public class Weight {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Weight)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Weight)) return false;
         Weight weight = (Weight) o;
-        return getSlNo() == weight.getSlNo();
+        return getSlipNo() == weight.getSlipNo();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSlNo());
+        return Objects.hash(getSlipNo());
     }
 
     @Override
     public String toString() {
         return "Weight{" +
-                "slNo=" + slNo +
-                ", dcNo=" + dcNo +
-                ", dcNoDate=" + dcNoDate +
-                ", customerName='" + customerName + '\'' +
-                ", driverName='" + driverName + '\'' +
+                "slipNo=" + slipNo +
                 ", vehicleNo='" + vehicleNo + '\'' +
                 ", material='" + material + '\'' +
-                ", charges=" + charges +
+                ", customersName='" + customersName + '\'' +
+                ", transporterName='" + transporterName + '\'' +
                 ", grossWeight=" + grossWeight +
-                ", grossDateTime=" + grossDateTime +
+                ", grossTime=" + grossTime +
                 ", tareWeight=" + tareWeight +
-                ", tareDateTime=" + tareDateTime +
-                ", netWeight=" + netWeight +
-                ", netDateTime=" + netDateTime +
+                ", tareTime=" + tareTime +
+                ", nettWeight=" + nettWeight +
+                ", nettTIme=" + nettTIme +
+                ", charges=" + charges +
                 ", remarks='" + remarks + '\'' +
                 ", manual=" + manual +
                 '}';

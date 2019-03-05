@@ -72,7 +72,7 @@ const ColumnOne = props => {
         </Form.Label>
         <Col sm="6">
           <center>
-            <Clock format={"MM-DD-YYYY HH:mm:ss"} ticking={true} />
+            <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true} />
           </center>
         </Col>
       </Form.Group>

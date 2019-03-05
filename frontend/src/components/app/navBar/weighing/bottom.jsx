@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Moment from "moment";
+import RePrint from "./bottom/rePrint";
 
 const Bottom = props => {
   let thisState = props.preState;
@@ -25,7 +26,7 @@ const Bottom = props => {
             thisState.weighing.disable.getWeightDisabled = true;
             thisState.weighing.disable.saveDisabled = false;
 
-            let date = Moment().format("MM-DD-YYYY HH:mm:ss");
+            let date = Moment().format("DD-MM-YYYY HH:mm:ss");
 
             if (thisState.weighing.grossSelector) {
               thisState.weight.grossWeight = thisState.weighing.weight;
@@ -67,17 +68,25 @@ const Bottom = props => {
           onClick={() => {
             thisState.weighing.disable.saveDisabled = true;
             thisState.weighing.disable.printDisabled = false;
-            thisState
-              .setMyState(thisState)
-              .then(() =>
-                thisState.weighing.reference.printReference.current.focus()
-              );
+
+            fetch(thisState.INITIAL_URL + "/saveWeight", {
+              method: "POST",
+              body: JSON.stringify(thisState.weight),
+              headers: { "content-type": "application/json" }
+            }).then(
+              result => {
+                thisState
+                  .setMyState(thisState)
+                  .then(() =>
+                    thisState.weighing.reference.printReference.current.focus()
+                  );
+              },
+              error => {}
+            );
           }}
           disabled={thisState.weighing.disable.saveDisabled}
           ref={thisState.weighing.reference.saveReference}
-          onFocus={event => {
-            console.log("hrer");
-          }}
+          onFocus={event => {}}
         >
           Save
         </Button>
@@ -97,15 +106,32 @@ const Bottom = props => {
             thisState.weighing.disable.getWeightDisabled = true;
             thisState.weighing.disable.saveDisabled = true;
             thisState.weighing.disable.printDisabled = false;
-            thisState
-              .setMyState(thisState)
-              .then(() =>
-                thisState.weighing.reference.printReference.current.focus()
+            fetch(
+              thisState.INITIAL_URL +
+                "/getWeight?slipNo=" +
+                thisState.weight.slipNo
+            )
+              .then(res => res.json())
+              .then(
+                result => {
+                  console.log(result);
+                  thisState.weight = result;
+                  thisState.weighing.reference.materialReference.value = [
+                    { material: thisState.weight.material }
+                  ];
+                  thisState
+                    .setMyState(thisState)
+                    .then(() =>
+                      thisState.weighing.reference.printReference.current.focus()
+                    );
+                },
+                error => {}
               );
           }}
         >
           Re Print
         </Button>
+        <RePrint preState={thisState} />
       </Col>
       <Col sm="2">
         <Button
@@ -138,6 +164,8 @@ const Bottom = props => {
             thisState.weight.tareTime = "";
             thisState.weight.nettWeight = "";
             thisState.weight.nettTIme = "";
+            thisState.weight.charges = "";
+            thisState.weight.remarks = "";
             thisState
               .setMyState(thisState)
               .then(() =>
@@ -181,6 +209,9 @@ const Bottom = props => {
             thisState.weight.tareTime = "";
             thisState.weight.nettWeight = "";
             thisState.weight.nettTIme = "";
+            thisState.weight.charges = "";
+            thisState.weight.remarks = "";
+
             thisState.setMyState(thisState);
             thisState
               .setMyState(thisState)

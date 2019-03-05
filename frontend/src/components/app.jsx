@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 
+const INITIAL_URL = "http://localhost:8080";
 class App extends Component {
   constructor() {
     super();
@@ -14,6 +15,7 @@ class App extends Component {
   }
 
   state = {
+    INITIAL_URL: INITIAL_URL,
     weighing: {
       headingLineOne: "Babulens Enterprises",
       headingLineTwo: "Nagercoil",
@@ -63,11 +65,28 @@ class App extends Component {
       nettWeight: "",
       nettTIme: "",
       charges: "",
-      remarks: ""
+      remarks: "",
+      manual: false
     },
 
     toggleActive: false
   };
+
+  componentDidMount() {
+    let thisState = { ...this.state, setMyState: this.setMyState };
+    fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+      .then(res => res.json())
+      .then(
+        result => {
+          thisState.weight.slipNo = result;
+          thisState.setMyState(thisState);
+        },
+        error => {
+          thisState.weight.slipNo = "-1";
+          thisState.setMyState(thisState);
+        }
+      );
+  }
 
   render() {
     let thisState = { ...this.state, setMyState: this.setMyState };
