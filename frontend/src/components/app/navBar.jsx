@@ -14,7 +14,7 @@ const NavBar = props => {
         variant="tabs"
         defaultActiveKey="configuration"
         // defaultActiveKey="weighing"
-        className="mt-1 h5 font-italic"
+        className="mt-1 h5 py-2 pb-1"
       >
         <Tab eventKey="weighing" title="Weighing">
           <Weighing preState={thisState} />

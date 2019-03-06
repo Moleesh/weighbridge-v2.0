@@ -27,7 +27,7 @@ const Header = props => {
             <Row className="justify-content-center font-weight-bold  h3">
               {thisState.weighing.headingLineOne}
             </Row>
-            <Row className="justify-content-center font-italic h5">
+            <Row className="justify-content-center h5">
               {thisState.weighing.headingLineTwo}
             </Row>
           </Col>

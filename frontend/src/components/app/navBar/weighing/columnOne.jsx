@@ -6,7 +6,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 const ColumnOne = props => {
   let thisState = props.preState;
   return (
-    <Col sm="4" className="mt-3">
+    <Col sm="4" className="mt-5">
       <Form.Group as={Row}>
         <Col sm="1" />
         <Form.Check
@@ -29,7 +29,7 @@ const ColumnOne = props => {
           disabled={thisState.weighing.disable.grossSelectorDisabled}
         />
       </Form.Group>
-      <Form.Group as={Row}>
+      <Form.Group as={Row} className="mb-0">
         <Col sm="1" />
         <Form.Check
           type="radio"
@@ -50,8 +50,8 @@ const ColumnOne = props => {
           disabled={thisState.weighing.disable.tareSelectorDisabled}
         />
       </Form.Group>
-      <Form.Group as={Row}>
-        <Form.Label column sm="6">
+      <Form.Group as={Row} className="pt-5">
+        <Form.Label column sm="6"> 
           Slip No
         </Form.Label>
         <Col sm="6">

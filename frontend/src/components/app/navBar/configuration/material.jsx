@@ -7,7 +7,7 @@ const Material = props => {
   return (
     <React.Fragment className="justify-content-center ">
       <h4 className="text-center font-weight-bold">Material</h4>
-      <input
+      <input className="text-center form-control"
         type="text"
         placeholder="Search..."
         value={thisState.configuration.material.filterText}
@@ -33,7 +33,7 @@ const Material = props => {
       {thisState.configuration.material.unlock ? (
         <React.Fragment>
           {Object.keys(thisState.configuration.material.template).map(key => (
-            <input
+            <input className="text-center form-control"
               type="text"
               name={key}
               id={thisState.configuration.material.template["materialId"]}
@@ -61,7 +61,8 @@ const Material = props => {
       ) : (
         ""
       )}
-      <table className="table table-bordered">
+       {/* <div class="table-responsive"> for responsive */}
+      <table className="table table-hover">
         <thead>
           <tr>
             {thisState.configuration.material.header.map(item => (
@@ -83,7 +84,7 @@ const Material = props => {
                   {" "}
                   {Object.keys(item).map(key => (
                     <td>
-                      <input
+                      <input  className="text-center form-control"
                         disabled={!thisState.configuration.material.unlock}
                         type="text"
                         name={key}
@@ -99,7 +100,7 @@ const Material = props => {
                   ))}
                   {thisState.configuration.material.unlock ? (
                     <td className="del-cell">
-                      <input
+                      <input 
                         type="button"
                         onClick={() => {}}
                         value="update"

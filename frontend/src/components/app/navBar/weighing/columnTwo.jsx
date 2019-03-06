@@ -5,7 +5,7 @@ const ColumnTwo = props => {
   let thisState = props.preState;
   return (
     <Col sm="6">
-      <Form.Group as={Row}>
+      <Form.Group as={Row} className="pt-3">
         <Form.Label column sm="6">
           Customer's Name
         </Form.Label>
@@ -107,7 +107,7 @@ const ColumnTwo = props => {
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="6">
-          Nett Weight
+          Net Weight
         </Form.Label>
         <Col sm="6">
           <Form.Control

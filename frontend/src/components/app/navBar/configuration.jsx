@@ -9,7 +9,7 @@ const Configuration = props => {
     <Tab.Container defaultActiveKey="material">
       <Row>
         <Col sm={3} className="pt-5">
-          <Nav variant="pills" className="flex-column font-italic">
+          <Nav variant="pills" className="flex-column">
             <h5 className="font-weight-bold">Configuration</h5>
             <Nav.Item>
               <Nav.Link eventKey="material">Materials</Nav.Link>

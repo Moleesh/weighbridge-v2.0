@@ -13,7 +13,7 @@ const Weighing = props => {
       <Row>
         <ColumnOne preState={thisState} />
         <Col sm="8">
-          <Row className="justify-content-center bold">
+          <Row className="justify-content-center bold my-3">
             <Card
               className="text-center w-75 display-2 "
               style={{
