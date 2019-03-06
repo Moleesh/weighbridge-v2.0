@@ -121,7 +121,7 @@ class App extends Component {
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
         });
-    }, 1000);
+    }, 10000000);
   }
   componentWillUnmount() {
     clearInterval(this.weight);
