@@ -13,11 +13,14 @@ public class Controller {
     @Autowired
     WeighService weighService;
 
-    Weight weight;
+    int count =1;
     @RequestMapping(value = "/getNextSlipNo")
-    public String getNextSlipNo() {        return "1";
+    public int getNextSlipNo() { return count ++;
     }
 
+    @RequestMapping(value = "/getNextWeight")
+    public int getNextWeight() { return (int)(Math.random() * 10000 + 1);
+    }
     @RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})
     public void saveWeight(@RequestBody Weight weight) {
         weighService.saveWeight(weight);

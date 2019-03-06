@@ -16,13 +16,28 @@ class App extends Component {
 
   state = {
     INITIAL_URL: INITIAL_URL,
+    configuration: {
+      material: {
+        header: ["Material Id", "Material Name"],
+        filterText: "",
+        template: { materialId: "", material: "" },
+        list: [
+          { materialId: "1", material: "John" },
+          { materialId: "2", material: "Miles" },
+          { materialId: "3", material: "Charles" },
+          { materialId: "4", material: "Herbie" }
+        ],
+        unlock: false
+      }
+    },
     weighing: {
       headingLineOne: "Babulens Enterprises",
       headingLineTwo: "Nagercoil",
       weight: "1000000",
       grossSelector: true,
       tareSelector: false,
-
+      reprint: false,
+      reprintSlipNo: "",
       reference: {
         vehicleNoReference: React.createRef(),
         materialReference: {
@@ -36,7 +51,10 @@ class App extends Component {
         remarksReference: React.createRef(),
         getWeightReference: React.createRef(),
         saveReference: React.createRef(),
-        printReference: React.createRef()
+        printReference: React.createRef(),
+        rePrintReference: React.createRef(),
+        rePrintFieldReference: React.createRef(),
+        rePrintButtonReference: React.createRef()
       },
       disable: {
         grossSelectorDisabled: false,
@@ -75,17 +93,38 @@ class App extends Component {
   componentDidMount() {
     let thisState = { ...this.state, setMyState: this.setMyState };
     fetch(thisState.INITIAL_URL + "/getNextSlipNo")
-      .then(res => res.json())
-      .then(
-        result => {
-          thisState.weight.slipNo = result;
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        thisState.weight.slipNo = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => {
+        thisState.weight.slipNo = "-1";
+        thisState.setMyState(thisState);
+      });
+    this.weight = setInterval(() => {
+      fetch(thisState.INITIAL_URL + "/getNextWeight")
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else throw Error(response.statusText);
+        })
+        .then(result => {
+          thisState.weighing.weight = result;
           thisState.setMyState(thisState);
-        },
-        error => {
-          thisState.weight.slipNo = "-1";
+        })
+        .catch(error => {
+          thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
-        }
-      );
+        });
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.weight);
   }
 
   render() {

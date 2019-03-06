@@ -73,18 +73,25 @@ const Bottom = props => {
               method: "POST",
               body: JSON.stringify(thisState.weight),
               headers: { "content-type": "application/json" }
-            }).then(
-              result => {
-                thisState
-                  .setMyState(thisState)
-                  .then(() =>
-                    thisState.weighing.reference.printReference.current.focus()
-                  );
-              },
-              error => {}
-            );
+            })
+              .then(response => {
+                if (response.status === 200) {
+                  thisState
+                    .setMyState(thisState)
+                    .then(() =>
+                      thisState.weighing.reference.printReference.current.focus()
+                    );
+                } else throw Error(response.statusText);
+              })
+              .catch(error => {});
           }}
           disabled={thisState.weighing.disable.saveDisabled}
+          onKeyDown={event => {
+            if (event.keyCode === 9 && event.shiftKey);
+            else if ((event.keyCode === 13) | (event.keyCode === 9)) {
+              thisState.weighing.reference.rePrintReference.current.focus();
+            }
+          }}
           ref={thisState.weighing.reference.saveReference}
           onFocus={event => {}}
         >
@@ -95,39 +102,20 @@ const Bottom = props => {
           variant="primary"
           block
           onClick={() => {
-            thisState.weighing.disable.grossSelectorDisabled = true;
-            thisState.weighing.disable.tareSelectorDisabled = true;
-            thisState.weighing.disable.vehicleNoDisabled = true;
-            thisState.weighing.disable.customersNameDisabled = true;
-            thisState.weighing.disable.transporterNameDisabled = true;
-            thisState.weighing.disable.materialDisabled = true;
-            thisState.weighing.disable.chargesDisabled = true;
-            thisState.weighing.disable.remarksDisabled = true;
-            thisState.weighing.disable.getWeightDisabled = true;
-            thisState.weighing.disable.saveDisabled = true;
-            thisState.weighing.disable.printDisabled = false;
-            fetch(
-              thisState.INITIAL_URL +
-                "/getWeight?slipNo=" +
-                thisState.weight.slipNo
-            )
-              .then(res => res.json())
-              .then(
-                result => {
-                  console.log(result);
-                  thisState.weight = result;
-                  thisState.weighing.reference.materialReference.value = [
-                    { material: thisState.weight.material }
-                  ];
-                  thisState
-                    .setMyState(thisState)
-                    .then(() =>
-                      thisState.weighing.reference.printReference.current.focus()
-                    );
-                },
-                error => {}
+            thisState.weighing.reprint = true;
+            thisState.weighing.reprintSlipNo = "";
+            thisState
+              .setMyState(thisState)
+              .then(() =>
+                thisState.weighing.reference.rePrintFieldReference.current.focus()
               );
           }}
+          onKeyDown={event => {
+            if (event.keyCode === 9 && event.shiftKey) {
+              thisState.weighing.reference.rePrintFieldReference.current.focus();
+            }
+          }}
+          ref={thisState.weighing.reference.rePrintReference}
         >
           Re Print
         </Button>
@@ -212,7 +200,6 @@ const Bottom = props => {
             thisState.weight.charges = "";
             thisState.weight.remarks = "";
 
-            thisState.setMyState(thisState);
             thisState
               .setMyState(thisState)
               .then(() =>

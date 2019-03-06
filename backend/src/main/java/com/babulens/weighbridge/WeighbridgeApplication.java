@@ -16,28 +16,28 @@ import java.awt.event.WindowEvent;
 public class WeighbridgeApplication {
     
     public static void main(String[] args) {
-        Pandomium pandomium = new Pandomium(PandomiumSettings.getDefaultSettings());
-        pandomium.initialize();
-
-        PandomiumClient client = pandomium.createClient();
-
+//        Pandomium pandomium = new Pandomium(PandomiumSettings.getDefaultSettings());
+//        pandomium.initialize();
+//
+//        PandomiumClient client = pandomium.createClient();
+//
         SpringApplication.run(WeighbridgeApplication.class, args);
-        PandomiumBrowser browser = client.loadURL("localhost:8080");
-
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(browser.toAWTComponent(), BorderLayout.CENTER);
-
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                frame.dispose();
-            }
-        });
-
-        frame.setTitle("Pandomium");
-        frame.setSize(1720, 840);
-        frame.setVisible(true);
+//        PandomiumBrowser browser = client.loadURL("localhost:8080");
+//
+//        JFrame frame = new JFrame();
+//        frame.getContentPane().add(browser.toAWTComponent(), BorderLayout.CENTER);
+//
+//        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//        frame.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//                frame.dispose();
+//            }
+//        });
+//
+//        frame.setTitle("Pandomium");
+//        frame.setSize(1720, 840);
+//        frame.setVisible(true);
     }
     
 }

@@ -9,11 +9,11 @@ import Bottom from "./weighing/bottom";
 const Weighing = props => {
   let thisState = props.preState;
   return (
-    <Form>
+    <Form className="py-2">
       <Row>
         <ColumnOne preState={thisState} />
         <Col sm="8">
-          <Row className="justify-content-center py-2 bold">
+          <Row className="justify-content-center bold">
             <Card
               className="text-center w-75 display-2 "
               style={{
