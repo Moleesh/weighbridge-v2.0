@@ -19,6 +19,8 @@ public class WeighServiceImpl implements WeighService{
 
     @Override
     public Weight getWeight(int slipNo) {
-        return weightDAO.findById(slipNo).get();
+        if (weightDAO.existsById(slipNo))
+            return weightDAO.findById(slipNo).get();
+        return null;
     }
 }

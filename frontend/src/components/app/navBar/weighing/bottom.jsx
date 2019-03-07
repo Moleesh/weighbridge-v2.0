@@ -7,6 +7,8 @@ import RePrint from "./bottom/rePrint";
 
 const Bottom = props => {
   let thisState = props.preState;
+  let prevent = false;
+
   return (
     <Row>
       <Col sm="2">
@@ -37,9 +39,12 @@ const Bottom = props => {
             }
 
             let total =
-              ((thisState.weight.grossWeight.match("[0-9]+") || []).pop() ||
-                "") -
-              ((thisState.weight.tareWeight.match("[0-9]+") || []).pop() || "");
+              ((
+                ("0" + thisState.weight.grossWeight).match("[0-9]+") || []
+              ).pop() || "") -
+              ((
+                ("0" + thisState.weight.tareWeight).match("[0-9]+") || []
+              ).pop() || "");
 
             if ((total > 0) & (thisState.weight.tareWeight > 0)) {
               thisState.weight.nettWeight = total;
@@ -53,8 +58,14 @@ const Bottom = props => {
           }}
           disabled={thisState.weighing.disable.getWeightDisabled}
           ref={thisState.weighing.reference.getWeightReference}
+          onKeyPress={event => {
+            if (prevent) {
+              prevent = false;
+              event.preventDefault();
+            }
+          }}
           onFocus={event => {
-            event.stopPropagation();
+            prevent = true;
           }}
         >
           Get Weight
@@ -66,9 +77,6 @@ const Bottom = props => {
           variant="primary"
           block
           onClick={() => {
-            thisState.weighing.disable.saveDisabled = true;
-            thisState.weighing.disable.printDisabled = false;
-
             fetch(thisState.INITIAL_URL + "/saveWeight", {
               method: "POST",
               body: JSON.stringify(thisState.weight),
@@ -76,6 +84,8 @@ const Bottom = props => {
             })
               .then(response => {
                 if (response.status === 200) {
+                  thisState.weighing.disable.saveDisabled = true;
+                  thisState.weighing.disable.printDisabled = false;
                   thisState
                     .setMyState(thisState)
                     .then(() =>
@@ -86,14 +96,16 @@ const Bottom = props => {
               .catch(error => {});
           }}
           disabled={thisState.weighing.disable.saveDisabled}
-          onKeyDown={event => {
-            if (event.keyCode === 9 && event.shiftKey);
-            else if ((event.keyCode === 13) | (event.keyCode === 9)) {
-              thisState.weighing.reference.rePrintReference.current.focus();
+          ref={thisState.weighing.reference.saveReference}
+          onKeyPress={event => {
+            if (prevent) {
+              prevent = false;
+              event.preventDefault();
             }
           }}
-          ref={thisState.weighing.reference.saveReference}
-          onFocus={event => {}}
+          onFocus={event => {
+            prevent = true;
+          }}
         >
           Save
         </Button>
@@ -110,10 +122,16 @@ const Bottom = props => {
                 thisState.weighing.reference.rePrintFieldReference.current.focus()
               );
           }}
-          onKeyDown={event => {
-            if (event.keyCode === 9 && event.shiftKey) {
-              thisState.weighing.reference.rePrintFieldReference.current.focus();
+          onKeyPress={event => {
+            if (prevent) {
+              prevent = false;
+              event.preventDefault();
             }
+          }}
+          onFocus={event => {
+            thisState.weighing.disable.printDisabled
+              ? (prevent = true)
+              : thisState.weighing.reference.printReference.current.focus();
           }}
           ref={thisState.weighing.reference.rePrintReference}
         >
@@ -127,41 +145,64 @@ const Bottom = props => {
           variant="primary"
           block
           onClick={() => {
-            thisState.weighing.disable.grossSelectorDisabled = false;
-            thisState.weighing.disable.tareSelectorDisabled = false;
-            thisState.weighing.disable.vehicleNoDisabled = false;
-            thisState.weighing.disable.customersNameDisabled = false;
-            thisState.weighing.disable.transporterNameDisabled = false;
-            thisState.weighing.disable.materialDisabled = false;
-            thisState.weighing.disable.chargesDisabled = false;
-            thisState.weighing.disable.remarksDisabled = false;
-            thisState.weighing.disable.getWeightDisabled = false;
-            thisState.weighing.disable.saveDisabled = true;
-            thisState.weighing.disable.printDisabled = true;
-            thisState.weight.slipNo = "";
-            thisState.weight.vehicleNo = "";
-            thisState.weight.customersName = "";
-            thisState.weight.transporterName = "";
-            thisState.weight.material = "";
-            thisState.weighing.reference.materialReference.value = [
-              { material: "" }
-            ];
-            thisState.weight.grossWeight = "";
-            thisState.weight.grossTime = "";
-            thisState.weight.tareWeight = "";
-            thisState.weight.tareTime = "";
-            thisState.weight.nettWeight = "";
-            thisState.weight.nettTIme = "";
-            thisState.weight.charges = "";
-            thisState.weight.remarks = "";
-            thisState
-              .setMyState(thisState)
-              .then(() =>
-                thisState.weighing.reference.vehicleNoReference.current.focus()
-              );
+            fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+              .then(response => {
+                if (response.status === 200) {
+                  return response.json();
+                } else throw Error(response.statusText);
+              })
+              .then(result => {
+                return result;
+              })
+              .catch(error => {
+                return -1;
+              })
+              .then(result => {
+                thisState.weighing.disable.grossSelectorDisabled = false;
+                thisState.weighing.disable.tareSelectorDisabled = false;
+                thisState.weighing.disable.vehicleNoDisabled = false;
+                thisState.weighing.disable.customersNameDisabled = false;
+                thisState.weighing.disable.transporterNameDisabled = false;
+                thisState.weighing.disable.materialDisabled = false;
+                thisState.weighing.disable.chargesDisabled = false;
+                thisState.weighing.disable.remarksDisabled = false;
+                thisState.weighing.disable.getWeightDisabled = false;
+                thisState.weighing.disable.saveDisabled = true;
+                thisState.weighing.disable.printDisabled = true;
+                thisState.weight.slipNo = result;
+                thisState.weight.vehicleNo = "";
+                thisState.weight.customersName = "";
+                thisState.weight.transporterName = "";
+                thisState.weight.material = "";
+                thisState.weighing.reference.materialReference.value = [
+                  { material: "" }
+                ];
+                thisState.weight.grossWeight = "";
+                thisState.weight.grossTime = "";
+                thisState.weight.tareWeight = "";
+                thisState.weight.tareTime = "";
+                thisState.weight.nettWeight = "";
+                thisState.weight.nettTIme = "";
+                thisState.weight.charges = "";
+                thisState.weight.remarks = "";
+                thisState
+                  .setMyState(thisState)
+                  .then(() =>
+                    thisState.weighing.reference.vehicleNoReference.current.focus()
+                  );
+              });
           }}
           disabled={thisState.weighing.disable.printDisabled}
           ref={thisState.weighing.reference.printReference}
+          onKeyPress={event => {
+            if (prevent) {
+              prevent = false;
+              event.preventDefault();
+            }
+          }}
+          onFocus={event => {
+            prevent = true;
+          }}
         >
           Print
         </Button>
@@ -170,41 +211,52 @@ const Bottom = props => {
           variant="primary"
           block
           onClick={() => {
-            thisState.weighing.grossSelector = true;
-            thisState.weighing.tareSelector = false;
-            thisState.weighing.disable.grossSelectorDisabled = false;
-            thisState.weighing.disable.tareSelectorDisabled = false;
-            thisState.weighing.disable.vehicleNoDisabled = false;
-            thisState.weighing.disable.customersNameDisabled = false;
-            thisState.weighing.disable.transporterNameDisabled = false;
-            thisState.weighing.disable.materialDisabled = false;
-            thisState.weighing.disable.chargesDisabled = false;
-            thisState.weighing.disable.remarksDisabled = false;
-            thisState.weighing.disable.getWeightDisabled = false;
-            thisState.weighing.disable.saveDisabled = true;
-            thisState.weighing.disable.printDisabled = true;
-            thisState.weight.slipNo = "";
-            thisState.weight.vehicleNo = "";
-            thisState.weight.customersName = "";
-            thisState.weight.transporterName = "";
-            thisState.weight.material = "";
-            thisState.weighing.reference.materialReference.value = [
-              { material: "" }
-            ];
-            thisState.weight.grossWeight = "";
-            thisState.weight.grossTime = "";
-            thisState.weight.tareWeight = "";
-            thisState.weight.tareTime = "";
-            thisState.weight.nettWeight = "";
-            thisState.weight.nettTIme = "";
-            thisState.weight.charges = "";
-            thisState.weight.remarks = "";
-
-            thisState
-              .setMyState(thisState)
-              .then(() =>
-                thisState.weighing.reference.vehicleNoReference.current.focus()
-              );
+            fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+              .then(response => {
+                if (response.status === 200) {
+                  return response.json();
+                } else throw Error(response.statusText);
+              })
+              .then(result => {
+                return result;
+              })
+              .catch(error => {
+                return -1;
+              })
+              .then(result => {
+                thisState.weighing.disable.grossSelectorDisabled = false;
+                thisState.weighing.disable.tareSelectorDisabled = false;
+                thisState.weighing.disable.vehicleNoDisabled = false;
+                thisState.weighing.disable.customersNameDisabled = false;
+                thisState.weighing.disable.transporterNameDisabled = false;
+                thisState.weighing.disable.materialDisabled = false;
+                thisState.weighing.disable.chargesDisabled = false;
+                thisState.weighing.disable.remarksDisabled = false;
+                thisState.weighing.disable.getWeightDisabled = false;
+                thisState.weighing.disable.saveDisabled = true;
+                thisState.weighing.disable.printDisabled = true;
+                thisState.weight.slipNo = result;
+                thisState.weight.vehicleNo = "";
+                thisState.weight.customersName = "";
+                thisState.weight.transporterName = "";
+                thisState.weight.material = "";
+                thisState.weighing.reference.materialReference.value = [
+                  { material: "" }
+                ];
+                thisState.weight.grossWeight = "";
+                thisState.weight.grossTime = "";
+                thisState.weight.tareWeight = "";
+                thisState.weight.tareTime = "";
+                thisState.weight.nettWeight = "";
+                thisState.weight.nettTIme = "";
+                thisState.weight.charges = "";
+                thisState.weight.remarks = "";
+                thisState
+                  .setMyState(thisState)
+                  .then(() =>
+                    thisState.weighing.reference.vehicleNoReference.current.focus()
+                  );
+              });
           }}
         >
           Clear

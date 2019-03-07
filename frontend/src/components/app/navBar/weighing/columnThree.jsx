@@ -14,7 +14,11 @@ const ColumnThree = props => {
           <Form.Control
             className="text-center"
             disabled
-            value={thisState.weight.grossTime}
+            value={
+              thisState.weight.grossTime !== null
+                ? thisState.weight.grossTime
+                : ""
+            }
             onChange={event => {
               thisState.weight.grossTime = event.target.value;
               thisState.setMyState(thisState);
@@ -32,7 +36,11 @@ const ColumnThree = props => {
           <Form.Control
             className="text-center"
             disabled
-            value={thisState.weight.tareTime}
+            value={
+              thisState.weight.tareTime !== null
+                ? thisState.weight.tareTime
+                : ""
+            }
             onChange={event => {
               thisState.weight.tareTime = event.target.value;
               thisState.setMyState(thisState);
@@ -50,7 +58,11 @@ const ColumnThree = props => {
           <Form.Control
             className="text-center"
             disabled
-            value={thisState.weight.nettTIme}
+            value={
+              thisState.weight.nettTIme !== null
+                ? thisState.weight.nettTIme
+                : ""
+            }
             onChange={event => {
               thisState.weight.nettTIme = event.target.value;
               thisState.setMyState(thisState);

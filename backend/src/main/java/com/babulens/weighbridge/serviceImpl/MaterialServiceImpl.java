@@ -1,24 +1,32 @@
 package com.babulens.weighbridge.serviceImpl;
 
-import com.babulens.weighbridge.model.Weight;
-import com.babulens.weighbridge.repository.WeightDAO;
-import com.babulens.weighbridge.service.WeighService;
+import com.babulens.weighbridge.model.Material;
+import com.babulens.weighbridge.repository.MaterialDAO;
+import com.babulens.weighbridge.service.MaterialService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class WeighServiceImpl implements WeighService{
+public class MaterialServiceImpl implements MaterialService {
 
     @Autowired
-    WeightDAO weightDAO;
+    MaterialDAO materialDAO;
 
     @Override
-    public void saveWeight(Weight weight) {
-        weightDAO.save(weight);
+    public List<Material> getAllMaterial() {
+        return Lists.newArrayList(materialDAO.findAll());
     }
 
     @Override
-    public Weight getWeight(int slipNo) {
-        return weightDAO.findById(slipNo).get();
+    public Material addUpdateMaterial(Material material) {
+        return materialDAO.save(material);
+    }
+
+    @Override
+    public void deleteMaterial(int id) {
+        materialDAO.deleteById(id);
     }
 }

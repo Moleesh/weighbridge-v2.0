@@ -2,6 +2,8 @@ import React from "react";
 import { Row, Col, Tab, Nav } from "react-bootstrap";
 
 import Material from "./configuration/material";
+import Drivers from "./configuration/drivers";
+import TareWeight from "./configuration/tareWeight";
 
 const Configuration = props => {
   let thisState = props.preState;
@@ -27,8 +29,12 @@ const Configuration = props => {
             <Tab.Pane eventKey="material">
               <Material preState={thisState} />
             </Tab.Pane>
-            <Tab.Pane eventKey="driver">here</Tab.Pane>
-            <Tab.Pane eventKey="tareWeights">here</Tab.Pane>
+            <Tab.Pane eventKey="driver">
+              <Drivers preState={thisState} />
+            </Tab.Pane>
+            <Tab.Pane eventKey="tareWeights">
+              <TareWeight preState={thisState} />
+            </Tab.Pane>
           </Tab.Content>
         </Col>
       </Row>

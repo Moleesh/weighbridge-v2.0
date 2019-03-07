@@ -3,6 +3,7 @@ import { Form, Col, Row, Modal, Button } from "react-bootstrap";
 
 const RePrint = props => {
   let thisState = props.preState;
+  let prevent = false;
   return (
     <Modal
       show={thisState.weighing.reprint}
@@ -39,6 +40,11 @@ const RePrint = props => {
                   (event.target.value.match("[0-9]+") || []).pop() || "";
                 thisState.setMyState(thisState);
               }}
+              onKeyDown={event => {
+                if (event.keyCode === 9 && event.shiftKey);
+                else if ((event.keyCode === 13) | (event.keyCode === 9))
+                  thisState.weighing.reference.rePrintButtonReference.current.focus();
+              }}
               ref={thisState.weighing.reference.rePrintFieldReference}
             />
           </Col>
@@ -46,21 +52,8 @@ const RePrint = props => {
       </Modal.Body>
       <Modal.Footer>
         <Button
-          onClick={() => {
+          onClick={event => {
             if (thisState.weighing.reprintSlipNo !== "") {
-              thisState.weighing.disable.grossSelectorDisabled = true;
-              thisState.weighing.disable.tareSelectorDisabled = true;
-              thisState.weighing.disable.vehicleNoDisabled = true;
-              thisState.weighing.disable.customersNameDisabled = true;
-              thisState.weighing.disable.transporterNameDisabled = true;
-              thisState.weighing.disable.materialDisabled = true;
-              thisState.weighing.disable.chargesDisabled = true;
-              thisState.weighing.disable.remarksDisabled = true;
-              thisState.weighing.disable.getWeightDisabled = true;
-              thisState.weighing.disable.saveDisabled = true;
-              thisState.weighing.disable.printDisabled = false;
-              thisState.weighing.reprint = false;
-
               fetch(
                 thisState.INITIAL_URL +
                   "/getWeight?slipNo=" +
@@ -72,15 +65,23 @@ const RePrint = props => {
                   } else throw Error(response.statusText);
                 })
                 .then(result => {
+                  thisState.weighing.reprint = false;
+                  thisState.weighing.disable.grossSelectorDisabled = true;
+                  thisState.weighing.disable.tareSelectorDisabled = true;
+                  thisState.weighing.disable.vehicleNoDisabled = true;
+                  thisState.weighing.disable.customersNameDisabled = true;
+                  thisState.weighing.disable.transporterNameDisabled = true;
+                  thisState.weighing.disable.materialDisabled = true;
+                  thisState.weighing.disable.chargesDisabled = true;
+                  thisState.weighing.disable.remarksDisabled = true;
+                  thisState.weighing.disable.getWeightDisabled = true;
+                  thisState.weighing.disable.saveDisabled = true;
+                  thisState.weighing.disable.printDisabled = false;
                   thisState.weight = result;
                   thisState.weighing.reference.materialReference.value = [
                     { material: thisState.weight.material }
                   ];
-                  thisState
-                    .setMyState(thisState)
-                    .then(() =>
-                      thisState.weighing.reference.printReference.current.focus()
-                    );
+                  thisState.setMyState(thisState);
                 })
                 .catch(error => {
                   thisState.weighing.reprint = false;
@@ -99,9 +100,18 @@ const RePrint = props => {
                 );
             }
           }}
+          onKeyPress={event => {
+            if (prevent) {
+              prevent = false;
+              event.preventDefault();
+            }
+          }}
+          onFocus={event => {
+            prevent = true;
+          }}
           ref={thisState.weighing.reference.rePrintButtonReference}
         >
-          Close
+          Get Details
         </Button>
       </Modal.Footer>
     </Modal>

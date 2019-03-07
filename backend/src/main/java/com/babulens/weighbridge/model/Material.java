@@ -1,19 +1,45 @@
 package com.babulens.weighbridge.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
 public class Material {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+    private String materialId;
     private String material;
-    private int cost;
 
     public Material() {
     }
 
-    private String getMaterial() {
+    public Material(int id, String materialId, String material) {
+        this.id = id;
+        this.materialId = materialId;
+        this.material = material;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMaterialId() {
+        return materialId;
+    }
+
+    public void setMaterialId(String materialId) {
+        this.materialId = materialId;
+    }
+
+    public String getMaterial() {
         return material;
     }
 
@@ -21,36 +47,25 @@ public class Material {
         this.material = material;
     }
 
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Material)) {
-            return false;
-        }
-        Material material1 = (Material) o;
-        return getMaterial().equals(material1.getMaterial());
+        if (this == o) return true;
+        if (!(o instanceof Material)) return false;
+        Material material = (Material) o;
+        return getId() == material.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaterial());
+        return Objects.hash(getId());
     }
 
     @Override
     public String toString() {
         return "Material{" +
-                "material='" + material + '\'' +
-                ", cost=" + cost +
+                "id=" + id +
+                ", materialId='" + materialId + '\'' +
+                ", material='" + material + '\'' +
                 '}';
     }
 }

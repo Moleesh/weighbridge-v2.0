@@ -3,26 +3,26 @@ import { Form, Col, Button, Table, Row } from "react-bootstrap";
 
 import Toggle from "react-bootstrap-toggle";
 
-const Material = props => {
+const Drivers = props => {
   let thisState = props.preState;
   return (
     <Form className="justify-content-center ">
       <Row className="pb-1">
-        <Col>
-          <h4 className="text-center font-weight-bold">Material</h4>
+        <Col className="pl-3">
+          <h4 className="text-center font-weight-bold">Driver Details</h4>
         </Col>
         <Col sm={2}>
           <Toggle
             onClick={() => {
-              thisState.configuration.material.unlock = !thisState.configuration
-                .material.unlock;
+              thisState.configuration.drivers.unlock = !thisState.configuration
+                .drivers.unlock;
               thisState.setMyState(thisState);
             }}
             on="ON"
             off="OFF"
             size="lg"
             offstyle="danger"
-            active={thisState.configuration.material.unlock}
+            active={thisState.configuration.drivers.unlock}
             recalculateOnResize={true}
           />
         </Col>
@@ -32,26 +32,26 @@ const Material = props => {
           className="text-center form-control"
           type="text"
           placeholder="Search..."
-          value={thisState.configuration.material.filterText}
+          value={thisState.configuration.drivers.filterText}
           onChange={event => {
-            thisState.configuration.material.filterText = event.target.value;
+            thisState.configuration.drivers.filterText = event.target.value;
             thisState.setMyState(thisState);
           }}
         />
       </Form.Group>
 
-      {thisState.configuration.material.unlock ? (
+      {thisState.configuration.drivers.unlock ? (
         <Form.Row>
-          {Object.keys(thisState.configuration.material.template).map(key => (
+          {Object.keys(thisState.configuration.drivers.template).map(key => (
             <Col className="pb-2">
               <Form.Control
                 className="text-center form-control"
                 type="text"
                 name={key}
                 autoComplete="off"
-                value={thisState.configuration.material.template[key]}
+                value={thisState.configuration.drivers.template[key]}
                 onChange={event => {
-                  thisState.configuration.material.template[key] =
+                  thisState.configuration.drivers.template[key] =
                     event.target.value;
                   thisState.setMyState(thisState);
                 }}
@@ -63,10 +63,10 @@ const Material = props => {
               variant="primary"
               type="button"
               onClick={() => {
-                fetch(thisState.INITIAL_URL + "/addUpdateMaterial", {
+                fetch(thisState.INITIAL_URL + "/addUpdateDrivers", {
                   method: "PUT",
                   body: JSON.stringify(
-                    thisState.configuration.material.template
+                    thisState.configuration.drivers.template
                   ),
                   headers: { "content-type": "application/json" }
                 })
@@ -76,12 +76,12 @@ const Material = props => {
                     } else throw Error(response.statusText);
                   })
                   .then(result => {
-                    Object.keys(thisState.configuration.material.template).map(
+                    Object.keys(thisState.configuration.drivers.template).map(
                       key =>
-                        (thisState.configuration.material.template[key] = "")
+                        (thisState.configuration.drivers.template[key] = "")
                     );
                     thisState.setMyState(thisState).then(() => {
-                      thisState.configuration.material.list.push(result);
+                      thisState.configuration.drivers.list.push(result);
 
                       thisState.setMyState(thisState);
                     });
@@ -100,19 +100,19 @@ const Material = props => {
       <Table hover size="sm">
         <thead>
           <tr>
-            {thisState.configuration.material.header.map(item => (
+            {thisState.configuration.drivers.header.map(item => (
               <th key={item}>{item}</th>
             ))}
-            {thisState.configuration.material.unlock ? <th /> : null}
+            {thisState.configuration.drivers.unlock ? <th /> : null}
           </tr>
         </thead>
         <tbody>
-          {thisState.configuration.material.list.map((item, index) => (
+          {thisState.configuration.drivers.list.map((item, index) => (
             <tr key={index} className="eachRow">
               {Object.values(item)
                 .toString()
                 .replace(",", ".")
-                .indexOf(thisState.configuration.material.filterText) ===
+                .indexOf(thisState.configuration.drivers.filterText) ===
               -1 ? null : (
                 <React.Fragment>
                   {Object.keys(item)
@@ -123,22 +123,21 @@ const Material = props => {
                           <Form.Control
                             autoComplete="off"
                             className="text-center form-control"
-                            disabled={!thisState.configuration.material.unlock}
+                            disabled={!thisState.configuration.drivers.unlock}
                             type="text"
                             name={key}
                             id={item["id"]}
                             value={item[key]}
                             onChange={event => {
-                              thisState.configuration.material.list[index][
-                                key
-                              ] = event.target.value;
+                              thisState.configuration.drivers.list[index][key] =
+                                event.target.value;
                               thisState.setMyState(thisState);
                             }}
                           />
                         </Col>
                       </td>
                     ))}
-                  {thisState.configuration.material.unlock ? (
+                  {thisState.configuration.drivers.unlock ? (
                     <td>
                       <Row>
                         <Col>
@@ -147,11 +146,11 @@ const Material = props => {
                             variant="warning"
                             onClick={() => {
                               fetch(
-                                thisState.INITIAL_URL + "/addUpdateMaterial",
+                                thisState.INITIAL_URL + "/addUpdateDrivers",
                                 {
                                   method: "PUT",
                                   body: JSON.stringify(
-                                    thisState.configuration.material.list[index]
+                                    thisState.configuration.drivers.list[index]
                                   ),
                                   headers: {
                                     "content-type": "application/json"
@@ -177,8 +176,8 @@ const Material = props => {
                             onClick={() => {
                               fetch(
                                 thisState.INITIAL_URL +
-                                  "/deleteMaterial?id=" +
-                                  thisState.configuration.material.list[index]
+                                  "/deleteDrivers?id=" +
+                                  thisState.configuration.drivers.list[index]
                                     .id,
                                 {
                                   method: "DELETE"
@@ -186,7 +185,7 @@ const Material = props => {
                               )
                                 .then(response => {
                                   if (response.status === 200) {
-                                    thisState.configuration.material.list.splice(
+                                    thisState.configuration.drivers.list.splice(
                                       index,
                                       1
                                     );
@@ -212,4 +211,4 @@ const Material = props => {
   );
 };
 
-export default Material;
+export default Drivers;

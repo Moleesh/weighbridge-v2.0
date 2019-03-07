@@ -7,10 +7,10 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
 import './index.css';
 
-const error = console.error;
-console.error = (event) => {
-    if (event.includes("Typeahead|TypeaheadContainer"))
-        error(event)
-};
+// const error = console.error;
+// console.error = (event) => {
+//     if (event.includes("Typeahead|TypeaheadContainer"))
+//         error(event)
+// };
 
 ReactDOM.render( < App / > , document.getElementById("root"));

@@ -21,12 +21,21 @@ class App extends Component {
         header: ["Material Id", "Material Name"],
         filterText: "",
         template: { materialId: "", material: "" },
-        list: [
-          { materialId: "1", material: "John" },
-          { materialId: "2", material: "Miles" },
-          { materialId: "3", material: "Charles" },
-          { materialId: "4", material: "Herbie" }
-        ],
+        list: [],
+        unlock: false
+      },
+      drivers: {
+        header: ["Material Id", "Material Name"],
+        filterText: "",
+        template: { materialId: "", material: "" },
+        list: [],
+        unlock: false
+      },
+      tareWeight: {
+        header: ["Material Id", "Material Name"],
+        filterText: "",
+        template: { materialId: "", material: "" },
+        list: [],
         unlock: false
       }
     },
@@ -91,37 +100,56 @@ class App extends Component {
   };
 
   componentDidMount() {
-    let thisState = { ...this.state, setMyState: this.setMyState };
-    fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+    fetch(INITIAL_URL + "/getNextSlipNo")
       .then(response => {
         if (response.status === 200) {
           return response.json();
         } else throw Error(response.statusText);
       })
       .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = result;
         thisState.setMyState(thisState);
       })
       .catch(error => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.weight.slipNo = "-1";
+        thisState.setMyState(thisState);
+      });
+    fetch(INITIAL_URL + "/getAllMaterial")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.configuration.material.list = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = "-1";
         thisState.setMyState(thisState);
       });
     this.weight = setInterval(() => {
-      fetch(thisState.INITIAL_URL + "/getNextWeight")
+      fetch(INITIAL_URL + "/getNextWeight")
         .then(response => {
           if (response.status === 200) {
             return response.json();
           } else throw Error(response.statusText);
         })
         .then(result => {
+          let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.weighing.weight = result;
           thisState.setMyState(thisState);
         })
         .catch(error => {
+          let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
         });
-    }, 10000000);
+    }, 1000);
   }
   componentWillUnmount() {
     clearInterval(this.weight);
@@ -138,14 +166,6 @@ class App extends Component {
           }
         }}
       >
-        {/* <h1
-          onClick={event => {
-            console.log(thisState.materialRef.getInstance().getInput());
-            thisState.materialRef.getInstance().getInput().value = "";
-          }}
-        >
-          tets
-        </h1> */}
         <Row>
           <Col>
             <Header preState={thisState} />

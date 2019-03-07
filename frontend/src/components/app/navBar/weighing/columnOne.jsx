@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Col, Row } from "react-bootstrap";
 import Clock from "react-live-clock";
-import { Typeahead } from "react-bootstrap-typeahead";
+import { Typeahead, Menu, MenuItem } from "react-bootstrap-typeahead";
 
 const ColumnOne = props => {
   let thisState = props.preState;
@@ -51,7 +51,7 @@ const ColumnOne = props => {
         />
       </Form.Group>
       <Form.Group as={Row} className="pt-5">
-        <Form.Label column sm="6"> 
+        <Form.Label column sm="6">
           Slip No
         </Form.Label>
         <Col sm="6">
@@ -113,37 +113,26 @@ const ColumnOne = props => {
         <Col sm="6">
           <Typeahead
             highlightOnlyResult
+            id="material"
             selectHintOnEnter
             filterBy={["materialId", "material"]}
             labelKey={option => option.material}
-            emptyLabel={""}
-            options={[
-              { materialId: "1", material: "John" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" },
-              { materialId: "2", material: "Miles" },
-              { materialId: "3", material: "Charles" },
-              { materialId: "4", material: "Herbie" }
-            ]}
+            renderMenu={(results, menuProps) =>
+              results.length !== 0 ? (
+                <Menu {...menuProps} key="materialMenu">
+                  {results.map((result, index) => (
+                    <MenuItem
+                      option={result}
+                      position={index}
+                      key={(result.id ? result.id : -1).toString()}
+                    >
+                      {result.material}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              ) : null
+            }
+            options={thisState.configuration.material.list}
             maxHeight={"200px"}
             selected={thisState.weighing.reference.materialReference.value}
             disabled={thisState.weighing.disable.materialDisabled}

@@ -1,20 +1,28 @@
-body{
-    background: #0d5306eb; 
+body {
+    background: #5ab15291;
     color: black;
 }
-.tab-content{
+
+input[type="text"]:disabled {
+    background-color: #5ab15291;
+}
+
+.tab-content {
     font-weight: 500;
 }
+
 .Typeahead,
 input {
     text-align: center !important
 }
-.nav-tabs{
+
+.nav-tabs {
     text-Transform: uppercase;
     border-bottom: red 2px solid
 }
 
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
     color: #495057;
     background-color: #e8e8e8;
     border-radius: 1em;
@@ -28,14 +36,17 @@ input {
     border-radius: 1em;
     transition: all .15s linear;
 }
+
 .nav-item {
     color: black;
 }
-.nav-pills{
+
+.nav-pills {
     text-Transform: uppercase;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
     color: #495057;
     background-color: #e8e8e8;
     border-radius: 5px;
@@ -49,9 +60,11 @@ input {
     border-radius: 5px;
     transition: all .15s linear;
 }
-.form-group{
+
+.form-group {
     padding: 0.3em;
 }
+
 .adam-button {
     padding: 8px 14px;
     letter-spacing: 1px;
@@ -70,6 +83,7 @@ input {
     background: #9c27b0;
     border: 1px solid #9c27b0;
 }
+
 .adam-button:disabled {
     background: #9c27b0;
     border: 1px solid #9c27b0;
