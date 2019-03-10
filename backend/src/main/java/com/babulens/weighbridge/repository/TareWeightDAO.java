@@ -1,9 +1,9 @@
 package com.babulens.weighbridge.repository;
 
-import com.babulens.weighbridge.model.DriverDetails;
+import com.babulens.weighbridge.model.TareWeight;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DriverDetailsDAO extends CrudRepository<DriverDetails, Integer> {
+public interface TareWeightDAO extends CrudRepository<TareWeight, Integer> {
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { AlertList } from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 
@@ -22,20 +23,23 @@ class App extends Component {
         filterText: "",
         template: { materialId: "", material: "" },
         list: [],
+        editable: true,
         unlock: false
       },
       drivers: {
-        header: ["Material Id", "Material Name"],
+        header: ["Vehicle No", "Customer's Name", "Transporter's Name"],
         filterText: "",
-        template: { materialId: "", material: "" },
+        template: { vehicleNo: "", customerName: "", transporterName: "" },
         list: [],
+        editable: true,
         unlock: false
       },
       tareWeight: {
-        header: ["Material Id", "Material Name"],
+        header: ["Vehicle No", "Tare Weight", "Tare Time"],
         filterText: "",
-        template: { materialId: "", material: "" },
+        template: { vehicleNo: "", tareWeight: "", tareTime: "" },
         list: [],
+        editable: false,
         unlock: false
       }
     },
@@ -95,7 +99,7 @@ class App extends Component {
       remarks: "",
       manual: false
     },
-
+    alerts: [],
     toggleActive: false
   };
 
@@ -166,6 +170,15 @@ class App extends Component {
           }
         }}
       >
+        <AlertList
+          position={"top-right"}
+          alerts={thisState.alerts}
+          timeout={2000}
+          onDismiss={alert => {
+            thisState.alerts.splice(thisState.alerts.indexOf(alert), 1);
+            thisState.setMyState(thisState);
+          }}
+        />
         <Row>
           <Col>
             <Header preState={thisState} />

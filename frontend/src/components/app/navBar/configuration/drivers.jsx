@@ -39,11 +39,10 @@ const Drivers = props => {
           }}
         />
       </Form.Group>
-
       {thisState.configuration.drivers.unlock ? (
         <Form.Row>
           {Object.keys(thisState.configuration.drivers.template).map(key => (
-            <Col className="pb-2">
+            <Col className="pb-2" key={key}>
               <Form.Control
                 className="text-center form-control"
                 type="text"
@@ -63,30 +62,47 @@ const Drivers = props => {
               variant="primary"
               type="button"
               onClick={() => {
-                fetch(thisState.INITIAL_URL + "/addUpdateDrivers", {
-                  method: "PUT",
-                  body: JSON.stringify(
-                    thisState.configuration.drivers.template
-                  ),
-                  headers: { "content-type": "application/json" }
-                })
-                  .then(response => {
-                    if (response.status === 200) {
-                      return response.json();
-                    } else throw Error(response.statusText);
+                let send = true;
+                Object.values(thisState.configuration.material.template).map(
+                  value => {
+                    if (value === "") send = false;
+                    return null;
+                  }
+                );
+                if (send)
+                  fetch(thisState.INITIAL_URL + "/addUpdateDrivers", {
+                    method: "PUT",
+                    body: JSON.stringify(
+                      thisState.configuration.drivers.template
+                    ),
+                    headers: { "content-type": "application/json" }
                   })
-                  .then(result => {
-                    Object.keys(thisState.configuration.drivers.template).map(
-                      key =>
-                        (thisState.configuration.drivers.template[key] = "")
-                    );
-                    thisState.setMyState(thisState).then(() => {
-                      thisState.configuration.drivers.list.push(result);
+                    .then(response => {
+                      if (response.status === 200) {
+                        return response.json();
+                      } else throw Error(response.statusText);
+                    })
+                    .then(result => {
+                      Object.keys(thisState.configuration.drivers.template).map(
+                        key =>
+                          (thisState.configuration.drivers.template[key] = "")
+                      );
+                      thisState.setMyState(thisState).then(() => {
+                        thisState.configuration.drivers.list.push(result);
 
-                      thisState.setMyState(thisState);
-                    });
-                  })
-                  .catch(error => {});
+                        thisState.setMyState(thisState);
+                      });
+                    })
+                    .catch(error => {});
+                else {
+                  thisState.alerts.push({
+                    id: new Date().getTime(),
+                    type: "danger",
+                    headline: "Empty fields",
+                    message: "Found empty fileds while adding material"
+                  });
+                  thisState.setMyState(thisState);
+                }
               }}
               className="btn btn-success pull-right"
             >
@@ -127,7 +143,7 @@ const Drivers = props => {
                             type="text"
                             name={key}
                             id={item["id"]}
-                            value={item[key]}
+                            value={item[key] !== null ? item[key] : ""}
                             onChange={event => {
                               thisState.configuration.drivers.list[index][key] =
                                 event.target.value;
@@ -140,35 +156,41 @@ const Drivers = props => {
                   {thisState.configuration.drivers.unlock ? (
                     <td>
                       <Row>
-                        <Col>
-                          <Button
-                            block
-                            variant="warning"
-                            onClick={() => {
-                              fetch(
-                                thisState.INITIAL_URL + "/addUpdateDrivers",
-                                {
-                                  method: "PUT",
-                                  body: JSON.stringify(
-                                    thisState.configuration.drivers.list[index]
-                                  ),
-                                  headers: {
-                                    "content-type": "application/json"
+                        {thisState.configuration.material.editable ? (
+                          <Col>
+                            <Button
+                              block
+                              variant="warning"
+                              onClick={() => {
+                                fetch(
+                                  thisState.INITIAL_URL + "/addUpdateDrivers",
+                                  {
+                                    method: "PUT",
+                                    body: JSON.stringify(
+                                      thisState.configuration.drivers.list[
+                                        index
+                                      ]
+                                    ),
+                                    headers: {
+                                      "content-type": "application/json"
+                                    }
                                   }
-                                }
-                              )
-                                .then(response => {
-                                  if (response.status === 200) {
-                                    return response.json();
-                                  } else throw Error(response.statusText);
-                                })
-                                .then(result => {})
-                                .catch(error => {});
-                            }}
-                          >
-                            Update
-                          </Button>
-                        </Col>
+                                )
+                                  .then(response => {
+                                    if (response.status === 200) {
+                                      return response.json();
+                                    } else throw Error(response.statusText);
+                                  })
+                                  .then(result => {})
+                                  .catch(error => {});
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </Col>
+                        ) : (
+                          ""
+                        )}
                         <Col>
                           <Button
                             block

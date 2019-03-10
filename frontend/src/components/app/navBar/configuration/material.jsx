@@ -43,7 +43,7 @@ const Material = props => {
       {thisState.configuration.material.unlock ? (
         <Form.Row>
           {Object.keys(thisState.configuration.material.template).map(key => (
-            <Col className="pb-2">
+            <Col className="pb-2" key={key}>
               <Form.Control
                 className="text-center form-control"
                 type="text"
@@ -63,30 +63,49 @@ const Material = props => {
               variant="primary"
               type="button"
               onClick={() => {
-                fetch(thisState.INITIAL_URL + "/addUpdateMaterial", {
-                  method: "PUT",
-                  body: JSON.stringify(
-                    thisState.configuration.material.template
-                  ),
-                  headers: { "content-type": "application/json" }
-                })
-                  .then(response => {
-                    if (response.status === 200) {
-                      return response.json();
-                    } else throw Error(response.statusText);
+                let send = true;
+                Object.values(thisState.configuration.material.template).map(
+                  value => {
+                    if (value === "") send = false;
+                    return null;
+                  }
+                );
+                if (send)
+                  fetch(thisState.INITIAL_URL + "/addUpdateMaterial", {
+                    method: "PUT",
+                    body: JSON.stringify(
+                      thisState.configuration.material.template
+                    ),
+                    headers: { "content-type": "application/json" }
                   })
-                  .then(result => {
-                    Object.keys(thisState.configuration.material.template).map(
-                      key =>
-                        (thisState.configuration.material.template[key] = "")
-                    );
-                    thisState.setMyState(thisState).then(() => {
-                      thisState.configuration.material.list.push(result);
+                    .then(response => {
+                      if (response.status === 200) {
+                        return response.json();
+                      } else throw Error(response.statusText);
+                    })
+                    .then(result => {
+                      Object.keys(
+                        thisState.configuration.material.template
+                      ).map(
+                        key =>
+                          (thisState.configuration.material.template[key] = "")
+                      );
+                      thisState.setMyState(thisState).then(() => {
+                        thisState.configuration.material.list.push(result);
 
-                      thisState.setMyState(thisState);
-                    });
-                  })
-                  .catch(error => {});
+                        thisState.setMyState(thisState);
+                      });
+                    })
+                    .catch(error => {});
+                else {
+                  thisState.alerts.push({
+                    id: new Date().getTime(),
+                    type: "danger",
+                    headline: "Empty fields",
+                    message: "Found empty fileds while adding material"
+                  });
+                  thisState.setMyState(thisState);
+                }
               }}
               className="btn btn-success pull-right"
             >
@@ -127,7 +146,7 @@ const Material = props => {
                             type="text"
                             name={key}
                             id={item["id"]}
-                            value={item[key]}
+                            value={item[key] !== null ? item[key] : ""}
                             onChange={event => {
                               thisState.configuration.material.list[index][
                                 key
@@ -141,35 +160,41 @@ const Material = props => {
                   {thisState.configuration.material.unlock ? (
                     <td>
                       <Row>
-                        <Col>
-                          <Button
-                            block
-                            variant="warning"
-                            onClick={() => {
-                              fetch(
-                                thisState.INITIAL_URL + "/addUpdateMaterial",
-                                {
-                                  method: "PUT",
-                                  body: JSON.stringify(
-                                    thisState.configuration.material.list[index]
-                                  ),
-                                  headers: {
-                                    "content-type": "application/json"
+                        {thisState.configuration.material.editable ? (
+                          <Col>
+                            <Button
+                              block
+                              variant="warning"
+                              onClick={() => {
+                                fetch(
+                                  thisState.INITIAL_URL + "/addUpdateMaterial",
+                                  {
+                                    method: "PUT",
+                                    body: JSON.stringify(
+                                      thisState.configuration.material.list[
+                                        index
+                                      ]
+                                    ),
+                                    headers: {
+                                      "content-type": "application/json"
+                                    }
                                   }
-                                }
-                              )
-                                .then(response => {
-                                  if (response.status === 200) {
-                                    return response.json();
-                                  } else throw Error(response.statusText);
-                                })
-                                .then(result => {})
-                                .catch(error => {});
-                            }}
-                          >
-                            Update
-                          </Button>
-                        </Col>
+                                )
+                                  .then(response => {
+                                    if (response.status === 200) {
+                                      return response.json();
+                                    } else throw Error(response.statusText);
+                                  })
+                                  .then(result => {})
+                                  .catch(error => {});
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </Col>
+                        ) : (
+                          ""
+                        )}
                         <Col>
                           <Button
                             block

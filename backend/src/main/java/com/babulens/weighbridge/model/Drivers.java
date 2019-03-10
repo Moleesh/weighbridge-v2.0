@@ -7,20 +7,20 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class DriverDetails {
+public class Drivers {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String vehicleNo;
-    private String customersName;
+    private String customerName;
     private String transporterName;
 
-    public DriverDetails() {
+    public Drivers() {
     }
 
-    public DriverDetails(String vehicleNo, String customersName, String transporterName) {
+    public Drivers(String vehicleNo, String customerName, String transporterName) {
         this.vehicleNo = vehicleNo;
-        this.customersName = customersName;
+        this.customerName = customerName;
         this.transporterName = transporterName;
     }
 
@@ -40,12 +40,12 @@ public class DriverDetails {
         this.vehicleNo = vehicleNo;
     }
 
-    public String getCustomersName() {
-        return customersName;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomersName(String customersName) {
-        this.customersName = customersName;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getTransporterName() {
@@ -59,8 +59,8 @@ public class DriverDetails {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof DriverDetails)) return false;
-        DriverDetails that = (DriverDetails) o;
+        if (!(o instanceof Drivers)) return false;
+        Drivers that = (Drivers) o;
         return getId() == that.getId();
     }
 
@@ -71,10 +71,10 @@ public class DriverDetails {
 
     @Override
     public String toString() {
-        return "DriverDetails{" +
+        return "Drivers{" +
                 "id=" + id +
                 ", vehicleNo='" + vehicleNo + '\'' +
-                ", customersName='" + customersName + '\'' +
+                ", customerName='" + customerName + '\'' +
                 ", transporterName='" + transporterName + '\'' +
                 '}';
     }

@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class TareWeights {
+public class TareWeight {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -19,10 +19,10 @@ public class TareWeights {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private Date tareTime;
 
-    public TareWeights() {
+    public TareWeight() {
     }
 
-    public TareWeights(String vehicleNo, long tareWeight, Date tareTime) {
+    public TareWeight(String vehicleNo, long tareWeight, Date tareTime) {
         this.vehicleNo = vehicleNo;
         this.tareWeight = tareWeight;
         this.tareTime = tareTime;
@@ -63,8 +63,8 @@ public class TareWeights {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TareWeights)) return false;
-        TareWeights that = (TareWeights) o;
+        if (!(o instanceof TareWeight)) return false;
+        TareWeight that = (TareWeight) o;
         return getId() == that.getId();
     }
 
@@ -75,7 +75,7 @@ public class TareWeights {
 
     @Override
     public String toString() {
-        return "TareWeights{" +
+        return "TareWeight{" +
                 "id=" + id +
                 ", vehicleNo='" + vehicleNo + '\'' +
                 ", tareWeight=" + tareWeight +

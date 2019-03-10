@@ -17,23 +17,23 @@ const Configuration = props => {
               <Nav.Link eventKey="material">Materials</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="driver">Driver Details</Nav.Link>
+              <Nav.Link eventKey="drivers">Driver Details</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="tareWeights">Tare Weights</Nav.Link>
+              <Nav.Link eventKey="tareWeight">Tare Weights</Nav.Link>
             </Nav.Item>
           </Nav>
         </Col>
         <Col sm={9} className="pt-2">
           <Tab.Content>
             <Tab.Pane eventKey="material">
-              <Material preState={thisState} />
+              <Material preState={thisState} key="material" />
             </Tab.Pane>
-            <Tab.Pane eventKey="driver">
-              <Drivers preState={thisState} />
+            <Tab.Pane eventKey="drivers">
+              <Drivers preState={thisState} key="drivers" />
             </Tab.Pane>
-            <Tab.Pane eventKey="tareWeights">
-              <TareWeight preState={thisState} />
+            <Tab.Pane eventKey="tareWeight">
+              <TareWeight preState={thisState} key="tareWeight" />
             </Tab.Pane>
           </Tab.Content>
         </Col>
