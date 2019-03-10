@@ -1,8 +1,12 @@
 package com.babulens.weighbridge.controller;
 
+import com.babulens.weighbridge.model.DriverDetails;
 import com.babulens.weighbridge.model.Material;
+import com.babulens.weighbridge.model.TareWeights;
 import com.babulens.weighbridge.model.Weight;
+import com.babulens.weighbridge.service.DriverDetailsService;
 import com.babulens.weighbridge.service.MaterialService;
+import com.babulens.weighbridge.service.TareWeightsService;
 import com.babulens.weighbridge.service.WeighService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,13 @@ public class Controller {
 
     @Autowired
     MaterialService materialService;
+
+    @Autowired
+    DriverDetailsService driverDetailsService;
+
+    @Autowired
+    TareWeightsService tareWeightsService;
+
     int count =1;
     @RequestMapping(value = "/getNextSlipNo")
     public int getNextSlipNo() { return count ++;
@@ -45,6 +56,7 @@ public class Controller {
     @RequestMapping(value = "/addUpdateMaterial", method = {RequestMethod.POST, RequestMethod.PUT})
     public Material addUpdateMaterial(@RequestBody Material material) {
         return materialService.addUpdateMaterial(material);
+
     }
 
     @RequestMapping(value = "/deleteMaterial", method = {RequestMethod.DELETE})
@@ -52,34 +64,33 @@ public class Controller {
         materialService.deleteMaterial(id);
     }
 
-//    @RequestMapping(value = "/getAllDrivers")
-//    public List<Drivers> getAllDrivers() {
-//        return driversService.getAllDrivers();
-//    }
-//
-//    @RequestMapping(value = "/addUpdateDrivers", method = {RequestMethod.POST, RequestMethod.PUT})
-//    public Drivers addUpdateDrivers(@RequestBody Drivers drivers) {
-//        return driversService.addUpdateDrivers(drivers);
-//    }
-//
-//    @RequestMapping(value = "/deleteDrivers", method = {RequestMethod.DELETE})
-//    public void deleteDrivers(@RequestParam("id") int id) {
-//        driversService.deleteDrivers(id);
-//    }
-//
-//    @RequestMapping(value = "/getAllTareWeights")
-//    public List<TareWeights> getAllTareWeights() {
-//        return tareWeightsService.getAllTareWeights();
-//    }
-//
-//    @RequestMapping(value = "/addUpdateTareWeights", method = {RequestMethod.POST, RequestMethod.PUT})
-//    public TareWeights addUpdateTareWeights(@RequestBody TareWeights tareWeights) {
-//        return tareWeightsService.addUpdateTareWeights(tareWeights);
-//    }
-//
-//    @RequestMapping(value = "/deleteTareWeights", method = {RequestMethod.DELETE})
-//    public void deleteTareWeights(@RequestParam("id") int id) {
-//        tareWeightsService.deleteTareWeights(id);
-//    }
+    @RequestMapping(value = "/getAllDriverDetails")
+    public List<DriverDetails> getAllDriverDetails() {
+        return driverDetailsService.getAllDriverDetails();
+    }
 
+    @RequestMapping(value = "/addUpdateDriverDetails", method = {RequestMethod.POST, RequestMethod.PUT})
+    public DriverDetails addUpdateDriverDetails(@RequestBody DriverDetails driverDetails) {
+        return driverDetailsService.addUpdateDriverDetails(driverDetails);
+    }
+
+    @RequestMapping(value = "/deleteDriverDetails", method = {RequestMethod.DELETE})
+    public void deleteDriverDetails(@RequestParam("id") int id) {
+        driverDetailsService.deleteDriverDetails(id);
+    }
+
+    @RequestMapping(value = "/getAllTareWeights")
+    public List<TareWeights> getAllTareWeights() {
+        return tareWeightsService.getAllTareWeights();
+    }
+
+    @RequestMapping(value = "/addUpdateTareWeights", method = {RequestMethod.POST, RequestMethod.PUT})
+    public TareWeights addUpdateTareWeights(@RequestBody TareWeights tareWeights) {
+        return tareWeightsService.addUpdateTareWeights(tareWeights);
+    }
+
+    @RequestMapping(value = "/deleteTareWeights", method = {RequestMethod.DELETE})
+    public void deleteTareWeights(@RequestParam("id") int id) {
+        tareWeightsService.deleteTareWeights(id);
+    }
 }
