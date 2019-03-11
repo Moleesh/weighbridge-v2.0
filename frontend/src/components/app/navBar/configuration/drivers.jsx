@@ -63,7 +63,7 @@ const Drivers = props => {
               type="button"
               onClick={() => {
                 let send = true;
-                Object.values(thisState.configuration.material.template).map(
+                Object.values(thisState.configuration.drivers.template).map(
                   value => {
                     if (value === "") send = false;
                     return null;
@@ -99,7 +99,7 @@ const Drivers = props => {
                     id: new Date().getTime(),
                     type: "danger",
                     headline: "Empty fields",
-                    message: "Found empty fileds while adding material"
+                    message: "Found empty fileds while adding driver details"
                   });
                   thisState.setMyState(thisState);
                 }
@@ -139,7 +139,12 @@ const Drivers = props => {
                           <Form.Control
                             autoComplete="off"
                             className="text-center form-control"
-                            disabled={!thisState.configuration.drivers.unlock}
+                            disabled={
+                              !(
+                                thisState.configuration.tareWeight.unlock &
+                                thisState.configuration.tareWeight.editable
+                              )
+                            }
                             type="text"
                             name={key}
                             id={item["id"]}
@@ -156,7 +161,7 @@ const Drivers = props => {
                   {thisState.configuration.drivers.unlock ? (
                     <td>
                       <Row>
-                        {thisState.configuration.material.editable ? (
+                        {thisState.configuration.drivers.editable ? (
                           <Col>
                             <Button
                               block

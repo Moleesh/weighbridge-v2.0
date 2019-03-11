@@ -142,7 +142,12 @@ const Material = props => {
                           <Form.Control
                             autoComplete="off"
                             className="text-center form-control"
-                            disabled={!thisState.configuration.material.unlock}
+                            disabled={
+                              !(
+                                thisState.configuration.tareWeight.unlock &
+                                thisState.configuration.tareWeight.editable
+                              )
+                            }
                             type="text"
                             name={key}
                             id={item["id"]}

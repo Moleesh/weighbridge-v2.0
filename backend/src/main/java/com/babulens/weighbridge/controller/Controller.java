@@ -38,6 +38,7 @@ public class Controller {
     @RequestMapping(value = "/getNextWeight")
     public int getNextWeight() { return (int)(Math.random() * 10000 + 1);
     }
+
     @RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})
     public void saveWeight(@RequestBody Weight weight) {
         weighService.saveWeight(weight);
@@ -48,6 +49,11 @@ public class Controller {
         return weighService.getWeight(slipNo);
     }
 
+    @RequestMapping(value = "/getAllWeight")
+    public List<Weight>  getAllWeight() {
+        return weighService.getAllWeight();
+    }
+
     @RequestMapping(value = "/getAllMaterial")
     public List<Material> getAllMaterial() {
         return materialService.getAllMaterial();
@@ -56,7 +62,6 @@ public class Controller {
     @RequestMapping(value = "/addUpdateMaterial", method = {RequestMethod.POST, RequestMethod.PUT})
     public Material addUpdateMaterial(@RequestBody Material material) {
         return materialService.addUpdateMaterial(material);
-
     }
 
     @RequestMapping(value = "/deleteMaterial", method = {RequestMethod.DELETE})

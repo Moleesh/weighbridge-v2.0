@@ -63,7 +63,7 @@ const TareWeight = props => {
               type="button"
               onClick={() => {
                 let send = true;
-                Object.values(thisState.configuration.material.template).map(
+                Object.values(thisState.configuration.tareWeight.template).map(
                   value => {
                     if (value === "") send = false;
                     return null;
@@ -101,7 +101,7 @@ const TareWeight = props => {
                     id: new Date().getTime(),
                     type: "danger",
                     headline: "Empty fields",
-                    message: "Found empty fileds while adding material"
+                    message: "Found empty fileds while adding Tare Weight"
                   });
                   thisState.setMyState(thisState);
                 }
@@ -142,7 +142,10 @@ const TareWeight = props => {
                             autoComplete="off"
                             className="text-center form-control"
                             disabled={
-                              !thisState.configuration.tareWeight.unlock
+                              !(
+                                thisState.configuration.tareWeight.unlock &
+                                thisState.configuration.tareWeight.editable
+                              )
                             }
                             type="text"
                             name={key}
@@ -161,7 +164,7 @@ const TareWeight = props => {
                   {thisState.configuration.tareWeight.unlock ? (
                     <td>
                       <Row>
-                        {thisState.configuration.material.editable ? (
+                        {thisState.configuration.tareWeight.editable ? (
                           <Col>
                             <Button
                               block

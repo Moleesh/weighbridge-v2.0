@@ -4,6 +4,7 @@ import Toggle from "react-bootstrap-toggle";
 
 import Weighing from "./navBar/weighing";
 import Configuration from "./navBar/configuration";
+import Report from "./navBar/report";
 
 const NavBar = props => {
   let thisState = props.preState;
@@ -12,15 +13,30 @@ const NavBar = props => {
       <Tabs
         justify
         variant="tabs"
-        defaultActiveKey="configuration"
+        defaultActiveKey="report"
         // defaultActiveKey="weighing"
         className="mt-1 h5 py-2 pb-1"
       >
         <Tab eventKey="weighing" title="Weighing">
           <Weighing preState={thisState} />
         </Tab>
-        <Tab eventKey="report" title="Report">
-          <h1>2</h1>
+        <Tab
+          eventKey="report"
+          title="Report"
+          onEntered={() => {
+            fetch(thisState.INITIAL_URL + "/getAllWeight")
+              .then(response => {
+                if (response.status === 200) {
+                  return response.json();
+                } else throw Error(response.statusText);
+              })
+              .then(result => {
+                console.log(result);
+              })
+              .catch(error => {});
+          }}
+        >
+          <Report preState={thisState} />
         </Tab>
         <Tab eventKey="configuration" title="Configuration">
           <Configuration preState={thisState} />

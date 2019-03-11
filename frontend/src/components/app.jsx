@@ -131,11 +131,31 @@ class App extends Component {
         thisState.configuration.material.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {
+      .catch(error => {});
+    fetch(INITIAL_URL + "/getAllDrivers")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
         let thisState = { ...this.state, setMyState: this.setMyState };
-        thisState.weight.slipNo = "-1";
+        thisState.configuration.drivers.list = result;
         thisState.setMyState(thisState);
-      });
+      })
+      .catch(error => {});
+    fetch(INITIAL_URL + "/getAllTareWeight")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.configuration.tareWeight.list = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => {});
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
         .then(response => {
@@ -155,6 +175,7 @@ class App extends Component {
         });
     }, 1000);
   }
+
   componentWillUnmount() {
     clearInterval(this.weight);
   }
