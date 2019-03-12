@@ -99,6 +99,9 @@ class App extends Component {
       remarks: "",
       manual: false
     },
+    report: {
+      filterText: ""
+    },
     alerts: [],
     toggleActive: false
   };

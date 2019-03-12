@@ -6,6 +6,7 @@
   "repository": {},
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",
+    "@wojtekmaj/react-datetimerange-picker": "^2.1.0",
     "bootstrap": "^4.3.1",
     "fs-extra": "^7.0.1",
     "jquery": "^3.3.1",
