@@ -102,7 +102,7 @@ class App extends Component {
     },
     report: {
       filterText: "",
-      headers: {
+      header: {
         slipNo: "Slip No",
         vehicleNo: "Vehicle No",
         material: "Material",
@@ -118,7 +118,7 @@ class App extends Component {
         remarks: "Remarks"
       },
       filterPopUp: false,
-      filters: {
+      filter: {
         slipNo: true,
         vehicleNo: true,
         material: true,
@@ -134,12 +134,31 @@ class App extends Component {
         remarks: false,
         manual: false
       },
+      reportSelect: "Full",
       startDate: moment()
         .startOf("day")
         .toDate(),
       endDate: moment()
         .endOf("day")
-        .toDate()
+        .toDate(),
+      list: [
+        {
+          slipNo: "1",
+          vehicleNo: "asd",
+          material: "asd",
+          customersName: "asdas",
+          transporterName: "asd",
+          grossWeight: "a",
+          grossTime: "asd",
+          tareWeight: "asd",
+          tareTime: "asd",
+          nettWeight: "asd",
+          nettTIme: "as",
+          charges: "add",
+          remarks: "asdas",
+          manual: false
+        }
+      ]
     },
     alerts: [],
     toggleActive: false
@@ -215,7 +234,7 @@ class App extends Component {
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
         });
-    }, 1000);
+    }, 1000000);
   }
 
   componentWillUnmount() {

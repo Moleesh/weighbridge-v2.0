@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Table } from "react-bootstrap";
 // import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 import DatetimeRangePicker from "react-datetime-range-picker";
 // import moment from "moment";
@@ -21,16 +21,23 @@ const Report = props => {
               Report Type
             </Form.Label>
             <Col sm="8">
-              <Form.Control as="select">
-                <option>Full</option>
-                <option>Daily</option>
-                <option>Weekly</option>
-                <option>Monthly</option>
-                <option>Slip No</option>
-                <option>Customer Name</option>
-                <option>Transporter Name</option>
-                <option>Vehicle No</option>
-                <option>Material</option>
+              <Form.Control
+                as="select"
+                value={thisState.report.reportSelect}
+                onChange={event => {
+                  thisState.weight.slipNo = event.target.value;
+                  thisState.setMyState(thisState);
+                }}
+              >
+                <option value="Full">Full</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Slip No">Slip No</option>
+                <option value="Customer Name">Customer Name</option>
+                <option value="Transporter Name">Transporter Name</option>
+                <option value="Vehicle No">Vehicle No</option>
+                <option value="Material">Material</option>
               </Form.Control>
             </Col>
           </Form.Group>
@@ -38,7 +45,7 @@ const Report = props => {
         <Col sm="5">
           <Form.Group as={Row}>
             <Form.Label column sm="2">
-              Date
+              Choose Date
             </Form.Label>
             <Col sm="10">
               <DatetimeRangePicker
@@ -108,7 +115,48 @@ const Report = props => {
         </Col>
       </Row>
       <Row>
-        <Col />
+        <Col>
+          <Table hover size="sm">
+            <thead>
+              <tr>
+                {Object.keys(thisState.report.header)
+                  .filter(key => thisState.report.filter[key])
+                  .map(key => (
+                    <th key={key}>{thisState.report.header[key]}</th>
+                  ))}
+              </tr>
+            </thead>
+            <tbody>
+              {thisState.report.list.map((item, index) =>
+                Object.values(item)
+                  .toString()
+                  .replace(",", ".")
+                  .indexOf(thisState.report.filterText) === -1 ? null : (
+                  <tr key={index} className="eachRow">
+                    {Object.keys(item)
+                      .filter(key => thisState.report.filter[key])
+                      .map(key => (
+                        <td key={key + "" + item[key]}>
+                          <Col>
+                            <Form.Control
+                              autoComplete="off"
+                              className="text-center form-control"
+                              disabled
+                              type="text"
+                              name={key}
+                              id={item["id"]}
+                              value={item[key] !== null ? item[key] : ""}
+                              onChange={event => {}}
+                            />
+                          </Col>
+                        </td>
+                      ))}
+                  </tr>
+                )
+              )}
+            </tbody>
+          </Table>
+        </Col>
       </Row>
     </Form>
   );

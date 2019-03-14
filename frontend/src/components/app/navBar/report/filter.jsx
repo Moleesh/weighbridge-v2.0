@@ -25,20 +25,20 @@ const Filter = props => {
       </Modal.Header>
       <Modal.Body>
         <Row className="pl-4">
-          {Object.keys(thisState.report.headers).map(key => (
+          {Object.keys(thisState.report.header).map(key => (
             <Col sm="4" key={key}>
               <Form.Group as={Row}>
                 <Form.Check
                   type="checkbox"
-                  checked={thisState.report.filters[key]}
+                  checked={thisState.report.filter[key]}
                   onClick={event => {
-                    thisState.report.filters[key] = !thisState.report.filters[
+                    thisState.report.filter[key] = !thisState.report.filter[
                       key
                     ];
                     thisState.setMyState(thisState);
                   }}
                   onChange={() => {}}
-                  label={thisState.report.headers[key]}
+                  label={thisState.report.header[key]}
                 />
               </Form.Group>
             </Col>
@@ -49,11 +49,7 @@ const Filter = props => {
         <Button
           onClick={event => {
             thisState.report.filterPopUp = false;
-            thisState
-              .setMyState(thisState)
-              .then(() =>
-                thisState.weighing.reference.rePrintReference.current.focus()
-              );
+            thisState.setMyState(thisState);
           }}
         >
           Close
