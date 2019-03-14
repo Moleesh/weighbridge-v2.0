@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { AlertList } from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
+import moment from "moment";
 
 const INITIAL_URL = "http://localhost:8080";
 class App extends Component {
@@ -100,7 +101,45 @@ class App extends Component {
       manual: false
     },
     report: {
-      filterText: ""
+      filterText: "",
+      headers: {
+        slipNo: "Slip No",
+        vehicleNo: "Vehicle No",
+        material: "Material",
+        customersName: "Customer Name",
+        transporterName: "Transporter Name",
+        grossWeight: "Gross Weight",
+        grossTime: "Gross Time",
+        tareWeight: "Tare Weight",
+        tareTime: "Tare Time",
+        nettWeight: "Nett Weight",
+        nettTIme: "Nett Time",
+        charges: "Charges",
+        remarks: "Remarks"
+      },
+      filterPopUp: false,
+      filters: {
+        slipNo: true,
+        vehicleNo: true,
+        material: true,
+        customersName: false,
+        transporterName: false,
+        grossWeight: true,
+        grossTime: false,
+        tareWeight: true,
+        tareTime: false,
+        nettWeight: true,
+        nettTIme: false,
+        charges: true,
+        remarks: false,
+        manual: false
+      },
+      startDate: moment()
+        .startOf("day")
+        .toDate(),
+      endDate: moment()
+        .endOf("day")
+        .toDate()
     },
     alerts: [],
     toggleActive: false

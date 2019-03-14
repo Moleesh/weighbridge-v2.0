@@ -61,10 +61,6 @@ input {
     transition: all .15s linear;
 }
 
-.form-group {
-    padding: 0.3em;
-}
-
 .adam-button {
     padding: 8px 14px;
     letter-spacing: 1px;

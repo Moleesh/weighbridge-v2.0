@@ -1,6 +1,9 @@
 import React from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
-import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
+// import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
+import DatetimeRangePicker from "react-datetime-range-picker";
+// import moment from "moment";
+import Filter from "./report/filter";
 
 const Report = props => {
   let thisState = props.preState;
@@ -14,11 +17,11 @@ const Report = props => {
       <Row>
         <Col sm="3">
           <Form.Group as={Row}>
-            <Form.Label column sm="6">
+            <Form.Label column sm="4">
               Report Type
             </Form.Label>
-            <Col sm="6">
-              <Form.Control as="select" column sm="6">
+            <Col sm="8">
+              <Form.Control as="select">
                 <option>Full</option>
                 <option>Daily</option>
                 <option>Weekly</option>
@@ -32,35 +35,76 @@ const Report = props => {
             </Col>
           </Form.Group>
         </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Label</Form.Label>
-            <DateTimeRangePicker
-            // onChange={this.onChange}
-            // value={this.state.date}
-            />
+        <Col sm="5">
+          <Form.Group as={Row}>
+            <Form.Label column sm="2">
+              Date
+            </Form.Label>
+            <Col sm="10">
+              <DatetimeRangePicker
+                startDate={thisState.report.startDate}
+                endDate={thisState.report.endDate}
+                dateFormat="DD-MM-YYYY"
+                timeFormat="HH:mm:ss"
+                pickerClassName="col-sm-6 float-left"
+                onChange={() => {}}
+                isValidEndDate={() => true}
+              />
+            </Col>
+          </Form.Group>
+        </Col>
+        <Col sm="4">
+          <Form.Group as={Row}>
+            <Form.Label column sm="3">
+              Slip No
+            </Form.Label>
+            <Col sm="6">
+              <Form.Control
+                className="text-center"
+                // value={thisState.weight.slipNo}
+                onChange={event => {
+                  thisState.weight.slipNo = event.target.value;
+                  thisState.setMyState(thisState);
+                }}
+              />
+            </Col>
+            <Col sm="3">
+              <Button block variant="primary" onClick={() => {}}>
+                Go
+              </Button>
+            </Col>
           </Form.Group>
         </Col>
       </Row>
       <Row>
         <Col>
-          <Form.Group>
-            <Form.Control
-              className="text-center form-control"
-              type="text"
-              placeholder="Search..."
-              value={thisState.report.filterText}
-              onChange={event => {
-                thisState.report.filterText = event.target.value;
-                thisState.setMyState(thisState);
-              }}
-            />
+          <Form.Group as={Row}>
+            <Col sm="9">
+              <Form.Control
+                className="text-center form-control"
+                type="text"
+                placeholder="Search Records..."
+                value={thisState.report.filterText}
+                onChange={event => {
+                  thisState.report.filterText = event.target.value;
+                  thisState.setMyState(thisState);
+                }}
+              />
+            </Col>
+            <Col sm="3">
+              <Button
+                block
+                variant="danger"
+                onClick={() => {
+                  thisState.report.filterPopUp = true;
+                  thisState.setMyState(thisState);
+                }}
+              >
+                Filter
+              </Button>
+              <Filter preState={thisState} />
+            </Col>
           </Form.Group>
-        </Col>
-        <Col>
-          <Button block variant="danger" onClick={() => {}}>
-            Filter
-          </Button>
         </Col>
       </Row>
       <Row>

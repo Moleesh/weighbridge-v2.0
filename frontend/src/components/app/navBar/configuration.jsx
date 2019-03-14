@@ -10,9 +10,9 @@ const Configuration = props => {
   return (
     <Tab.Container defaultActiveKey="material">
       <Row>
-        <Col sm={3} className="pt-5">
+        <Col sm="2" className="pt-5">
           <Nav variant="pills" className="flex-column">
-            <h5 className="font-weight-bold">Configuration</h5>
+            <h5 className="font-weight-bold pb-3">Configuration</h5>
             <Nav.Item>
               <Nav.Link eventKey="material">Materials</Nav.Link>
             </Nav.Item>
@@ -24,7 +24,7 @@ const Configuration = props => {
             </Nav.Item>
           </Nav>
         </Col>
-        <Col sm={9} className="pt-2">
+        <Col sm="10" className="pt-2">
           <Tab.Content>
             <Tab.Pane eventKey="material">
               <Material preState={thisState} key="material" />

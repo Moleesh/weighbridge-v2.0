@@ -7,24 +7,27 @@ const Material = props => {
   let thisState = props.preState;
   return (
     <Form className="justify-content-center ">
-      <Row className="pb-1">
-        <Col>
+      <Row className="pb-2">
+        <Col sm="2" />
+        <Col sm="8" className="pl-3">
           <h4 className="text-center font-weight-bold">Material</h4>
         </Col>
         <Col sm={2}>
-          <Toggle
-            onClick={() => {
-              thisState.configuration.material.unlock = !thisState.configuration
-                .material.unlock;
-              thisState.setMyState(thisState);
-            }}
-            on="ON"
-            off="OFF"
-            size="lg"
-            offstyle="danger"
-            active={thisState.configuration.material.unlock}
-            recalculateOnResize={true}
-          />
+          <Row className="justify-content-center">
+            <Toggle
+              onClick={() => {
+                thisState.configuration.material.unlock = !thisState
+                  .configuration.material.unlock;
+                thisState.setMyState(thisState);
+              }}
+              on="ON"
+              off="OFF"
+              size="lg"
+              offstyle="danger"
+              active={thisState.configuration.material.unlock}
+              recalculateOnResize={true}
+            />
+          </Row>
         </Col>
       </Row>
       <Form.Group>
