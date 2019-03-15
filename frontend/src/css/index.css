@@ -84,3 +84,16 @@ input {
     background: #9c27b0;
     border: 1px solid #9c27b0;
 }
+
+.contentCenter{
+    text-align: center;
+}
+.reportInputs{
+    border: 1px solid #ced4da00 !important; 
+    background-color: transparent !important; 
+}
+
+.disbleBG{
+    background-color: #e9ecef !important;
+    color: black;
+}

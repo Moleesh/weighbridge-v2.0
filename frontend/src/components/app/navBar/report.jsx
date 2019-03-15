@@ -275,7 +275,7 @@ const Report = props => {
         <Col>
           <Table hover size="sm">
             <thead>
-              <tr>
+              <tr className="contentCenter">
                 {Object.keys(thisState.report.header)
                   .filter(key => thisState.report.filter[key])
                   .map(key => (
@@ -293,11 +293,12 @@ const Report = props => {
                     {Object.keys(item)
                       .filter(key => thisState.report.filter[key])
                       .map(key => (
-                        <td key={key + "" + item[key]}>
+                        <td key={key + "" + item[key]} className="contentCenter">
                           <Col>
+                          {/* {item[key] !== null ? item[key] : ""} */}
                             <Form.Control
                               autoComplete="off"
-                              className="text-center form-control"
+                              className="text-center form-control reportInputs"
                               disabled
                               type="text"
                               name={key}

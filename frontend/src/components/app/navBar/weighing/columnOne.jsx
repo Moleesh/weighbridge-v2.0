@@ -56,7 +56,7 @@ const ColumnOne = props => {
         </Form.Label>
         <Col sm="6">
           <Form.Control
-            className="text-center"
+            className="text-center disbleBG"
             value={thisState.weight.slipNo}
             onChange={event => {
               thisState.weight.slipNo = event.target.value;
