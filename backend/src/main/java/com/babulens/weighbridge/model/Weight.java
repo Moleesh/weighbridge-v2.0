@@ -23,7 +23,7 @@ public class Weight {
     private Date tareTime;
     private long nettWeight;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    private Date nettTIme;
+    private Date nettTime;
     private double charges;
     private String remarks;
     private boolean manual;
@@ -31,7 +31,7 @@ public class Weight {
     public Weight() {
     }
 
-    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTIme, double charges, String remarks, boolean manual) {
+    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime, double charges, String remarks, boolean manual) {
         this.slipNo = slipNo;
         this.vehicleNo = vehicleNo;
         this.material = material;
@@ -42,7 +42,7 @@ public class Weight {
         this.tareWeight = tareWeight;
         this.tareTime = tareTime;
         this.nettWeight = nettWeight;
-        this.nettTIme = nettTIme;
+        this.nettTime = nettTime;
         this.charges = charges;
         this.remarks = remarks;
         this.manual = manual;
@@ -128,12 +128,12 @@ public class Weight {
         this.nettWeight = nettWeight;
     }
 
-    public Date getNettTIme() {
-        return nettTIme;
+    public Date getNettTime() {
+        return nettTime;
     }
 
-    public void setNettTIme(Date nettTIme) {
-        this.nettTIme = nettTIme;
+    public void setNettTime(Date nettTime) {
+        this.nettTime = nettTime;
     }
 
     public double getCharges() {
@@ -186,7 +186,7 @@ public class Weight {
                 ", tareWeight=" + tareWeight +
                 ", tareTime=" + tareTime +
                 ", nettWeight=" + nettWeight +
-                ", nettTIme=" + nettTIme +
+                ", nettTime=" + nettTime +
                 ", charges=" + charges +
                 ", remarks='" + remarks + '\'' +
                 ", manual=" + manual +

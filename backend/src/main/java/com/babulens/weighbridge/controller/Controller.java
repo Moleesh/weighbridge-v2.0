@@ -1,9 +1,6 @@
 package com.babulens.weighbridge.controller;
 
-import com.babulens.weighbridge.model.Drivers;
-import com.babulens.weighbridge.model.Material;
-import com.babulens.weighbridge.model.TareWeight;
-import com.babulens.weighbridge.model.Weight;
+import com.babulens.weighbridge.model.*;
 import com.babulens.weighbridge.service.DriversService;
 import com.babulens.weighbridge.service.MaterialService;
 import com.babulens.weighbridge.service.TareWeightService;
@@ -11,6 +8,7 @@ import com.babulens.weighbridge.service.WeighService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -49,9 +47,9 @@ public class Controller {
         return weighService.getWeight(slipNo);
     }
 
-    @RequestMapping(value = "/getAllWeight")
-    public List<Weight>  getAllWeight() {
-        return weighService.getAllWeight();
+    @RequestMapping(value = "/getAllWeight", method = {RequestMethod.POST})
+    public List<Weight> getAllWeight(@RequestBody GetReport getReport) {
+        return weighService.getAllWeight(getReport.getStartDate(), getReport.getEndDate(), getReport.getInputLabel(), getReport.getInput());
     }
 
     @RequestMapping(value = "/getAllMaterial")

@@ -59,12 +59,12 @@ const ColumnThree = props => {
             className="text-center"
             disabled
             value={
-              thisState.weight.nettTIme !== null
-                ? thisState.weight.nettTIme
+              thisState.weight.nettTime !== null
+                ? thisState.weight.nettTime
                 : ""
             }
             onChange={event => {
-              thisState.weight.nettTIme = event.target.value;
+              thisState.weight.nettTime = event.target.value;
               thisState.setMyState(thisState);
             }}
           />

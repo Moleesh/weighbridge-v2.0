@@ -20,22 +20,7 @@ const NavBar = props => {
         <Tab eventKey="weighing" title="Weighing">
           <Weighing preState={thisState} />
         </Tab>
-        <Tab
-          eventKey="report"
-          title="Report"
-          onEntered={() => {
-            fetch(thisState.INITIAL_URL + "/getAllWeight")
-              .then(response => {
-                if (response.status === 200) {
-                  return response.json();
-                } else throw Error(response.statusText);
-              })
-              .then(result => {
-                console.log(result);
-              })
-              .catch(error => {});
-          }}
-        >
+        <Tab eventKey="report" title="Report" onEntered={() => {}}>
           <Report preState={thisState} />
         </Tab>
         <Tab eventKey="configuration" title="Configuration">

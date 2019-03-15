@@ -2,7 +2,7 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Moment from "moment";
+import moment from "moment";
 import RePrint from "./bottom/rePrint";
 
 const Bottom = props => {
@@ -28,7 +28,7 @@ const Bottom = props => {
             thisState.weighing.disable.getWeightDisabled = true;
             thisState.weighing.disable.saveDisabled = false;
 
-            let date = Moment().format("DD-MM-YYYY HH:mm:ss");
+            let date = moment().format("DD-MM-YYYY HH:mm:ss");
 
             if (thisState.weighing.grossSelector) {
               thisState.weight.grossWeight = thisState.weighing.weight;
@@ -48,8 +48,8 @@ const Bottom = props => {
 
             if ((total > 0) & (thisState.weight.tareWeight > 0)) {
               thisState.weight.nettWeight = total;
-              thisState.weight.nettTIme = date;
             }
+            thisState.weight.nettTime = date;
             thisState
               .setMyState(thisState)
               .then(() =>
@@ -182,7 +182,7 @@ const Bottom = props => {
                 thisState.weight.tareWeight = "";
                 thisState.weight.tareTime = "";
                 thisState.weight.nettWeight = "";
-                thisState.weight.nettTIme = "";
+                thisState.weight.nettTime = "";
                 thisState.weight.charges = "";
                 thisState.weight.remarks = "";
                 thisState
@@ -248,7 +248,7 @@ const Bottom = props => {
                 thisState.weight.tareWeight = "";
                 thisState.weight.tareTime = "";
                 thisState.weight.nettWeight = "";
-                thisState.weight.nettTIme = "";
+                thisState.weight.nettTime = "";
                 thisState.weight.charges = "";
                 thisState.weight.remarks = "";
                 thisState

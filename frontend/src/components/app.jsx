@@ -95,7 +95,7 @@ class App extends Component {
       tareWeight: "",
       tareTime: "",
       nettWeight: "",
-      nettTIme: "",
+      nettTime: "",
       charges: "",
       remarks: "",
       manual: false
@@ -113,7 +113,7 @@ class App extends Component {
         tareWeight: "Tare Weight",
         tareTime: "Tare Time",
         nettWeight: "Nett Weight",
-        nettTIme: "Nett Time",
+        nettTime: "Nett Time",
         charges: "Charges",
         remarks: "Remarks"
       },
@@ -129,36 +129,25 @@ class App extends Component {
         tareWeight: true,
         tareTime: false,
         nettWeight: true,
-        nettTIme: false,
+        nettTime: true,
         charges: true,
         remarks: false,
         manual: false
       },
-      reportSelect: "Full",
-      startDate: moment()
-        .startOf("day")
-        .toDate(),
-      endDate: moment()
-        .endOf("day")
-        .toDate(),
-      list: [
-        {
-          slipNo: "1",
-          vehicleNo: "asd",
-          material: "asd",
-          customersName: "asdas",
-          transporterName: "asd",
-          grossWeight: "a",
-          grossTime: "asd",
-          tareWeight: "asd",
-          tareTime: "asd",
-          nettWeight: "asd",
-          nettTIme: "as",
-          charges: "add",
-          remarks: "asdas",
-          manual: false
-        }
-      ]
+      reportSelect: "Daily",
+      date: {
+        start: moment()
+          .startOf("day")
+          .toDate(),
+        end: moment()
+          .endOf("day")
+          .toDate()
+      },
+      dateDisabled: true,
+      inputLabel: "",
+      input: "",
+      inputDisabled: true,
+      list: []
     },
     alerts: [],
     toggleActive: false
