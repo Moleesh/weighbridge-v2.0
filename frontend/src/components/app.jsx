@@ -23,7 +23,7 @@ class App extends Component {
         header: ["Material Id", "Material Name"],
         filterText: "",
         template: { materialId: "", material: "" },
-        list: [{ materialId: "DEV", material: "JISH" },{ materialId: "MOL", material: "EESH" }],
+        list: [],
         editable: true,
         unlock: false
       },
@@ -147,35 +147,7 @@ class App extends Component {
       inputLabel: "",
       input: "",
       inputDisabled: true,
-      list: [{
-        slipNo: "Slip No",
-        vehicleNo: "Vehicle No",
-        material: "Material",
-        customersName: "Customer Name",
-        transporterName: "Transporter Name",
-        grossWeight: "Gross Weight",
-        grossTime: "Gross Time",
-        tareWeight: "Tare Weight",
-        tareTime: "Tare Time",
-        nettWeight: "Nett Weight",
-        nettTime: "Nett Time",
-        charges: "Charges",
-        remarks: "Remarks"
-      },{
-        slipNo: "Slip No",
-        vehicleNo: "Vehicle No",
-        material: "Material",
-        customersName: "Customer Name",
-        transporterName: "Transporter Name",
-        grossWeight: "Gross Weight",
-        grossTime: "Gross Time",
-        tareWeight: "Tare Weight",
-        tareTime: "Tare Time",
-        nettWeight: "Nett Weight",
-        nettTime: "Nett Time",
-        charges: "Charges",
-        remarks: "Remarks"
-      }]
+      list: []
     },
     alerts: [],
     toggleActive: false
