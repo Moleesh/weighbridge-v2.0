@@ -30,7 +30,6 @@
     "build": "react-scripts build",
     "move": "node buildme.sh",
     "eject": "react-scripts eject",
-    "clean": "npm prune",
     "up": "npm --depth 9999 update"
   },
   "eslintConfig": {
