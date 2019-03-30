@@ -23,7 +23,7 @@
     "react-dom": "^16.8.6",
     "react-live-clock": "^3.1.0",
     "react-scripts": "^2.1.8",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.4.1"
   },
   "scripts": {
     "start": "react-scripts start fast-live-reload",

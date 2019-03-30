@@ -13,7 +13,7 @@ const NavBar = props => {
       <Tabs
         justify
         variant="tabs"
-        defaultActiveKey="report"
+        defaultActiveKey="Setting"
         // defaultActiveKey="weighing"
         className="mt-1 h5 py-2 pb-1"
       >
