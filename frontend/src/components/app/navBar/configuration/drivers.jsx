@@ -120,7 +120,9 @@ const Drivers = props => {
         <thead>
           <tr>
             {thisState.configuration.drivers.header.map(item => (
-              <th key={item}>{item}</th>
+              <th key={item} className="centre">
+                {item}
+              </th>
             ))}
             {thisState.configuration.drivers.unlock ? <th /> : null}
           </tr>
@@ -141,11 +143,11 @@ const Drivers = props => {
                         <Col>
                           <Form.Control
                             autoComplete="off"
-                            className="text-center form-control"
+                            className="text-center form-control reportInputs"
                             disabled={
                               !(
-                                thisState.configuration.tareWeight.unlock &
-                                thisState.configuration.tareWeight.editable
+                                thisState.configuration.material.unlock &
+                                thisState.configuration.material.editable
                               )
                             }
                             type="text"

@@ -3,9 +3,6 @@ body {
     color: black;
 }
 
-input[type="text"]:disabled {
-    background-color: #5ab15291;
-}
 
 .tab-content {
     font-weight: 500;
@@ -85,15 +82,20 @@ input {
     border: 1px solid #9c27b0;
 }
 
-.contentCenter{
+.contentCenter {
     text-align: center;
 }
-.reportInputs{
-    border: 1px solid #ced4da00 !important; 
-    background-color: transparent !important; 
+
+.reportInputs:disabled {
+    border: 1px solid #ced4da00 !important;
+    background-color: transparent !important;
 }
 
-.disbleBG{
+.disbleBG {
     background-color: #e9ecef !important;
     color: black;
+}
+
+.table thead th {
+    text-align: center;
 }

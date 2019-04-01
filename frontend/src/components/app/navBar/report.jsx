@@ -194,7 +194,7 @@ const Report = props => {
             </Form.Label>
             <Col sm="6">
               <Form.Control
-                className="text-center"
+                className="text-center reportInputs"
                 value={thisState.report.input}
                 onChange={event => {
                   thisState.report.input = event.target.value;
@@ -293,9 +293,12 @@ const Report = props => {
                     {Object.keys(item)
                       .filter(key => thisState.report.filter[key])
                       .map(key => (
-                        <td key={key + "" + item[key]} className="contentCenter">
+                        <td
+                          key={key + "" + item[key]}
+                          className="contentCenter"
+                        >
                           <Col>
-                          {/* {item[key] !== null ? item[key] : ""} */}
+                            {/* {item[key] !== null ? item[key] : ""} */}
                             <Form.Control
                               autoComplete="off"
                               className="text-center form-control reportInputs"

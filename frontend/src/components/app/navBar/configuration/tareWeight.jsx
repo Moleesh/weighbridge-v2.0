@@ -42,7 +42,8 @@ const TareWeight = props => {
           }}
         />
       </Form.Group>
-      {thisState.configuration.tareWeight.unlock ? (
+      {thisState.configuration.tareWeight.unlock &
+      thisState.configuration.tareWeight.editable ? (
         <Form.Row>
           {Object.keys(thisState.configuration.tareWeight.template).map(key => (
             <Col className="pb-2" key={key}>
@@ -143,7 +144,7 @@ const TareWeight = props => {
                         <Col>
                           <Form.Control
                             autoComplete="off"
-                            className="text-center form-control"
+                            className="text-center form-control reportInputs"
                             disabled={
                               !(
                                 thisState.configuration.tareWeight.unlock &

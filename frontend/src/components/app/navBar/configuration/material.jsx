@@ -123,7 +123,9 @@ const Material = props => {
         <thead>
           <tr>
             {thisState.configuration.material.header.map(item => (
-              <th key={item}>{item}</th>
+              <th key={item} className="justify-content-center">
+                {item}
+              </th>
             ))}
             {thisState.configuration.material.unlock ? <th /> : null}
           </tr>
@@ -144,11 +146,11 @@ const Material = props => {
                         <Col>
                           <Form.Control
                             autoComplete="off"
-                            className="text-center form-control"
+                            className="text-center form-control reportInputs"
                             disabled={
                               !(
-                                thisState.configuration.tareWeight.unlock &
-                                thisState.configuration.tareWeight.editable
+                                thisState.configuration.material.unlock &
+                                thisState.configuration.material.editable
                               )
                             }
                             type="text"
