@@ -152,7 +152,7 @@ const Drivers = props => {
                             }
                             type="text"
                             name={key}
-                            id={item["id"]}
+                            id={"driver_" + key + "_" + item["id"]}
                             value={item[key] !== null ? item[key] : ""}
                             onChange={event => {
                               thisState.configuration.drivers.list[index][key] =

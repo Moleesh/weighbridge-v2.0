@@ -155,7 +155,7 @@ const Material = props => {
                             }
                             type="text"
                             name={key}
-                            id={item["id"]}
+                            id={"material_" + key + "_" + item["id"]}
                             value={item[key] !== null ? item[key] : ""}
                             onChange={event => {
                               thisState.configuration.material.list[index][

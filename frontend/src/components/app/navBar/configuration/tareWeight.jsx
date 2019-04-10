@@ -153,7 +153,7 @@ const TareWeight = props => {
                             }
                             type="text"
                             name={key}
-                            id={item["id"]}
+                            id={"tareWeight_" + key + "_" + item["id"]}
                             value={item[key] !== null ? item[key] : ""}
                             onChange={event => {
                               thisState.configuration.tareWeight.list[index][
