@@ -1,10 +1,10 @@
 import React from "react";
 import { Tabs, Tab } from "react-bootstrap";
-import Toggle from "react-bootstrap-toggle";
 
 import Weighing from "./navBar/weighing";
 import Configuration from "./navBar/configuration";
 import Report from "./navBar/report";
+import Settings from "./navBar/settings";
 
 const NavBar = props => {
   let thisState = props.preState;
@@ -13,7 +13,7 @@ const NavBar = props => {
       <Tabs
         justify
         variant="tabs"
-        defaultActiveKey="Setting"
+        defaultActiveKey="settings"
         // defaultActiveKey="weighing"
         className="mt-1 h5 py-2 pb-1"
       >
@@ -26,21 +26,8 @@ const NavBar = props => {
         <Tab eventKey="configuration" title="Configuration">
           <Configuration preState={thisState} />
         </Tab>
-        <Tab eventKey="setting" title="Setting">
-          <Toggle
-            onClick={
-              () => ""
-              // thisState.setMyState({
-              //   toggleActive: !thisState.toggleActive
-              // })
-            }
-            on="ON"
-            off="OFF"
-            size="lg"
-            offstyle="danger"
-            active={thisState.toggleActive}
-            recalculateOnResize={true}
-          />
+        <Tab eventKey="settings" title="Settings">
+          <Settings preState={thisState} />
         </Tab>
       </Tabs>
     </Tab.Container>
