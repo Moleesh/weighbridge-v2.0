@@ -149,6 +149,46 @@ class App extends Component {
       inputDisabled: true,
       list: []
     },
+    setting: {
+      value: {
+        weightbridgeName: "",
+        weighbridgeAddress: "",
+        footer: "",
+        printerName: "B",
+        noOfCopies: 3,
+        printFormat: "Monthly",
+        indicatorCOMPort: "COM1",
+        indicatorBaudRate: 1200,
+        indicatorDataBits: 8,
+        indicatorParity: "None",
+        indicatorStopBits: 1,
+        indicatorFlowControl: "Hardware"
+      },
+      Array: {
+        availablePrinters: ["A", "B"],
+        availablePrintFormat: ["A", "B"],
+        availableCOMPorts: ["COM1", "COM2"],
+        availableBaudRate: [
+          110,
+          300,
+          1200,
+          2400,
+          4800,
+          9600,
+          19200,
+          38400,
+          57600,
+          115200,
+          230400,
+          460800,
+          921600
+        ],
+        availableDataBits: [5, 6, 7, 8],
+        avaiableParity: ["Even", "Odd", "None", "Mark", "Space"],
+        avaiableStopBits: [1, 1.5, 2],
+        availableFlowControl: ["Xon/Xoff", "Hardware", "None"]
+      }
+    },
     alerts: [],
     toggleActive: false
   };

@@ -1,7 +1,7 @@
 import React from "react";
-import { Form, Col, Button, Table, Row } from "react-bootstrap";
+import { Form, Col, Row } from "react-bootstrap";
 
-const Settings = props => {
+const GenearalSettings = props => {
   let thisState = props.preState;
   return (
     <Form className="justify-content-center ">
@@ -10,32 +10,56 @@ const Settings = props => {
           <h4 className="text-center font-weight-bold">General Settings</h4>
         </Col>
       </Row>
-      <Form.Group as={Row} block>
+      <Form.Group as={Row}>
         <Form.Label column sm="3">
           Weighbridge Name
         </Form.Label>
         <Col sm="9">
-          <Form.Control />
+          <Form.Control
+            type="text"
+            autoComplete="off"
+            value={thisState.setting.value.weightbridgeName}
+            onChange={event => {
+              thisState.setting.value.weightbridgeName = event.target.value;
+              thisState.setMyState(thisState);
+            }}
+          />
         </Col>
       </Form.Group>
-      <Form.Group as={Row} block>
+      <Form.Group as={Row}>
         <Form.Label column sm="3">
           Weighbridge Address
         </Form.Label>
         <Col sm="9">
-          <Form.Control />
+          <Form.Control
+            type="text"
+            autoComplete="off"
+            value={thisState.setting.value.weighbridgeAddress}
+            onChange={event => {
+              thisState.setting.value.weighbridgeAddress = event.target.value;
+              thisState.setMyState(thisState);
+            }}
+          />
         </Col>
       </Form.Group>
-      <Form.Group as={Row} block>
+      <Form.Group as={Row}>
         <Form.Label column sm="3">
           Footer
         </Form.Label>
         <Col sm="9">
-          <Form.Control />
+          <Form.Control
+            type="text"
+            autoComplete="off"
+            value={thisState.setting.value.footer}
+            onChange={event => {
+              thisState.setting.value.footer = event.target.value;
+              thisState.setMyState(thisState);
+            }}
+          />
         </Col>
       </Form.Group>
     </Form>
   );
 };
 
-export default Settings;
+export default GenearalSettings;
