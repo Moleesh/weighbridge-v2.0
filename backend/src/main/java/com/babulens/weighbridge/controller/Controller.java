@@ -1,14 +1,10 @@
 package com.babulens.weighbridge.controller;
 
 import com.babulens.weighbridge.model.*;
-import com.babulens.weighbridge.service.DriversService;
-import com.babulens.weighbridge.service.MaterialService;
-import com.babulens.weighbridge.service.TareWeightService;
-import com.babulens.weighbridge.service.WeighService;
+import com.babulens.weighbridge.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -27,6 +23,9 @@ public class Controller {
 
     @Autowired
     TareWeightService tareWeightService;
+
+    @Autowired
+    SettingsService settingsService;
 
     int count =1;
     @RequestMapping(value = "/getNextSlipNo")
@@ -95,5 +94,15 @@ public class Controller {
     @RequestMapping(value = "/deleteTareWeight", method = {RequestMethod.DELETE})
     public void deleteTareWeight(@RequestParam("id") int id) {
         tareWeightService.deleteTareWeight(id);
+    }
+
+    @RequestMapping(value = "/getAllSettings", method = {RequestMethod.GET})
+    public List<Settings> getAllSettings() {
+        return settingsService.getAllSettings();
+    }
+
+    @RequestMapping(value = "/saveAllSettings", method = {RequestMethod.PUT})
+    public void saveAllSettings(@RequestParam("Settings") List<Settings> settings) {
+        settingsService.saveAllSettings(settings);
     }
 }

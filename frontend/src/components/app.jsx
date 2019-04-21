@@ -28,9 +28,19 @@ class App extends Component {
         unlock: false
       },
       drivers: {
-        header: ["Vehicle No", "Customer's Name", "Transporter's Name"],
+        header: [
+          "Customer Id",
+          "Vehicle No",
+          "Customer's Name",
+          "Transporter's Name"
+        ],
         filterText: "",
-        template: { vehicleNo: "", customerName: "", transporterName: "" },
+        template: {
+          customerId: "",
+          vehicleNo: "",
+          customerName: "",
+          transporterName: ""
+        },
         list: [],
         editable: true,
         unlock: false
@@ -52,6 +62,8 @@ class App extends Component {
       tareSelector: false,
       reprint: false,
       reprintSlipNo: "",
+      customersId: "",
+      materialId: "",
       reference: {
         vehicleNoReference: React.createRef(),
         materialReference: {
@@ -68,7 +80,9 @@ class App extends Component {
         printReference: React.createRef(),
         rePrintReference: React.createRef(),
         rePrintFieldReference: React.createRef(),
-        rePrintButtonReference: React.createRef()
+        rePrintButtonReference: React.createRef(),
+        customersIdReference: React.createRef(),
+        materialIdReference: React.createRef()
       },
       disable: {
         grossSelectorDisabled: false,
@@ -81,7 +95,9 @@ class App extends Component {
         remarksDisabled: false,
         getWeightDisabled: false,
         saveDisabled: true,
-        printDisabled: true
+        printDisabled: true,
+        customersIdDisabled: true,
+        materialIdDisabled: true
       }
     },
     weight: {
@@ -190,7 +206,7 @@ class App extends Component {
       }
     },
     alerts: [],
-    toggleActive: false
+    automation: false
   };
 
   componentDidMount() {

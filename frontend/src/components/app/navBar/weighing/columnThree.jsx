@@ -12,26 +12,34 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            // disabled={thisState.weighing.disable.customersNameDisabled}
-            // ref={thisState.weighing.reference.customersNameReference}
-            // value={thisState.weight.customersName}
-            // onChange={event => {
-            //   thisState.weight.customersName = event.target.value;
-            //   thisState.setMyState(thisState);
-            // }}
-            // onKeyDown={event => {
-            //   if (event.keyCode === 9 && event.shiftKey)
-            //     thisState.weighing.reference.materialReference.reference.current.focus();
-            //   else if ((event.keyCode === 13) | (event.keyCode === 9)) {
-            //     thisState.weight.customersName = thisState.weight.customersName
-            //       .toLowerCase()
-            //       .split(" ")
-            //       .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-            //       .join(" ");
-            //     thisState.setMyState(thisState);
-            //     thisState.weighing.reference.transporterNameReference.current.focus();
-            //   }
-            // }}
+            disabled={thisState.weighing.disable.customersIdDisabled}
+            ref={thisState.weighing.reference.customersIdReference}
+            value={thisState.weighing.customersId}
+            onChange={event => {
+              thisState.weighing.customersId = event.target.value;
+              thisState.setMyState(thisState);
+            }}
+            onKeyDown={event => {
+              if ((event.keyCode === 13) | (event.keyCode === 9)) {
+                let driver = thisState.configuration.drivers.list.filter(
+                  item =>
+                    parseInt(item.customerId) ===
+                    parseInt(thisState.weighing.customersId)
+                )[0];
+                if (driver !== undefined) {
+                  thisState.weight.transporterName = driver.transporterName;
+                  thisState.weight.vehicleNo = driver.vehicleNo;
+                  thisState.weight.customersName = driver.customerName;
+                } else {
+                  thisState.weight.transporterName = "";
+                  thisState.weight.vehicleNo = "";
+                  thisState.weight.customersName = "";
+                }
+                thisState.setMyState(thisState);
+
+                thisState.weighing.reference.materialIdReference.current.focus();
+              }
+            }}
           />
         </Col>
       </Form.Group>
@@ -42,26 +50,20 @@ const ColumnThree = props => {
         <Col sm="6">
           <Form.Control
             className="text-center"
-            // disabled={thisState.weighing.disable.transporterNameDisabled}
-            // ref={thisState.weighing.reference.transporterNameReference}
-            // value={thisState.weight.transporterName}
-            // onChange={event => {
-            //   thisState.weight.transporterName = event.target.value;
-            //   thisState.setMyState(thisState);
-            // }}
-            // onKeyDown={event => {
-            //   if (event.keyCode === 9 && event.shiftKey)
-            //     thisState.weighing.reference.customersNameReference.current.focus();
-            //   else if ((event.keyCode === 13) | (event.keyCode === 9)) {
-            //     thisState.weight.transporterName = thisState.weight.transporterName
-            //       .toLowerCase()
-            //       .split(" ")
-            //       .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-            //       .join(" ");
-            //     thisState.setMyState(thisState);
-            //     thisState.weighing.reference.chargesReference.current.focus();
-            //   }
-            // }}
+            disabled={thisState.weighing.disable.materialIdDisabled}
+            ref={thisState.weighing.reference.materialIdReference}
+            value={thisState.weight.materialId}
+            onChange={event => {
+              thisState.weight.materialId = event.target.value;
+              thisState.setMyState(thisState);
+            }}
+            onKeyDown={event => {
+              if (event.keyCode === 9 && event.shiftKey)
+                thisState.weighing.reference.customersIdReference.current.focus();
+              else if ((event.keyCode === 13) | (event.keyCode === 9)) {
+                thisState.weighing.reference.customersIdReference.current.focus();
+              }
+            }}
           />
         </Col>
       </Form.Group>
@@ -82,7 +84,7 @@ const ColumnThree = props => {
           />
         </Col>
         <Col sm="6">
-          <Button className="adam-button" variant="primary" block disabled>
+          <Button className="adam-button none" variant="primary" block disabled>
             Get Gross Details
           </Button>
         </Col>
@@ -104,7 +106,7 @@ const ColumnThree = props => {
           />
         </Col>
         <Col sm="6">
-          <Button className="adam-button" variant="primary" block disabled>
+          <Button className="adam-button none" variant="primary" block disabled>
             Get Tare Details
           </Button>
         </Col>
@@ -126,7 +128,7 @@ const ColumnThree = props => {
           />
         </Col>
         <Col sm="6">
-          <Button className="adam-button" variant="primary" block disabled>
+          <Button className="adam-button none" variant="primary" block disabled>
             Total
           </Button>
         </Col>

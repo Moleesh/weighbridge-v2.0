@@ -1,12 +1,13 @@
 package com.babulens.weighbridge.service;
 
-public class SettingsService {
-    private static SettingsService ourInstance = new SettingsService();
+import com.babulens.weighbridge.model.Settings;
 
-    public static SettingsService getInstance() {
-        return ourInstance;
-    }
+import java.util.List;
 
-    private SettingsService() {
-    }
+
+public interface SettingsService {
+
+    List<Settings> getAllSettings();
+
+    List<Settings> saveAllSettings(List<Settings> settings);
 }

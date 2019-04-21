@@ -156,3 +156,12 @@ input {
     background-color: #fff;
     border-color: #ccc;
 }
+
+.none {
+    display: none;
+}
+.form-control:disabled,
+.form-control[readonly] {
+    color: black;
+    font-weight: 600;
+}

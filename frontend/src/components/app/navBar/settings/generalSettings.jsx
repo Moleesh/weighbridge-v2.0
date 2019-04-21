@@ -4,7 +4,7 @@ import { Form, Col, Row } from "react-bootstrap";
 const GenearalSettings = props => {
   let thisState = props.preState;
   return (
-    <Form className="justify-content-center ">
+    <Form>
       <Row className="pb-5">
         <Col>
           <h4 className="text-center font-weight-bold">General Settings</h4>

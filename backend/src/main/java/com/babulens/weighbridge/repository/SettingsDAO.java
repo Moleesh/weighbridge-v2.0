@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SettingsDAO extends CrudRepository<Settings, Integer> {
+public interface SettingsDAO extends CrudRepository<Settings, String> {
 }

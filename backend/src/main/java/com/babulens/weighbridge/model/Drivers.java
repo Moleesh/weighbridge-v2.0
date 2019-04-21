@@ -11,6 +11,7 @@ public class Drivers {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+    private int customerId;
     private String vehicleNo;
     private String customerName;
     private String transporterName;
@@ -18,7 +19,8 @@ public class Drivers {
     public Drivers() {
     }
 
-    public Drivers(String vehicleNo, String customerName, String transporterName) {
+    public Drivers(int customerId, String vehicleNo, String customerName, String transporterName) {
+        this.customerId = customerId;
         this.vehicleNo = vehicleNo;
         this.customerName = customerName;
         this.transporterName = transporterName;
@@ -30,6 +32,14 @@ public class Drivers {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getVehicleNo() {
@@ -73,6 +83,7 @@ public class Drivers {
     public String toString() {
         return "Drivers{" +
                 "id=" + id +
+                ", customerId=" + customerId +
                 ", vehicleNo='" + vehicleNo + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", transporterName='" + transporterName + '\'' +
