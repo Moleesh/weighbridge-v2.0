@@ -13,27 +13,45 @@ import java.util.List;
 public class Controller {
 
     @Autowired
+    private
     WeighService weighService;
 
     @Autowired
+    private
     MaterialService materialService;
 
     @Autowired
+    private
     DriversService driversService;
 
     @Autowired
+    private
     TareWeightService tareWeightService;
 
     @Autowired
+    private
     SettingsService settingsService;
 
-    int count =1;
-    @RequestMapping(value = "/getNextSlipNo")
-    public int getNextSlipNo() { return count ++;
-    }
+    private int count = 1;
 
     @RequestMapping(value = "/getNextWeight")
-    public int getNextWeight() { return (int)(Math.random() * 10000 + 1);
+    public static int getNextWeight() {
+        return (int) (Math.random() * 10000 + 1);
+    }
+
+    @RequestMapping(value = "/getTareWeight")
+    public TareWeight getTareWeight(@RequestParam("vehicleNo") String vehicleNo) {
+        return tareWeightService.getTareWeight(vehicleNo);
+    }
+
+    @RequestMapping(value = "/getGrossWeight")
+    public TareWeight getGrossWeight(@RequestParam("vehicleNo") String vehicleNo) {
+        return weighService.getGrossWeight(vehicleNo);
+    }
+
+    @RequestMapping(value = "/getNextSlipNo")
+    public int getNextSlipNo() {
+        return count++;
     }
 
     @RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})

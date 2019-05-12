@@ -1,4 +1,6 @@
 import React from "react";
+import moment from "moment";
+
 import { Form, Col, Row, Button } from "react-bootstrap";
 
 const ColumnThree = props => {
@@ -52,16 +54,146 @@ const ColumnThree = props => {
             className="text-center"
             disabled={thisState.weighing.disable.materialIdDisabled}
             ref={thisState.weighing.reference.materialIdReference}
-            value={thisState.weight.materialId}
+            value={thisState.weighing.materialId}
             onChange={event => {
-              thisState.weight.materialId = event.target.value;
+              thisState.weighing.materialId = event.target.value;
               thisState.setMyState(thisState);
             }}
-            onKeyDown={event => {
+            onKeyDown={async event => {
               if (event.keyCode === 9 && event.shiftKey)
                 thisState.weighing.reference.customersIdReference.current.focus();
               else if ((event.keyCode === 13) | (event.keyCode === 9)) {
-                thisState.weighing.reference.customersIdReference.current.focus();
+                let material = thisState.configuration.material.list.filter(
+                  item =>
+                    parseInt(item.materialId) ===
+                    parseInt(thisState.weighing.materialId)
+                )[0];
+                if (material !== undefined) {
+                  thisState.weighing.reference.materialReference.value = [
+                    { material: material.material }
+                  ];
+                  thisState.weight.material = material.material;
+                  if (material.material === "EMPTY") {
+                    thisState.weighing.grossSelector = false;
+                    thisState.weighing.tareSelector = true;
+                  }
+                } else {
+                  thisState.weighing.reference.materialReference.value = [
+                    { material: "" }
+                  ];
+                  thisState.weight.material = "";
+                }
+                if (thisState.weighing.tareSelector) {
+                  await fetch(
+                    thisState.INITIAL_URL +
+                    "/getGrossWeight?vehicleNo=" +
+                    thisState.weight.vehicleNo
+                  )
+                    .then(response => {
+                      if (response.status === 200) {
+                        return response.json();
+                      } else throw Error(response.statusText);
+                    })
+                    .then(result => {
+                      thisState.weight.grossWeight = result.grossWeight;
+                      thisState.weight.grossTime = result.grossTime;
+                    })
+                    .catch(error => { });
+                } else {
+                  await fetch(
+                    thisState.INITIAL_URL +
+                    "/getTareWeight?vehicleNo=" +
+                    thisState.weight.vehicleNo
+                  )
+                    .then(response => {
+                      if (response.status === 200) {
+                        return response.json();
+                      } else throw Error(response.statusText);
+                    })
+                    .then(result => {
+                      thisState.weight.tareWeight = result.tareWeight;
+                      thisState.weight.tareTime = result.tareTime;
+                    })
+                    .catch(error => { });
+                }
+                let date = moment().format("DD-MM-YYYY HH:mm:ss");
+
+                if (thisState.weighing.grossSelector) {
+                  thisState.weight.grossWeight = thisState.weighing.weight;
+                  thisState.weight.grossTime = date;
+                } else {
+                  thisState.weight.tareWeight = thisState.weighing.weight;
+                  thisState.weight.tareTime = date;
+                }
+
+                let total =
+                  ((
+                    ("0" + thisState.weight.grossWeight).match("[0-9]+") || []
+                  ).pop() || "") -
+                  ((
+                    ("0" + thisState.weight.tareWeight).match("[0-9]+") || []
+                  ).pop() || "");
+
+                if ((total > 0) & (thisState.weight.tareWeight > 0)) {
+                  thisState.weight.nettWeight = total;
+                }
+                thisState.weight.nettTime = date;
+                fetch(thisState.INITIAL_URL + "/saveWeight", {
+                  method: "POST",
+                  body: JSON.stringify(thisState.weight),
+                  headers: { "content-type": "application/json" }
+                })
+                  .then(response => {
+                    if (response.status === 200) {
+                      fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+                        .then(response => {
+                          if (response.status === 200) {
+                            return response.json();
+                          } else throw Error(response.statusText);
+                        })
+                        .then(result => {
+                          return result;
+                        })
+                        .catch(error => {
+                          return -1;
+                        })
+                        .then(result => {
+                          thisState.weight.slipNo = result;
+                          thisState.weight.vehicleNo = "";
+                          thisState.weight.customersName = "";
+                          thisState.weight.transporterName = "";
+                          thisState.weight.material = "";
+                          thisState.weighing.customersId = "";
+                          thisState.weighing.materialId = "";
+                          thisState.weighing.reference.materialReference.value = [
+                            { material: "" }
+                          ];
+                          thisState.weight.grossWeight = "";
+                          thisState.weight.grossTime = "";
+                          thisState.weight.tareWeight = "";
+                          thisState.weight.tareTime = "";
+                          thisState.weight.nettWeight = "";
+                          thisState.weight.nettTime = "";
+                          thisState.weight.charges = "";
+                          thisState.weight.remarks = "";
+                          thisState.weighing.grossSelector = true;
+                          thisState.weighing.tareSelector = false;
+                          thisState
+                            .setMyState(thisState)
+                            .then(() =>
+                              thisState.weighing.reference.vehicleNoReference.current.focus()
+                            );
+                        });
+
+                      thisState
+                        .setMyState(thisState)
+                        .then(() =>
+                          thisState.weighing.reference.customersIdReference.current.focus()
+                        );
+                    } else throw Error(response.statusText);
+                  })
+                  .catch(error => { });
+                thisState.setMyState(thisState);
               }
             }}
           />

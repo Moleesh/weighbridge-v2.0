@@ -13,7 +13,18 @@ import java.util.List;
 public class TareWeightServiceImpl implements TareWeightService {
 
     @Autowired
+    private
     TareWeightDAO tareWeightDAO;
+
+    @Override
+    public TareWeight getTareWeight(String vehicleNo) {
+        List<TareWeight> tareWeightList = getTareByVehicleNo(vehicleNo);
+        if (tareWeightList.isEmpty()) {
+            return new TareWeight();
+        } else {
+            return tareWeightList.get(0);
+        }
+    }
 
     @Override
     public List<TareWeight> getAllTareWeight() {
@@ -28,5 +39,10 @@ public class TareWeightServiceImpl implements TareWeightService {
     @Override
     public void deleteTareWeight(int id) {
         tareWeightDAO.deleteById(id);
+    }
+
+    @Override
+    public List<TareWeight> getTareByVehicleNo(String vehicleNo) {
+        return tareWeightDAO.findByVehicleNo(vehicleNo);
     }
 }

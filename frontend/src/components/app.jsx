@@ -237,7 +237,7 @@ class App extends Component {
         thisState.configuration.material.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+      .catch(error => { });
     fetch(INITIAL_URL + "/getAllDrivers")
       .then(response => {
         if (response.status === 200) {
@@ -249,7 +249,7 @@ class App extends Component {
         thisState.configuration.drivers.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+      .catch(error => { });
     fetch(INITIAL_URL + "/getAllTareWeight")
       .then(response => {
         if (response.status === 200) {
@@ -261,7 +261,7 @@ class App extends Component {
         thisState.configuration.tareWeight.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+      .catch(error => { });
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
         .then(response => {

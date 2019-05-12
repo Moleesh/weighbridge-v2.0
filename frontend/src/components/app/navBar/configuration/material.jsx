@@ -99,7 +99,7 @@ const Material = props => {
                         thisState.setMyState(thisState);
                       });
                     })
-                    .catch(error => {});
+                    .catch(error => { });
                 else {
                   thisState.alerts.push({
                     id: new Date().getTime(),
@@ -117,8 +117,8 @@ const Material = props => {
           </Col>
         </Form.Row>
       ) : (
-        ""
-      )}
+          ""
+        )}
       <Table hover size="sm">
         <thead>
           <tr>
@@ -137,108 +137,108 @@ const Material = props => {
                 .toString()
                 .replace(",", ".")
                 .indexOf(thisState.configuration.material.filterText) ===
-              -1 ? null : (
-                <React.Fragment>
-                  {Object.keys(item)
-                    .filter(key => key !== "id")
-                    .map(key => (
-                      <td key={key + "" + item[key]}>
-                        <Col>
-                          <Form.Control
-                            autoComplete="off"
-                            className="text-center form-control reportInputs"
-                            disabled={
-                              !(
-                                thisState.configuration.material.unlock &
-                                thisState.configuration.material.editable
-                              )
-                            }
-                            type="text"
-                            name={key}
-                            id={"material_" + key + "_" + item["id"]}
-                            value={item[key] !== null ? item[key] : ""}
-                            onChange={event => {
-                              thisState.configuration.material.list[index][
-                                key
-                              ] = event.target.value;
-                              thisState.setMyState(thisState);
-                            }}
-                          />
-                        </Col>
-                      </td>
-                    ))}
-                  {thisState.configuration.material.unlock ? (
-                    <td>
-                      <Row>
-                        {thisState.configuration.material.editable ? (
+                -1 ? null : (
+                  <React.Fragment>
+                    {Object.keys(item)
+                      .filter(key => key !== "id")
+                      .map(key => (
+                        <td key={key + "" + item[key]}>
+                          <Col>
+                            <Form.Control
+                              autoComplete="off"
+                              className="text-center form-control reportInputs"
+                              disabled={
+                                !(
+                                  thisState.configuration.material.unlock &
+                                  thisState.configuration.material.editable
+                                )
+                              }
+                              type="text"
+                              name={key}
+                              id={"material_" + key + "_" + item["id"]}
+                              value={item[key] !== null ? item[key] : ""}
+                              onChange={event => {
+                                thisState.configuration.material.list[index][
+                                  key
+                                ] = event.target.value;
+                                thisState.setMyState(thisState);
+                              }}
+                            />
+                          </Col>
+                        </td>
+                      ))}
+                    {thisState.configuration.material.unlock ? (
+                      <td>
+                        <Row>
+                          {thisState.configuration.material.editable ? (
+                            <Col>
+                              <Button
+                                block
+                                variant="warning"
+                                onClick={() => {
+                                  fetch(
+                                    thisState.INITIAL_URL + "/addUpdateMaterial",
+                                    {
+                                      method: "PUT",
+                                      body: JSON.stringify(
+                                        thisState.configuration.material.list[
+                                        index
+                                        ]
+                                      ),
+                                      headers: {
+                                        "content-type": "application/json"
+                                      }
+                                    }
+                                  )
+                                    .then(response => {
+                                      if (response.status === 200) {
+                                        return response.json();
+                                      } else throw Error(response.statusText);
+                                    })
+                                    .then(result => { })
+                                    .catch(error => { });
+                                }}
+                              >
+                                Update
+                            </Button>
+                            </Col>
+                          ) : (
+                              ""
+                            )}
                           <Col>
                             <Button
                               block
-                              variant="warning"
+                              variant="danger"
                               onClick={() => {
                                 fetch(
-                                  thisState.INITIAL_URL + "/addUpdateMaterial",
+                                  thisState.INITIAL_URL +
+                                  "/deleteMaterial?id=" +
+                                  thisState.configuration.material.list[index]
+                                    .id,
                                   {
-                                    method: "PUT",
-                                    body: JSON.stringify(
-                                      thisState.configuration.material.list[
-                                        index
-                                      ]
-                                    ),
-                                    headers: {
-                                      "content-type": "application/json"
-                                    }
+                                    method: "DELETE"
                                   }
                                 )
                                   .then(response => {
                                     if (response.status === 200) {
-                                      return response.json();
+                                      thisState.configuration.material.list.splice(
+                                        index,
+                                        1
+                                      );
+                                      thisState.setMyState(thisState);
                                     } else throw Error(response.statusText);
                                   })
-                                  .then(result => {})
-                                  .catch(error => {});
+                                  .catch(error => { });
                               }}
                             >
-                              Update
-                            </Button>
-                          </Col>
-                        ) : (
-                          ""
-                        )}
-                        <Col>
-                          <Button
-                            block
-                            variant="danger"
-                            onClick={() => {
-                              fetch(
-                                thisState.INITIAL_URL +
-                                  "/deleteMaterial?id=" +
-                                  thisState.configuration.material.list[index]
-                                    .id,
-                                {
-                                  method: "DELETE"
-                                }
-                              )
-                                .then(response => {
-                                  if (response.status === 200) {
-                                    thisState.configuration.material.list.splice(
-                                      index,
-                                      1
-                                    );
-                                    thisState.setMyState(thisState);
-                                  } else throw Error(response.statusText);
-                                })
-                                .catch(error => {});
-                            }}
-                          >
-                            Remove
+                              Remove
                           </Button>
-                        </Col>
-                      </Row>
-                    </td>
-                  ) : null}
-                </React.Fragment>
-              )}
+                          </Col>
+                        </Row>
+                      </td>
+                    ) : null}
+                  </React.Fragment>
+                )}
             </tr>
           ))}
         </tbody>

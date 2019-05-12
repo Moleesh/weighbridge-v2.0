@@ -231,7 +231,7 @@ const Report = props => {
                       thisState.report.list = result;
                       thisState.setMyState(thisState);
                     })
-                    .catch(error => {});
+                    .catch(error => { });
                 }}
               >
                 Go
@@ -289,31 +289,31 @@ const Report = props => {
                   .toString()
                   .replace(",", ".")
                   .indexOf(thisState.report.filterText) === -1 ? null : (
-                  <tr key={index} className="eachRow">
-                    {Object.keys(item)
-                      .filter(key => thisState.report.filter[key])
-                      .map(key => (
-                        <td
-                          key={key + "" + item[key]}
-                          className="contentCenter"
-                        >
-                          <Col>
-                            {/* {item[key] !== null ? item[key] : ""} */}
-                            <Form.Control
-                              autoComplete="off"
-                              className="text-center form-control reportInputs"
-                              disabled
-                              type="text"
-                              name={key}
-                              id={item["id"]}
-                              value={item[key] !== null ? item[key] : ""}
-                              onChange={event => {}}
-                            />
-                          </Col>
-                        </td>
-                      ))}
-                  </tr>
-                )
+                    <tr key={index} className="eachRow">
+                      {Object.keys(item)
+                        .filter(key => thisState.report.filter[key])
+                        .map(key => (
+                          <td
+                            key={key + "" + item[key]}
+                            className="contentCenter"
+                          >
+                            <Col>
+                              {/* {item[key] !== null ? item[key] : ""} */}
+                              <Form.Control
+                                autoComplete="off"
+                                className="text-center form-control reportInputs"
+                                disabled
+                                type="text"
+                                name={key}
+                                id={item["id"]}
+                                value={item[key] !== null ? item[key] : ""}
+                                onChange={event => { }}
+                              />
+                            </Col>
+                          </td>
+                        ))}
+                    </tr>
+                  )
               )}
             </tbody>
           </Table>

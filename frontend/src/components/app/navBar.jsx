@@ -20,7 +20,7 @@ const NavBar = props => {
         <Tab eventKey="weighing" title="Weighing">
           <Weighing preState={thisState} />
         </Tab>
-        <Tab eventKey="report" title="Report" onEntered={() => {}}>
+        <Tab eventKey="report" title="Report" onEntered={() => { }}>
           <Report preState={thisState} />
         </Tab>
         <Tab eventKey="configuration" title="Configuration">

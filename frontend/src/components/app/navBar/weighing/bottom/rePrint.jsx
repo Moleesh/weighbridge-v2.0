@@ -56,8 +56,8 @@ const RePrint = props => {
             if (thisState.weighing.reprintSlipNo !== "") {
               fetch(
                 thisState.INITIAL_URL +
-                  "/getWeight?slipNo=" +
-                  thisState.weighing.reprintSlipNo
+                "/getWeight?slipNo=" +
+                thisState.weighing.reprintSlipNo
               )
                 .then(response => {
                   if (response.status === 200) {

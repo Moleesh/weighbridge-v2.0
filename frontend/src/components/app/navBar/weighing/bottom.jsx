@@ -93,7 +93,7 @@ const Bottom = props => {
                     );
                 } else throw Error(response.statusText);
               })
-              .catch(error => {});
+              .catch(error => { });
           }}
           disabled={thisState.weighing.disable.saveDisabled}
           ref={thisState.weighing.reference.saveReference}
@@ -185,6 +185,8 @@ const Bottom = props => {
                 thisState.weight.nettTime = "";
                 thisState.weight.charges = "";
                 thisState.weight.remarks = "";
+                thisState.weighing.grossSelector = true;
+                thisState.weighing.tareSelector = false;
                 thisState
                   .setMyState(thisState)
                   .then(() =>
@@ -251,6 +253,8 @@ const Bottom = props => {
                 thisState.weight.nettTime = "";
                 thisState.weight.charges = "";
                 thisState.weight.remarks = "";
+                thisState.weighing.grossSelector = true;
+                thisState.weighing.tareSelector = false;
                 thisState
                   .setMyState(thisState)
                   .then(() =>

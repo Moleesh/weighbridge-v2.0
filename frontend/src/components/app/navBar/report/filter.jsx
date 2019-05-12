@@ -37,7 +37,7 @@ const Filter = props => {
                     ];
                     thisState.setMyState(thisState);
                   }}
-                  onChange={() => {}}
+                  onChange={() => { }}
                   label={thisState.report.header[key]}
                 />
               </Form.Group>

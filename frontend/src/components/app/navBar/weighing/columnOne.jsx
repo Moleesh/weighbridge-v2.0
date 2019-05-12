@@ -18,14 +18,13 @@ const ColumnOne = props => {
             thisState.weighing.grossSelector = true;
             thisState.weighing.tareSelector = false;
             thisState.weight.material = "";
-            thisState.weight.material = "";
             thisState.weighing.disable.materialDisabled = false;
             thisState.weighing.reference.materialReference.value = [
               { material: "" }
             ];
             thisState.setMyState(thisState);
           }}
-          onChange={event => {}}
+          onChange={event => { }}
           disabled={thisState.weighing.disable.grossSelectorDisabled}
         />
       </Form.Group>
@@ -46,7 +45,7 @@ const ColumnOne = props => {
             thisState.weighing.disable.materialDisabled = true;
             thisState.setMyState(thisState);
           }}
-          onChange={event => {}}
+          onChange={event => { }}
           disabled={thisState.weighing.disable.tareSelectorDisabled}
         />
       </Form.Group>
@@ -90,12 +89,46 @@ const ColumnOne = props => {
               thisState.weight.vehicleNo = event.target.value;
               thisState.setMyState(thisState);
             }}
-            onKeyDown={event => {
+            onKeyDown={async event => {
               if (event.keyCode === 9 && event.shiftKey);
               else if ((event.keyCode === 13) | (event.keyCode === 9)) {
                 thisState.weight.vehicleNo = thisState.weight.vehicleNo
                   .toUpperCase()
                   .replace(" ", "");
+                if (thisState.weighing.tareSelector) {
+                  await fetch(
+                    thisState.INITIAL_URL +
+                    "/getGrossWeight?vehicleNo=" +
+                    thisState.weight.vehicleNo
+                  )
+                    .then(response => {
+                      if (response.status === 200) {
+                        return response.json();
+                      } else throw Error(response.statusText);
+                    })
+                    .then(result => {
+                      thisState.weight.grossWeight = result.grossWeight;
+                      thisState.weight.grossTime = result.grossTime;
+                    })
+                    .catch(error => { });
+                } else {
+                  await fetch(
+                    thisState.INITIAL_URL +
+                    "/getTareWeight?vehicleNo=" +
+                    thisState.weight.vehicleNo
+                  )
+                    .then(response => {
+                      if (response.status === 200) {
+                        return response.json();
+                      } else throw Error(response.statusText);
+                    })
+                    .then(result => {
+                      thisState.weight.tareWeight = result.tareWeight;
+                      thisState.weight.tareTime = result.tareTime;
+                    })
+                    .catch(error => { });
+                }
+
                 thisState.setMyState(thisState);
                 !thisState.weighing.disable.materialDisabled
                   ? thisState.weighing.reference.materialReference.reference.current.focus()
@@ -141,12 +174,12 @@ const ColumnOne = props => {
               thisState.weighing.reference.materialReference.value =
                 event.length === 0
                   ? [
-                      {
-                        material: thisState.weighing.reference.materialReference.reference.current
-                          .getInstance()
-                          .getInput().value
-                      }
-                    ]
+                    {
+                      material: thisState.weighing.reference.materialReference.reference.current
+                        .getInstance()
+                        .getInput().value
+                    }
+                  ]
                   : event;
               thisState.weight.material =
                 thisState.weighing.reference.materialReference.value[0].material;
