@@ -23,7 +23,7 @@ const DisplaySettings = props => {
               thisState.setMyState(thisState);
             }}
           >
-            {thisState.setting.Array.availableCOMPorts.map((item, index) => (
+            {thisState.setting.array.availableCOMPorts.map((item, index) => (
               <option value={item}>{item}</option>
             ))}
           </Form.Control>
@@ -42,7 +42,7 @@ const DisplaySettings = props => {
               thisState.setMyState(thisState);
             }}
           >
-            {thisState.setting.Array.availableBaudRate.map((item, index) => (
+            {thisState.setting.array.availableBaudRate.map((item, index) => (
               <option value={item}>{item}</option>
             ))}
           </Form.Control>
@@ -61,7 +61,7 @@ const DisplaySettings = props => {
               thisState.setMyState(thisState);
             }}
           >
-            {thisState.setting.Array.availableDataBits.map((item, index) => (
+            {thisState.setting.array.availableDataBits.map((item, index) => (
               <option value={item}>{item}</option>
             ))}
           </Form.Control>
@@ -80,7 +80,7 @@ const DisplaySettings = props => {
               thisState.setMyState(thisState);
             }}
           >
-            {thisState.setting.Array.avaiableParity.map((item, index) => (
+            {thisState.setting.array.avaiableParity.map((item, index) => (
               <option value={item}>{item}</option>
             ))}
           </Form.Control>
@@ -99,7 +99,7 @@ const DisplaySettings = props => {
               thisState.setMyState(thisState);
             }}
           >
-            {thisState.setting.Array.avaiableStopBits.map((item, index) => (
+            {thisState.setting.array.avaiableStopBits.map((item, index) => (
               <option value={item}>{item}</option>
             ))}
           </Form.Control>
@@ -118,7 +118,7 @@ const DisplaySettings = props => {
               thisState.setMyState(thisState);
             }}
           >
-            {thisState.setting.Array.availableFlowControl.map((item, index) => (
+            {thisState.setting.array.availableFlowControl.map((item, index) => (
               <option value={item}>{item}</option>
             ))}
           </Form.Control>
