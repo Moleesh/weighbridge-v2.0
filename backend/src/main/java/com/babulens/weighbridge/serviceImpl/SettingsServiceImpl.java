@@ -13,7 +13,13 @@ import java.util.List;
 public class SettingsServiceImpl implements SettingsService {
 
     @Autowired
+    private
     SettingsDAO settingsDAO;
+
+    @Override
+    public Settings saveSettings(Settings settings) {
+        return settingsDAO.save(settings);
+    }
 
     @Override
     public List<Settings> getAllSettings() {
@@ -23,5 +29,14 @@ public class SettingsServiceImpl implements SettingsService {
     @Override
     public List<Settings> saveAllSettings(List<Settings> settings) {
         return Lists.newArrayList(settingsDAO.saveAll(settings));
+    }
+
+    @Override
+    public Object getSetting(String id) {
+        if (settingsDAO.findById(id).isPresent()) {
+            return settingsDAO.findById(id).get().getValue();
+        } else {
+            return null;
+        }
     }
 }

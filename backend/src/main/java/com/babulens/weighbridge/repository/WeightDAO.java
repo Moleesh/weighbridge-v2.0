@@ -10,8 +10,18 @@ import java.util.List;
 
 @Repository
 public interface WeightDAO extends CrudRepository<Weight, Integer> {
-    List<Weight> findAllByNettTimeGreaterThanEqualAndNettTimeLessThanEqual(Date startDate, Date endDate);
 
-    List<Weight> findAllByVehicleNoAndTareTime(String vehicleNo, Date tareTime);
+    List<Weight> findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
 
+    List<Weight> findAllByCustomerNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+
+    List<Weight> findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+
+    List<Weight> findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+
+    List<Weight> findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+
+    List<Weight> findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(Date startNettTime, Date endNettTime);
+
+    List<Weight> findAllByVehicleNoAndTareTimeByOrderByGrossTimeDesc(String vehicleNo, Date tareTime);
 }

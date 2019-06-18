@@ -32,8 +32,6 @@ public class Controller {
     private
     SettingsService settingsService;
 
-    private int count = 1;
-
     @RequestMapping(value = "/getNextWeight")
     public static int getNextWeight() {
         return (int) (Math.random() * 10000 + 1);
@@ -51,7 +49,7 @@ public class Controller {
 
     @RequestMapping(value = "/getNextSlipNo")
     public int getNextSlipNo() {
-        return count++;
+        return Integer.parseInt((String) settingsService.getSetting("slipNo"));
     }
 
     @RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})

@@ -1,8 +1,10 @@
 package com.babulens.weighbridge.serviceImpl;
 
+import com.babulens.weighbridge.model.Settings;
 import com.babulens.weighbridge.model.TareWeight;
 import com.babulens.weighbridge.model.Weight;
 import com.babulens.weighbridge.repository.WeightDAO;
+import com.babulens.weighbridge.service.SettingsService;
 import com.babulens.weighbridge.service.TareWeightService;
 import com.babulens.weighbridge.service.WeighService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,13 @@ public class WeighServiceImpl implements WeighService {
     private
     TareWeightService tareWeightService;
 
+    @Autowired
+    private
+    SettingsService settingsService;
+
     @Override
     public void saveWeight(Weight weight) {
-        if (!weight.getTareTime().toString().trim().equals("")) {
+        if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
             List<TareWeight> tareWeightList = tareWeightService.getTareByVehicleNo(weight.getVehicleNo());
             if (tareWeightList.isEmpty()) {
                 tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(), weight.getTareWeight(), weight.getTareTime()));
@@ -36,59 +42,42 @@ public class WeighServiceImpl implements WeighService {
             }
         }
         weightDAO.save(weight);
+        settingsService.saveSettings(new Settings("slipNo", Integer.parseInt((String) settingsService.getSetting("slipNo")) + 1));
     }
 
     @Override
     public Weight getWeight(int slipNo) {
-        if (weightDAO.existsById(slipNo)) {
+        if (weightDAO.findById(slipNo).isPresent()) {
             return weightDAO.findById(slipNo).get();
         }
         return null;
     }
 
     @Override
-    public List<Weight> getAllWeight(Date startDate, Date endDate, String inputLabel, String input) {
+    public List<Weight> getAllWeight(Date startNettTime, Date endNettTime, String inputLabel, String input) {
         switch (inputLabel) {
             case "Slip No":
-                inputLabel = "slipNo";
-
-                break;
+                return weightDAO.findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
             case "Customer Name":
-                inputLabel = "customersName";
-                input = "%" + input + "%";
-
-                break;
+                return weightDAO.findAllByCustomerNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
             case "Transporter Name":
-                inputLabel = "transporterName";
-                input = "%" + input + "%";
-
-                break;
+                return weightDAO.findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
             case "Vehicle No":
-                inputLabel = "vehicleNo";
-                input = "%" + input + "%";
-
-                break;
+                return weightDAO.findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
             case "Material":
-                inputLabel = "material";
-                input = "%" + input + "%";
-
-                break;
+                return weightDAO.findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
             default:
-                inputLabel = "slipNo";
-                input = "%";
-
+                return weightDAO.findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(startNettTime, endNettTime);
         }
-        return weightDAO.findAllByNettTimeGreaterThanEqualAndNettTimeLessThanEqual(startDate, endDate);
     }
 
     @Override
     public TareWeight getGrossWeight(String vehicleNo) {
-        List<Weight> weightList = weightDAO.findAllByVehicleNoAndTareTime(vehicleNo, null);
+        List<Weight> weightList = weightDAO.findAllByVehicleNoAndTareTimeByOrderByGrossTimeDesc(vehicleNo, null);
         if (weightList.isEmpty()) {
             return new TareWeight();
         } else {
-            TareWeight tareWeight = new TareWeight(vehicleNo, weightList.get(0).getGrossWeight(), weightList.get(0).getGrossTime());
-            return tareWeight;
+            return new TareWeight(vehicleNo, weightList.get(0).getGrossWeight(), weightList.get(0).getGrossTime());
         }
     }
 }

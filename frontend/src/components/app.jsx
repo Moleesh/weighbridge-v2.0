@@ -180,7 +180,7 @@ class App extends Component {
         indicatorStopBits: 1,
         indicatorFlowControl: "Hardware"
       },
-      Array: {
+      array: {
         availablePrinters: ["A", "B"],
         availablePrintFormat: ["A", "B"],
         availableCOMPorts: ["COM1", "COM2"],
