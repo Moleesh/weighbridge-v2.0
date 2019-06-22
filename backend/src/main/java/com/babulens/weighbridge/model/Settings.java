@@ -26,7 +26,7 @@ public class Settings {
         this.key = key;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
@@ -36,8 +36,12 @@ public class Settings {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Settings settings = (Settings) o;
         return Objects.equals(key, settings.key);
     }

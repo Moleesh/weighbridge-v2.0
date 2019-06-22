@@ -1,5 +1,8 @@
 package com.babulens.weighbridge.service;
 
-public interface SerialPort {
+import java.util.List;
 
+public interface SerialPortService {
+
+    List<String> getAllSerialPort();
 }

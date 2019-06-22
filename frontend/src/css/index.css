@@ -1,8 +1,15 @@
+:not(:root):-webkit-full-screen::backdrop {
+    background-color: #5ab15291;
+}
+
+.minheight {
+    min-height: 560px;
+}
+
 body {
     background: #5ab15291;
     color: black;
 }
-
 
 .tab-content {
     font-weight: 500;
@@ -160,6 +167,7 @@ input {
 .none {
     display: none;
 }
+
 .form-control:disabled,
 .form-control[readonly] {
     color: black;

@@ -11,17 +11,17 @@ import java.util.List;
 @Repository
 public interface WeightDAO extends CrudRepository<Weight, Integer> {
 
-    List<Weight> findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+    List<Weight> findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(int input, Date startNettTime, Date endNettTime);
 
-    List<Weight> findAllByCustomerNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+    List<Weight> findAllByCustomersNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
 
-    List<Weight> findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+    List<Weight> findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
 
-    List<Weight> findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+    List<Weight> findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
 
-    List<Weight> findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
+    List<Weight> findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(String input, Date startNettTime, Date endNettTime);
 
-    List<Weight> findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(Date startNettTime, Date endNettTime);
+    List<Weight> findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(Date startNettTime, Date endNettTime);
 
-    List<Weight> findAllByVehicleNoAndTareTimeByOrderByGrossTimeDesc(String vehicleNo, Date tareTime);
+    List<Weight> findAllByVehicleNoAndTareTimeOrderByGrossTimeDesc(String vehicleNo, Date tareTime);
 }

@@ -2,16 +2,16 @@ package com.babulens.weighbridge.service;
 
 import com.babulens.weighbridge.model.Settings;
 
-import java.util.List;
+import java.util.Map;
 
 
 public interface SettingsService {
 
     Settings saveSettings(Settings settings);
 
-    List<Settings> getAllSettings();
+    Map<String, String> getAllSettings();
 
-    List<Settings> saveAllSettings(List<Settings> settings);
+    void saveAllSettings(Map<String, String> settings);
 
     Object getSetting(String id);
 }

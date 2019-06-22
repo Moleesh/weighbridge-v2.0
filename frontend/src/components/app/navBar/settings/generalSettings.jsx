@@ -18,6 +18,7 @@ const GenearalSettings = props => {
           <Form.Control
             type="text"
             autoComplete="off"
+            className="text-left"
             value={thisState.setting.value.weightbridgeName}
             onChange={event => {
               thisState.setting.value.weightbridgeName = event.target.value;
@@ -34,6 +35,7 @@ const GenearalSettings = props => {
           <Form.Control
             type="text"
             autoComplete="off"
+            className="text-left"
             value={thisState.setting.value.weighbridgeAddress}
             onChange={event => {
               thisState.setting.value.weighbridgeAddress = event.target.value;
@@ -50,6 +52,7 @@ const GenearalSettings = props => {
           <Form.Control
             type="text"
             autoComplete="off"
+            className="text-left"
             value={thisState.setting.value.footer}
             onChange={event => {
               thisState.setting.value.footer = event.target.value;

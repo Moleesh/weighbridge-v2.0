@@ -25,10 +25,10 @@ const Header = props => {
           </Col>
           <Col sm="10">
             <Row className="justify-content-center font-weight-bold  h3">
-              {thisState.weighing.headingLineOne}
+              {thisState.setting.value.weightbridgeName}
             </Row>
             <Row className="justify-content-center h5">
-              {thisState.weighing.headingLineTwo}
+              {thisState.setting.value.weighbridgeAddress}
             </Row>
           </Col>
         </Row>

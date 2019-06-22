@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "*")
@@ -31,6 +32,14 @@ public class Controller {
     @Autowired
     private
     SettingsService settingsService;
+
+    @Autowired
+    private
+    PrinterService printerService;
+
+    @Autowired
+    private
+    SerialPortService serialPortService;
 
     @RequestMapping(value = "/getNextWeight")
     public static int getNextWeight() {
@@ -113,12 +122,22 @@ public class Controller {
     }
 
     @RequestMapping(value = "/getAllSettings", method = {RequestMethod.GET})
-    public List<Settings> getAllSettings() {
+    public Map<String, String> getAllSettings() {
         return settingsService.getAllSettings();
     }
 
+    @RequestMapping(value = "/getAllPrinters", method = {RequestMethod.GET})
+    public List<String> getAllPrinters() {
+        return printerService.getAllPrinters();
+    }
+
+    @RequestMapping(value = "/getAllSerialPort", method = {RequestMethod.GET})
+    public List<String> getAllSerialPort() {
+        return serialPortService.getAllSerialPort();
+    }
+
     @RequestMapping(value = "/saveAllSettings", method = {RequestMethod.PUT})
-    public void saveAllSettings(@RequestParam("Settings") List<Settings> settings) {
+    public void saveAllSettings(@RequestBody Map<String, String> settings) {
         settingsService.saveAllSettings(settings);
     }
 }

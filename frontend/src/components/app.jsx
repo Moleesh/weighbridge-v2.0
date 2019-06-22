@@ -55,8 +55,6 @@ class App extends Component {
       }
     },
     weighing: {
-      headingLineOne: "Babulens Enterprises",
-      headingLineTwo: "Nagercoil",
       weight: "1000000",
       grossSelector: true,
       tareSelector: false,
@@ -170,20 +168,27 @@ class App extends Component {
         weightbridgeName: "",
         weighbridgeAddress: "",
         footer: "",
-        printerName: "B",
-        noOfCopies: 3,
-        printFormat: "Monthly",
-        indicatorCOMPort: "COM1",
-        indicatorBaudRate: 1200,
-        indicatorDataBits: 8,
-        indicatorParity: "None",
-        indicatorStopBits: 1,
-        indicatorFlowControl: "Hardware"
+        printerName: "",
+        noOfCopies: "",
+        printFormat: "",
+        indicatorCOMPort: "",
+        indicatorBaudRate: "",
+        indicatorDataBits: "",
+        indicatorParity: "",
+        indicatorStopBits: "",
+        indicatorFlowControl: "",
+        displayCOMPort: "",
+        displayBaudRate: "",
+        displayDataBits: "",
+        displayParity: "",
+        displayStopBits: "",
+        displayFlowControl: "",
+        slipNo: ""
       },
       array: {
-        availablePrinters: ["A", "B"],
+        availablePrinters: [],
         availablePrintFormat: ["A", "B"],
-        availableCOMPorts: ["COM1", "COM2"],
+        availableCOMPorts: [],
         availableBaudRate: [
           110,
           300,
@@ -262,6 +267,42 @@ class App extends Component {
         thisState.setMyState(thisState);
       })
       .catch(error => { });
+    fetch(INITIAL_URL + "/getAllPrinters")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.setting.array.availablePrinters = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => { });
+    fetch(INITIAL_URL + "/getAllSerialPort")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.setting.array.availableCOMPorts = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => { });
+    fetch(INITIAL_URL + "/getAllSettings")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.setting.value = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => { });
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
         .then(response => {
@@ -306,16 +347,21 @@ class App extends Component {
             thisState.setMyState(thisState);
           }}
         />
-        <Row>
+        <Row >
           <Col>
             <Header preState={thisState} />
           </Col>
         </Row>
-        <Row>
+        <Row className="minheight">
           <Col>
             <NavTabs preState={thisState} />
           </Col>
         </Row>
+        <div className="footer-copyright text-center py-3 ">
+          <footer className="">
+            &copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+          </footer>
+        </div>
       </Container>
     );
   }

@@ -57,23 +57,23 @@ public class WeighServiceImpl implements WeighService {
     public List<Weight> getAllWeight(Date startNettTime, Date endNettTime, String inputLabel, String input) {
         switch (inputLabel) {
             case "Slip No":
-                return weightDAO.findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                return weightDAO.findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(Integer.parseInt(0 + input), startNettTime, endNettTime);
             case "Customer Name":
-                return weightDAO.findAllByCustomerNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                return weightDAO.findAllByCustomersNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
             case "Transporter Name":
-                return weightDAO.findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                return weightDAO.findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
             case "Vehicle No":
-                return weightDAO.findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                return weightDAO.findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
             case "Material":
-                return weightDAO.findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                return weightDAO.findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
             default:
-                return weightDAO.findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualByOrderBySlipNoAsc(startNettTime, endNettTime);
+                return weightDAO.findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(startNettTime, endNettTime);
         }
     }
 
     @Override
     public TareWeight getGrossWeight(String vehicleNo) {
-        List<Weight> weightList = weightDAO.findAllByVehicleNoAndTareTimeByOrderByGrossTimeDesc(vehicleNo, null);
+        List<Weight> weightList = weightDAO.findAllByVehicleNoAndTareTimeOrderByGrossTimeDesc(vehicleNo, null);
         if (weightList.isEmpty()) {
             return new TareWeight();
         } else {

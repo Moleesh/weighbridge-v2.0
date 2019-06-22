@@ -24,7 +24,7 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableCOMPorts.map((item, index) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item} >{item}</option>
             ))}
           </Form.Control>
         </Col>
@@ -43,7 +43,7 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableBaudRate.map((item, index) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item} >{item}</option>
             ))}
           </Form.Control>
         </Col>
@@ -62,7 +62,7 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableDataBits.map((item, index) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item} >{item}</option>
             ))}
           </Form.Control>
         </Col>
@@ -81,7 +81,7 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.avaiableParity.map((item, index) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item} >{item}</option>
             ))}
           </Form.Control>
         </Col>
@@ -100,7 +100,7 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.avaiableStopBits.map((item, index) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item} >{item}</option>
             ))}
           </Form.Control>
         </Col>
@@ -119,7 +119,7 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableFlowControl.map((item, index) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item} >{item}</option>
             ))}
           </Form.Control>
         </Col>
