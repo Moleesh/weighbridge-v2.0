@@ -177,6 +177,7 @@ class App extends Component {
         indicatorParity: "",
         indicatorStopBits: "",
         indicatorFlowControl: "",
+        indicatorDelimiter: "",
         displayCOMPort: "",
         displayBaudRate: "",
         displayDataBits: "",

@@ -124,6 +124,25 @@ const IndicatorSettings = props => {
           </Form.Control>
         </Col>
       </Form.Group>
+      <Form.Group as={Row}>
+        <Form.Label column sm="3">
+          Indicator Delimiter
+        </Form.Label>
+        <Col sm="9">
+          <Form.Control
+            as="select"
+            value={thisState.setting.value.indicatorDelimiter}
+            onChange={event => {
+              thisState.setting.value.indicatorDelimiter = event.target.value;
+              thisState.setMyState(thisState);
+            }}
+          >
+            {thisState.setting.array.availableFlowControl.map((item, index) => (
+              <option value={item} key={item}>{item}</option>
+            ))}
+          </Form.Control>
+        </Col>
+      </Form.Group>
     </Form>
   );
 };
