@@ -42,8 +42,8 @@ public class Controller {
     SerialPortService serialPortService;
 
     @RequestMapping(value = "/getNextWeight")
-    public static int getNextWeight() {
-        return (int) (Math.random() * 10000 + 1);
+    public int getNextWeight() {
+        return serialPortService.getWeight();
     }
 
     @RequestMapping(value = "/getTareWeight")
