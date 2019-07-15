@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface SettingsService {
 
-    Settings saveSettings(Settings settings);
+    void saveSettings(Settings settings);
 
     Map<String, String> getAllSettings();
 

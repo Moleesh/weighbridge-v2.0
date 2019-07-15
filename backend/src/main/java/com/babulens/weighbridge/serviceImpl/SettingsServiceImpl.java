@@ -19,8 +19,8 @@ public class SettingsServiceImpl implements SettingsService {
     SettingsDAO settingsDAO;
 
     @Override
-    public Settings saveSettings(Settings settings) {
-        return settingsDAO.save(settings);
+    public void saveSettings(Settings settings) {
+        settingsDAO.save(settings);
     }
 
     @Override

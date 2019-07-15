@@ -15,55 +15,38 @@ import java.util.Map;
 
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
-    private String indicatorCOMPort = null;
-    private String indicatorFlowControl = null;
-    private String indicatorBaudRate = null;
-    private String indicatorDataBits = null;
-    private String indicatorParity = null;
-    private String indicatorStopBits = null;
-    private String indicatorDelimiter = null;
     private int weight = 0;
+    private String indicatorDelimiter = null;
     private SerialPort comPort = null;
 
     @Autowired
     private SettingsService settingsService;
 
+    @Override
     @PostConstruct
-    public void PostConstruct() {
-        initializeSettings();
-        setCommPort();
-    }
+    public void settingUpIndicator() {
 
-    @Override
-    public void initializeSettings() {
+        Map<String, String> settings = settingsService.getAllSettings();
+        String indicatorCOMPort = settings.get("indicatorCOMPort");
+        String indicatorBaudRate = settings.get("indicatorBaudRate");
+        String indicatorDataBits = settings.get("indicatorDataBits");
+        String indicatorParity = settings.get("indicatorParity");
+        String indicatorStopBits = settings.get("indicatorStopBits");
+        String indicatorFlowControl = settings.get("indicatorFlowControl");
+        indicatorDelimiter = settings.get("indicatorDelimiter");
 
-        Map<String, String> settings = this.settingsService.getAllSettings();
-        this.indicatorCOMPort = settings.get("indicatorCOMPort");
-        this.indicatorBaudRate = settings.get("indicatorBaudRate");
-        this.indicatorDataBits = settings.get("indicatorDataBits");
-        this.indicatorParity = settings.get("indicatorParity");
-        this.indicatorStopBits = settings.get("indicatorStopBits");
-        this.indicatorFlowControl = settings.get("indicatorFlowControl");
-        this.indicatorDelimiter = settings.get("indicatorDelimiter");
-    }
-
-    @Override
-    public void setCommPort() {
-
-        if (this.indicatorCOMPort == null) {
-            this.initializeSettings();
-        }
         for (SerialPort serialPort : SerialPort.getCommPorts()) {
-            if (serialPort.getSystemPortName().equals(this.indicatorCOMPort)) {
-                this.comPort = serialPort;
+            if (serialPort.getSystemPortName().equals(indicatorCOMPort)) {
+                comPort = serialPort;
                 break;
             }
         }
-        if (this.comPort != null) {
+
+        if (comPort != null) {
             System.out.println("here" + indicatorCOMPort);
-            this.comPort.setComPortParameters(Integer.parseInt(0 + this.indicatorBaudRate.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + this.indicatorDataBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + this.indicatorStopBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + this.indicatorParity.replaceAll("[^-0-9]", "")));
-            this.comPort.openPort();
-            this.comPort.addDataListener(new SerialPortMessageListener() {
+            comPort.setComPortParameters(Integer.parseInt(0 + indicatorBaudRate.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + indicatorDataBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + indicatorStopBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + indicatorParity.replaceAll("[^-0-9]", "")));
+            comPort.openPort();
+            comPort.addDataListener(new SerialPortMessageListener() {
                 @Override
                 public int getListeningEvents() {
                     return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
@@ -89,7 +72,7 @@ public class SerialPortServiceImpl implements SerialPortService {
 
     @Override
     public int getWeight() {
-        return this.weight;
+        return weight;
     }
 
     @Override

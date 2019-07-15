@@ -48,7 +48,7 @@ public class Weight {
         this.manual = manual;
     }
 
-    public int getSlipNo() {
+    private int getSlipNo() {
         return slipNo;
     }
 
@@ -162,8 +162,12 @@ public class Weight {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Weight)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Weight)) {
+            return false;
+        }
         Weight weight = (Weight) o;
         return getSlipNo() == weight.getSlipNo();
     }

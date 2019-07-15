@@ -11,7 +11,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
-public class Controller {
+class Controller {
 
     @Autowired
     private

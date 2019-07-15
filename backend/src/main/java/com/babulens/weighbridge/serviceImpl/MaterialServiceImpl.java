@@ -13,6 +13,7 @@ import java.util.List;
 public class MaterialServiceImpl implements MaterialService {
 
     @Autowired
+    private
     MaterialDAO materialDAO;
 
     @Override

@@ -26,7 +26,7 @@ public class Drivers {
         this.transporterName = transporterName;
     }
 
-    public int getId() {
+    private int getId() {
         return id;
     }
 
@@ -68,8 +68,12 @@ public class Drivers {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Drivers)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Drivers)) {
+            return false;
+        }
         Drivers that = (Drivers) o;
         return getId() == that.getId();
     }

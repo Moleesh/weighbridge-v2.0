@@ -23,7 +23,7 @@ public class Material {
         this.material = material;
     }
 
-    public int getId() {
+    private int getId() {
         return id;
     }
 
@@ -49,8 +49,12 @@ public class Material {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Material)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Material)) {
+            return false;
+        }
         Material material = (Material) o;
         return getId() == material.getId();
     }

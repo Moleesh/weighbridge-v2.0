@@ -28,7 +28,7 @@ public class TareWeight {
         this.tareTime = tareTime;
     }
 
-    public int getId() {
+    private int getId() {
         return id;
     }
 
@@ -62,8 +62,12 @@ public class TareWeight {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TareWeight)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TareWeight)) {
+            return false;
+        }
         TareWeight that = (TareWeight) o;
         return getId() == that.getId();
     }

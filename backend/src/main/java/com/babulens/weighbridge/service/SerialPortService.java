@@ -5,9 +5,7 @@ import java.util.List;
 public interface SerialPortService {
     int getWeight();
 
-    void initializeSettings();
-
-    void setCommPort();
+    void settingUpIndicator();
 
     List<String> getAllSerialPort();
 }
