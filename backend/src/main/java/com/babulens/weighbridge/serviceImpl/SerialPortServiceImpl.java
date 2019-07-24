@@ -16,64 +16,14 @@ import java.util.Map;
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
     private int weight = 0;
-    private String indicatorDelimiter = null;
-    private SerialPort comPort = null;
+    private SerialPort commPortIndicator = null;
+    private SerialPort commPortDisplay = null;
+    private boolean lockIndicator = false;
+    private boolean lockDisplay = false;
 
     @Autowired
     private SettingsService settingsService;
 
-    @Override
-    @PostConstruct
-    public void settingUpIndicator() {
-
-        Map<String, String> settings = settingsService.getAllSettings();
-        String indicatorCOMPort = settings.get("indicatorCOMPort");
-        String indicatorBaudRate = settings.get("indicatorBaudRate");
-        String indicatorDataBits = settings.get("indicatorDataBits");
-        String indicatorParity = settings.get("indicatorParity");
-        String indicatorStopBits = settings.get("indicatorStopBits");
-        String indicatorFlowControl = settings.get("indicatorFlowControl");
-        indicatorDelimiter = settings.get("indicatorDelimiter");
-
-        for (SerialPort serialPort : SerialPort.getCommPorts()) {
-            if (serialPort.getSystemPortName().equals(indicatorCOMPort)) {
-                comPort = serialPort;
-                break;
-            }
-        }
-
-        if (comPort != null) {
-            System.out.println("here" + indicatorCOMPort);
-            comPort.setComPortParameters(Integer.parseInt(0 + indicatorBaudRate.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + indicatorDataBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + indicatorStopBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + indicatorParity.replaceAll("[^-0-9]", "")));
-            comPort.openPort();
-            comPort.addDataListener(new SerialPortMessageListener() {
-                @Override
-                public int getListeningEvents() {
-                    return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
-                }
-
-                @Override
-                public byte[] getMessageDelimiter() {
-                    return new byte[]{(byte) (Integer.parseInt(0 + indicatorDelimiter.replaceAll("[^-0-9]", "")) % 128)};
-                }
-
-                @Override
-                public boolean delimiterIndicatesEndOfMessage() {
-                    return true;
-                }
-
-                @Override
-                public void serialEvent(SerialPortEvent event) {
-                    weight = Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9]", ""));
-                }
-            });
-        }
-    }
-
-    @Override
-    public int getWeight() {
-        return weight;
-    }
 
     @Override
     public List<String> getAllSerialPort() {
@@ -83,5 +33,106 @@ public class SerialPortServiceImpl implements SerialPortService {
 
         }
         return serialPorts;
+    }
+
+    @Override
+    @PostConstruct
+    public void settingUpIndicator() {
+
+        if (lockIndicator) {
+            lockIndicator = true;
+            Map<String, String> settings = settingsService.getAllSettings();
+            String port = settings.get("indicatorCOMPort");
+            String baudRate = settings.get("indicatorBaudRate");
+            String dataBits = settings.get("indicatorDataBits");
+            String parity = settings.get("indicatorParity");
+            String stopBits = settings.get("indicatorStopBits");
+//            String flowControl = settings.get("indicatorFlowControl");
+            String delimiter = settings.get("indicatorDelimiter");
+
+            if (commPortIndicator != null) {
+                commPortIndicator.removeDataListener();
+                commPortIndicator.closePort();
+                commPortIndicator = null;
+            }
+            for (SerialPort serialPort : SerialPort.getCommPorts()) {
+                if (serialPort.getSystemPortName().equals(port)) {
+                    commPortIndicator = serialPort;
+                    break;
+                }
+            }
+
+            if (commPortIndicator != null) {
+                commPortIndicator.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
+                commPortIndicator.openPort();
+                commPortIndicator.addDataListener(new SerialPortMessageListener() {
+                    @Override
+                    public int getListeningEvents() {
+                        return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+                    }
+
+                    @Override
+                    public byte[] getMessageDelimiter() {
+                        return new byte[]{(byte) (Integer.parseInt(0 + delimiter.replaceAll("[^-0-9]", "")) % 128)};
+                    }
+
+                    @Override
+                    public boolean delimiterIndicatesEndOfMessage() {
+                        return true;
+                    }
+
+                    @Override
+                    public void serialEvent(SerialPortEvent event) {
+                        weight = Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9]", ""));
+                    }
+                });
+            }
+            lockIndicator = false;
+        }
+    }
+
+    @Override
+    public int getWeight() {
+        return weight;
+    }
+
+    @Override
+    @PostConstruct
+    public void settingUpDisplay() {
+        if (lockDisplay) {
+            lockDisplay = true;
+            Map<String, String> settings = settingsService.getAllSettings();
+            String port = settings.get("indicatorCOMPort");
+            String baudRate = settings.get("indicatorBaudRate");
+            String dataBits = settings.get("indicatorDataBits");
+            String parity = settings.get("indicatorParity");
+            String stopBits = settings.get("indicatorStopBits");
+
+            if (commPortDisplay != null) {
+                commPortDisplay.closePort();
+                commPortDisplay = null;
+            }
+            for (SerialPort serialPort : SerialPort.getCommPorts()) {
+                if (serialPort.getSystemPortName().equals(port)) {
+                    commPortDisplay = serialPort;
+                    break;
+                }
+            }
+
+            if (commPortDisplay != null) {
+                commPortDisplay.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
+                commPortDisplay.openPort();
+            }
+            lockDisplay = false;
+        }
+    }
+
+    @Override
+    public void sendToDisplay(String message) {
+        if (commPortDisplay == null) {
+            settingUpDisplay();
+        }
+        byte[] sendData = message.getBytes();
+        commPortDisplay.writeBytes(sendData, sendData.length);
     }
 }

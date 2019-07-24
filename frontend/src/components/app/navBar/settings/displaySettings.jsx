@@ -1,5 +1,8 @@
 import React from "react";
-import { Form, Col, Row } from "react-bootstrap";
+import { Form, Col, Row, Button } from "react-bootstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 
 const DisplaySettings = props => {
   let thisState = props.preState;
@@ -24,7 +27,9 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableCOMPorts.map((item, index) => (
-              <option value={item} key={item} >{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>
@@ -43,7 +48,9 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableBaudRate.map((item, index) => (
-              <option value={item} key={item} >{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>
@@ -62,7 +69,9 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableDataBits.map((item, index) => (
-              <option value={item} key={item} >{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>
@@ -81,7 +90,9 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.avaiableParity.map((item, index) => (
-              <option value={item} key={item} >{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>
@@ -100,7 +111,9 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.avaiableStopBits.map((item, index) => (
-              <option value={item} key={item} >{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>
@@ -119,11 +132,35 @@ const DisplaySettings = props => {
             }}
           >
             {thisState.setting.array.availableFlowControl.map((item, index) => (
-              <option value={item} key={item} >{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>
       </Form.Group>
+      <Button
+        variant="light"
+        size="lg"
+        onClick={() => {
+          fetch(thisState.INITIAL_URL + "/settingUpDisplay")
+            .then(response => {
+              if (response.status === 200) {
+                thisState.alerts.push({
+                  id: new Date().getTime(),
+                  type: "success",
+                  headline: "Display Settings Refreshed",
+                  message: "Display Settings Refreshed Successfully."
+                });
+                thisState.setMyState(thisState);
+              } else throw Error(response.statusText);
+            })
+            .catch(error => {});
+        }}
+      >
+        <FontAwesomeIcon icon={faSync} spin className="mr-3" />
+        Refresh Display CommPort Settings
+      </Button>
     </Form>
   );
 };

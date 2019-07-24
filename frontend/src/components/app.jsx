@@ -243,7 +243,7 @@ class App extends Component {
         thisState.configuration.material.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => { });
+      .catch(error => {});
     fetch(INITIAL_URL + "/getAllDrivers")
       .then(response => {
         if (response.status === 200) {
@@ -255,7 +255,7 @@ class App extends Component {
         thisState.configuration.drivers.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => { });
+      .catch(error => {});
     fetch(INITIAL_URL + "/getAllTareWeight")
       .then(response => {
         if (response.status === 200) {
@@ -267,7 +267,7 @@ class App extends Component {
         thisState.configuration.tareWeight.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => { });
+      .catch(error => {});
     fetch(INITIAL_URL + "/getAllPrinters")
       .then(response => {
         if (response.status === 200) {
@@ -279,7 +279,7 @@ class App extends Component {
         thisState.setting.array.availablePrinters = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => { });
+      .catch(error => {});
     fetch(INITIAL_URL + "/getAllSerialPort")
       .then(response => {
         if (response.status === 200) {
@@ -291,7 +291,7 @@ class App extends Component {
         thisState.setting.array.availableCOMPorts = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => { });
+      .catch(error => {});
     fetch(INITIAL_URL + "/getAllSettings")
       .then(response => {
         if (response.status === 200) {
@@ -303,7 +303,7 @@ class App extends Component {
         thisState.setting.value = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => { });
+      .catch(error => {});
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
         .then(response => {
@@ -331,14 +331,7 @@ class App extends Component {
   render() {
     let thisState = { ...this.state, setMyState: this.setMyState };
     return (
-      <Container
-        fluid
-        onKeyDown={event => {
-          if (event.keyCode === 9) {
-            event.preventDefault();
-          }
-        }}
-      >
+      <Container fluid>
         <AlertList
           position={"top-right"}
           alerts={thisState.alerts}
@@ -348,7 +341,7 @@ class App extends Component {
             thisState.setMyState(thisState);
           }}
         />
-        <Row >
+        <Row>
           <Col>
             <Header preState={thisState} />
           </Col>
@@ -360,7 +353,8 @@ class App extends Component {
         </Row>
         <div className="footer-copyright text-center py-3 ">
           <footer className="">
-            &copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+            &copy; {new Date().getFullYear()} Copyright:{" "}
+            <a href="https://www.Babulens.com"> Babulens.com </a>
           </footer>
         </div>
       </Container>

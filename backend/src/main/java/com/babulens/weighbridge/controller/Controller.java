@@ -136,6 +136,21 @@ class Controller {
         return serialPortService.getAllSerialPort();
     }
 
+    @RequestMapping(value = "/settingUpIndicator", method = {RequestMethod.GET})
+    public void settingUpIndicator() {
+        serialPortService.settingUpIndicator();
+    }
+
+    @RequestMapping(value = "/settingUpDisplay", method = {RequestMethod.GET})
+    public void settingUpDisplay() {
+        serialPortService.settingUpDisplay();
+    }
+
+    @RequestMapping(value = "/sendToDisplay", method = {RequestMethod.PUT})
+    public void sendToDisplay(@RequestBody String message) {
+        serialPortService.sendToDisplay(message);
+    }
+
     @RequestMapping(value = "/saveAllSettings", method = {RequestMethod.PUT})
     public void saveAllSettings(@RequestBody Map<String, String> settings) {
         settingsService.saveAllSettings(settings);

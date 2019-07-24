@@ -9,7 +9,14 @@ import Bottom from "./weighing/bottom";
 const Weighing = props => {
   let thisState = props.preState;
   return (
-    <Form className="py-2">
+    <Form
+      className="py-2"
+      onKeyDown={event => {
+        if (event.keyCode === 9) {
+          event.preventDefault();
+        }
+      }}
+    >
       <Row>
         <ColumnOne preState={thisState} />
         <Col sm="8">

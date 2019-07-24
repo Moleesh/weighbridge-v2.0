@@ -8,4 +8,8 @@ public interface SerialPortService {
     void settingUpIndicator();
 
     List<String> getAllSerialPort();
+
+    void settingUpDisplay();
+
+    void sendToDisplay(String message);
 }
