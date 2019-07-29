@@ -2,8 +2,10 @@ package com.babulens.weighbridge.utilImpl;
 
 import com.babulens.weighbridge.model.Weight;
 import com.babulens.weighbridge.util.PrintUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.print.PrintService;
 import java.awt.*;
 import java.awt.print.*;
 
@@ -12,7 +14,7 @@ import java.awt.print.*;
 public class PrintUtilImpl implements PrintUtil {
 
     @Override
-    public void printPrePrint(Weight weight) {
+    public void printPrePrint(Weight weight, PrintService printer) {
         PrinterJob pj = PrinterJob.getPrinterJob();
         PageFormat pf = new PageFormat();
         Paper paper = pf.getPaper();
@@ -26,12 +28,9 @@ public class PrintUtilImpl implements PrintUtil {
         Book pBook = new Book();
         pBook.append(new Printable() {
             private void drawString(Graphics g, String text, int y) {
-//                int length = 0;
                 for (String line : text.split("\n")) {
                     g.drawString(line, 0, y += g.getFontMetrics().getHeight() - 1);
-//                    length = g.getFontMetrics().stringWidth(line);
                 }
-//                new Coordinates(length, y + g.getFontMetrics().getHeight() - 1);
             }
 
             @Override
@@ -42,44 +41,44 @@ public class PrintUtilImpl implements PrintUtil {
                 String[] temp1 = new String[2];
                 String[] temp2 = new String[2];
 
-                String initString = "";
-//                        "\n\n\n\n\n\n\n\n\n\n" + "         "
-//                        + String.format("%72s", "Weighment Slip No : " + textFieldSlNo.getText()) + "\n\n" + "         "
-//                        + StringUtils.center(textFieldLine1.getText(), 82) + "\n" + "          "
-//                        + StringUtils.center(textFieldLine2.getText(), 82) + "\n" + "         "
-//                        + StringUtils.center(textFieldLine3.getText(), 82) + "\n\n" + "           Name of Contractor : "
-//                        + textFieldNameOfContractor.getText() + "\n\n"
-//                        + String.format(format1, "Department Name", textFieldDepartmentName.getText(), "Vehicle No",
-//                        textFieldVehicleNo.getText())
-//                        + "\n"
-//                        + String.format(format1, "Site At", textFieldSiteAt.getText(), "Product",
-//                        comboBoxMaterial.getEditor().getItem())
-//                        + "\n"
-//                        + String.format(
-//                        format2, "Gross Wt.", textFieldGrossWt.getText(), "Date", temp1[0], "Time", temp1[1])
-//                        + "\n"
-//                        + String.format(format2, "Tare Wt.", textFieldTareWt.getText(), "Date", temp2[0], "Time",
-//                        temp2[1])
-//                        + "\n" + String.format(format3, "Nett Wt.", textFieldNetWt.getText()) + "\n\n\n" + "         "
-//                        + textFieldLine4.getText() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + "         "
-//                        + String.format("%72s", "Weighment Slip No : " + textFieldSlNo.getText()) + "\n\n" + "         "
-//                        + StringUtils.center(textFieldLine1.getText(), 82) + "\n" + "          "
-//                        + StringUtils.center(textFieldLine2.getText(), 82) + "\n" + "         "
-//                        + StringUtils.center(textFieldLine3.getText(), 82) + "\n\n" + "           Name of Contractor : "
-//                        + textFieldNameOfContractor.getText() + "\n\n"
-//                        + String.format(format1, "Department Name", textFieldDepartmentName.getText(), "Vehicle No",
-//                        textFieldVehicleNo.getText())
-//                        + "\n"
-//                        + String.format(format1, "Site At", textFieldSiteAt.getText(), "Product",
-//                        comboBoxMaterial.getEditor().getItem())
-//                        + "\n"
-//                        + String.format(
-//                        format2, "Gross Wt.", textFieldGrossWt.getText(), "Date", temp1[0], "Time", temp1[1])
-//                        + "\n"
-//                        + String.format(format2, "Tare Wt.", textFieldTareWt.getText(), "Date", temp2[0], "Time",
-//                        temp2[1])
-//                        + "\n" + String.format(format3, "Nett Wt.", textFieldNetWt.getText()) + "\n\n\n" + "         "
-//                        + textFieldLine4.getText();
+                String initString =
+                        "\n\n\n\n\n\n\n\n\n\n" + "         "
+                                + String.format("%72s", "Weighment Slip No : ") + "\n\n" + "         "
+                                + StringUtils.center("", 82) + "\n" + "          "
+                                + StringUtils.center("", 82) + "\n" + "         "
+                                + StringUtils.center("", 82) + "\n\n" + "           Name of Contractor : "
+                                + "" + "\n\n"
+                                + String.format(format1, "Department Name", "", "Vehicle No",
+                                "")
+                                + "\n"
+                                + String.format(format1, "Site At", "", "Product",
+                                "")
+                                + "\n"
+                                + String.format(
+                                format2, "Gross Wt.", "", "Date", temp1[0], "Time", temp1[1])
+                                + "\n"
+                                + String.format(format2, "Tare Wt.", "", "Date", temp2[0], "Time",
+                                temp2[1])
+                                + "\n" + String.format(format3, "Nett Wt.", "") + "\n\n\n" + "         "
+                                + "" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + "         "
+                                + String.format("%72s", "Weighment Slip No : " + "") + "\n\n" + "         "
+                                + StringUtils.center("", 82) + "\n" + "          "
+                                + StringUtils.center("", 82) + "\n" + "         "
+                                + StringUtils.center("", 82) + "\n\n" + "           Name of Contractor : "
+                                + "" + "\n\n"
+                                + String.format(format1, "Department Name", "", "Vehicle No",
+                                "")
+                                + "\n"
+                                + String.format(format1, "Site At", "", "Product",
+                                "")
+                                + "\n"
+                                + String.format(
+                                format2, "Gross Wt.", "", "Date", temp1[0], "Time", temp1[1])
+                                + "\n"
+                                + String.format(format2, "Tare Wt.", "", "Date", temp2[0], "Time",
+                                temp2[1])
+                                + "\n" + String.format(format3, "Nett Wt.", "") + "\n\n\n" + "         "
+                                + "";
 
                 graphics.setFont(new Font("Courier New", Font.BOLD, 10));
                 drawString(graphics, initString, 0);
@@ -112,7 +111,7 @@ public class PrintUtilImpl implements PrintUtil {
         }, pf);
         pj.setPageable(pBook);
         try {
-            pj.setPrintService(null);
+            pj.setPrintService(printer);
             pj.print();
         } catch (PrinterException ignored) {
         }

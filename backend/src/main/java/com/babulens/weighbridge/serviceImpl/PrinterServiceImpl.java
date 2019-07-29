@@ -20,11 +20,20 @@ public class PrinterServiceImpl implements PrinterService {
     private PrintUtil printUtil;
 
     @Override
+    public PrintService getPrinter(String printer) {
+        for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
+            if (printer.equals(printerPrintService.getName())) {
+                return printerPrintService;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<String> getAllPrinters() {
-        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
         List<String> printers = new ArrayList<>();
-        for (PrintService printer : printServices) {
-            printers.add(printer.getName());
+        for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
+            printers.add(printerPrintService.getName());
         }
         return printers;
     }
@@ -36,12 +45,13 @@ public class PrinterServiceImpl implements PrinterService {
 
     @Override
     public void printWeight(Weight weight, String printerName, int noOfCopies, String printFormat) {
+
         while (0 < noOfCopies--) {
             switch (printFormat) {
                 case "Normal Print":
                     break;
                 case "Pre Print":
-                    printUtil.printPrePrint(weight);
+                    printUtil.printPrePrint(weight, getPrinter(printerName));
                     break;
                 case "Camera Print":
                     break;
