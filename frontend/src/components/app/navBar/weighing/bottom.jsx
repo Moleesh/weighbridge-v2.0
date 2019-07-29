@@ -93,7 +93,7 @@ const Bottom = props => {
                     );
                 } else throw Error(response.statusText);
               })
-              .catch(error => { });
+              .catch(error => {});
           }}
           disabled={thisState.weighing.disable.saveDisabled}
           ref={thisState.weighing.reference.saveReference}
@@ -145,6 +145,29 @@ const Bottom = props => {
           variant="primary"
           block
           onClick={() => {
+            fetch(thisState.INITIAL_URL + "/printWeight", {
+              method: "POST",
+              body: JSON.stringify({
+                weight: thisState.weight,
+                printerName: thisState.setting.value.printerName,
+                noOfCopies: thisState.setting.value.noOfCopies,
+                printFormat: thisState.setting.value.printFormat
+              }),
+              headers: { "content-type": "application/json" }
+            })
+              .then(response => {
+                if (response.status === 200) {
+                  thisState.weighing.disable.saveDisabled = true;
+                  thisState.weighing.disable.printDisabled = false;
+                  thisState
+                    .setMyState(thisState)
+                    .then(() =>
+                      thisState.weighing.reference.printReference.current.focus()
+                    );
+                } else throw Error(response.statusText);
+              })
+              .catch(error => {});
+
             fetch(thisState.INITIAL_URL + "/getNextSlipNo")
               .then(response => {
                 if (response.status === 200) {

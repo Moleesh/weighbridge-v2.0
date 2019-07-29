@@ -131,6 +131,16 @@ class Controller {
         return printerService.getAllPrinters();
     }
 
+    @RequestMapping(value = "/getAllPrintFormat", method = {RequestMethod.GET})
+    public List<String> getAllPrintFormat() {
+        return printerService.getAllPrintFormat();
+    }
+
+    @RequestMapping(value = "/printWeight", method = {RequestMethod.POST})
+    public void printWeight(@RequestBody PrintWeight printWeight) {
+        printerService.printWeight(printWeight.getWeight(), printWeight.getPrinterName(), printWeight.getNoOfCopies(), printWeight.getPrintFormat());
+    }
+
     @RequestMapping(value = "/getAllSerialPort", method = {RequestMethod.GET})
     public List<String> getAllSerialPort() {
         return serialPortService.getAllSerialPort();

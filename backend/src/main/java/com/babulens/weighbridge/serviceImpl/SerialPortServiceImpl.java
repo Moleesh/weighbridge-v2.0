@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
-    private int weight = 0;
+    private int weight = -1;
     private SerialPort commPortIndicator = null;
     private SerialPort commPortDisplay = null;
     private boolean lockIndicator = false;

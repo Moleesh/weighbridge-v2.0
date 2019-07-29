@@ -188,7 +188,7 @@ class App extends Component {
       },
       array: {
         availablePrinters: [],
-        availablePrintFormat: ["A", "B"],
+        availablePrintFormat: [],
         availableCOMPorts: [],
         availableBaudRate: [
           110,
@@ -280,6 +280,18 @@ class App extends Component {
         thisState.setMyState(thisState);
       })
       .catch(error => {});
+    fetch(INITIAL_URL + "/getAllPrintFormat")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.setting.array.availablePrintFormat = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => {});
     fetch(INITIAL_URL + "/getAllSerialPort")
       .then(response => {
         if (response.status === 200) {
@@ -321,7 +333,7 @@ class App extends Component {
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
         });
-    }, 1000000);
+    }, 50000);
   }
 
   componentWillUnmount() {
