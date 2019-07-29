@@ -17,6 +17,8 @@
 *.ipr
 *.db
 *.log
+*.jpeg
+test.java
 
 ### NetBeans ###
 /.vscode

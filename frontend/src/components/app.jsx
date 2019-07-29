@@ -165,7 +165,7 @@ class App extends Component {
     },
     setting: {
       value: {
-        weightbridgeName: "",
+        weighbridgeName: "",
         weighbridgeAddress: "",
         footer: "",
         printerName: "",
@@ -316,6 +316,22 @@ class App extends Component {
         thisState.setMyState(thisState);
       })
       .catch(error => {});
+    fetch(INITIAL_URL + "/getCameraImage")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.weighing.weight = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.weighing.weight = "-1";
+        thisState.setMyState(thisState);
+      });
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
         .then(response => {

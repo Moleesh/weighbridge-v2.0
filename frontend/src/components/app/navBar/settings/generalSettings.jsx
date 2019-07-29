@@ -19,9 +19,9 @@ const GenearalSettings = props => {
             type="text"
             autoComplete="off"
             className="text-left"
-            value={thisState.setting.value.weightbridgeName}
+            value={thisState.setting.value.weighbridgeName}
             onChange={event => {
-              thisState.setting.value.weightbridgeName = event.target.value;
+              thisState.setting.value.weighbridgeName = event.target.value;
               thisState.setMyState(thisState);
             }}
           />

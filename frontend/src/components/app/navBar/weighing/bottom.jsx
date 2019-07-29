@@ -151,7 +151,10 @@ const Bottom = props => {
                 weight: thisState.weight,
                 printerName: thisState.setting.value.printerName,
                 noOfCopies: thisState.setting.value.noOfCopies,
-                printFormat: thisState.setting.value.printFormat
+                printFormat: thisState.setting.value.printFormat,
+                weighbridgeName: thisState.setting.value.weighbridgeName,
+                weighbridgeAddress: thisState.setting.value.weighbridgeAddress,
+                footer: thisState.setting.value.footer
               }),
               headers: { "content-type": "application/json" }
             })

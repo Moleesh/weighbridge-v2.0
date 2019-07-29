@@ -1,7 +1,7 @@
 package com.babulens.weighbridge.serviceImpl;
 
 
-import com.babulens.weighbridge.model.Weight;
+import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.service.PrinterService;
 import com.babulens.weighbridge.util.PrintUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +44,18 @@ public class PrinterServiceImpl implements PrinterService {
     }
 
     @Override
-    public void printWeight(Weight weight, String printerName, int noOfCopies, String printFormat) {
+    public void printWeight(PrintWeight printWeight) {
 
+        int noOfCopies = printWeight.getNoOfCopies();
         while (0 < noOfCopies--) {
-            switch (printFormat) {
+            switch (printWeight.getPrintFormat()) {
                 case "Normal Print":
                     break;
                 case "Pre Print":
-                    printUtil.printPrePrint(weight, getPrinter(printerName));
+                    printUtil.printPrePrint(printWeight, getPrinter(printWeight.getPrinterName()));
                     break;
                 case "Camera Print":
+                    printUtil.printCameraPrint(printWeight, getPrinter(printWeight.getPrinterName()));
                     break;
             }
         }

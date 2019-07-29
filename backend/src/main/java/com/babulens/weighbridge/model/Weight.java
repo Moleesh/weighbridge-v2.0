@@ -48,7 +48,7 @@ public class Weight {
         this.manual = manual;
     }
 
-    private int getSlipNo() {
+    public int getSlipNo() {
         return slipNo;
     }
 

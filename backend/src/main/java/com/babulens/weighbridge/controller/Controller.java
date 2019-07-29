@@ -3,6 +3,7 @@ package com.babulens.weighbridge.controller;
 import com.babulens.weighbridge.model.*;
 import com.babulens.weighbridge.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,17 @@ class Controller {
     @Autowired
     private
     SerialPortService serialPortService;
+
+    @Autowired
+    private
+    CameraService cameraService;
+
+    @RequestMapping(value = "/getCameraImage", method = RequestMethod.GET,
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody
+    byte[] getImage() {
+        return cameraService.getCameraImageByteBuffer("My Camera");
+    }
 
     @RequestMapping(value = "/getNextWeight")
     public int getNextWeight() {
@@ -138,7 +150,7 @@ class Controller {
 
     @RequestMapping(value = "/printWeight", method = {RequestMethod.POST})
     public void printWeight(@RequestBody PrintWeight printWeight) {
-        printerService.printWeight(printWeight.getWeight(), printWeight.getPrinterName(), printWeight.getNoOfCopies(), printWeight.getPrintFormat());
+        printerService.printWeight(printWeight);
     }
 
     @RequestMapping(value = "/getAllSerialPort", method = {RequestMethod.GET})
@@ -165,4 +177,5 @@ class Controller {
     public void saveAllSettings(@RequestBody Map<String, String> settings) {
         settingsService.saveAllSettings(settings);
     }
+
 }

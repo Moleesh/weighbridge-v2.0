@@ -5,6 +5,9 @@ public class PrintWeight {
     private String printerName;
     private int noOfCopies;
     private String printFormat;
+    private String weighbridgeName;
+    private String weighbridgeAddress;
+    private String footer;
 
     public Weight getWeight() {
         return weight;
@@ -36,5 +39,29 @@ public class PrintWeight {
 
     public void setPrintFormat(String printFormat) {
         this.printFormat = printFormat;
+    }
+
+    public String getWeighbridgeName() {
+        return weighbridgeName;
+    }
+
+    public void setWeighbridgeName(String weighbridgeName) {
+        this.weighbridgeName = weighbridgeName;
+    }
+
+    public String getWeighbridgeAddress() {
+        return weighbridgeAddress;
+    }
+
+    public void setWeighbridgeAddress(String weighbridgeAddress) {
+        this.weighbridgeAddress = weighbridgeAddress;
+    }
+
+    public String getFooter() {
+        return footer;
+    }
+
+    public void setFooter(String footer) {
+        this.footer = footer;
     }
 }
