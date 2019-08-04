@@ -2,21 +2,28 @@ package com.babulens.weighbridge.utilImpl;
 
 import com.babulens.weighbridge.model.Coordinates;
 import com.babulens.weighbridge.model.PrintWeight;
+import com.babulens.weighbridge.service.SettingsService;
 import com.babulens.weighbridge.util.PrintUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import javax.print.PrintService;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.awt.print.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 
 @Service
 public class PrintUtilImpl implements PrintUtil {
+    @Autowired
+    private
+    SettingsService settingsService;
 
     private static Coordinates drawString(Graphics g, String text, int x, int y) {
         int length = 0;
@@ -59,6 +66,12 @@ public class PrintUtilImpl implements PrintUtil {
 
     @Override
     public void printCameraPrint(PrintWeight printWeight, PrintService printer) {
+        Map<String, String> settings = settingsService.getAllSettings();
+        int cameraXAxis = Integer.parseInt(settings.get("cameraXAxis"));
+        int cameraYAxis = Integer.parseInt(settings.get("cameraYAxis"));
+        int cameraWidth = Integer.parseInt(settings.get("cameraWidth"));
+        int cameraHeight = Integer.parseInt(settings.get("cameraHeight"));
+
         PrinterJob printerJob = PrinterJob.getPrinterJob();
         PageFormat pageFormat = new PageFormat();
         Paper paper = pageFormat.getPaper();
@@ -133,16 +146,11 @@ public class PrintUtilImpl implements PrintUtil {
 
             try {
                 BufferedImage printImage = ImageIO
-                        .read(new File("CameraOutput/" + printWeight.getWeight().getSlipNo() + ".jpg"));
-                BufferedImage cropImage = printImage.getSubimage(
-                        Integer.parseInt("" + 100),
-                        Integer.parseInt("" + 100),
-                        Integer.parseInt("" + 100),
-                        Integer.parseInt("" + 100));
+                        .read(new File("CameraOutput\\" + printWeight.getWeight().getSlipNo() + ".jpeg"));
+                BufferedImage cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
                 graphics.drawImage(cropImage, 250, 125, 300,
                         (int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
-            } catch (IOException | NullPointerException ex) {
-                ex.getStackTrace();
+            } catch (IOException | NullPointerException | RasterFormatException ex) {
             }
             return Printable.PAGE_EXISTS;
         }, pageFormat);

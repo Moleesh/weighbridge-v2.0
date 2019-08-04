@@ -1,6 +1,7 @@
 package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.service.CameraService;
+import com.babulens.weighbridge.service.SettingsService;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamCompositeDriver;
 import com.github.sarxos.webcam.WebcamException;
@@ -9,18 +10,21 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDevice;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 import com.github.sarxos.webcam.ds.ipcam.IpCamStorage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 class MyIpCam extends IpCamDriver {
     MyIpCam() {
@@ -44,36 +48,65 @@ class MyCompositeDriver extends WebcamCompositeDriver {
 
 @Service
 public class CameraServiceImpl implements CameraService {
-    CameraServiceImpl() {
+    static {
         Webcam.setDriver(new MyCompositeDriver());
     }
 
+    @Autowired
+    private SettingsService settingsService;
+    private Webcam webcam = null;
+
     @Override
-    public BufferedImage getCameraImage(String camera) {
-        Webcam webcam = getCamera(camera);
-        webcam.open();
-        return webcam.getImage();
+    @PostConstruct
+    public synchronized void settingUpCamera() {
+        Map<String, String> settings = settingsService.getAllSettings();
+        String cameraName = settings.get("cameraName").split("\\[")[0].trim();
+        if (webcam != null && webcam.isOpen()) {
+            webcam.close();
+        }
+
+        webcam = getCamera(cameraName);
+        if (webcam != null) {
+            try {
+                webcam.setViewSize(getBestDimensions(webcam));
+                webcam.open();
+            } catch (WebcamException | ConnectException e) {
+            }
+        }
     }
 
     @Override
-    public byte[] getCameraImageByteBuffer(String camera) {
-        Webcam webcam = getCamera(camera);
-        System.out.println(webcam.getName());
-
-        webcam.setViewSize(getBestDimensions(webcam));
-        webcam.open();
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        File outputfile = new File("saved.jpeg");
-
-        try {
-            ImageIO.write(webcam.getImage(), "jpeg", outputfile);
-            ImageIO.write(webcam.getImage(), "jpeg", outputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void saveCameraImageToDisk(String fileName) {
+        if (webcam != null && webcam.isOpen()) {
+            File directory = new File("CameraOutput");
+            File outputfile = new File("CameraOutput\\" + fileName);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            try {
+                ImageIO.write(webcam.getImage(), "jpeg", outputfile);
+            } catch (IOException e) {
+            }
         }
-        webcam.close();
-        return outputStream.toByteArray();
+    }
 
+    @Override
+    public byte[] getCameraImage() {
+        Map<String, String> settings = settingsService.getAllSettings();
+        int cameraXAxis = Integer.parseInt(settings.get("cameraXAxis"));
+        int cameraYAxis = Integer.parseInt(settings.get("cameraYAxis"));
+        int cameraWidth = Integer.parseInt(settings.get("cameraWidth"));
+        int cameraHeight = Integer.parseInt(settings.get("cameraHeight"));
+        if (webcam != null && webcam.isOpen()) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(webcam.getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight), "jpeg", outputStream);
+            } catch (IOException | IllegalArgumentException | NullPointerException | RasterFormatException e) {
+                return null;
+            }
+            return outputStream.toByteArray();
+        }
+        return null;
     }
 
     @Override
@@ -90,27 +123,23 @@ public class CameraServiceImpl implements CameraService {
     public List<String> getAllCameras() {
         List<String> cameras = new ArrayList<>();
         for (Webcam webcam : Webcam.getWebcams()) {
-            cameras.add(webcam.getName());
+            try {
+                cameras.add(webcam.getName() + " " + getBestDimensions(webcam).toString().replace("java.awt.Dimension", ""));
+            } catch (WebcamException | ConnectException e) {
+                cameras.add(webcam.getName() + " " + "[width=0,height=0]");
+            }
         }
         return cameras;
     }
 
     @Override
-    public List<String> getAllDimensions(String camera) {
-        List<String> dimensions = new ArrayList<>();
-        try {
-            for (Dimension dimension : getCamera(camera).getViewSizes()) {
-                dimensions.add((int) dimension.getWidth() + " * " + (int) dimension.getHeight());
+    public Dimension getBestDimensions(Webcam webcam) throws WebcamException, ConnectException {
+        if (webcam != null) {
+            Dimension[] dimensions = webcam.getViewSizes();
+            if (dimensions.length != 0) {
+                return dimensions[dimensions.length - 1];
             }
-        } catch (NullPointerException ex) {
-            return Arrays.asList("-1 * -1");
         }
-        return dimensions;
-    }
-
-    @Override
-    public Dimension getBestDimensions(Webcam webcam) {
-        Dimension[] dimensions = webcam.getViewSizes();
-        return dimensions[dimensions.length - 1];
+        return new Dimension(0, 0);
     }
 }

@@ -4,6 +4,7 @@ import com.babulens.weighbridge.model.Settings;
 import com.babulens.weighbridge.model.TareWeight;
 import com.babulens.weighbridge.model.Weight;
 import com.babulens.weighbridge.repository.WeightDAO;
+import com.babulens.weighbridge.service.CameraService;
 import com.babulens.weighbridge.service.SettingsService;
 import com.babulens.weighbridge.service.TareWeightService;
 import com.babulens.weighbridge.service.WeighService;
@@ -28,21 +29,29 @@ public class WeighServiceImpl implements WeighService {
     private
     SettingsService settingsService;
 
+    @Autowired
+    private
+    CameraService cameraService;
+
     @Override
     public void saveWeight(Weight weight) {
-        if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
-            List<TareWeight> tareWeightList = tareWeightService.getTareByVehicleNo(weight.getVehicleNo());
-            if (tareWeightList.isEmpty()) {
-                tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(), weight.getTareWeight(), weight.getTareTime()));
-            } else {
-                TareWeight tareWeight = tareWeightList.get(0);
-                tareWeight.setTareTime(weight.getTareTime());
-                tareWeight.setTareWeight(weight.getTareWeight());
-                tareWeightService.addUpdateTareWeight(tareWeightList.get(0));
+        if (weight.getSlipNo() != -1) {
+            if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
+                List<TareWeight> tareWeightList = tareWeightService.getTareByVehicleNo(weight.getVehicleNo());
+                if (tareWeightList.isEmpty()) {
+                    tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(), weight.getTareWeight(), weight.getTareTime()));
+                } else {
+                    TareWeight tareWeight = tareWeightList.get(0);
+                    tareWeight.setTareTime(weight.getTareTime());
+                    tareWeight.setTareWeight(weight.getTareWeight());
+                    tareWeightService.addUpdateTareWeight(tareWeightList.get(0));
+                }
             }
+            cameraService.saveCameraImageToDisk(weight.getSlipNo() + ".jpeg");
+            weightDAO.save(weight);
+
+            settingsService.saveSettings(new Settings("slipNo", Integer.parseInt((String) settingsService.getSetting("slipNo")) + 1));
         }
-        weightDAO.save(weight);
-        settingsService.saveSettings(new Settings("slipNo", Integer.parseInt((String) settingsService.getSetting("slipNo")) + 1));
     }
 
     @Override

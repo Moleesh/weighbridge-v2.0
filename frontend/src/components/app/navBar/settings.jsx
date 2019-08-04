@@ -1,11 +1,11 @@
 import React from "react";
 import { Row, Col, Tab, Nav, Button } from "react-bootstrap";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSync, faWrench } from '@fortawesome/free-solid-svg-icons'
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync, faWrench } from "@fortawesome/free-solid-svg-icons";
 
 import GeneralSettings from "./settings/generalSettings";
+import CameraSettings from "./settings/cameraSttings";
 import PrinterSettings from "./settings/printerSettings";
 import IndicatorSettings from "./settings/indicatorSettings";
 import DisplaySettings from "./settings/displaySettings";
@@ -21,6 +21,9 @@ const Settings = props => {
             <h5 className="font-weight-bold pb-3">Settings</h5>
             <Nav.Item>
               <Nav.Link eventKey="generalSettings">General Settings</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="cameraSettings">Camera Settings</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="printerSettings">Printer Settings</Nav.Link>
@@ -43,6 +46,9 @@ const Settings = props => {
             <Tab.Pane eventKey="generalSettings">
               <GeneralSettings preState={thisState} key="generalSettings" />
             </Tab.Pane>
+            <Tab.Pane eventKey="cameraSettings">
+              <CameraSettings preState={thisState} key="cameraSettings" />
+            </Tab.Pane>
             <Tab.Pane eventKey="printerSettings">
               <PrinterSettings preState={thisState} key="printerSettings" />
             </Tab.Pane>
@@ -58,58 +64,103 @@ const Settings = props => {
           </Tab.Content>
         </Col>
       </Row>
-      <Row></Row>
+      <Row />
       <div className="footer-copyright text-center py-3 ">
         <footer>
-          <Button variant="success" size="lg" className="mr-3" onClick={() => {
-            fetch(thisState.INITIAL_URL + "/saveAllSettings", {
-              method: "PUT",
-              body: JSON.stringify(thisState.setting.value),
-              headers: { "content-type": "application/json" }
-            })
-              .then(response => {
-                if (response.status === 200) {
+          <Button
+            variant="success"
+            size="lg"
+            className="mr-3"
+            onClick={() => {
+              fetch(thisState.INITIAL_URL + "/saveAllSettings", {
+                method: "PUT",
+                body: JSON.stringify(thisState.setting.value),
+                headers: { "content-type": "application/json" }
+              })
+                .then(response => {
+                  if (response.status === 200) {
+                    thisState.alerts.push({
+                      id: new Date().getTime(),
+                      type: "success",
+                      headline: "Setting Updated",
+                      message: "Setting Updated successfully."
+                    });
+                    thisState.setMyState(thisState);
+                  } else throw Error(response.statusText);
+                })
+                .catch(error => {
                   thisState.alerts.push({
                     id: new Date().getTime(),
-                    type: "success",
+                    type: "danger",
                     headline: "Setting Updated",
-                    message: "Setting Updated successfully."
+                    message: "Setting Updated Failed."
                   });
                   thisState.setMyState(thisState);
-                } else throw Error(response.statusText);
-              })
-              .catch(error => {
-                thisState.alerts.push({
-                  id: new Date().getTime(),
-                  type: "danger",
-                  headline: "Setting Updated",
-                  message: "Setting Updated Failed."
                 });
-                thisState.setMyState(thisState);
-              });
-          }}>
+            }}
+          >
             <FontAwesomeIcon icon={faWrench} className="mr-3" />
             UPDATE
           </Button>
-          <Button variant="info" size="lg" onClick={() => {
-            fetch(thisState.INITIAL_URL + "/getAllSettings")
-              .then(response => {
-                if (response.status === 200) {
-                  return response.json();
-                } else throw Error(response.statusText);
-              })
-              .then(result => {
-                thisState.setting.value = result;
-                thisState.alerts.push({
-                  id: new Date().getTime(),
-                  type: "success",
-                  headline: "Setting Refresh",
-                  message: "Setting Refresh Successfully."
-                });
-                thisState.setMyState(thisState);
-              })
-              .catch(error => { });
-          }}>
+          <Button
+            variant="info"
+            size="lg"
+            onClick={() => {
+              fetch(thisState.INITIAL_URL + "/getAllSettings")
+                .then(response => {
+                  if (response.status === 200) {
+                    return response.json();
+                  } else throw Error(response.statusText);
+                })
+                .then(result => {
+                  thisState.setting.value = result;
+                  if (
+                    thisState.setting.array.availableCameras.indexOf(
+                      thisState.setting.value.cameraName
+                    ) === -1
+                  ) {
+                    thisState.setting.array.availableCameras.push(
+                      thisState.setting.value.cameraName
+                    );
+                  }
+                  if (
+                    thisState.setting.array.availablePrinters.indexOf(
+                      thisState.setting.value.printerName
+                    ) === -1
+                  ) {
+                    thisState.setting.array.availablePrinters.push(
+                      thisState.setting.value.printerName
+                    );
+                  }
+                  if (
+                    thisState.setting.array.availableCOMPorts.indexOf(
+                      thisState.setting.value.indicatorCOMPort
+                    ) === -1
+                  ) {
+                    thisState.setting.array.availableCOMPorts.push(
+                      thisState.setting.value.indicatorCOMPort
+                    );
+                  }
+                  if (
+                    thisState.setting.array.availableCOMPorts.indexOf(
+                      thisState.setting.value.displayCOMPort
+                    ) === -1
+                  ) {
+                    thisState.setting.array.availableCOMPorts.push(
+                      thisState.setting.value.displayCOMPort
+                    );
+                  }
+                  thisState.alerts.push({
+                    id: new Date().getTime(),
+                    type: "success",
+                    headline: "Setting Refresh",
+                    message: "Setting Refresh Successfully."
+                  });
+                  thisState.setMyState(thisState);
+                })
+                .catch(error => {});
+            }}
+          >
             <FontAwesomeIcon icon={faSync} spin className="mr-3" />
             Refresh
           </Button>

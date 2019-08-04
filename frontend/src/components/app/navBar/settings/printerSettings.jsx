@@ -24,7 +24,9 @@ const PrinterSettings = props => {
             }}
           >
             {thisState.setting.array.availablePrinters.map((item, index) => (
-              <option value={item} key={item}>{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>
@@ -50,9 +52,9 @@ const PrinterSettings = props => {
             <button
               type="button"
               onClick={() => {
-                if (thisState.setting.value.noOfCopies + 1 > 100) return;
+                if (thisState.setting.value.noOfCopies * 1 + 1 > 100) return;
                 thisState.setting.value.noOfCopies =
-                  thisState.setting.value.noOfCopies + 1;
+                  thisState.setting.value.noOfCopies * 1 + 1;
                 thisState.setMyState(thisState);
               }}
             >
@@ -75,7 +77,9 @@ const PrinterSettings = props => {
             }}
           >
             {thisState.setting.array.availablePrintFormat.map((item, index) => (
-              <option value={item} key={item}>{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </Form.Control>
         </Col>

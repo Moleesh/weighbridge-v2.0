@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 @CrossOrigin(origins = "*")
@@ -46,11 +50,21 @@ class Controller {
     private
     CameraService cameraService;
 
+    @RequestMapping(value = "/settingUpCamera", method = {RequestMethod.GET})
+    public void settingUpCamera() {
+        cameraService.settingUpCamera();
+    }
+
+    @RequestMapping(value = "/getAllCameras", method = {RequestMethod.GET})
+    public List<String> getAllCameras() {
+        return cameraService.getAllCameras();
+    }
+
     @RequestMapping(value = "/getCameraImage", method = RequestMethod.GET,
             produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody
     byte[] getImage() {
-        return cameraService.getCameraImageByteBuffer("My Camera");
+        return cameraService.getCameraImage();
     }
 
     @RequestMapping(value = "/getNextWeight")
@@ -69,8 +83,22 @@ class Controller {
     }
 
     @RequestMapping(value = "/getNextSlipNo")
-    public int getNextSlipNo() {
-        return Integer.parseInt((String) settingsService.getSetting("slipNo"));
+    public int getNextSlipNo(HttpServletRequest request) {
+        String hostIp = "";
+        String clientIp = request.getRemoteAddr();
+        try {
+            hostIp = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            hostIp = clientIp;
+        }
+        if (clientIp.equalsIgnoreCase("0:0:0:0:0:0:0:1")) {
+            clientIp = hostIp;
+        }
+        if (!Objects.equals(hostIp, clientIp)) {
+            return -1;
+        } else {
+            return Integer.parseInt((String) settingsService.getSetting("slipNo"));
+        }
     }
 
     @RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})

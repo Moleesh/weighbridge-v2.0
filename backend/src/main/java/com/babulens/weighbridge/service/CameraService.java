@@ -3,19 +3,19 @@ package com.babulens.weighbridge.service;
 import com.github.sarxos.webcam.Webcam;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.net.ConnectException;
 import java.util.List;
 
 public interface CameraService {
-    BufferedImage getCameraImage(String camera);
+    void saveCameraImageToDisk(String fileName);
 
-    byte[] getCameraImageByteBuffer(String camera);
+    byte[] getCameraImage();
 
     List<String> getAllCameras();
 
     Webcam getCamera(String camera);
 
-    List<String> getAllDimensions(String camera);
+    Dimension getBestDimensions(Webcam webcam) throws ConnectException;
 
-    Dimension getBestDimensions(Webcam webcam);
+    void settingUpCamera();
 }

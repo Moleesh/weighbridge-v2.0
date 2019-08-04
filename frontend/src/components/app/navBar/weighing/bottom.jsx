@@ -97,15 +97,15 @@ const Bottom = props => {
           }}
           disabled={thisState.weighing.disable.saveDisabled}
           ref={thisState.weighing.reference.saveReference}
-          onKeyPress={event => {
-            if (prevent) {
-              prevent = false;
-              event.preventDefault();
-            }
-          }}
-          onFocus={event => {
-            prevent = true;
-          }}
+          // onKeyPress={event => {
+          //   if (prevent) {
+          //     prevent = false;
+          //     event.preventDefault();
+          //   }
+          // }}
+          // onFocus={event => {
+          //   prevent = true;
+          // }}
         >
           Save
         </Button>
@@ -252,7 +252,11 @@ const Bottom = props => {
                 thisState.weighing.disable.materialDisabled = false;
                 thisState.weighing.disable.chargesDisabled = false;
                 thisState.weighing.disable.remarksDisabled = false;
-                thisState.weighing.disable.getWeightDisabled = false;
+                if (result === -1) {
+                  thisState.weighing.disable.getWeightDisabled = true;
+                } else {
+                  thisState.weighing.disable.getWeightDisabled = false;
+                }
                 thisState.weighing.disable.saveDisabled = true;
                 thisState.weighing.disable.printDisabled = true;
                 thisState.weight.slipNo = result;

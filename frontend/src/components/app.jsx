@@ -6,13 +6,14 @@ import NavTabs from "./app/navBar";
 import moment from "moment";
 
 const INITIAL_URL = "http://localhost:8080";
+const REFRESH_TIME = 10000;
 class App extends Component {
   constructor() {
     super();
     this.setMyState = this.setMyState.bind(this);
   }
 
-  async setMyState(myState) {
+  setMyState(myState) {
     this.setState(myState);
   }
 
@@ -55,7 +56,8 @@ class App extends Component {
       }
     },
     weighing: {
-      weight: "1000000",
+      weight: "-1",
+      cameraImage: "",
       grossSelector: true,
       tareSelector: false,
       reprint: false,
@@ -99,7 +101,7 @@ class App extends Component {
       }
     },
     weight: {
-      slipNo: "",
+      slipNo: "-1",
       vehicleNo: "",
       material: "",
       customersName: "",
@@ -168,8 +170,13 @@ class App extends Component {
         weighbridgeName: "",
         weighbridgeAddress: "",
         footer: "",
+        cameraName: "",
+        cameraXAxis: 0,
+        cameraYAxis: 0,
+        cameraWidth: 0,
+        cameraHeight: 0,
         printerName: "",
-        noOfCopies: "",
+        noOfCopies: 0,
         printFormat: "",
         indicatorCOMPort: "",
         indicatorBaudRate: "",
@@ -184,9 +191,10 @@ class App extends Component {
         displayParity: "",
         displayStopBits: "",
         displayFlowControl: "",
-        slipNo: ""
+        slipNo: -1
       },
       array: {
+        availableCameras: [],
         availablePrinters: [],
         availablePrintFormat: [],
         availableCOMPorts: [],
@@ -215,7 +223,7 @@ class App extends Component {
     automation: false
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     fetch(INITIAL_URL + "/getNextSlipNo")
       .then(response => {
         if (response.status === 200) {
@@ -225,11 +233,15 @@ class App extends Component {
       .then(result => {
         let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = result;
+        if (result === -1) {
+          thisState.weighing.disable.getWeightDisabled = true;
+        }
         thisState.setMyState(thisState);
       })
       .catch(error => {
         let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = "-1";
+        thisState.weighing.disable.getWeightDisabled = true;
         thisState.setMyState(thisState);
       });
     fetch(INITIAL_URL + "/getAllMaterial")
@@ -304,6 +316,19 @@ class App extends Component {
         thisState.setMyState(thisState);
       })
       .catch(error => {});
+    fetch(INITIAL_URL + "/getAllCameras")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else throw Error(response.statusText);
+      })
+      .then(result => {
+        let thisState = { ...this.state, setMyState: this.setMyState };
+        thisState.setting.array.availableCameras = result;
+        thisState.setMyState(thisState);
+      })
+      .catch(error => {});
+    await setTimeout(() => {}, 1000);
     fetch(INITIAL_URL + "/getAllSettings")
       .then(response => {
         if (response.status === 200) {
@@ -313,25 +338,46 @@ class App extends Component {
       .then(result => {
         let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.setting.value = result;
+        if (
+          thisState.setting.array.availableCameras.indexOf(
+            thisState.setting.value.cameraName
+          ) === -1
+        ) {
+          thisState.setting.array.availableCameras.push(
+            thisState.setting.value.cameraName
+          );
+        }
+        if (
+          thisState.setting.array.availablePrinters.indexOf(
+            thisState.setting.value.printerName
+          ) === -1
+        ) {
+          thisState.setting.array.availablePrinters.push(
+            thisState.setting.value.printerName
+          );
+        }
+        if (
+          thisState.setting.array.availableCOMPorts.indexOf(
+            thisState.setting.value.indicatorCOMPort
+          ) === -1
+        ) {
+          thisState.setting.array.availableCOMPorts.push(
+            thisState.setting.value.indicatorCOMPort
+          );
+        }
+        if (
+          thisState.setting.array.availableCOMPorts.indexOf(
+            thisState.setting.value.displayCOMPort
+          ) === -1
+        ) {
+          thisState.setting.array.availableCOMPorts.push(
+            thisState.setting.value.displayCOMPort
+          );
+        }
         thisState.setMyState(thisState);
       })
       .catch(error => {});
-    fetch(INITIAL_URL + "/getCameraImage")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
-        thisState.weighing.weight = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(error => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
-        thisState.weighing.weight = "-1";
-        thisState.setMyState(thisState);
-      });
+
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
         .then(response => {
@@ -349,11 +395,16 @@ class App extends Component {
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
         });
-    }, 50000);
+    }, REFRESH_TIME);
+    this.image = setInterval(() => {
+      this.state.weighing.cameraImage =
+        INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
+    }, REFRESH_TIME);
   }
 
   componentWillUnmount() {
     clearInterval(this.weight);
+    clearInterval(this.image);
   }
 
   render() {
