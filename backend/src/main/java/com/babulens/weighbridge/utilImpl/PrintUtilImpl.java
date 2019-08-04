@@ -150,7 +150,7 @@ public class PrintUtilImpl implements PrintUtil {
                 BufferedImage cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
                 graphics.drawImage(cropImage, 250, 125, 300,
                         (int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
-            } catch (IOException | NullPointerException | RasterFormatException ex) {
+            } catch (IOException | NullPointerException | RasterFormatException ignored) {
             }
             return Printable.PAGE_EXISTS;
         }, pageFormat);

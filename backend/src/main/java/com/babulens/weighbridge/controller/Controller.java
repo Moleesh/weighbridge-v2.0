@@ -84,7 +84,7 @@ class Controller {
 
     @RequestMapping(value = "/getNextSlipNo")
     public int getNextSlipNo(HttpServletRequest request) {
-        String hostIp = "";
+        String hostIp;
         String clientIp = request.getRemoteAddr();
         try {
             hostIp = InetAddress.getLocalHost().getHostAddress();

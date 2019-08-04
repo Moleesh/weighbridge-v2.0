@@ -40,7 +40,6 @@ public class SerialPortServiceImpl implements SerialPortService {
     public void settingUpIndicator() {
 
         if (lockIndicator) {
-            lockIndicator = true;
             Map<String, String> settings = settingsService.getAllSettings();
             String port = settings.get("indicatorCOMPort");
             String baudRate = settings.get("indicatorBaudRate");
@@ -100,7 +99,6 @@ public class SerialPortServiceImpl implements SerialPortService {
     @PostConstruct
     public void settingUpDisplay() {
         if (lockDisplay) {
-            lockDisplay = true;
             Map<String, String> settings = settingsService.getAllSettings();
             String port = settings.get("indicatorCOMPort");
             String baudRate = settings.get("indicatorBaudRate");

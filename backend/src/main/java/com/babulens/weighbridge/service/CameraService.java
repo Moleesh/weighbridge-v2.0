@@ -3,7 +3,6 @@ package com.babulens.weighbridge.service;
 import com.github.sarxos.webcam.Webcam;
 
 import java.awt.*;
-import java.net.ConnectException;
 import java.util.List;
 
 public interface CameraService {
@@ -15,7 +14,7 @@ public interface CameraService {
 
     Webcam getCamera(String camera);
 
-    Dimension getBestDimensions(Webcam webcam) throws ConnectException;
+    Dimension getBestDimensions(Webcam webcam);
 
     void settingUpCamera();
 }

@@ -20,7 +20,6 @@ import java.awt.image.RasterFormatException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,7 @@ public class CameraServiceImpl implements CameraService {
             try {
                 webcam.setViewSize(getBestDimensions(webcam));
                 webcam.open();
-            } catch (WebcamException | ConnectException e) {
+            } catch (WebcamException ignored) {
             }
         }
     }
@@ -81,11 +80,13 @@ public class CameraServiceImpl implements CameraService {
             File directory = new File("CameraOutput");
             File outputfile = new File("CameraOutput\\" + fileName);
             if (!directory.exists()) {
-                directory.mkdirs();
+                if (directory.mkdirs()) {
+                    return;
+                }
             }
             try {
                 ImageIO.write(webcam.getImage(), "jpeg", outputfile);
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -125,7 +126,7 @@ public class CameraServiceImpl implements CameraService {
         for (Webcam webcam : Webcam.getWebcams()) {
             try {
                 cameras.add(webcam.getName() + " " + getBestDimensions(webcam).toString().replace("java.awt.Dimension", ""));
-            } catch (WebcamException | ConnectException e) {
+            } catch (WebcamException e) {
                 cameras.add(webcam.getName() + " " + "[width=0,height=0]");
             }
         }
@@ -133,7 +134,7 @@ public class CameraServiceImpl implements CameraService {
     }
 
     @Override
-    public Dimension getBestDimensions(Webcam webcam) throws WebcamException, ConnectException {
+    public Dimension getBestDimensions(Webcam webcam) throws WebcamException {
         if (webcam != null) {
             Dimension[] dimensions = webcam.getViewSizes();
             if (dimensions.length != 0) {
