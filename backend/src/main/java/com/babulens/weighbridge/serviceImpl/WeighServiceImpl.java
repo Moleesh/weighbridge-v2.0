@@ -1,5 +1,6 @@
 package com.babulens.weighbridge.serviceImpl;
 
+import com.babulens.weighbridge.model.PrintReport;
 import com.babulens.weighbridge.model.Settings;
 import com.babulens.weighbridge.model.TareWeight;
 import com.babulens.weighbridge.model.Weight;
@@ -63,20 +64,23 @@ public class WeighServiceImpl implements WeighService {
     }
 
     @Override
-    public List<Weight> getAllWeight(Date startNettTime, Date endNettTime, String inputLabel, String input) {
+    public PrintReport getReport(Date startNettTime, Date endNettTime, String inputLabel, String input) {
+        PrintReport printReport = new PrintReport();
         switch (inputLabel) {
             case "Slip No":
-                return weightDAO.findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(Integer.parseInt(0 + input), startNettTime, endNettTime);
+                printReport.setWeights(weightDAO.findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(Integer.parseInt(0 + input), startNettTime, endNettTime));
             case "Customer Name":
-                return weightDAO.findAllByCustomersNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                printReport.setWeights(weightDAO.findAllByCustomersNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
             case "Transporter Name":
-                return weightDAO.findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                printReport.setWeights(weightDAO.findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
             case "Vehicle No":
-                return weightDAO.findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                printReport.setWeights(weightDAO.findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
             case "Material":
-                return weightDAO.findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime);
+                printReport.setWeights(weightDAO.findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
             default:
-                return weightDAO.findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(startNettTime, endNettTime);
+                printReport.setWeights(weightDAO.findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(startNettTime, endNettTime));
+
+                return printReport;
         }
     }
 

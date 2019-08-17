@@ -1,11 +1,14 @@
 package com.babulens.weighbridge.util;
 
+import com.babulens.weighbridge.model.PrintReport;
 import com.babulens.weighbridge.model.PrintWeight;
 
-import javax.print.PrintService;
+import java.awt.print.Book;
 
 public interface PrintUtil {
-    void printPrePrint(PrintWeight printWeight, PrintService printer);
+    Book printPrePrint(PrintWeight printWeight);
 
-    void printCameraPrint(PrintWeight printWeight, PrintService printer);
+    Book printCameraPrint(PrintWeight printWeight);
+
+    Book printReport(PrintReport printReport);
 }

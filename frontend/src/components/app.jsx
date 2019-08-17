@@ -13,7 +13,7 @@ class App extends Component {
     this.setMyState = this.setMyState.bind(this);
   }
 
-  setMyState(myState) {
+  async setMyState(myState) {
     this.setState(myState);
   }
 
@@ -163,7 +163,10 @@ class App extends Component {
       inputLabel: "",
       input: "",
       inputDisabled: true,
-      list: []
+      list: [],
+      totalRecords: 0,
+      totalNettWeight: 0,
+      totalTotalCharges: 0
     },
     setting: {
       value: {
@@ -328,7 +331,8 @@ class App extends Component {
         thisState.setMyState(thisState);
       })
       .catch(error => {});
-    await setTimeout(() => {}, 1000);
+    var wait = setTimeout(() => {}, 1000);
+    await wait;
     fetch(INITIAL_URL + "/getAllSettings")
       .then(response => {
         if (response.status === 200) {

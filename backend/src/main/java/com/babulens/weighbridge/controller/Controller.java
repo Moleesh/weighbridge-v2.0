@@ -91,7 +91,7 @@ class Controller {
         } catch (UnknownHostException e) {
             hostIp = clientIp;
         }
-        if (clientIp.equalsIgnoreCase("0:0:0:0:0:0:0:1")) {
+        if (clientIp.equalsIgnoreCase("0:0:0:0:0:0:0:1") || clientIp.equalsIgnoreCase("127.0.0.1")) {
             clientIp = hostIp;
         }
         if (!Objects.equals(hostIp, clientIp)) {
@@ -111,9 +111,10 @@ class Controller {
         return weighService.getWeight(slipNo);
     }
 
-    @RequestMapping(value = "/getAllWeight", method = {RequestMethod.POST})
-    public List<Weight> getAllWeight(@RequestBody GetReport getReport) {
-        return weighService.getAllWeight(getReport.getStartDate(), getReport.getEndDate(), getReport.getInputLabel(), getReport.getInput());
+    @RequestMapping(value = "/getReport", method = {RequestMethod.POST})
+    public PrintReport getReport(@RequestBody GetReport getReport) {
+        return weighService.getReport(getReport.getStartDate(), getReport.getEndDate(), getReport.getInputLabel(),
+                getReport.getInput());
     }
 
     @RequestMapping(value = "/getAllMaterial")
@@ -179,6 +180,25 @@ class Controller {
     @RequestMapping(value = "/printWeight", method = {RequestMethod.POST})
     public void printWeight(@RequestBody PrintWeight printWeight) {
         printerService.printWeight(printWeight);
+    }
+
+    @RequestMapping(value = "/getPrintWeightPDF", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody
+    byte[] getPrintWeightPDF(@RequestBody PrintWeight printWeight) {
+        return printerService.getPrintWeightPDF(printWeight);
+    }
+
+    @RequestMapping(value = "/printReport", method = {RequestMethod.POST})
+    public void printReport(@RequestBody PrintReport printReport) {
+        printerService.printReport(printReport);
+    }
+
+    @RequestMapping(value = "/getReportPDF", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody
+    byte[] getReportPDF(@RequestBody PrintReport printReport) {
+        return printerService.getPrintReportPDF(printReport);
     }
 
     @RequestMapping(value = "/getAllSerialPort", method = {RequestMethod.GET})

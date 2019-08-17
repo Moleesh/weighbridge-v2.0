@@ -1,6 +1,7 @@
 package com.babulens.weighbridge.utilImpl;
 
 import com.babulens.weighbridge.model.Coordinates;
+import com.babulens.weighbridge.model.PrintReport;
 import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.service.SettingsService;
 import com.babulens.weighbridge.util.PrintUtil;
@@ -9,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import javax.print.PrintService;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
-import java.awt.print.*;
+import java.awt.print.Book;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -35,8 +38,7 @@ public class PrintUtilImpl implements PrintUtil {
     }
 
     @Override
-    public void printPrePrint(PrintWeight printWeight, PrintService printer) {
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
+    public Book printPrePrint(PrintWeight printWeight) {
         PageFormat pageFormat = new PageFormat();
         Paper paper = pageFormat.getPaper();
         double paperWidth = 8d * 72d;
@@ -56,23 +58,17 @@ public class PrintUtilImpl implements PrintUtil {
 
             return Printable.PAGE_EXISTS;
         }, pageFormat);
-        printerJob.setPageable(book);
-        try {
-            printerJob.setPrintService(printer);
-            printerJob.print();
-        } catch (PrinterException ignored) {
-        }
+        return book;
     }
 
     @Override
-    public void printCameraPrint(PrintWeight printWeight, PrintService printer) {
+    public Book printCameraPrint(PrintWeight printWeight) {
         Map<String, String> settings = settingsService.getAllSettings();
         int cameraXAxis = Integer.parseInt(settings.get("cameraXAxis"));
         int cameraYAxis = Integer.parseInt(settings.get("cameraYAxis"));
         int cameraWidth = Integer.parseInt(settings.get("cameraWidth"));
         int cameraHeight = Integer.parseInt(settings.get("cameraHeight"));
 
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
         PageFormat pageFormat = new PageFormat();
         Paper paper = pageFormat.getPaper();
         double paperWidth = 8d * 72d;
@@ -154,11 +150,64 @@ public class PrintUtilImpl implements PrintUtil {
             }
             return Printable.PAGE_EXISTS;
         }, pageFormat);
-        printerJob.setPageable(book);
-        try {
-            printerJob.setPrintService(printer);
-            printerJob.print();
-        } catch (PrinterException ignored) {
-        }
+        return book;
+    }
+
+    @Override
+    public Book printReport(PrintReport printReport) {
+        PageFormat pageFormat = new PageFormat();
+        Paper paper = pageFormat.getPaper();
+        double paperWidth = 8d * 72d;
+        double paperHeight = 11.5d * 72d;
+        double paperWidthMargin = .75d * 72d;
+        double paperHeightMargin = 1d * 72d;
+        paper.setSize(paperWidth, paperHeight);
+        paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
+                paperHeight - (2 * paperHeightMargin));
+        pageFormat.setPaper(paper);
+        Book book = new Book();
+        book.append((graphics, pageFormat1, pageIndex) -> {
+            // TODO: 29-07-2019 Report
+            String format = "%1$-5s%2$-20s: ";
+
+            String initString = StringUtils.center(printReport.getWeighbridgeName(), 39) + "\n";
+            graphics.setFont(new Font("Courier New", Font.BOLD, 20));
+            Coordinates coordinates = PrintUtilImpl.drawString(graphics, initString, 0, 0);
+
+            initString = StringUtils.center(printReport.getWeighbridgeAddress(), 65) + "\n";
+            graphics.setFont(new Font("Courier New", Font.ITALIC, 12));
+            coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+
+            initString = StringUtils.center(printReport.getReportTitle(), 65) + "\n";
+            coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+
+            initString =
+                    "==================================================================================================\n";
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 9));
+            coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+
+            initString = String.format(format, StringUtils.center("Sl.no", 5), StringUtils.center("Date & Time", 19),
+                    StringUtils.center("Vehicle No", 15), StringUtils.center("Material", 15),
+                    StringUtils.center("Gross Wt", 8), StringUtils.center("Tare Wt", 8),
+                    StringUtils.center("Net Wt", 8));
+            coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+
+            initString =
+                    "==================================================================================================\n";
+            coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+
+
+            initString =
+                    "==================================================================================================\n";
+            coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+
+            initString = "\n\t\t\t\t\tSignature";
+            graphics.setFont(new Font("Courier New", Font.BOLD, 10));
+            PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+            //coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+
+            return Printable.PAGE_EXISTS;
+        }, pageFormat);
+        return book;
     }
 }

@@ -1,5 +1,6 @@
 package com.babulens.weighbridge.service;
 
+import com.babulens.weighbridge.model.PrintReport;
 import com.babulens.weighbridge.model.PrintWeight;
 
 import javax.print.PrintService;
@@ -10,8 +11,13 @@ public interface PrinterService {
 
     void printWeight(PrintWeight printWeight);
 
+    void printReport(PrintReport printReport);
+
     List<String> getAllPrintFormat();
 
     PrintService getPrinter(String printer);
 
+    byte[] getPrintWeightPDF(PrintWeight printWeight);
+
+    byte[] getPrintReportPDF(PrintReport printReport);
 }

@@ -1,7 +1,11 @@
 import React from "react";
 import { Row, Col, Form, Button, Table } from "react-bootstrap";
 import DatetimeRangePicker from "react-datetime-range-picker";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPrint, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
+import FileSaver from "file-saver";
+
 import Filter from "./report/filter";
 
 const Report = props => {
@@ -208,7 +212,7 @@ const Report = props => {
                 block
                 variant="primary"
                 onClick={() => {
-                  fetch(thisState.INITIAL_URL + "/getAllWeight", {
+                  fetch(thisState.INITIAL_URL + "/getReport", {
                     method: "POST",
                     body: JSON.stringify({
                       startDate: moment(thisState.report.date.start).format(
@@ -231,7 +235,7 @@ const Report = props => {
                       thisState.report.list = result;
                       thisState.setMyState(thisState);
                     })
-                    .catch(error => { });
+                    .catch(error => {});
                 }}
               >
                 Go
@@ -271,9 +275,210 @@ const Report = props => {
           </Form.Group>
         </Col>
       </Row>
+      <Row className="pb-1">
+        <Col sm="3">
+          <Form.Group as={Row}>
+            <Form.Label column sm="6">
+              Total Records
+            </Form.Label>
+            <Col sm="6">
+              <Form.Control
+                autoComplete="off"
+                className="text-center form-control"
+                disabled
+                value={thisState.report.totalRecords}
+                type="text"
+              />
+            </Col>
+          </Form.Group>
+        </Col>
+        <Col sm="3">
+          <Form.Group as={Row}>
+            <Form.Label column sm="6">
+              Total Nett Weight
+            </Form.Label>
+            <Col sm="6">
+              <Form.Control
+                autoComplete="off"
+                className="text-center form-control"
+                disabled
+                value={thisState.report.totalNettWeight}
+                type="text"
+              />
+            </Col>
+          </Form.Group>
+        </Col>
+        <Col sm="3">
+          <Form.Group as={Row}>
+            <Form.Label column sm="6">
+              Total Charges
+            </Form.Label>
+            <Col sm="6">
+              <Form.Control
+                autoComplete="off"
+                className="text-center form-control"
+                disabled
+                value={thisState.report.totalTotalCharges}
+                type="text"
+              />
+            </Col>
+          </Form.Group>
+        </Col>
+        <Col sm="3">
+          <Row>
+            <Col sm="7">
+              <Button variant="primary" block onClick={() => {}} disabled>
+                <FontAwesomeIcon icon={faFileDownload} className="mr-3" />
+                Export as Excel
+              </Button>
+            </Col>
+            <Col sm="5">
+              <Button
+                variant="warning"
+                block
+                onClick={() => {
+                  var reportTitle = "";
+                  switch (thisState.report.reportSelect) {
+                    case "Full":
+                      reportTitle = "Full Report";
+                      break;
+                    case "Daily":
+                      reportTitle =
+                        "Daily Report : " + thisState.report.date.start;
+                      break;
+                    case "Weekly":
+                      reportTitle =
+                        "Weekly Report : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    case "Monthly":
+                      reportTitle =
+                        "Monthly Report : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    case "Custom Date":
+                      reportTitle =
+                        "Custom Report : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    case "Slip No":
+                      reportTitle =
+                        "Slip No Report (" +
+                        thisState.report.input +
+                        ") : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    case "Customer Name":
+                      reportTitle =
+                        "Customer Report (" +
+                        thisState.report.input +
+                        ") : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    case "Transporter Name":
+                      reportTitle =
+                        "Transporter Report (" +
+                        thisState.report.input +
+                        ") : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    case "Vehicle No":
+                      reportTitle =
+                        "Vehicle No Report (" +
+                        thisState.report.input +
+                        ") : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    case "Material":
+                      reportTitle =
+                        "Material Report (" +
+                        thisState.report.input +
+                        ") : " +
+                        thisState.report.date.start +
+                        " - " +
+                        thisState.report.date.end;
+                      break;
+                    default:
+                  }
+                  if (
+                    thisState.setting.value.printerName === "get as .pdf File"
+                  ) {
+                    fetch(thisState.INITIAL_URL + "/getReportPDF", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        weights: thisState.weight,
+                        printerName: thisState.setting.value.printerName,
+                        printFormat: thisState.setting.value.printFormat,
+                        weighbridgeName:
+                          thisState.setting.value.weighbridgeName,
+                        weighbridgeAddress:
+                          thisState.setting.value.weighbridgeAddress,
+                        footer: thisState.setting.value.footer
+                      }),
+                      headers: { "content-type": "application/json" }
+                    })
+                      .then(response => {
+                        if (response.status !== 200)
+                          throw Error(response.statusText);
+                        return response.blob();
+                      })
+                      .then(blob => {
+                        console.log(blob);
+                        FileSaver.saveAs(blob, "report.pdf");
+                      })
+                      .catch(error => {
+                        console.log(error);
+                      });
+                  } else {
+                    fetch(thisState.INITIAL_URL + "/printReport", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        weights: thisState.report.list,
+                        printerName: thisState.setting.value.printerName,
+                        reportTitle: reportTitle,
+                        weighbridgeName:
+                          thisState.setting.value.weighbridgeName,
+                        weighbridgeAddress:
+                          thisState.setting.value.weighbridgeAddress,
+                        totalRecords: thisState.report.totalRecords,
+                        totalNettWeight: thisState.report.totalNettWeight,
+                        totalTotalCharges: thisState.report.totalTotalCharges,
+                        footer: thisState.setting.value.footer
+                      }),
+                      headers: { "content-type": "application/json" }
+                    })
+                      .then(response => {
+                        if (response.status !== 200)
+                          throw Error(response.statusText);
+                      })
+                      .catch(error => {});
+                  }
+                }}
+              >
+                <FontAwesomeIcon icon={faPrint} className="mr-3" />
+                Print
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
       <Row>
         <Col>
-          <Table hover size="sm">
+          <Table hover responsive size="sm">
             <thead>
               <tr className="contentCenter">
                 {Object.keys(thisState.report.header)
@@ -289,31 +494,29 @@ const Report = props => {
                   .toString()
                   .replace(",", ".")
                   .indexOf(thisState.report.filterText) === -1 ? null : (
-                    <tr key={index} className="eachRow">
-                      {Object.keys(item)
-                        .filter(key => thisState.report.filter[key])
-                        .map(key => (
-                          <td
-                            key={key + "" + item[key]}
-                            className="contentCenter"
-                          >
-                            <Col>
-                              {/* {item[key] !== null ? item[key] : ""} */}
-                              <Form.Control
-                                autoComplete="off"
-                                className="text-center form-control reportInputs"
-                                disabled
-                                type="text"
-                                name={key}
-                                id={item["id"]}
-                                value={item[key] !== null ? item[key] : ""}
-                                onChange={event => { }}
-                              />
-                            </Col>
-                          </td>
-                        ))}
-                    </tr>
-                  )
+                  <tr key={index} className="eachRow">
+                    {Object.keys(item)
+                      .filter(key => thisState.report.filter[key])
+                      .map(key => (
+                        <td
+                          key={key + "" + item[key]}
+                          className="contentCenter"
+                        >
+                          {item[key] !== null ? item[key] : ""}
+                          {/* <Form.Control
+                            autoComplete="off"
+                            className="text-center form-control reportInputs"
+                            disabled
+                            type="text"
+                            name={key}
+                            id={item["id"]}
+                            value={item[key] !== null ? item[key] : ""}
+                            onChange={event => {}}
+                          /> */}
+                        </td>
+                      ))}
+                  </tr>
+                )
               )}
             </tbody>
           </Table>

@@ -1,8 +1,8 @@
 import React from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+import { Button, Row, Col } from "react-bootstrap";
 import moment from "moment";
+import FileSaver from "file-saver";
+
 import RePrint from "./bottom/rePrint";
 
 const Bottom = props => {
@@ -145,24 +145,52 @@ const Bottom = props => {
           variant="primary"
           block
           onClick={() => {
-            fetch(thisState.INITIAL_URL + "/printWeight", {
-              method: "POST",
-              body: JSON.stringify({
-                weight: thisState.weight,
-                printerName: thisState.setting.value.printerName,
-                noOfCopies: thisState.setting.value.noOfCopies,
-                printFormat: thisState.setting.value.printFormat,
-                weighbridgeName: thisState.setting.value.weighbridgeName,
-                weighbridgeAddress: thisState.setting.value.weighbridgeAddress,
-                footer: thisState.setting.value.footer
-              }),
-              headers: { "content-type": "application/json" }
-            })
-              .then(response => {
-                if (response.status !== 200) throw Error(response.statusText);
+            if (thisState.setting.value.printerName === "get as .pdf File") {
+              fetch(thisState.INITIAL_URL + "/getPrintWeightPDF", {
+                method: "POST",
+                body: JSON.stringify({
+                  weight: thisState.weight,
+                  printerName: thisState.setting.value.printerName,
+                  noOfCopies: thisState.setting.value.noOfCopies,
+                  printFormat: thisState.setting.value.printFormat,
+                  weighbridgeName: thisState.setting.value.weighbridgeName,
+                  weighbridgeAddress:
+                    thisState.setting.value.weighbridgeAddress,
+                  footer: thisState.setting.value.footer
+                }),
+                headers: { "content-type": "application/json" }
               })
-              .catch(error => {});
-
+                .then(response => {
+                  if (response.status !== 200) throw Error(response.statusText);
+                  return response.blob();
+                })
+                .then(blob => {
+                  console.log(blob);
+                  FileSaver.saveAs(blob, "weight.pdf");
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            } else {
+              fetch(thisState.INITIAL_URL + "/printWeight", {
+                method: "POST",
+                body: JSON.stringify({
+                  weight: thisState.weight,
+                  printerName: thisState.setting.value.printerName,
+                  noOfCopies: thisState.setting.value.noOfCopies,
+                  printFormat: thisState.setting.value.printFormat,
+                  weighbridgeName: thisState.setting.value.weighbridgeName,
+                  weighbridgeAddress:
+                    thisState.setting.value.weighbridgeAddress,
+                  footer: thisState.setting.value.footer
+                }),
+                headers: { "content-type": "application/json" }
+              })
+                .then(response => {
+                  if (response.status !== 200) throw Error(response.statusText);
+                })
+                .catch(error => {});
+            }
             fetch(thisState.INITIAL_URL + "/getNextSlipNo")
               .then(response => {
                 if (response.status === 200) {
