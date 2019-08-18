@@ -29,7 +29,7 @@ class MyIpCam extends IpCamDriver {
     MyIpCam() {
         try {
             super.register(new IpCamDevice("No Camera Available", "http:", IpCamMode.PULL));
-        } catch (MalformedURLException ignored) {
+        } catch (MalformedURLException | WebcamException ignored) {
         }
     }
 }
@@ -101,7 +101,8 @@ public class CameraServiceImpl implements CameraService {
         if (webcam != null && webcam.isOpen()) {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             try {
-                ImageIO.write(webcam.getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight), "jpeg", outputStream);
+                ImageIO.write(webcam.getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight),
+                        "jpeg", outputStream);
             } catch (IOException | IllegalArgumentException | NullPointerException | RasterFormatException e) {
                 return null;
             }
@@ -125,7 +126,8 @@ public class CameraServiceImpl implements CameraService {
         List<String> cameras = new ArrayList<>();
         for (Webcam webcam : Webcam.getWebcams()) {
             try {
-                cameras.add(webcam.getName() + " " + getBestDimensions(webcam).toString().replace("java.awt.Dimension", ""));
+                cameras.add(webcam.getName() + " " + getBestDimensions(webcam).toString().replace("java.awt" +
+                        ".Dimension", ""));
             } catch (WebcamException e) {
                 cameras.add(webcam.getName() + " " + "[width=0,height=0]");
             }

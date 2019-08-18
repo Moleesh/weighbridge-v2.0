@@ -5,8 +5,8 @@ import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
-const INITIAL_URL = "http://localhost:8080";
-const REFRESH_TIME = 10000;
+const INITIAL_URL = "";
+const REFRESH_TIME = 500;
 class App extends Component {
   constructor() {
     super();

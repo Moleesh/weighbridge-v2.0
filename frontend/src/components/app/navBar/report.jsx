@@ -232,7 +232,11 @@ const Report = props => {
                       } else throw Error(response.statusText);
                     })
                     .then(result => {
-                      thisState.report.list = result;
+                      thisState.report.list = result.weights;
+                      thisState.report.totalRecords = result.totalRecords;
+                      thisState.report.totalNettWeight = result.totalNettWeight;
+                      thisState.report.totalTotalCharges =
+                        result.totalTotalCharges;
                       thisState.setMyState(thisState);
                     })
                     .catch(error => {});
@@ -344,73 +348,100 @@ const Report = props => {
                       break;
                     case "Daily":
                       reportTitle =
-                        "Daily Report : " + thisState.report.date.start;
+                        "Daily Report : " +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY"
+                        );
                       break;
                     case "Weekly":
                       reportTitle =
                         "Weekly Report : " +
-                        thisState.report.date.start +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY"
+                        ) +
                         " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.end).format("DD-MM-YYYY");
                       break;
                     case "Monthly":
                       reportTitle =
                         "Monthly Report : " +
-                        thisState.report.date.start +
-                        " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.start).format("MM-YYYY");
                       break;
                     case "Custom Date":
                       reportTitle =
                         "Custom Report : " +
-                        thisState.report.date.start +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        ) +
                         " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.end).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        );
                       break;
                     case "Slip No":
                       reportTitle =
                         "Slip No Report (" +
                         thisState.report.input +
                         ") : " +
-                        thisState.report.date.start +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        ) +
                         " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.end).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        );
                       break;
                     case "Customer Name":
                       reportTitle =
                         "Customer Report (" +
                         thisState.report.input +
                         ") : " +
-                        thisState.report.date.start +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        ) +
                         " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.end).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        );
                       break;
                     case "Transporter Name":
                       reportTitle =
                         "Transporter Report (" +
                         thisState.report.input +
                         ") : " +
-                        thisState.report.date.start +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        ) +
                         " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.end).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        );
                       break;
                     case "Vehicle No":
                       reportTitle =
                         "Vehicle No Report (" +
                         thisState.report.input +
                         ") : " +
-                        thisState.report.date.start +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        ) +
                         " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.end).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        );
                       break;
                     case "Material":
                       reportTitle =
                         "Material Report (" +
                         thisState.report.input +
                         ") : " +
-                        thisState.report.date.start +
+                        moment(thisState.report.date.start).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        ) +
                         " - " +
-                        thisState.report.date.end;
+                        moment(thisState.report.date.end).format(
+                          "DD-MM-YYYY HH:mm:ss"
+                        );
                       break;
                     default:
                   }
@@ -420,13 +451,16 @@ const Report = props => {
                     fetch(thisState.INITIAL_URL + "/getReportPDF", {
                       method: "POST",
                       body: JSON.stringify({
-                        weights: thisState.weight,
+                        weights: thisState.report.list,
                         printerName: thisState.setting.value.printerName,
-                        printFormat: thisState.setting.value.printFormat,
+                        reportTitle: reportTitle,
                         weighbridgeName:
                           thisState.setting.value.weighbridgeName,
                         weighbridgeAddress:
                           thisState.setting.value.weighbridgeAddress,
+                        totalRecords: thisState.report.totalRecords,
+                        totalNettWeight: thisState.report.totalNettWeight,
+                        totalTotalCharges: thisState.report.totalTotalCharges,
                         footer: thisState.setting.value.footer
                       }),
                       headers: { "content-type": "application/json" }

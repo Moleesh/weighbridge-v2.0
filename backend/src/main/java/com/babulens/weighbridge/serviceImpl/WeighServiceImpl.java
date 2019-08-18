@@ -40,7 +40,8 @@ public class WeighServiceImpl implements WeighService {
             if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
                 List<TareWeight> tareWeightList = tareWeightService.getTareByVehicleNo(weight.getVehicleNo());
                 if (tareWeightList.isEmpty()) {
-                    tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(), weight.getTareWeight(), weight.getTareTime()));
+                    tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(),
+                            weight.getTareWeight(), weight.getTareTime()));
                 } else {
                     TareWeight tareWeight = tareWeightList.get(0);
                     tareWeight.setTareTime(weight.getTareTime());
@@ -51,7 +52,8 @@ public class WeighServiceImpl implements WeighService {
             cameraService.saveCameraImageToDisk(weight.getSlipNo() + ".jpeg");
             weightDAO.save(weight);
 
-            settingsService.saveSettings(new Settings("slipNo", Integer.parseInt((String) settingsService.getSetting("slipNo")) + 1));
+            settingsService.saveSettings(new Settings("slipNo", Integer.parseInt((String) settingsService.getSetting(
+                    "slipNo")) + 1));
         }
     }
 
@@ -66,22 +68,36 @@ public class WeighServiceImpl implements WeighService {
     @Override
     public PrintReport getReport(Date startNettTime, Date endNettTime, String inputLabel, String input) {
         PrintReport printReport = new PrintReport();
+        int totalNettWeight = 0;
+        int totalTotalCharges = 0;
         switch (inputLabel) {
             case "Slip No":
                 printReport.setWeights(weightDAO.findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(Integer.parseInt(0 + input), startNettTime, endNettTime));
+                break;
             case "Customer Name":
                 printReport.setWeights(weightDAO.findAllByCustomersNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
+                break;
             case "Transporter Name":
                 printReport.setWeights(weightDAO.findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
+                break;
             case "Vehicle No":
                 printReport.setWeights(weightDAO.findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
+                break;
             case "Material":
                 printReport.setWeights(weightDAO.findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(input, startNettTime, endNettTime));
+                break;
             default:
                 printReport.setWeights(weightDAO.findAllByAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(startNettTime, endNettTime));
-
-                return printReport;
+                break;
         }
+        for (Weight weight : printReport.getWeights()) {
+            totalNettWeight += weight.getNettWeight();
+            totalTotalCharges += weight.getCharges();
+        }
+        printReport.setTotalRecords(printReport.getWeights().size());
+        printReport.setTotalNettWeight(totalNettWeight);
+        printReport.setTotalTotalCharges(totalTotalCharges);
+        return printReport;
     }
 
     @Override

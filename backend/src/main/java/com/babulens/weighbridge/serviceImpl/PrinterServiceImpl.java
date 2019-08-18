@@ -5,6 +5,7 @@ import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.service.PrinterService;
 import com.babulens.weighbridge.util.PrintUtil;
 import com.babulens.weighbridge.utilImpl.PdfFontMapperImpl;
+import com.babulens.weighbridge.utilImpl.PrintUtilImpl;
 import com.itextpdf.awt.PdfGraphics2D;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -156,6 +157,8 @@ public class PrinterServiceImpl implements PrinterService {
     @Override
     public void printReport(PrintReport printReport) {
         PrinterJob printerJob = PrinterJob.getPrinterJob();
+        // TODO: 18-08-2019 delete
+        PrintUtil printUtil = new PrintUtilImpl();
         try {
             printerJob.setPageable(printUtil.printReport(printReport));
             printerJob.setPrintService(getPrinter(printReport.getPrinterName()));

@@ -62,7 +62,10 @@ public class SerialPortServiceImpl implements SerialPortService {
             }
 
             if (commPortIndicator != null) {
-                commPortIndicator.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
+                commPortIndicator.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")),
+                        Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")),
+                        Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")),
+                        Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
                 commPortIndicator.openPort();
                 commPortIndicator.addDataListener(new SerialPortMessageListener() {
                     @Override
@@ -118,7 +121,10 @@ public class SerialPortServiceImpl implements SerialPortService {
             }
 
             if (commPortDisplay != null) {
-                commPortDisplay.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")), Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
+                commPortDisplay.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")),
+                        Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")),
+                        Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")),
+                        Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
                 commPortDisplay.openPort();
             }
             lockDisplay = false;

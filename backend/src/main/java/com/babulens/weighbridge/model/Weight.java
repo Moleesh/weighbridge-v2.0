@@ -31,7 +31,9 @@ public class Weight {
     public Weight() {
     }
 
-    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime, double charges, String remarks, boolean manual) {
+    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName,
+                  long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime,
+                  double charges, String remarks, boolean manual) {
         this.slipNo = slipNo;
         this.vehicleNo = vehicleNo;
         this.material = material;
