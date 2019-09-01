@@ -145,7 +145,9 @@ const IndicatorSettings = props => {
         </Form.Label>
         <Col sm="9">
           <Form.Control
-            as="select"
+            type="text"
+            autoComplete="off"
+            className="text-left"
             value={thisState.setting.value.indicatorDelimiter}
             onChange={event => {
               thisState.setting.value.indicatorDelimiter = event.target.value;
