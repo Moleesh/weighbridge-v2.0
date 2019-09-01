@@ -153,7 +153,7 @@ const IndicatorSettings = props => {
               thisState.setting.value.indicatorDelimiter = event.target.value;
               thisState.setMyState(thisState);
             }}
-          ></Form.Control>
+          />
         </Col>
       </Form.Group>
       <Button
