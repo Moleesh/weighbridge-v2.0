@@ -44,7 +44,7 @@ const ResetSlipNo = props => {
                             onKeyDown={event => {
                                 // noinspection StatementWithEmptyBodyJS
                                 if (event.keyCode === 9 && event.shiftKey) ;
-                                else if ((event.keyCode === 13) || (event.keyCode === 9))
+                                else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.setting.resetSlipNoPasswordReference.current.focus();
                             }}
                             ref={thisState.setting.resetSlipNoReference}
@@ -68,7 +68,7 @@ const ResetSlipNo = props => {
                             onKeyDown={event => {
                                 // noinspection StatementWithEmptyBodyJS
                                 if (event.keyCode === 9 && event.shiftKey) ;
-                                else if ((event.keyCode === 13) || (event.keyCode === 9))
+                                else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.setting.resetSlipNoButtonReference.current.focus();
                             }}
                             ref={thisState.setting.resetSlipNoPasswordReference}
@@ -81,7 +81,7 @@ const ResetSlipNo = props => {
                     onClick={() => {
                         if (
                             thisState.setting.resetSlipNoPassword ===
-                            thisState.password.resetSlipNoPassword
+                            thisState.setting.value.RESET_SLIP_PASSWORD
                         ) {
                             fetch(
                                 thisState.INITIAL_URL +
@@ -112,7 +112,8 @@ const ResetSlipNo = props => {
                                                 thisState.weighing.disable.materialDisabled = false;
                                                 thisState.weighing.disable.chargesDisabled = false;
                                                 thisState.weighing.disable.remarksDisabled = false;
-                                                thisState.weighing.disable.getWeightDisabled = result === -1;
+                                                thisState.weighing.disable.getWeightDisabled =
+                                                    result === -1;
                                                 thisState.weighing.disable.saveDisabled = true;
                                                 thisState.weighing.disable.printDisabled = true;
                                                 thisState.weight.slipNo = result;

@@ -151,7 +151,8 @@ const IndicatorSettings = props => {
                         className="text-left"
                         value={thisState.setting.value.indicatorDelimiter}
                         onChange={event => {
-                            thisState.setting.value.indicatorDelimiter = event.target.value;
+                            thisState.setting.value.indicatorDelimiter =
+                                (event.target.value.match("[0-9]+") || []).pop() || "";
                             thisState.setMyState(thisState);
                         }}
                     />
@@ -170,6 +171,24 @@ const IndicatorSettings = props => {
                         onChange={event => {
                             thisState.setting.value.indicatorLastCharacter =
                                 event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    Refresh weight Time in sec
+                </Form.Label>
+                <Col sm="9">
+                    <Form.Control
+                        type="text"
+                        autoComplete="off"
+                        className="text-left"
+                        value={thisState.setting.value.REFRESH_TIME_WEIGHT}
+                        onChange={event => {
+                            thisState.setting.value.REFRESH_TIME_WEIGHT =
+                                (event.target.value.match("[0-9]+") || []).pop() || "";
                             thisState.setMyState(thisState);
                         }}
                     />

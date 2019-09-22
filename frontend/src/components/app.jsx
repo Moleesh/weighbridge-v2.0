@@ -7,15 +7,12 @@ import NavTabs from "./app/navBar";
 import moment from "moment";
 
 const INITIAL_URL = "";
-const REFRESH_TIME_WEIGHT = 250;
-const REFRESH_TIME_CAMERA = 1500;
 
 class App extends Component {
   state = {
+    IMAGE: "",
+    WEIGHT: "",
     INITIAL_URL: INITIAL_URL,
-    password: {
-      resetSlipNoPassword: "123456"
-    },
     configuration: {
       material: {
         header: ["Material Id", "Material Name"],
@@ -167,6 +164,9 @@ class App extends Component {
     },
     setting: {
       value: {
+        REFRESH_TIME_WEIGHT: "",
+        REFRESH_TIME_CAMERA: "",
+        RESET_SLIP_PASSWORD: "",
         weighbridgeName: "",
         weighbridgeAddress: "",
         footer: "",
@@ -297,58 +297,64 @@ class App extends Component {
         thisState.setMyState(thisState);
       })
       .catch(() => {});
-    fetch(INITIAL_URL + "/getAllPrinters")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
-        thisState.setting.array.availablePrinters = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(() => {});
-    fetch(INITIAL_URL + "/getAllPrintFormat")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
-        thisState.setting.array.availablePrintFormat = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(() => {});
-    fetch(INITIAL_URL + "/getAllSerialPort")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
-        thisState.setting.array.availableCOMPorts = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(() => {});
-    fetch(INITIAL_URL + "/getAllCameras")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
-        thisState.setting.array.availableCameras = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(() => {});
-    const wait = setTimeout(() => {}, 1000);
-    // noinspection BadExpressionStatementJS,ES6RedundantAwait
-    await wait;
-    // noinspection DuplicatedCode
+    const wait = () => {
+      fetch(INITIAL_URL + "/getAllPrinters")
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else throw Error(response.statusText);
+          })
+          .then(result => {
+            let thisState = {...this.state, setMyState: this.setMyState};
+            thisState.setting.array.availablePrinters = result;
+            thisState.setMyState(thisState);
+          })
+          .catch(() => {
+          });
+      fetch(INITIAL_URL + "/getAllPrintFormat")
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else throw Error(response.statusText);
+          })
+          .then(result => {
+            let thisState = {...this.state, setMyState: this.setMyState};
+            thisState.setting.array.availablePrintFormat = result;
+            thisState.setMyState(thisState);
+          })
+          .catch(() => {
+          });
+      fetch(INITIAL_URL + "/getAllSerialPort")
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else throw Error(response.statusText);
+          })
+          .then(result => {
+            let thisState = {...this.state, setMyState: this.setMyState};
+            thisState.setting.array.availableCOMPorts = result;
+            thisState.setMyState(thisState);
+          })
+          .catch(() => {
+          });
+      fetch(INITIAL_URL + "/getAllCameras")
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else throw Error(response.statusText);
+          })
+          .then(result => {
+            let thisState = {...this.state, setMyState: this.setMyState};
+            thisState.setting.array.availableCameras = result;
+            thisState.setMyState(thisState);
+          })
+          .then(() => {
+          })
+          .catch(() => {
+          });
+    };
+    await wait();
+
     fetch(INITIAL_URL + "/getAllSettings")
       .then(response => {
         if (response.status === 200) {
@@ -394,37 +400,37 @@ class App extends Component {
             thisState.setting.value.displayCOMPort
           );
         }
-        thisState.setMyState(thisState);
-      })
-      .catch(() => {});
-
-    this.weight = setInterval(() => {
-      fetch(INITIAL_URL + "/getNextWeight")
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else throw Error(response.statusText);
-        })
-        .then(result => {
-          let thisState = { ...this.state, setMyState: this.setMyState };
-          thisState.weighing.weight = result;
-          thisState.setMyState(thisState);
-        })
-        .catch(() => {
-          let thisState = { ...this.state, setMyState: this.setMyState };
-          thisState.weighing.weight = "-1";
+        thisState.setMyState(thisState).then(() => {
+          thisState.WEIGHT = setInterval(() => {
+            fetch(INITIAL_URL + "/getNextWeight")
+                .then(response => {
+                  if (response.status === 200) {
+                    return response.json();
+                  } else throw Error(response.statusText);
+                })
+                .then(result => {
+                  thisState.weighing.weight = result;
+                  thisState.setMyState(thisState);
+                })
+                .catch(() => {
+                  thisState.weighing.weight = "-1";
+                  thisState.setMyState(thisState);
+                });
+          }, thisState.setting.value.REFRESH_TIME_WEIGHT);
+          thisState.IMAGE = setInterval(() => {
+            thisState.weighing.cameraImage =
+                INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
+          }, thisState.setting.value.REFRESH_TIME_CAMERA);
           thisState.setMyState(thisState);
         });
-    }, REFRESH_TIME_WEIGHT);
-    this.image = setInterval(() => {
-      this.state.weighing.cameraImage =
-        INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
-    }, REFRESH_TIME_CAMERA);
+      })
+        .catch(() => {
+        });
   }
 
   componentWillUnmount() {
-    clearInterval(this.weight);
-    clearInterval(this.image);
+    clearInterval(this.state.WEIGHT);
+    clearInterval(this.state.IMAGE);
   }
 
   render() {
