@@ -12,7 +12,7 @@ import java.io.InputStream;
 public class PdfFontMapperImpl implements FontMapper {
 
     private BaseFont getBaseFontFromFile(String directory, String filename) throws Exception {
-        try (InputStream inputStream = new FileInputStream(new File(directory + filename))) {
+        try (InputStream inputStream = new FileInputStream(new File(getClass().getClassLoader().getResource(directory + filename).getFile()))) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             byte[] bytes = new byte[1024];
             while (true) {
