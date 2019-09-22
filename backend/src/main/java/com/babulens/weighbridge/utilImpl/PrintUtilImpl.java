@@ -17,7 +17,6 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -146,7 +145,7 @@ public class PrintUtilImpl implements PrintUtil {
 
             try {
                 BufferedImage printImage = ImageIO
-                        .read(new File(Paths.get("CameraOutput\\").toString() + printWeight.getWeight().getSlipNo() +
+                        .read(new File("CameraOutput" + File.separator + printWeight.getWeight().getSlipNo() +
                                 ".jpeg"));
                 BufferedImage cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
                 graphics.drawImage(cropImage, 250, 125, 300,

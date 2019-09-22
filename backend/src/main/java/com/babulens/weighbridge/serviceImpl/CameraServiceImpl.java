@@ -21,7 +21,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +79,7 @@ public class CameraServiceImpl implements CameraService {
     public void saveCameraImageToDisk(String fileName) {
         if (webcam != null && webcam.isOpen()) {
             File directory = new File("CameraOutput");
-            File outputFile = new File(Paths.get("CameraOutput\\" + fileName).toString());
+            File outputFile = new File("CameraOutput" + File.separator + fileName);
             if (!directory.exists()) {
                 if (!directory.mkdirs()) {
                     return;
