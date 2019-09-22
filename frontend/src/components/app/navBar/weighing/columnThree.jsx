@@ -63,7 +63,7 @@ const ColumnThree = props => {
                         onKeyDown={async event => {
                             if (event.keyCode === 9 && event.shiftKey)
                                 thisState.weighing.reference.customersIdReference.current.focus();
-                            else { // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
+                            else { // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
                                 if ((event.keyCode === 13) || (event.keyCode === 9)) {
                                     let material = thisState.configuration.material.list.filter(
                                         item =>

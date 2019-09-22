@@ -9,7 +9,7 @@ import Settings from "./navBar/settings";
 const NavBar = props => {
     // noinspection JSUnresolvedVariable
     let thisState = props.preState;
-    // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
+    // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
     return (
         <Tab.Container defaultActiveKey="first">
             <Tabs

@@ -352,7 +352,7 @@ class App extends Component {
         });
       const wait = setTimeout(() => {
       }, 1000);
-      // noinspection BadExpressionStatementJS
+      // noinspection BadExpressionStatementJS,ES6RedundantAwait
     await wait;
       // noinspection DuplicatedCode
     fetch(INITIAL_URL + "/getAllSettings")

@@ -50,7 +50,7 @@ const ColumnOne = props => {
                 // noinspection StatementWithEmptyBodyJS
               if (event.keyCode === 9 && event.shiftKey);
               else {
-                  // noinspection DuplicatedCode
+                  // noinspection DuplicatedCode,DuplicatedCode
                   if (event.keyCode === 13 || event.keyCode === 9) {
                       thisState.weight.vehicleNo = thisState.weight.vehicleNo
                           .toUpperCase()
