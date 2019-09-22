@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Image, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSync} from "@fortawesome/free-solid-svg-icons";
@@ -28,7 +28,7 @@ const CameraSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableCameras.map((item) => (
+                        {thisState.setting.array.availableCameras.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -153,8 +153,7 @@ const CameraSettings = props => {
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraHeight + 5 > 10000)
-                                    return;
+                                if (thisState.setting.value.cameraHeight + 5 > 10000) return;
                                 thisState.setting.value.cameraHeight =
                                     thisState.setting.value.cameraHeight + 5;
                                 thisState.setMyState(thisState);
@@ -165,19 +164,6 @@ const CameraSettings = props => {
                     </div>
                 </Col>
             </Form.Group>
-            <Row className="pb-3">
-                {thisState.weighing.cameraImage ? (
-                    <Image
-                        src={thisState.weighing.cameraImage}
-                        style={{width: 300}}
-                        className="rounded mx-auto d-block"
-                        alt="No Camera Available"
-                        fluid
-                    />
-                ) : (
-                    ""
-                )}
-            </Row>
             <Button
                 variant="light"
                 size="lg"
