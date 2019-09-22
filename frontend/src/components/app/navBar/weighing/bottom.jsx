@@ -11,7 +11,7 @@ const Bottom = props => {
 
   return (
     <Row>
-      <Col sm="2">
+      <Col sm="4">
         <Button
           className="adam-button"
           variant="primary"
@@ -71,7 +71,7 @@ const Bottom = props => {
           Get Weight
         </Button>
       </Col>
-      <Col sm="2">
+      <Col sm="4">
         <Button
           className="adam-button"
           variant="primary"
@@ -84,14 +84,18 @@ const Bottom = props => {
             })
               .then(response => {
                 if (response.status === 200) {
-                  thisState.weighing.disable.saveDisabled = true;
-                  thisState.weighing.disable.printDisabled = false;
-                  thisState
-                    .setMyState(thisState)
-                    .then(() =>
-                      thisState.weighing.reference.printReference.current.focus()
-                    );
+                  return response.json();
                 } else throw Error(response.statusText);
+              })
+              .then(result => {
+                thisState.weight = result;
+                thisState.weighing.disable.saveDisabled = true;
+                thisState.weighing.disable.printDisabled = false;
+                thisState
+                  .setMyState(thisState)
+                  .then(() =>
+                    thisState.weighing.reference.printReference.current.focus()
+                  );
               })
               .catch(error => {});
           }}
@@ -139,7 +143,7 @@ const Bottom = props => {
         </Button>
         <RePrint preState={thisState} />
       </Col>
-      <Col sm="2">
+      <Col sm="4">
         <Button
           className="adam-button"
           variant="primary"

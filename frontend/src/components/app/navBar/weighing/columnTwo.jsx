@@ -4,8 +4,8 @@ import { Form, Col, Row } from "react-bootstrap";
 const ColumnTwo = props => {
   let thisState = props.preState;
   return (
-    <Col sm="6" className="pt-4 mt-2">
-      <Form.Group as={Row} className="pt-3">
+    <Col sm="4" className="mt-2">
+      <Form.Group as={Row}>
         <Form.Label column sm="6">
           Customer's Name
         </Form.Label>

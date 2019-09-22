@@ -6,50 +6,8 @@ import { Typeahead, Menu, MenuItem } from "react-bootstrap-typeahead";
 const ColumnOne = props => {
   let thisState = props.preState;
   return (
-    <Col sm="4" className="mt-5">
+    <Col sm="4" className="mt-2">
       <Form.Group as={Row}>
-        <Col sm="1" />
-        <Form.Check
-          type="radio"
-          name="Gross-Tare-Selector"
-          label="Gross"
-          checked={thisState.weighing.grossSelector}
-          onClick={event => {
-            thisState.weighing.grossSelector = true;
-            thisState.weighing.tareSelector = false;
-            thisState.weight.material = "";
-            thisState.weighing.disable.materialDisabled = false;
-            thisState.weighing.reference.materialReference.value = [
-              { material: "" }
-            ];
-            thisState.setMyState(thisState);
-          }}
-          onChange={event => { }}
-          disabled={thisState.weighing.disable.grossSelectorDisabled}
-        />
-      </Form.Group>
-      <Form.Group as={Row} className="mb-0">
-        <Col sm="1" />
-        <Form.Check
-          type="radio"
-          name="Gross-Tare-Selector"
-          label="Tare"
-          checked={thisState.weighing.tareSelector}
-          onClick={event => {
-            thisState.weighing.tareSelector = true;
-            thisState.weighing.grossSelector = false;
-            thisState.weight.material = "Empty";
-            thisState.weighing.reference.materialReference.value = [
-              { material: "Empty" }
-            ];
-            thisState.weighing.disable.materialDisabled = true;
-            thisState.setMyState(thisState);
-          }}
-          onChange={event => { }}
-          disabled={thisState.weighing.disable.tareSelectorDisabled}
-        />
-      </Form.Group>
-      <Form.Group as={Row} className="pt-5">
         <Form.Label column sm="6">
           Slip No
         </Form.Label>
@@ -98,8 +56,8 @@ const ColumnOne = props => {
                 if (thisState.weighing.tareSelector) {
                   await fetch(
                     thisState.INITIAL_URL +
-                    "/getGrossWeight?vehicleNo=" +
-                    thisState.weight.vehicleNo
+                      "/getGrossWeight?vehicleNo=" +
+                      thisState.weight.vehicleNo
                   )
                     .then(response => {
                       if (response.status === 200) {
@@ -110,12 +68,12 @@ const ColumnOne = props => {
                       thisState.weight.grossWeight = result.grossWeight;
                       thisState.weight.grossTime = result.grossTime;
                     })
-                    .catch(error => { });
+                    .catch(error => {});
                 } else {
                   await fetch(
                     thisState.INITIAL_URL +
-                    "/getTareWeight?vehicleNo=" +
-                    thisState.weight.vehicleNo
+                      "/getTareWeight?vehicleNo=" +
+                      thisState.weight.vehicleNo
                   )
                     .then(response => {
                       if (response.status === 200) {
@@ -126,7 +84,7 @@ const ColumnOne = props => {
                       thisState.weight.tareWeight = result.tareWeight;
                       thisState.weight.tareTime = result.tareTime;
                     })
-                    .catch(error => { });
+                    .catch(error => {});
                 }
 
                 thisState.setMyState(thisState);
@@ -174,12 +132,12 @@ const ColumnOne = props => {
               thisState.weighing.reference.materialReference.value =
                 event.length === 0
                   ? [
-                    {
-                      material: thisState.weighing.reference.materialReference.reference.current
-                        .getInstance()
-                        .getInput().value
-                    }
-                  ]
+                      {
+                        material: thisState.weighing.reference.materialReference.reference.current
+                          .getInstance()
+                          .getInput().value
+                      }
+                    ]
                   : event;
               thisState.weight.material =
                 thisState.weighing.reference.materialReference.value[0].material;

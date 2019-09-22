@@ -1,7 +1,10 @@
 import React from "react";
-import { Form, Col, Row } from "react-bootstrap";
+import { Form, Col, Row, Button } from "react-bootstrap";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
 import Toggle from "react-bootstrap-toggle";
+import ResetSlipNo from "./adminSettings/resetSlipNo";
 
 const AdminSettings = props => {
   let thisState = props.preState;
@@ -14,9 +17,28 @@ const AdminSettings = props => {
       </Row>
       <Form.Group as={Row}>
         <Form.Label column sm="3">
-          Reset Weight
+          Reset Slip No
         </Form.Label>
-        <Col sm="9" />
+        <Col sm="9">
+          <Button
+            variant="danger"
+            size="lg"
+            onClick={event => {
+              thisState.setting.resetSlipNo = 1;
+              thisState.setting.resetSlipNoPassword = "";
+              thisState.setting.resetSlipNoDialog = true;
+              thisState
+                .setMyState(thisState)
+                .then(() =>
+                  thisState.setting.resetSlipNoReference.current.focus()
+                );
+            }}
+          >
+            <FontAwesomeIcon icon={faBackward} className="mr-3" />
+            Reset Slip No
+          </Button>
+          <ResetSlipNo preState={thisState} />
+        </Col>
       </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="3">

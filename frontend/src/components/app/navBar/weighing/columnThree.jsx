@@ -6,8 +6,8 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 const ColumnThree = props => {
   let thisState = props.preState;
   return (
-    <Col sm="6" className="pt-4 mt-2">
-      <Form.Group as={Row} className="pt-3">
+    <Col sm="4" className="mt-2">
+      <Form.Group as={Row}>
         <Form.Label column sm="6">
           Customer's Id
         </Form.Label>
@@ -86,8 +86,8 @@ const ColumnThree = props => {
                 if (thisState.weighing.tareSelector) {
                   await fetch(
                     thisState.INITIAL_URL +
-                    "/getGrossWeight?vehicleNo=" +
-                    thisState.weight.vehicleNo
+                      "/getGrossWeight?vehicleNo=" +
+                      thisState.weight.vehicleNo
                   )
                     .then(response => {
                       if (response.status === 200) {
@@ -98,12 +98,12 @@ const ColumnThree = props => {
                       thisState.weight.grossWeight = result.grossWeight;
                       thisState.weight.grossTime = result.grossTime;
                     })
-                    .catch(error => { });
+                    .catch(error => {});
                 } else {
                   await fetch(
                     thisState.INITIAL_URL +
-                    "/getTareWeight?vehicleNo=" +
-                    thisState.weight.vehicleNo
+                      "/getTareWeight?vehicleNo=" +
+                      thisState.weight.vehicleNo
                   )
                     .then(response => {
                       if (response.status === 200) {
@@ -114,7 +114,7 @@ const ColumnThree = props => {
                       thisState.weight.tareWeight = result.tareWeight;
                       thisState.weight.tareTime = result.tareTime;
                     })
-                    .catch(error => { });
+                    .catch(error => {});
                 }
                 let date = moment().format("DD-MM-YYYY HH:mm:ss");
 
@@ -192,7 +192,7 @@ const ColumnThree = props => {
                         );
                     } else throw Error(response.statusText);
                   })
-                  .catch(error => { });
+                  .catch(error => {});
                 thisState.setMyState(thisState);
               }
             }}

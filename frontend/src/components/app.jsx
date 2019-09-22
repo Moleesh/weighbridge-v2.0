@@ -5,7 +5,7 @@ import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
-const INITIAL_URL = "";
+const INITIAL_URL = "http://localhost:8080/";
 const REFRESH_TIME = 500;
 class App extends Component {
   constructor() {
@@ -19,6 +19,9 @@ class App extends Component {
 
   state = {
     INITIAL_URL: INITIAL_URL,
+    password: {
+      resetSlipNoPassword: "123456"
+    },
     configuration: {
       material: {
         header: ["Material Id", "Material Name"],
@@ -220,7 +223,13 @@ class App extends Component {
         avaiableParity: ["Even", "Odd", "None", "Mark", "Space"],
         avaiableStopBits: [1, 1.5, 2],
         availableFlowControl: ["Xon/Xoff", "Hardware", "None"]
-      }
+      },
+      resetSlipNoDialog: false,
+      resetSlipNo: 1,
+      resetSlipNoPassword: "",
+      resetSlipNoReference: React.createRef(),
+      resetSlipNoPasswordReference: React.createRef(),
+      resetSlipNoButtonReference: React.createRef()
     },
     alerts: [],
     automation: false

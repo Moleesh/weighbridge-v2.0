@@ -163,13 +163,17 @@ const CameraSettings = props => {
         </Col>
       </Form.Group>
       <Row className="pb-3">
-        <Image
-          src={thisState.weighing.cameraImage}
-          style={{ width: 300 }}
-          className="rounded mx-auto d-block"
-          alt="No Camera Available"
-          fluid
-        />
+        {thisState.weighing.cameraImage ? (
+          <Image
+            src={thisState.weighing.cameraImage}
+            style={{ width: 300 }}
+            className="rounded mx-auto d-block"
+            alt="No Camera Available"
+            fluid
+          />
+        ) : (
+          ""
+        )}
       </Row>
       <Button
         variant="light"
