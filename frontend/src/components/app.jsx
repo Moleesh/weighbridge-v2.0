@@ -185,6 +185,7 @@ class App extends Component {
         indicatorStopBits: "",
         indicatorFlowControl: "",
         indicatorDelimiter: "",
+        indicatorLastCharacter: "",
         displayCOMPort: "",
         displayBaudRate: "",
         displayDataBits: "",

@@ -59,7 +59,7 @@ const CameraSettings = props => {
                             onClick={() => {
                                 if (thisState.setting.value.cameraXAxis + 5 > 10000) return;
                                 thisState.setting.value.cameraXAxis =
-                                    thisState.setting.value.cameraXAxis + 5;
+                                    thisState.setting.value.cameraXAxis - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -91,7 +91,7 @@ const CameraSettings = props => {
                             onClick={() => {
                                 if (thisState.setting.value.cameraYAxis + 5 > 10000) return;
                                 thisState.setting.value.cameraYAxis =
-                                    thisState.setting.value.cameraYAxis + 5;
+                                    thisState.setting.value.cameraYAxis - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -123,7 +123,7 @@ const CameraSettings = props => {
                             onClick={() => {
                                 if (thisState.setting.value.cameraWidth + 5 > 10000) return;
                                 thisState.setting.value.cameraWidth =
-                                    thisState.setting.value.cameraWidth + 5;
+                                    thisState.setting.value.cameraWidth - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -155,7 +155,7 @@ const CameraSettings = props => {
                             onClick={() => {
                                 if (thisState.setting.value.cameraHeight + 5 > 10000) return;
                                 thisState.setting.value.cameraHeight =
-                                    thisState.setting.value.cameraHeight + 5;
+                                    thisState.setting.value.cameraHeight - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >

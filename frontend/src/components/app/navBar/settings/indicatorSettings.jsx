@@ -27,7 +27,7 @@ const IndicatorSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableCOMPorts.map((item) => (
+                        {thisState.setting.array.availableCOMPorts.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -48,7 +48,7 @@ const IndicatorSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableBaudRate.map((item) => (
+                        {thisState.setting.array.availableBaudRate.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -69,7 +69,7 @@ const IndicatorSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableDataBits.map((item) => (
+                        {thisState.setting.array.availableDataBits.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -90,7 +90,7 @@ const IndicatorSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.avaiableParity.map((item) => (
+                        {thisState.setting.array.avaiableParity.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -111,7 +111,7 @@ const IndicatorSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.avaiableStopBits.map((item) => (
+                        {thisState.setting.array.avaiableStopBits.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -132,7 +132,7 @@ const IndicatorSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableFlowControl.map((item) => (
+                        {thisState.setting.array.availableFlowControl.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -152,6 +152,24 @@ const IndicatorSettings = props => {
                         value={thisState.setting.value.indicatorDelimiter}
                         onChange={event => {
                             thisState.setting.value.indicatorDelimiter = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    Indicator Last Character
+                </Form.Label>
+                <Col sm="9">
+                    <Form.Control
+                        type="text"
+                        autoComplete="off"
+                        className="text-left"
+                        value={thisState.setting.value.indicatorLastCharacter}
+                        onChange={event => {
+                            thisState.setting.value.indicatorLastCharacter =
+                                event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     />

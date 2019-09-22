@@ -47,6 +47,7 @@ public class SerialPortServiceImpl implements SerialPortService {
         String stopBits = settings.get("indicatorStopBits");
 //            String flowControl = settings.get("indicatorFlowControl");
         String delimiter = settings.get("indicatorDelimiter");
+        String lastCharacter = settings.get("indicatorLastCharacter");
 
         if (commPortIndicator != null) {
             commPortIndicator.removeDataListener();
@@ -84,7 +85,8 @@ public class SerialPortServiceImpl implements SerialPortService {
 
                 @Override
                 public void serialEvent(SerialPortEvent event) {
-                    weight = Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9]", ""));
+                    weight =
+                            Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9" + lastCharacter + "]", "").split(lastCharacter)[0]);
                 }
             });
         }

@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSync, faWrench} from "@fortawesome/free-solid-svg-icons";
 
 import GeneralSettings from "./settings/generalSettings";
-import CameraSettings from "./settings/cameraSttings";
+import CameraSettings from "./settings/cameraSettings";
 import PrinterSettings from "./settings/printerSettings";
 import IndicatorSettings from "./settings/indicatorSettings";
 import DisplaySettings from "./settings/displaySettings";
