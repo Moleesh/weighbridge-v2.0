@@ -1,5 +1,6 @@
 package com.babulens.weighbridge.model;
 
+@SuppressWarnings("ALL")
 public class PrintWeight {
     private Weight weight;
     private String printerName;

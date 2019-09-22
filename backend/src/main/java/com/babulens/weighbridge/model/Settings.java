@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 @Entity
 public class Settings {
     @Id

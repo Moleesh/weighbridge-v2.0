@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @CrossOrigin(origins = "*")
 @RestController
 class Controller {
@@ -102,8 +103,13 @@ class Controller {
     }
 
     @RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})
-    public void saveWeight(@RequestBody Weight weight) {
-        weighService.saveWeight(weight);
+    public Weight saveWeight(@RequestBody Weight weight) {
+        return weighService.saveWeight(weight);
+    }
+
+    @RequestMapping(value = "/resetWeight", method = {RequestMethod.GET})
+    public void resetWeight(@RequestParam int slipNo) {
+        weighService.resetWeight(slipNo);
     }
 
     @RequestMapping(value = "/getWeight")

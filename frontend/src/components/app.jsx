@@ -1,24 +1,20 @@
-import React, { Component } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { AlertList } from "react-bs-notifier";
+import React, {Component} from "react";
+import {Col, Container, Row} from "react-bootstrap";
+// noinspection ES6CheckImport
+import {AlertList} from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
 const INITIAL_URL = "";
 const REFRESH_TIME = 500;
+
 class App extends Component {
-  constructor() {
-    super();
-    this.setMyState = this.setMyState.bind(this);
-  }
-
-  async setMyState(myState) {
-    this.setState(myState);
-  }
-
   state = {
     INITIAL_URL: INITIAL_URL,
+    password: {
+      resetSlipNoPassword: "123456"
+    },
     configuration: {
       material: {
         header: ["Material Id", "Material Name"],
@@ -220,11 +216,26 @@ class App extends Component {
         avaiableParity: ["Even", "Odd", "None", "Mark", "Space"],
         avaiableStopBits: [1, 1.5, 2],
         availableFlowControl: ["Xon/Xoff", "Hardware", "None"]
-      }
+      },
+      resetSlipNoDialog: false,
+      resetSlipNo: 1,
+      resetSlipNoPassword: "",
+      resetSlipNoReference: React.createRef(),
+      resetSlipNoPasswordReference: React.createRef(),
+      resetSlipNoButtonReference: React.createRef()
     },
     alerts: [],
     automation: false
   };
+
+    constructor(props) {
+        super(props);
+        this.setMyState = this.setMyState.bind(this);
+    }
+
+    async setMyState(myState) {
+        this.setState(myState);
+    }
 
   async componentDidMount() {
     fetch(INITIAL_URL + "/getNextSlipNo")
@@ -236,12 +247,13 @@ class App extends Component {
       .then(result => {
         let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = result;
+          // noinspection JSIncompatibleTypesComparison
         if (result === -1) {
           thisState.weighing.disable.getWeightDisabled = true;
         }
         thisState.setMyState(thisState);
       })
-      .catch(error => {
+        .catch(() => {
         let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = "-1";
         thisState.weighing.disable.getWeightDisabled = true;
@@ -258,7 +270,8 @@ class App extends Component {
         thisState.configuration.material.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+        .catch(() => {
+        });
     fetch(INITIAL_URL + "/getAllDrivers")
       .then(response => {
         if (response.status === 200) {
@@ -270,7 +283,8 @@ class App extends Component {
         thisState.configuration.drivers.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+        .catch(() => {
+        });
     fetch(INITIAL_URL + "/getAllTareWeight")
       .then(response => {
         if (response.status === 200) {
@@ -282,7 +296,8 @@ class App extends Component {
         thisState.configuration.tareWeight.list = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+        .catch(() => {
+        });
     fetch(INITIAL_URL + "/getAllPrinters")
       .then(response => {
         if (response.status === 200) {
@@ -294,7 +309,8 @@ class App extends Component {
         thisState.setting.array.availablePrinters = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+        .catch(() => {
+        });
     fetch(INITIAL_URL + "/getAllPrintFormat")
       .then(response => {
         if (response.status === 200) {
@@ -306,7 +322,8 @@ class App extends Component {
         thisState.setting.array.availablePrintFormat = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+        .catch(() => {
+        });
     fetch(INITIAL_URL + "/getAllSerialPort")
       .then(response => {
         if (response.status === 200) {
@@ -318,7 +335,8 @@ class App extends Component {
         thisState.setting.array.availableCOMPorts = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+        .catch(() => {
+        });
     fetch(INITIAL_URL + "/getAllCameras")
       .then(response => {
         if (response.status === 200) {
@@ -330,9 +348,13 @@ class App extends Component {
         thisState.setting.array.availableCameras = result;
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
-    var wait = setTimeout(() => {}, 1000);
+        .catch(() => {
+        });
+      const wait = setTimeout(() => {
+      }, 1000);
+      // noinspection BadExpressionStatementJS
     await wait;
+      // noinspection DuplicatedCode
     fetch(INITIAL_URL + "/getAllSettings")
       .then(response => {
         if (response.status === 200) {
@@ -380,7 +402,8 @@ class App extends Component {
         }
         thisState.setMyState(thisState);
       })
-      .catch(error => {});
+        .catch(() => {
+        });
 
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
@@ -394,7 +417,7 @@ class App extends Component {
           thisState.weighing.weight = result;
           thisState.setMyState(thisState);
         })
-        .catch(error => {
+          .catch(() => {
           let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);

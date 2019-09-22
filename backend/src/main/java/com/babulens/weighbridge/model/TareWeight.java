@@ -32,18 +32,22 @@ public class TareWeight {
         return id;
     }
 
+    @SuppressWarnings("unused")
     public void setId(int id) {
         this.id = id;
     }
 
+    @SuppressWarnings("unused")
     public String getVehicleNo() {
         return vehicleNo;
     }
 
+    @SuppressWarnings("unused")
     public void setVehicleNo(String vehicleNo) {
         this.vehicleNo = vehicleNo;
     }
 
+    @SuppressWarnings("unused")
     public long getTareWeight() {
         return tareWeight;
     }
@@ -52,6 +56,7 @@ public class TareWeight {
         this.tareWeight = tareWeight;
     }
 
+    @SuppressWarnings("unused")
     public Date getTareTime() {
         return tareTime;
     }

@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class TareWeightServiceImpl implements TareWeightService {
 
     @Autowired
     private
     TareWeightDAO tareWeightDAO;
+
+    public TareWeightServiceImpl(TareWeightDAO tareWeightDAO) {
+        this.tareWeightDAO = tareWeightDAO;
+    }
 
     @Override
     public TareWeight getTareWeight(String vehicleNo) {

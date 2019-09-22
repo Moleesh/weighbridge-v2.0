@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 @Entity
 public class Weight {
     @Id

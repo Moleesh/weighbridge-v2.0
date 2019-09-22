@@ -17,11 +17,13 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
+@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
 public class PrintUtilImpl implements PrintUtil {
     @Autowired
@@ -144,7 +146,8 @@ public class PrintUtilImpl implements PrintUtil {
 
             try {
                 BufferedImage printImage = ImageIO
-                        .read(new File("CameraOutput\\" + printWeight.getWeight().getSlipNo() + ".jpeg"));
+                        .read(new File(Paths.get("CameraOutput/").toString() + printWeight.getWeight().getSlipNo() +
+                                ".jpeg"));
                 BufferedImage cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
                 graphics.drawImage(cropImage, 250, 125, 300,
                         (int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
@@ -155,6 +158,7 @@ public class PrintUtilImpl implements PrintUtil {
         return book;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public Book printReport(PrintReport printReport) {
         PageFormat pageFormat = new PageFormat();

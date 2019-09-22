@@ -3,6 +3,7 @@ net file 1>nul 2>nul && goto :run || powershell -ex unrestricted -Command "Start
 goto :eof
 
 :run
-	echo javaw - java %cd%\weighbridge.jar > "%programdata%\Microsoft\Windows\Start Menu\Programs\StartUp\weighbridge.bat"
+    echo @echo off > "%programdata%\Microsoft\Windows\Start Menu\Programs\StartUp\weighbridge.bat"
+	echo javaw - java %cd%\weighbridge.jar >> "%programdata%\Microsoft\Windows\Start Menu\Programs\StartUp\weighbridge.bat"
 EXIT
 

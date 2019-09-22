@@ -30,10 +30,18 @@
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
-                        <phase>generate-resources</phase>
+                        <phase>clean</phase>
+                    </execution>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>install</phase>
                     </execution>
                     <execution>
                         <id>npm up</id>
+                        <phase>clean</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -52,6 +60,7 @@
                     </execution>
                     <execution>
                         <id>npm build</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -61,6 +70,7 @@
                     </execution>
                     <execution>
                         <id>npm move</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>

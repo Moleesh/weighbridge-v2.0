@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Paths;
 
 public class PdfFontMapperImpl implements FontMapper {
 
@@ -33,13 +34,13 @@ public class PdfFontMapperImpl implements FontMapper {
         try {
             if (font.isBold()) {
                 if (font.isItalic()) {
-                    return this.getBaseFontFromFile("Fonts\\", "courbi.ttf");
+                    return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "courbi.ttf");
                 }
-                return this.getBaseFontFromFile("Fonts\\", "courbd.ttf");
+                return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "courbd.ttf");
             } else if (font.isItalic()) {
-                return this.getBaseFontFromFile("Fonts\\", "couri.ttf");
+                return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "couri.ttf");
             } else {
-                return this.getBaseFontFromFile("Fonts\\", "cour.ttf");
+                return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "cour.ttf");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

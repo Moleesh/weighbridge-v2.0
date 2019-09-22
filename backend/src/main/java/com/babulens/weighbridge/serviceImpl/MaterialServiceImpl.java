@@ -4,7 +4,6 @@ import com.babulens.weighbridge.model.Material;
 import com.babulens.weighbridge.repository.MaterialDAO;
 import com.babulens.weighbridge.service.MaterialService;
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +11,12 @@ import java.util.List;
 @Service
 public class MaterialServiceImpl implements MaterialService {
 
-    @Autowired
-    private
+    private final
     MaterialDAO materialDAO;
+
+    public MaterialServiceImpl(MaterialDAO materialDAO) {
+        this.materialDAO = materialDAO;
+    }
 
     @Override
     public List<Material> getAllMaterial() {

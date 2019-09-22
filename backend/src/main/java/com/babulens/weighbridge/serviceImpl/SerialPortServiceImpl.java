@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
     private int weight = -1;
@@ -33,6 +34,7 @@ public class SerialPortServiceImpl implements SerialPortService {
         return serialPorts;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     @PostConstruct
     public synchronized void settingUpIndicator() {

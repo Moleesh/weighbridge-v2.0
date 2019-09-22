@@ -14,4 +14,6 @@ import "./css/index.css";
 //   if (!event.includes("localhost:8080|CORS policy")) error(event);
 // };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(< App/>, document.getElementById("root"));
+
+

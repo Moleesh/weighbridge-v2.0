@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
 public class PrinterServiceImpl implements PrinterService {
 
@@ -40,6 +41,7 @@ public class PrinterServiceImpl implements PrinterService {
         return null;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public byte[] getPrintWeightPDF(PrintWeight printWeight) {
         Book book = new Book();

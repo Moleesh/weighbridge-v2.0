@@ -1,55 +1,14 @@
 import React from "react";
-import { Form, Col, Row } from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import Clock from "react-live-clock";
-import { Typeahead, Menu, MenuItem } from "react-bootstrap-typeahead";
+import {Menu, MenuItem, Typeahead} from "react-bootstrap-typeahead";
 
 const ColumnOne = props => {
+    // noinspection JSUnresolvedVariable
   let thisState = props.preState;
   return (
-    <Col sm="4" className="mt-5">
+    <Col sm="4" className="mt-2">
       <Form.Group as={Row}>
-        <Col sm="1" />
-        <Form.Check
-          type="radio"
-          name="Gross-Tare-Selector"
-          label="Gross"
-          checked={thisState.weighing.grossSelector}
-          onClick={event => {
-            thisState.weighing.grossSelector = true;
-            thisState.weighing.tareSelector = false;
-            thisState.weight.material = "";
-            thisState.weighing.disable.materialDisabled = false;
-            thisState.weighing.reference.materialReference.value = [
-              { material: "" }
-            ];
-            thisState.setMyState(thisState);
-          }}
-          onChange={event => { }}
-          disabled={thisState.weighing.disable.grossSelectorDisabled}
-        />
-      </Form.Group>
-      <Form.Group as={Row} className="mb-0">
-        <Col sm="1" />
-        <Form.Check
-          type="radio"
-          name="Gross-Tare-Selector"
-          label="Tare"
-          checked={thisState.weighing.tareSelector}
-          onClick={event => {
-            thisState.weighing.tareSelector = true;
-            thisState.weighing.grossSelector = false;
-            thisState.weight.material = "Empty";
-            thisState.weighing.reference.materialReference.value = [
-              { material: "Empty" }
-            ];
-            thisState.weighing.disable.materialDisabled = true;
-            thisState.setMyState(thisState);
-          }}
-          onChange={event => { }}
-          disabled={thisState.weighing.disable.tareSelectorDisabled}
-        />
-      </Form.Group>
-      <Form.Group as={Row} className="pt-5">
         <Form.Label column sm="6">
           Slip No
         </Form.Label>
@@ -69,10 +28,8 @@ const ColumnOne = props => {
         <Form.Label column sm="6">
           Date & Time
         </Form.Label>
-        <Col sm="6">
-          <center>
-            <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true} />
-          </center>
+          <Col sm="6" style={{textAlign: "center"}}>
+              <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true}/>
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -90,49 +47,55 @@ const ColumnOne = props => {
               thisState.setMyState(thisState);
             }}
             onKeyDown={async event => {
+                // noinspection StatementWithEmptyBodyJS
               if (event.keyCode === 9 && event.shiftKey);
-              else if ((event.keyCode === 13) | (event.keyCode === 9)) {
-                thisState.weight.vehicleNo = thisState.weight.vehicleNo
-                  .toUpperCase()
-                  .replace(" ", "");
-                if (thisState.weighing.tareSelector) {
-                  await fetch(
-                    thisState.INITIAL_URL +
-                    "/getGrossWeight?vehicleNo=" +
-                    thisState.weight.vehicleNo
-                  )
-                    .then(response => {
-                      if (response.status === 200) {
-                        return response.json();
-                      } else throw Error(response.statusText);
-                    })
-                    .then(result => {
-                      thisState.weight.grossWeight = result.grossWeight;
-                      thisState.weight.grossTime = result.grossTime;
-                    })
-                    .catch(error => { });
-                } else {
-                  await fetch(
-                    thisState.INITIAL_URL +
-                    "/getTareWeight?vehicleNo=" +
-                    thisState.weight.vehicleNo
-                  )
-                    .then(response => {
-                      if (response.status === 200) {
-                        return response.json();
-                      } else throw Error(response.statusText);
-                    })
-                    .then(result => {
-                      thisState.weight.tareWeight = result.tareWeight;
-                      thisState.weight.tareTime = result.tareTime;
-                    })
-                    .catch(error => { });
-                }
+              else {
+                  // noinspection DuplicatedCode
+                  if (event.keyCode === 13 || event.keyCode === 9) {
+                      thisState.weight.vehicleNo = thisState.weight.vehicleNo
+                          .toUpperCase()
+                          .replace(" ", "");
+                      if (thisState.weighing.tareSelector) {
+                          await fetch(
+                              thisState.INITIAL_URL +
+                              "/getGrossWeight?vehicleNo=" +
+                              thisState.weight.vehicleNo
+                          )
+                              .then(response => {
+                                  if (response.status === 200) {
+                                      return response.json();
+                                  } else throw Error(response.statusText);
+                              })
+                              .then(result => {
+                                  thisState.weight.grossWeight = result.grossWeight;
+                                  thisState.weight.grossTime = result.grossTime;
+                              })
+                              .catch(() => {
+                              });
+                      } else {
+                          await fetch(
+                              thisState.INITIAL_URL +
+                              "/getTareWeight?vehicleNo=" +
+                              thisState.weight.vehicleNo
+                          )
+                              .then(response => {
+                                  if (response.status === 200) {
+                                      return response.json();
+                                  } else throw Error(response.statusText);
+                              })
+                              .then(result => {
+                                  thisState.weight.tareWeight = result.tareWeight;
+                                  thisState.weight.tareTime = result.tareTime;
+                              })
+                              .catch(() => {
+                              });
+                      }
 
-                thisState.setMyState(thisState);
-                !thisState.weighing.disable.materialDisabled
-                  ? thisState.weighing.reference.materialReference.reference.current.focus()
-                  : thisState.weighing.reference.customersNameReference.current.focus();
+                      await thisState.setMyState(thisState);
+                      !thisState.weighing.disable.materialDisabled
+                          ? thisState.weighing.reference.materialReference.reference.current.focus()
+                          : thisState.weighing.reference.customersNameReference.current.focus();
+                  }
               }
             }}
             autoFocus={true}
@@ -171,15 +134,16 @@ const ColumnOne = props => {
             disabled={thisState.weighing.disable.materialDisabled}
             open={thisState.weighing.reference.materialReference.open}
             onChange={event => {
+                // noinspection JSUnresolvedFunction
               thisState.weighing.reference.materialReference.value =
                 event.length === 0
                   ? [
-                    {
-                      material: thisState.weighing.reference.materialReference.reference.current
-                        .getInstance()
-                        .getInput().value
-                    }
-                  ]
+                      {
+                        material: thisState.weighing.reference.materialReference.reference.current
+                          .getInstance()
+                          .getInput().value
+                      }
+                    ]
                   : event;
               thisState.weight.material =
                 thisState.weighing.reference.materialReference.value[0].material;
@@ -189,7 +153,7 @@ const ColumnOne = props => {
             onKeyDown={event => {
               if (event.keyCode === 9 && event.shiftKey)
                 thisState.weighing.reference.vehicleNoReference.current.focus();
-              else if ((event.keyCode === 13) | (event.keyCode === 9)) {
+              else if (event.keyCode === 13 || event.keyCode === 9) {
                 thisState.weighing.reference.materialReference.open = false;
                 thisState.weighing.reference.materialReference.value[0].material = thisState.weighing.reference.materialReference.value[0].material
                   .toLowerCase()
@@ -231,7 +195,7 @@ const ColumnOne = props => {
             onKeyDown={event => {
               if (event.keyCode === 9 && event.shiftKey)
                 thisState.weighing.reference.transporterNameReference.current.focus();
-              else if ((event.keyCode === 13) | (event.keyCode === 9))
+              else if (event.keyCode === 13 || event.keyCode === 9)
                 thisState.weighing.reference.remarksReference.current.focus();
             }}
           />
@@ -254,7 +218,7 @@ const ColumnOne = props => {
             onKeyDown={event => {
               if (event.keyCode === 9 && event.shiftKey)
                 thisState.weighing.reference.chargesReference.current.focus();
-              else if ((event.keyCode === 13) | (event.keyCode === 9))
+              else if (event.keyCode === 13 || event.keyCode === 9)
                 thisState.weighing.reference.getWeightReference.current.focus();
             }}
           />

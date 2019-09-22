@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ class MyCompositeDriver extends WebcamCompositeDriver {
     }
 }
 
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class CameraServiceImpl implements CameraService {
     static {
@@ -78,19 +80,20 @@ public class CameraServiceImpl implements CameraService {
     public void saveCameraImageToDisk(String fileName) {
         if (webcam != null && webcam.isOpen()) {
             File directory = new File("CameraOutput");
-            File outputfile = new File("CameraOutput\\" + fileName);
+            File outputFile = new File(Paths.get("CameraOutput/" + fileName).toString());
             if (!directory.exists()) {
                 if (directory.mkdirs()) {
                     return;
                 }
             }
             try {
-                ImageIO.write(webcam.getImage(), "jpeg", outputfile);
+                ImageIO.write(webcam.getImage(), "jpeg", outputFile);
             } catch (IOException ignored) {
             }
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public byte[] getCameraImage() {
         Map<String, String> settings = settingsService.getAllSettings();
