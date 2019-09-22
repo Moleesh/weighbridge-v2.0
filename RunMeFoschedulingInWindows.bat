@@ -7,6 +7,6 @@ goto :eof
 	echo WshShell.Run chr(34) ^& "%cd%\weighbridge.bat" ^& Chr(34), 0 >> "%programdata%\Microsoft\Windows\Start Menu\Programs\StartUp\weighbridge.vbs"
 	echo Set WshShell = Nothing  >> "%programdata%\Microsoft\Windows\Start Menu\Programs\StartUp\weighbridge.vbs"
 	echo cd %cd% > weighbridge.bat
-    echo javaw -jar weighbridge.jar ^>^> sys.out >> weighbridge.bat
+    echo java -jar weighbridge.jar ^>^> sys.out >> weighbridge.bat
 EXIT
 
