@@ -50,8 +50,8 @@ public class WeighServiceImpl implements WeighService {
                     tareWeightService.addUpdateTareWeight(tareWeightList.get(0));
                 }
             }
-            cameraService.saveCameraImageToDisk(weight.getSlipNo() + ".jpeg");
             weight.setSlipNo(Integer.parseInt((String) settingsService.getSetting("slipNo")));
+            cameraService.saveCameraImageToDisk(weight.getSlipNo() + ".jpeg");
             weightDAO.save(weight);
             settingsService.saveSettings(new Settings("slipNo", Integer.parseInt((String) settingsService.getSetting(
                     "slipNo")) + 1));

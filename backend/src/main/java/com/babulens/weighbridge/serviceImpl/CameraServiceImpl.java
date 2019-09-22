@@ -82,7 +82,7 @@ public class CameraServiceImpl implements CameraService {
             File directory = new File("CameraOutput");
             File outputFile = new File(Paths.get("CameraOutput/" + fileName).toString());
             if (!directory.exists()) {
-                if (directory.mkdirs()) {
+                if (!directory.mkdirs()) {
                     return;
                 }
             }
