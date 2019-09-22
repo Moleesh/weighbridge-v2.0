@@ -146,7 +146,7 @@ public class PrintUtilImpl implements PrintUtil {
 
             try {
                 BufferedImage printImage = ImageIO
-                        .read(new File(Paths.get("CameraOutput/").toString() + printWeight.getWeight().getSlipNo() +
+                        .read(new File(Paths.get("CameraOutput\\").toString() + printWeight.getWeight().getSlipNo() +
                                 ".jpeg"));
                 BufferedImage cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
                 graphics.drawImage(cropImage, 250, 125, 300,

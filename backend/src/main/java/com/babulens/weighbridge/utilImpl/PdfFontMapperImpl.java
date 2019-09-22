@@ -34,13 +34,13 @@ public class PdfFontMapperImpl implements FontMapper {
         try {
             if (font.isBold()) {
                 if (font.isItalic()) {
-                    return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "courbi.ttf");
+                    return this.getBaseFontFromFile(Paths.get("Fonts\\").toString(), "courbi.ttf");
                 }
-                return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "courbd.ttf");
+                return this.getBaseFontFromFile(Paths.get("Fonts\\").toString(), "courbd.ttf");
             } else if (font.isItalic()) {
-                return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "couri.ttf");
+                return this.getBaseFontFromFile(Paths.get("Fonts\\").toString(), "couri.ttf");
             } else {
-                return this.getBaseFontFromFile(Paths.get("Fonts/").toString(), "cour.ttf");
+                return this.getBaseFontFromFile(Paths.get("Fonts\\").toString(), "cour.ttf");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

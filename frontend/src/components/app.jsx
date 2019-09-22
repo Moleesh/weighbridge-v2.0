@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import React, {Component} from "react";
+import {Col, Container, Row} from "react-bootstrap";
 // noinspection ES6CheckImport
-import { AlertList } from "react-bs-notifier";
+import {AlertList} from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
 const INITIAL_URL = "";
-const REFRESH_TIME = 500;
+const REFRESH_TIME_WEIGHT = 250;
+const REFRESH_TIME_CAMERA = 1500;
 
 class App extends Component {
   state = {
@@ -413,11 +414,11 @@ class App extends Component {
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
         });
-    }, REFRESH_TIME);
+    }, REFRESH_TIME_WEIGHT);
     this.image = setInterval(() => {
       this.state.weighing.cameraImage =
         INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
-    }, REFRESH_TIME);
+    }, REFRESH_TIME_CAMERA);
   }
 
   componentWillUnmount() {

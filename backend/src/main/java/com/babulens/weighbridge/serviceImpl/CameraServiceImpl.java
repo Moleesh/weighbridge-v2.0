@@ -80,7 +80,7 @@ public class CameraServiceImpl implements CameraService {
     public void saveCameraImageToDisk(String fileName) {
         if (webcam != null && webcam.isOpen()) {
             File directory = new File("CameraOutput");
-            File outputFile = new File(Paths.get("CameraOutput/" + fileName).toString());
+            File outputFile = new File(Paths.get("CameraOutput\\" + fileName).toString());
             if (!directory.exists()) {
                 if (!directory.mkdirs()) {
                     return;
