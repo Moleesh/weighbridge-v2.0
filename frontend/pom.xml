@@ -26,14 +26,14 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>install node and npm</id>
+                        <id>install node and npm clean</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <phase>clean</phase>
                     </execution>
                     <execution>
-                        <id>install node and npm</id>
+                        <id>install node and npm install</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
