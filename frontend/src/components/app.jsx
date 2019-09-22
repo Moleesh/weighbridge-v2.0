@@ -1,12 +1,12 @@
-import React, {Component} from "react";
-import {Col, Container, Row} from "react-bootstrap";
+import React, { Component } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 // noinspection ES6CheckImport
-import {AlertList} from "react-bs-notifier";
+import { AlertList } from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
-const INITIAL_URL = "http://localhost:8080/";
+const INITIAL_URL = "";
 const REFRESH_TIME = 500;
 
 class App extends Component {
@@ -228,14 +228,14 @@ class App extends Component {
     automation: false
   };
 
-    constructor(props) {
-        super(props);
-        this.setMyState = this.setMyState.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.setMyState = this.setMyState.bind(this);
+  }
 
-    async setMyState(myState) {
-        this.setState(myState);
-    }
+  async setMyState(myState) {
+    this.setState(myState);
+  }
 
   async componentDidMount() {
     fetch(INITIAL_URL + "/getNextSlipNo")
@@ -247,13 +247,13 @@ class App extends Component {
       .then(result => {
         let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = result;
-          // noinspection JSIncompatibleTypesComparison
+        // noinspection JSIncompatibleTypesComparison
         if (result === -1) {
           thisState.weighing.disable.getWeightDisabled = true;
         }
         thisState.setMyState(thisState);
       })
-        .catch(() => {
+      .catch(() => {
         let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = "-1";
         thisState.weighing.disable.getWeightDisabled = true;
@@ -270,8 +270,7 @@ class App extends Component {
         thisState.configuration.material.list = result;
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
+      .catch(() => {});
     fetch(INITIAL_URL + "/getAllDrivers")
       .then(response => {
         if (response.status === 200) {
@@ -283,8 +282,7 @@ class App extends Component {
         thisState.configuration.drivers.list = result;
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
+      .catch(() => {});
     fetch(INITIAL_URL + "/getAllTareWeight")
       .then(response => {
         if (response.status === 200) {
@@ -296,8 +294,7 @@ class App extends Component {
         thisState.configuration.tareWeight.list = result;
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
+      .catch(() => {});
     fetch(INITIAL_URL + "/getAllPrinters")
       .then(response => {
         if (response.status === 200) {
@@ -309,8 +306,7 @@ class App extends Component {
         thisState.setting.array.availablePrinters = result;
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
+      .catch(() => {});
     fetch(INITIAL_URL + "/getAllPrintFormat")
       .then(response => {
         if (response.status === 200) {
@@ -322,8 +318,7 @@ class App extends Component {
         thisState.setting.array.availablePrintFormat = result;
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
+      .catch(() => {});
     fetch(INITIAL_URL + "/getAllSerialPort")
       .then(response => {
         if (response.status === 200) {
@@ -335,8 +330,7 @@ class App extends Component {
         thisState.setting.array.availableCOMPorts = result;
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
+      .catch(() => {});
     fetch(INITIAL_URL + "/getAllCameras")
       .then(response => {
         if (response.status === 200) {
@@ -348,13 +342,11 @@ class App extends Component {
         thisState.setting.array.availableCameras = result;
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
-      const wait = setTimeout(() => {
-      }, 1000);
-      // noinspection BadExpressionStatementJS,ES6RedundantAwait
+      .catch(() => {});
+    const wait = setTimeout(() => {}, 1000);
+    // noinspection BadExpressionStatementJS,ES6RedundantAwait
     await wait;
-      // noinspection DuplicatedCode
+    // noinspection DuplicatedCode
     fetch(INITIAL_URL + "/getAllSettings")
       .then(response => {
         if (response.status === 200) {
@@ -402,8 +394,7 @@ class App extends Component {
         }
         thisState.setMyState(thisState);
       })
-        .catch(() => {
-        });
+      .catch(() => {});
 
     this.weight = setInterval(() => {
       fetch(INITIAL_URL + "/getNextWeight")
@@ -417,7 +408,7 @@ class App extends Component {
           thisState.weighing.weight = result;
           thisState.setMyState(thisState);
         })
-          .catch(() => {
+        .catch(() => {
           let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.weighing.weight = "-1";
           thisState.setMyState(thisState);
