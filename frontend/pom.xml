@@ -51,6 +51,7 @@
                     </execution>
                     <execution>
                         <id>npm install</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
