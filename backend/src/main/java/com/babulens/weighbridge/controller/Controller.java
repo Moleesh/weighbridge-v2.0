@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -104,6 +105,8 @@ class Controller {
 
     @RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})
     public Weight saveWeight(@RequestBody Weight weight) {
+        System.out.println(new Date());
+
         return weighService.saveWeight(weight);
     }
 

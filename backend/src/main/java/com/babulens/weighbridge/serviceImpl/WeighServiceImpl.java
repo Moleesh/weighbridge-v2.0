@@ -37,6 +37,7 @@ public class WeighServiceImpl implements WeighService {
 
     @Override
     public Weight saveWeight(Weight weight) {
+        System.out.println(new Date());
         if (weight.getSlipNo() != -1) {
             if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
                 List<TareWeight> tareWeightList = tareWeightService.getTareByVehicleNo(weight.getVehicleNo());
@@ -51,11 +52,21 @@ public class WeighServiceImpl implements WeighService {
                 }
             }
             weight.setSlipNo(Integer.parseInt((String) settingsService.getSetting("slipNo")));
+            System.out.println(new Date());
+
             cameraService.saveCameraImageToDisk(weight.getSlipNo() + ".jpeg");
+            System.out.println(new Date());
+
             weightDAO.save(weight);
+            System.out.println(new Date());
+
             settingsService.saveSettings(new Settings("slipNo", Integer.parseInt((String) settingsService.getSetting(
                     "slipNo")) + 1));
+            System.out.println(new Date());
+
         }
+        System.out.println(new Date());
+
         return weight;
     }
 
