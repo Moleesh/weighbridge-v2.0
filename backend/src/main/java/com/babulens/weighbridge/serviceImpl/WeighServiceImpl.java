@@ -115,7 +115,6 @@ public class WeighServiceImpl implements WeighService {
     @Override
     public void resetWeight(int slipNo) {
         weightDAO.deleteAll();
-        System.out.println(slipNo);
         settingsService.saveSettings(new Settings("slipNo", slipNo));
     }
 }

@@ -18,7 +18,7 @@ const Weighing = props => {
                 }
             }}
         >
-            <Row>
+            <Row style={{height: 200}}>
                 <Col sm="2" className="mt-5">
                     <Form.Group as={Row}>
                         <Col sm="1"/>
@@ -81,18 +81,17 @@ const Weighing = props => {
                     </Row>
                 </Col>
                 <Col sm="5">
-                    {thisState.weighing.cameraImage ? (
-                        <Image
-                            src={thisState.weighing.cameraImage}
-                            style={{height: 200}}
-                            className="rounded mx-auto d-block"
-                            alt="No Camera Available"
-                            fluid
-                        />
-                    ) : (
-                        ""
-                    )}
-                </Col>
+                    <Image
+                        src={thisState.weighing.cameraImage}
+                        style={{height: 200}}
+                        className="rounded mx-auto d-block"
+                        onError={() => {
+                            thisState.weighing.cameraImage = "";
+                            thisState.setMyState(thisState);
+                        }}
+                        fluid
+                    />
+                </Col>  
             </Row>
             <Row>
                 <ColumnOne preState={thisState}/>
