@@ -1,5 +1,5 @@
-WeighBridge
-===========
+WeighBridge V2.0
+================
 
 ## To Build 
 mvnw clean install
