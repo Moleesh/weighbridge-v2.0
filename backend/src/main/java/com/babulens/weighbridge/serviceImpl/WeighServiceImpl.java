@@ -104,13 +104,14 @@ public class WeighServiceImpl implements WeighService {
 
     @Override
     public TareWeight getGrossWeight(String vehicleNo) {
-        List<Weight> weightList = weightDAO.findAllByVehicleNoAndTareTimeOrderByGrossTimeDesc(vehicleNo, null);
-        if (weightList.isEmpty()) {
-            return new TareWeight();
-        } else {
-            return new TareWeight(vehicleNo, weightList.get(0).getGrossWeight(), weightList.get(0).getGrossTime());
+        Weight weigh = weightDAO.findOneByVehicleNoOrderByGrossTimeDesc(vehicleNo);
+        if (weigh != null) {
+            if (weigh.getGrossTime() != null && weigh.getTareTime() == null) {
+                return new TareWeight(vehicleNo, weigh.getGrossWeight(), weigh.getGrossTime());
+            }
         }
-    }
+        return new TareWeight();
+    } 
 
     @Override
     public void resetWeight(int slipNo) {

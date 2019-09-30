@@ -26,10 +26,7 @@ const ColumnTwo = props => {
                                 thisState.weighing.reference.materialReference.reference.current.focus();
                             else if ((event.keyCode === 13) || (event.keyCode === 9)) {
                                 thisState.weight.customersName = thisState.weight.customersName
-                                    .toLowerCase()
-                                    .split(" ")
-                                    .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                                    .join(" ");
+                                    .toUpperCase()
                                 thisState.setMyState(thisState);
                                 thisState.weighing.reference.transporterNameReference.current.focus();
                             }
@@ -57,10 +54,7 @@ const ColumnTwo = props => {
                                 thisState.weighing.reference.customersNameReference.current.focus();
                             else if ((event.keyCode === 13) || (event.keyCode === 9)) {
                                 thisState.weight.transporterName = thisState.weight.transporterName
-                                    .toLowerCase()
-                                    .split(" ")
-                                    .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                                    .join(" ");
+                                    .toUpperCase()
                                 thisState.setMyState(thisState);
                                 thisState.weighing.reference.chargesReference.current.focus();
                             }

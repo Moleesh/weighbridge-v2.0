@@ -156,10 +156,7 @@ const ColumnOne = props => {
               else if (event.keyCode === 13 || event.keyCode === 9) {
                 thisState.weighing.reference.materialReference.open = false;
                 thisState.weighing.reference.materialReference.value[0].material = thisState.weighing.reference.materialReference.value[0].material
-                  .toLowerCase()
-                  .split(" ")
-                  .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                  .join(" ");
+                  .toUpperCase()
                 thisState.weight.material =
                   thisState.weighing.reference.materialReference.value[0].material;
                 if (thisState.weight.material.toUpperCase() === "EMPTY") {

@@ -17,6 +17,7 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +87,6 @@ public class PrintUtilImpl implements PrintUtil {
         book.append((graphics, pageFormat1, pageIndex) -> {
             String format = "%1$-5s%2$-20s: ";
 
-            String[] temp = (printWeight.getWeight().getNettTime() + " . ").split(" ");
             String initString = "\n\n" + StringUtils.center(printWeight.getWeighbridgeName(), 62);
             graphics.setFont(new Font("Courier New", Font.BOLD, 15));
 
@@ -100,12 +100,14 @@ public class PrintUtilImpl implements PrintUtil {
             coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
 
             initString = String.format(format, "", "Sl.No") + printWeight.getWeight().getSlipNo() + "\n\n"
-                    + String.format(format, "", "Date") + temp[0] + "\n\n" + String.format(format, "", "Time")
-                    + temp[1] + "\n\n" + String.format(format, "", "Vehicle No") + printWeight.getWeight().getVehicleNo()
+                    + String.format(format, "", "Date") + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                    + "\n\n" + String.format(format, "", "Time")
+                    + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.systemDefault()).toLocalTime() + "\n\n" + String.format(format, "", "Vehicle No")
+                    + printWeight.getWeight().getVehicleNo()
                     + "\n\n" + String.format(format, "", "Material") + printWeight.getWeight().getMaterial()
                     + "\n\n" + String.format(format, "", "Customer Name")
                     + printWeight.getWeight().getCustomersName() + "\n\n" + String.format(format, "", "Charges")
-                    + "Rs. " + printWeight.getWeight().getCharges() + "\n\n";
+                    + "Rs. " + (int) printWeight.getWeight().getCharges() + "\n\n";
             graphics.setFont(new Font("Courier New", Font.BOLD, 10));
             coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
 
