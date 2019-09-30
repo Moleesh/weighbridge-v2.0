@@ -2,6 +2,7 @@ WeighBridge V2.0
 ================
 
 ## To Build 
+npm -ig react-scripts 
 mvnw clean install
 
 ## To Run
