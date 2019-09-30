@@ -3,14 +3,14 @@ WeighBridge V2.0
 
 ## To Build 
 npm -ig react-scripts 
-mvnw clean install
+mvn clean install
 
 ## To Run
 java -jar target/WeighBridge.jar
 
 ## check fr latest maven dependency 
-mvnw versions:display-dependency-updates
+mvn versions:display-dependency-updates
  
-mvnw versions:use-latest-releases
+mvn versions:use-latest-releases
 
-mvnw versions:update-properties
+mvn versions:update-properties
