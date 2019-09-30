@@ -111,7 +111,7 @@ public class WeighServiceImpl implements WeighService {
             }
         }
         return new TareWeight();
-    } 
+    }
 
     @Override
     public void resetWeight(int slipNo) {
