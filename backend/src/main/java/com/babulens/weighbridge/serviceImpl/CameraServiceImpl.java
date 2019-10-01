@@ -11,6 +11,7 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 import com.github.sarxos.webcam.ds.ipcam.IpCamStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -24,12 +25,15 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class MyIpCam extends IpCamDriver {
     MyIpCam() {
         try {
             super.register(new IpCamDevice("No Camera Available", "http:", IpCamMode.PULL));
-        } catch (MalformedURLException | WebcamException ignored) {
+        } catch (MalformedURLException | WebcamException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 }
@@ -39,6 +43,7 @@ class MyCompositeDriver extends WebcamCompositeDriver {
         try {
             add(new IpCamDriver(new IpCamStorage("cameras.xml")));
         } catch (NullPointerException | WebcamException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             add(new MyIpCam());
         }
         add(new WebcamDefaultDriver());
@@ -70,7 +75,8 @@ public class CameraServiceImpl implements CameraService {
             try {
                 webcam.setViewSize(getBestDimensions(webcam));
                 webcam.open();
-            } catch (WebcamException ignored) {
+            } catch (WebcamException ex) {
+                webcam.close();
             }
         }
     }
@@ -87,7 +93,8 @@ public class CameraServiceImpl implements CameraService {
             }
             try {
                 ImageIO.write(webcam.getImage(), "jpeg", outputFile);
-            } catch (IOException ignored) {
+            } catch (IOException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
     }
@@ -105,7 +112,8 @@ public class CameraServiceImpl implements CameraService {
             try {
                 ImageIO.write(webcam.getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight),
                         "jpeg", outputStream);
-            } catch (IOException | IllegalArgumentException | NullPointerException | RasterFormatException e) {
+            } catch (IOException | IllegalArgumentException | NullPointerException | RasterFormatException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
                 return null;
             }
             return outputStream.toByteArray();
@@ -124,13 +132,15 @@ public class CameraServiceImpl implements CameraService {
     }
 
     @Override
+    @PostConstruct
+    @Cacheable(cacheNames = "Cameras")
     public List<String> getAllCameras() {
         List<String> cameras = new ArrayList<>();
         for (Webcam webcam : Webcam.getWebcams()) {
             try {
                 cameras.add(webcam.getName() + " " + getBestDimensions(webcam).toString().replace("java.awt" +
                         ".Dimension", ""));
-            } catch (WebcamException e) {
+            } catch (WebcamException ex) {
                 cameras.add(webcam.getName() + " " + "[width=0,height=0]");
             }
         }

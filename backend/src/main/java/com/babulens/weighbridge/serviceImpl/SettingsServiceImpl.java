@@ -22,13 +22,13 @@ public class SettingsServiceImpl implements SettingsService {
     SettingsDAO settingsDAO;
 
     @Override
-    @CacheEvict(value = "setting", key = "#settings.getKey()")
+    @CacheEvict(value = "Settings", key = "#settings.getKey()")
     public void saveSettings(Settings settings) {
         settingsDAO.save(settings);
     }
 
     @Override
-    @Cacheable(cacheNames = "setting")
+    @Cacheable(cacheNames = "Settings")
     public Map<String, String> getAllSettings() {
         Map<String, String> settingMap = new HashMap<>();
         for (Settings settings : settingsDAO.findAll()) {
@@ -38,7 +38,7 @@ public class SettingsServiceImpl implements SettingsService {
     }
 
     @Override
-    @CacheEvict(value = "setting", allEntries = true)
+    @CacheEvict(value = "Settings", allEntries = true)
     public void saveAllSettings(Map<String, String> settings) {
         List<Settings> settingsList = new ArrayList<>();
         for (String key : settings.keySet()) {
@@ -48,7 +48,7 @@ public class SettingsServiceImpl implements SettingsService {
     }
 
     @Override
-    @Cacheable(cacheNames = "setting", key = "#id")
+    @Cacheable(cacheNames = "Settings", key = "#id")
     public Object getSetting(String id) {
         if (settingsDAO.findById(id).isPresent()) {
             return settingsDAO.findById(id).get().getValue();

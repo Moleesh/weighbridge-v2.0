@@ -1,17 +1,17 @@
 package com.babulens.weighbridge.utilImpl;
 
 import com.itextpdf.awt.FontMapper;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
 
 import java.awt.*;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PdfFontMapperImpl implements FontMapper {
 
-    private BaseFont getBaseFontFromFile(String directory, String filename) throws Exception {
+    private BaseFont getBaseFontFromFile(String directory, String filename) {
         try (InputStream inputStream = new FileInputStream(new File(getClass().getClassLoader().getResource(directory + filename).getFile()))) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             byte[] bytes = new byte[1024];
@@ -25,28 +25,27 @@ public class PdfFontMapperImpl implements FontMapper {
             bytes = byteArrayOutputStream.toByteArray();
             return BaseFont.createFont(filename, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED, BaseFont.NOT_CACHED,
                     bytes, null);
+        } catch (DocumentException | IOException | NullPointerException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
+        return null;
     }
 
     @Override
     public BaseFont awtToPdf(Font font) {
-        try {
-            if (font.isBold()) {
-                if (font.isItalic()) {
-                    return this.getBaseFontFromFile("Fonts" + File.separator
-                            , "courbi.ttf");
-                }
+        if (font.isBold()) {
+            if (font.isItalic()) {
                 return this.getBaseFontFromFile("Fonts" + File.separator
-                        , "courbd.ttf");
-            } else if (font.isItalic()) {
-                return this.getBaseFontFromFile("Fonts" + File.separator
-                        , "couri.ttf");
-            } else {
-                return this.getBaseFontFromFile("Fonts" + File.separator
-                        , "cour.ttf");
+                        , "courbi.ttf");
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            return this.getBaseFontFromFile("Fonts" + File.separator
+                    , "courbd.ttf");
+        } else if (font.isItalic()) {
+            return this.getBaseFontFromFile("Fonts" + File.separator
+                    , "couri.ttf");
+        } else {
+            return this.getBaseFontFromFile("Fonts" + File.separator
+                    , "cour.ttf");
         }
     }
 

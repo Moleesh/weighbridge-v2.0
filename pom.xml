@@ -42,6 +42,26 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="WeighBridge"/>
+                                <copy file="target/weighbridge.jar" tofile="WeighBridge"/>
+                                <copy file="RunMeForSchedulingInWindows.bat" tofile="WeighBridge"/>
+                                <copy file="cameras.xml" tofile="WeighBridge"/>
+                                <copy file="target/weighbridge.jar" tofile="WeighBridge"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <repositories>

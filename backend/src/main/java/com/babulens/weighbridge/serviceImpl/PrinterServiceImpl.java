@@ -23,6 +23,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
@@ -79,8 +81,9 @@ public class PrinterServiceImpl implements PrinterService {
             document.close();
             writer.close();
             return byteArrayOutputStream.toByteArray();
-        } catch (DocumentException | PrinterException | IndexOutOfBoundsException e) {
-            e.printStackTrace();
+        } catch (DocumentException | PrinterException | IndexOutOfBoundsException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+
         }
         return null;
     }
@@ -112,8 +115,8 @@ public class PrinterServiceImpl implements PrinterService {
             document.close();
             writer.close();
             return byteArrayOutputStream.toByteArray();
-        } catch (DocumentException | PrinterException | IndexOutOfBoundsException e) {
-            e.printStackTrace();
+        } catch (DocumentException | PrinterException | IndexOutOfBoundsException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
     }
@@ -165,7 +168,8 @@ public class PrinterServiceImpl implements PrinterService {
             printerJob.setPageable(printUtil.printReport(printReport));
             printerJob.setPrintService(getPrinter(printReport.getPrinterName()));
             printerJob.print();
-        } catch (PrinterException ignored) {
+        } catch (PrinterException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 

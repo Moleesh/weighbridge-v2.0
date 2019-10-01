@@ -21,6 +21,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
@@ -152,7 +154,8 @@ public class PrintUtilImpl implements PrintUtil {
                 BufferedImage cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
                 graphics.drawImage(cropImage, 250, 125, 300,
                         (int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
-            } catch (IOException | NullPointerException | RasterFormatException ignored) {
+            } catch (IOException | NullPointerException | RasterFormatException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
             return Printable.PAGE_EXISTS;
         }, pageFormat);

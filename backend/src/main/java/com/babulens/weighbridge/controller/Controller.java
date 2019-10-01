@@ -12,6 +12,8 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
@@ -89,7 +91,8 @@ class Controller {
         String clientIp = request.getRemoteAddr();
         try {
             hostIp = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             hostIp = clientIp;
         }
         if (clientIp.equalsIgnoreCase("0:0:0:0:0:0:0:1") || clientIp.equalsIgnoreCase("127.0.0.1")) {
