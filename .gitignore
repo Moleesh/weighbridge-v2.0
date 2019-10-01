@@ -31,4 +31,4 @@ test.java
 /natives
 /target/
 /node_modules/
-/System.out
+/logs/
