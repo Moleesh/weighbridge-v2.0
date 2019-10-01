@@ -39,6 +39,9 @@
                         <fileset>
                             <directory>frontend/node_modules</directory>
                         </fileset>
+                        <fileset>
+                            <directory>WeighBridge</directory>
+                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
