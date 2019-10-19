@@ -33,7 +33,7 @@ class MyIpCam extends IpCamDriver {
         try {
             super.register(new IpCamDevice("No Camera Available", "http:", IpCamMode.PULL));
         } catch (MalformedURLException | WebcamException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 }
@@ -43,16 +43,17 @@ class MyCompositeDriver extends WebcamCompositeDriver {
         try {
             add(new IpCamDriver(new IpCamStorage("cameras.xml")));
         } catch (NullPointerException | WebcamException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             add(new MyIpCam());
         }
         add(new WebcamDefaultDriver());
     }
 }
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class CameraServiceImpl implements CameraService {
+    private static boolean nullWebCam = false;
+
     static {
         Webcam.setDriver(new MyCompositeDriver());
     }
@@ -61,29 +62,37 @@ public class CameraServiceImpl implements CameraService {
     private SettingsService settingsService;
     private Webcam webcam = null;
 
+    private Webcam getWebcam() {
+        return webcam;
+    }
+
+    private void setWebcam(Webcam webcam) {
+        this.webcam = webcam;
+    }
+
     @Override
     @PostConstruct
     public synchronized void settingUpCamera() {
         Map<String, String> settings = settingsService.getAllSettings();
         String cameraName = settings.get("cameraName").split("\\[")[0].trim();
-        if (webcam != null && webcam.isOpen()) {
-            webcam.close();
+        if (getWebcam() != null && getWebcam().isOpen()) {
+            getWebcam().close();
         }
 
-        webcam = getCamera(cameraName);
+        setWebcam(getCamera(cameraName));
         if (webcam != null) {
             try {
-                webcam.setViewSize(getBestDimensions(webcam));
-                webcam.open();
+                getWebcam().setViewSize(getBestDimensions(getWebcam()));
+                getWebcam().open();
             } catch (WebcamException ex) {
-                webcam.close();
+                getWebcam().close();
             }
         }
     }
 
     @Override
     public void saveCameraImageToDisk(String fileName) {
-        if (webcam != null && webcam.isOpen()) {
+        if (getWebcam() != null && getWebcam().isOpen()) {
             File directory = new File("CameraOutput");
             File outputFile = new File("CameraOutput" + File.separator + fileName);
             if (!directory.exists()) {
@@ -92,14 +101,13 @@ public class CameraServiceImpl implements CameraService {
                 }
             }
             try {
-                ImageIO.write(webcam.getImage(), "jpeg", outputFile);
+                ImageIO.write(getWebcam().getImage(), "jpeg", outputFile);
             } catch (IOException ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public byte[] getCameraImage() {
         Map<String, String> settings = settingsService.getAllSettings();
@@ -107,15 +115,27 @@ public class CameraServiceImpl implements CameraService {
         int cameraYAxis = Integer.parseInt(settings.get("cameraYAxis"));
         int cameraWidth = Integer.parseInt(settings.get("cameraWidth"));
         int cameraHeight = Integer.parseInt(settings.get("cameraHeight"));
-        if (webcam != null && webcam.isOpen()) {
+        if (getWebcam() != null && getWebcam().isOpen()) {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             try {
-                ImageIO.write(webcam.getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight),
-                        "jpeg", outputStream);
-            } catch (IOException | IllegalArgumentException | NullPointerException | RasterFormatException ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                try {
+                    ImageIO.write(getWebcam().getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight),
+                            "jpeg", outputStream);
+                } catch (RasterFormatException ex1) {
+                    ImageIO.write(getWebcam().getImage().getSubimage(0, 0, 1, 1),
+                            "jpeg", outputStream);
+                } catch (NullPointerException ex2) {
+                    CameraServiceImpl.nullWebCam = true;
+                    if (!CameraServiceImpl.nullWebCam) {
+                        Logger.getLogger(getClass().getName()).log(Level.WARNING, getWebcam().getName() + ": Camera is NuLL");
+                    }
+                    return null;
+                }
+            } catch (IOException | IllegalArgumentException | NullPointerException ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
                 return null;
             }
+            CameraServiceImpl.nullWebCam = false;
             return outputStream.toByteArray();
         }
         return null;

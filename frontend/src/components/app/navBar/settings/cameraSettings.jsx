@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSync} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 
 const CameraSettings = props => {
     // noinspection JSUnresolvedVariable
@@ -24,8 +24,22 @@ const CameraSettings = props => {
                         as="select"
                         value={thisState.setting.value.cameraName}
                         onChange={event => {
-                            thisState.setting.value.cameraName = event.target.value;
-                            thisState.setMyState(thisState);
+                            
+                            fetch(thisState.INITIAL_URL + "/settingUpCamera")
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        thisState.alerts.push({
+                                            id: new Date().getTime(),
+                                            type: "success",
+                                            headline: "Camera Settings Refreshed",
+                                            message: "Camera Settings Refreshed Successfully."
+                                        });
+                                        thisState.setting.value.cameraName = event.target.value;
+                                        thisState.setMyState(thisState);
+                                    } else throw Error(response.statusText);
+                                })
+                                .catch(() => {
+                                });
                         }}
                     >
                         {thisState.setting.array.availableCameras.map(item => (
@@ -202,7 +216,7 @@ const CameraSettings = props => {
                         });
                 }}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
+                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                 Refresh Camera Settings
             </Button>
         </Form>
