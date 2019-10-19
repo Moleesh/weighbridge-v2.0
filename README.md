@@ -14,3 +14,8 @@ mvn versions:display-dependency-updates
 mvn versions:use-latest-releases
 
 mvn versions:update-properties
+
+## git Config
+git config filter.app_jsx.clean "sed '/^INITIAL_URL.*/'d"
+
+git config filter.app_jsx.smudge cat
