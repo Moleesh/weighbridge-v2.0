@@ -1,34 +1,21 @@
-/target
-!.mvn/wrapper/maven-wrapper.jar
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
+### IDE Specific ###
 .idea
-*.iws
 *.iml
-*.ipr
-*.db
-*.log
-*.jpeg
-test.java
+.settings
+.project
+.classpath
+.vscode
 
-### NetBeans ###
-/.vscode
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-/build/
-/natives
-/target/
-/node_modules/
-/logs/
+###Project Specific Folders ###
+.git
+node
+node_modules
+build
+dist
+target
+
+###Project Specific Files ###
+
+logs
+test.java
+weighdata.mv.db

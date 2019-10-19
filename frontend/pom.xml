@@ -50,16 +50,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm install</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>npm build</id>
                         <phase>compile</phase>
                         <goals>
