@@ -16,6 +16,6 @@ mvn versions:use-latest-releases
 mvn versions:update-properties
 
 ## git Config
-git config filter.app_jsx.clean "sed '/^INITIAL_URL.*/'d"
+git config filter.app_jsx.clean "sed 's/^const INITIAL_URL.*/const INITIAL_URL = "";/g'"
 
 git config filter.app_jsx.smudge cat
