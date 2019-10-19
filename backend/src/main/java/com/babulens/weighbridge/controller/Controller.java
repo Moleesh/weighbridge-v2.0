@@ -53,6 +53,9 @@ class Controller {
     private
     CameraService cameraService;
 
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
     @RequestMapping(value = "/settingUpCamera", method = {RequestMethod.GET})
     public void settingUpCamera() {
         cameraService.settingUpCamera();
@@ -233,6 +236,26 @@ class Controller {
     @RequestMapping(value = "/saveAllSettings", method = {RequestMethod.PUT})
     public void saveAllSettings(@RequestBody Map<String, String> settings) {
         settingsService.saveAllSettings(settings);
+    }
+
+    @SendTo("/topic/messages")
+    public JSONObject transferingCLientMsg(JSONObject message) {
+        message.put("msg", "hi !!! Welcome");//client messaging
+        return message;
+    }
+
+    public  void sendDataToAllClients(JSONObject message) {
+        messagingTemplate.convertAndSend("/topic/callback", message);
+    }
+
+    public void sendPingMessageToAllClients() {
+        try {
+            org.json.JSONObject messageObj = new org.json.JSONObject();
+            messageObj.put("ping", "this is ping");
+            sendDataToAllClients(messageObj);
+        } catch (Exception exception) {
+            logger.error("Exception in Websocket Session sendPingMessageToAllClients Method: "+exception.getMessage(),new Object[]{SDEAppConstants.TOOL_ORGID},exception);
+        }
     }
 
 }
