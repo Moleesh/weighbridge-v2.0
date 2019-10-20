@@ -22,7 +22,7 @@
     <description>Weighbridge Software</description>
 
     <properties>
-        <skipUpdate>true</skipUpdate>
+        <skipUpdate>none</skipUpdate>
     </properties>
     <build>
         <plugins>
