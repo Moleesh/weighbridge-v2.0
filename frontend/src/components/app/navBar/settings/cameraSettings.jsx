@@ -24,22 +24,11 @@ const CameraSettings = props => {
                         as="select"
                         value={thisState.setting.value.cameraName}
                         onChange={event => {
-
-                            fetch(thisState.INITIAL_URL + "/settingUpCamera")
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        thisState.alerts.push({
-                                            id: new Date().getTime(),
-                                            type: "success",
-                                            headline: "Camera Settings Refreshed",
-                                            message: "Camera Settings Refreshed Successfully."
-                                        });
-                                        thisState.setting.value.cameraName = event.target.value;
-                                        thisState.setMyState(thisState);
-                                    } else throw Error(response.statusText);
-                                })
-                                .catch(() => {
-                                });
+                            thisState.setting.value.cameraName = event.target.value;
+                            if (event.target.value.includes("["))
+                                thisState.setting.value.cameraWidth = event.target.value.split("[")[1].split("=")[1].split(",")[0];
+                            thisState.setting.value.cameraHeight = event.target.value.split("[")[1].split("=")[2].split("]")[0];
+                            thisState.setMyState(thisState);
                         }}
                     >
                         {thisState.setting.array.availableCameras.map(item => (

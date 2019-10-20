@@ -5,17 +5,14 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
 
 import java.awt.*;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PdfFontMapperImpl implements FontMapper {
 
     private BaseFont getBaseFontFromFile(String directory, String filename) {
-        try (InputStream inputStream = getClass().getClassLoader().getResource(directory + filename).openStream()) {
+        try (InputStream inputStream = new FileInputStream(new File(directory + filename))) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             byte[] bytes = new byte[1024];
             while (true) {
@@ -36,19 +33,16 @@ public class PdfFontMapperImpl implements FontMapper {
 
     @Override
     public BaseFont awtToPdf(Font font) {
+        String directory = "backend" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Fonts" + File.separator;
         if (font.isBold()) {
             if (font.isItalic()) {
-                return getBaseFontFromFile("Fonts" + File.separator
-                        , "courbi.ttf");
+                return getBaseFontFromFile(directory, "courbi.ttf");
             }
-            return getBaseFontFromFile("Fonts" + File.separator
-                    , "courbd.ttf");
+            return getBaseFontFromFile(directory, "courbd.ttf");
         } else if (font.isItalic()) {
-            return getBaseFontFromFile("Fonts" + File.separator
-                    , "couri.ttf");
+            return getBaseFontFromFile(directory, "couri.ttf");
         } else {
-            return getBaseFontFromFile("Fonts" + File.separator
-                    , "cour.ttf");
+            return getBaseFontFromFile(directory, "cour.ttf");
         }
     }
 

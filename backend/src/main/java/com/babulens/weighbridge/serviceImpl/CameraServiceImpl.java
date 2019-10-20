@@ -31,8 +31,6 @@ import java.util.logging.Logger;
 class MyIpCam extends IpCamDriver {
     MyIpCam() {
         try {
-
-            super.unregister(new IpCamDevice("No Camera Available", "http:", IpCamMode.PULL));
             super.register(new IpCamDevice("No Camera Available", "http:", IpCamMode.PULL));
         } catch (MalformedURLException | WebcamException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
