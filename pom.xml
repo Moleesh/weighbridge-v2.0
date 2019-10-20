@@ -25,6 +25,7 @@
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.1.0</version>
+                <inherited>false</inherited>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -50,15 +51,16 @@
             </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <inherited>false</inherited>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>integration-test</phase>
                         <configuration>
                             <target>
                                 <mkdir dir="WeighBridge"/>
-                                <copy file="target/weighbridge.jar" tofile="WeighBridge"/>
-                                <copy file="RunMeForSchedulingInWindows.bat" tofile="WeighBridge"/>
-                                <copy file="cameras.xml" tofile="WeighBridge"/>
+                                <copy file="target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
+                                <copy file="RunMeForSchedulingInWindows.bat" tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
+                                <copy file="cameras.xml" tofile="WeighBridge/cameras.xml"/>
                             </target>
                         </configuration>
                         <goals>
