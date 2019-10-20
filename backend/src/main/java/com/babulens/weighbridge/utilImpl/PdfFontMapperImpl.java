@@ -5,14 +5,17 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
 
 import java.awt.*;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PdfFontMapperImpl implements FontMapper {
 
     private BaseFont getBaseFontFromFile(String directory, String filename) {
-        try (InputStream inputStream = new FileInputStream(new File(getClass().getClassLoader().getResource(directory + filename).getFile()))) {
+        try (InputStream inputStream = getClass().getClassLoader().getResource(directory + filename).openStream()) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             byte[] bytes = new byte[1024];
             while (true) {
@@ -26,7 +29,7 @@ public class PdfFontMapperImpl implements FontMapper {
             return BaseFont.createFont(filename, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED, BaseFont.NOT_CACHED,
                     bytes, null);
         } catch (DocumentException | IOException | NullPointerException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
     }
@@ -35,16 +38,16 @@ public class PdfFontMapperImpl implements FontMapper {
     public BaseFont awtToPdf(Font font) {
         if (font.isBold()) {
             if (font.isItalic()) {
-                return this.getBaseFontFromFile("Fonts" + File.separator
+                return getBaseFontFromFile("Fonts" + File.separator
                         , "courbi.ttf");
             }
-            return this.getBaseFontFromFile("Fonts" + File.separator
+            return getBaseFontFromFile("Fonts" + File.separator
                     , "courbd.ttf");
         } else if (font.isItalic()) {
-            return this.getBaseFontFromFile("Fonts" + File.separator
+            return getBaseFontFromFile("Fonts" + File.separator
                     , "couri.ttf");
         } else {
-            return this.getBaseFontFromFile("Fonts" + File.separator
+            return getBaseFontFromFile("Fonts" + File.separator
                     , "cour.ttf");
         }
     }

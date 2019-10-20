@@ -1,7 +1,11 @@
 import React from "react";
 import moment from "moment";
 
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
+
+import TareDetails from "./columnThree/tareDetails";
+import GrossDetails from "./columnThree/grossDetails";
+
 
 const ColumnThree = props => {
     // noinspection JSUnresolvedVariable
@@ -72,7 +76,7 @@ const ColumnThree = props => {
                                     )[0];
                                     if (material !== undefined) {
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: material.material}
+                                            { material: material.material }
                                         ];
                                         thisState.weight.material = material.material;
                                         if (material.material === "EMPTY") {
@@ -81,7 +85,7 @@ const ColumnThree = props => {
                                         }
                                     } else {
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.weight.material = "";
                                     }
@@ -145,7 +149,7 @@ const ColumnThree = props => {
                                     fetch(thisState.INITIAL_URL + "/saveWeight", {
                                         method: "POST",
                                         body: JSON.stringify(thisState.weight),
-                                        headers: {"content-type": "application/json"}
+                                        headers: { "content-type": "application/json" }
                                     })
                                         .then(response => {
                                             if (response.status === 200) {
@@ -170,7 +174,7 @@ const ColumnThree = props => {
                                                         thisState.weighing.customersId = "";
                                                         thisState.weighing.materialId = "";
                                                         thisState.weighing.reference.materialReference.value = [
-                                                            {material: ""}
+                                                            { material: "" }
                                                         ];
                                                         thisState.weight.grossWeight = "";
                                                         thisState.weight.grossTime = "";
@@ -222,9 +226,19 @@ const ColumnThree = props => {
                     />
                 </Col>
                 <Col sm="6">
-                    <Button className="adam-button none" variant="primary" block disabled>
-                        Get Gross Details
+                    <Button className="adam-button " variant="primary" block onClick={() => {
+                        thisState.weighing.grossDetails = true;
+                        thisState.weighing.grossDetailsWeight = "";
+                        thisState.weighing.grossDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
+                        thisState
+                            .setMyState(thisState)
+                            .then(() =>
+                                thisState.weighing.reference.grossDetailsWeightReference.current.focus()
+                            );
+                    }} >
+                        Get Tare Details
                     </Button>
+                    <GrossDetails preState={thisState} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -244,9 +258,19 @@ const ColumnThree = props => {
                     />
                 </Col>
                 <Col sm="6">
-                    <Button className="adam-button none" variant="primary" block disabled>
+                    <Button className="adam-button " variant="primary" block onClick={() => {
+                        thisState.weighing.tareDetails = true;
+                        thisState.weighing.tareDetailsWeight = "";
+                        thisState.weighing.tareDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
+                        thisState
+                            .setMyState(thisState)
+                            .then(() =>
+                                thisState.weighing.reference.tareDetailsWeightReference.current.focus()
+                            );
+                    }} >
                         Get Tare Details
                     </Button>
+                    <TareDetails preState={thisState} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -271,7 +295,7 @@ const ColumnThree = props => {
                     </Button>
                 </Col>
             </Form.Group>
-        </Col>
+        </Col >
     );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Row} from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import moment from "moment";
 import FileSaver from "file-saver";
 
@@ -9,7 +9,7 @@ const Bottom = props => {
     // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     let prevent = false;
-
+    let preventSave = false;
     // noinspection DuplicatedCode
     return (
         <Row>
@@ -33,11 +33,15 @@ const Bottom = props => {
                         let date = moment().format("DD-MM-YYYY HH:mm:ss");
 
                         if (thisState.weighing.grossSelector) {
-                            thisState.weight.grossWeight = thisState.weighing.weight;
-                            thisState.weight.grossTime = date;
+                            if (thisState.weight.grossWeight === "") {
+                                thisState.weight.grossWeight = thisState.weighing.weight;
+                                thisState.weight.grossTime = date;
+                            }
                         } else {
-                            thisState.weight.tareWeight = thisState.weighing.weight;
-                            thisState.weight.tareTime = date;
+                            if (thisState.weight.tareWeight === ""  ) {
+                                thisState.weight.tareWeight = thisState.weighing.weight;
+                                thisState.weight.tareTime = date;
+                            }
                         }
 
                         let total =
@@ -79,40 +83,38 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        fetch(thisState.INITIAL_URL + "/saveWeight", {
-                            method: "POST",
-                            body: JSON.stringify(thisState.weight),
-                            headers: {"content-type": "application/json"}
-                        })
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
+                        if (!preventSave) {
+                            preventSave = true;
+                            fetch(thisState.INITIAL_URL + "/saveWeight", {
+                                method: "POST",
+                                body: JSON.stringify(thisState.weight),
+                                headers: { "content-type": "application/json" }
                             })
-                            .then(result => {
-                                thisState.weight = result;
-                                thisState.weighing.disable.saveDisabled = true;
-                                thisState.weighing.disable.printDisabled = false;
-                                thisState
-                                    .setMyState(thisState)
-                                    .then(() =>
-                                        thisState.weighing.reference.printReference.current.focus()
-                                    );
-                            })
-                            .catch(() => {
-                            });
-                    }}
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        return response.json();
+                                    } else throw Error(response.statusText);
+                                })
+                                .then(result => {
+                                    thisState.weight = result;
+                                    thisState.weighing.disable.saveDisabled = true;
+                                    thisState.weighing.disable.printDisabled = false;
+                                    thisState
+                                        .setMyState(thisState)
+                                        .then(() => {
+                                            thisState.weighing.reference.printReference.current.focus();
+                                            preventSave = false;
+                                        }
+                                        );
+                                })
+                                .catch(() => {
+                                    preventSave = false;
+                                });
+                        }
+                    }
+                    }
                     disabled={thisState.weighing.disable.saveDisabled}
                     ref={thisState.weighing.reference.saveReference}
-                    // onKeyPress={event => {
-                    //   if (prevent) {
-                    //     prevent = false;
-                    //     event.preventDefault();
-                    //   }
-                    // }}
-                    // onFocus={event => {
-                    //   prevent = true;
-                    // }}
                 >
                     Save
                 </Button>
@@ -121,7 +123,7 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        thisState.weighing.reprint = true;
+                        thisState.weighing.tareDetails = true;
                         thisState.weighing.reprintSlipNo = "";
                         thisState
                             .setMyState(thisState)
@@ -144,7 +146,7 @@ const Bottom = props => {
                 >
                     Re Print
                 </Button>
-                <RePrint preState={thisState}/>
+                <RePrint preState={thisState} />
             </Col>
             <Col sm="4">
                 <Button
@@ -162,10 +164,10 @@ const Bottom = props => {
                                     printFormat: thisState.setting.value.printFormat,
                                     weighbridgeName: thisState.setting.value.weighbridgeName,
                                     weighbridgeAddress:
-                                    thisState.setting.value.weighbridgeAddress,
+                                        thisState.setting.value.weighbridgeAddress,
                                     footer: thisState.setting.value.footer
                                 }),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             })
                                 .then(response => {
                                     if (response.status !== 200) throw Error(response.statusText);
@@ -189,10 +191,10 @@ const Bottom = props => {
                                     printFormat: thisState.setting.value.printFormat,
                                     weighbridgeName: thisState.setting.value.weighbridgeName,
                                     weighbridgeAddress:
-                                    thisState.setting.value.weighbridgeAddress,
+                                        thisState.setting.value.weighbridgeAddress,
                                     footer: thisState.setting.value.footer
                                 }),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             })
                                 .then(response => {
                                     if (response.status !== 200) throw Error(response.statusText);
@@ -231,7 +233,7 @@ const Bottom = props => {
                                 thisState.weight.transporterName = "";
                                 thisState.weight.material = "";
                                 thisState.weighing.reference.materialReference.value = [
-                                    {material: ""}
+                                    { material: "" }
                                 ];
                                 thisState.weight.grossWeight = "";
                                 thisState.weight.grossTime = "";
@@ -300,7 +302,7 @@ const Bottom = props => {
                                 thisState.weight.transporterName = "";
                                 thisState.weight.material = "";
                                 thisState.weighing.reference.materialReference.value = [
-                                    {material: ""}
+                                    { material: "" }
                                 ];
                                 thisState.weight.grossWeight = "";
                                 thisState.weight.grossTime = "";
@@ -323,8 +325,8 @@ const Bottom = props => {
                     Clear
                 </Button>
             </Col>
-            <Col sm="6"/>
-        </Row>
+            <Col sm="6" />
+        </Row >
     );
 };
 

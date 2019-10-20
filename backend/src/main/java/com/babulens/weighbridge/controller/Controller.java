@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @CrossOrigin(origins = "*")
 @RestController
 class Controller {
@@ -52,9 +51,6 @@ class Controller {
     @Autowired
     private
     CameraService cameraService;
-
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
 
     @RequestMapping(value = "/settingUpCamera", method = {RequestMethod.GET})
     public void settingUpCamera() {
@@ -95,7 +91,7 @@ class Controller {
         try {
             hostIp = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             hostIp = clientIp;
         }
         if (clientIp.equalsIgnoreCase("0:0:0:0:0:0:0:1") || clientIp.equalsIgnoreCase("127.0.0.1")) {
@@ -236,26 +232,6 @@ class Controller {
     @RequestMapping(value = "/saveAllSettings", method = {RequestMethod.PUT})
     public void saveAllSettings(@RequestBody Map<String, String> settings) {
         settingsService.saveAllSettings(settings);
-    }
-
-    @SendTo("/topic/messages")
-    public JSONObject transferingCLientMsg(JSONObject message) {
-        message.put("msg", "hi !!! Welcome");//client messaging
-        return message;
-    }
-
-    public  void sendDataToAllClients(JSONObject message) {
-        messagingTemplate.convertAndSend("/topic/callback", message);
-    }
-
-    public void sendPingMessageToAllClients() {
-        try {
-            org.json.JSONObject messageObj = new org.json.JSONObject();
-            messageObj.put("ping", "this is ping");
-            sendDataToAllClients(messageObj);
-        } catch (Exception exception) {
-            logger.error("Exception in Websocket Session sendPingMessageToAllClients Method: "+exception.getMessage(),new Object[]{SDEAppConstants.TOOL_ORGID},exception);
-        }
     }
 
 }

@@ -24,7 +24,7 @@ const CameraSettings = props => {
                         as="select"
                         value={thisState.setting.value.cameraName}
                         onChange={event => {
-                            
+
                             fetch(thisState.INITIAL_URL + "/settingUpCamera")
                                 .then(response => {
                                     if (response.status === 200) {
@@ -176,24 +176,6 @@ const CameraSettings = props => {
                             +
                         </button>
                     </div>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-                <Form.Label column sm="3">
-                    Refresh Camera Time in sec
-                </Form.Label>
-                <Col sm="9">
-                    <Form.Control
-                        type="text"
-                        autoComplete="off"
-                        className="text-left"
-                        value={thisState.setting.value.REFRESH_TIME_CAMERA}
-                        onChange={event => {
-                            thisState.setting.value.REFRESH_TIME_CAMERA =
-                                (event.target.value.match("[0-9]+") || []).pop() || "";
-                            thisState.setMyState(thisState);
-                        }}
-                    />
                 </Col>
             </Form.Group>
             <Button

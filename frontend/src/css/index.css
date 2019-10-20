@@ -163,7 +163,7 @@ input {
     border-color: #ccc;
 }
 
-.none {
+.none:disabled {
     display: none;
 }
 
@@ -171,4 +171,11 @@ input {
 .form-control[readonly] {
     color: black;
     font-weight: 600;
+}
+
+.details-input,
+.details-input[readonly]  {
+    cursor: pointer; 
+    background-color: white;
+    border: 1px solid rgb(226, 226, 226)
 }

@@ -31,6 +31,8 @@ import java.util.logging.Logger;
 class MyIpCam extends IpCamDriver {
     MyIpCam() {
         try {
+
+            super.unregister(new IpCamDevice("No Camera Available", "http:", IpCamMode.PULL));
             super.register(new IpCamDevice("No Camera Available", "http:", IpCamMode.PULL));
         } catch (MalformedURLException | WebcamException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -41,6 +43,7 @@ class MyIpCam extends IpCamDriver {
 class MyCompositeDriver extends WebcamCompositeDriver {
     MyCompositeDriver() {
         try {
+
             add(new IpCamDriver(new IpCamStorage("cameras.xml")));
         } catch (NullPointerException | WebcamException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -55,6 +58,7 @@ public class CameraServiceImpl implements CameraService {
     private static boolean nullWebCam = false;
 
     static {
+        Webcam.resetDriver();
         Webcam.setDriver(new MyCompositeDriver());
     }
 
@@ -119,19 +123,21 @@ public class CameraServiceImpl implements CameraService {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             try {
                 try {
-                    ImageIO.write(getWebcam().getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight),
-                            "jpeg", outputStream);
-                } catch (RasterFormatException ex1) {
-                    ImageIO.write(getWebcam().getImage().getSubimage(0, 0, 1, 1),
-                            "jpeg", outputStream);
-                } catch (NullPointerException ex2) {
-                    CameraServiceImpl.nullWebCam = true;
+                    if (cameraWidth < 1 || cameraHeight < 1) {
+                        ImageIO.write(getWebcam().getImage().getSubimage(0, 0, 1, 1),
+                                "jpeg", outputStream);
+                    } else {
+                        ImageIO.write(getWebcam().getImage().getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight),
+                                "jpeg", outputStream);
+                    }
+                } catch (NullPointerException ex1) {
                     if (!CameraServiceImpl.nullWebCam) {
                         Logger.getLogger(getClass().getName()).log(Level.WARNING, getWebcam().getName() + ": Camera is NuLL");
+                        CameraServiceImpl.nullWebCam = true;
                     }
                     return null;
                 }
-            } catch (IOException | IllegalArgumentException | NullPointerException ex) {
+            } catch (IOException | IllegalArgumentException | RasterFormatException ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
                 return null;
             }

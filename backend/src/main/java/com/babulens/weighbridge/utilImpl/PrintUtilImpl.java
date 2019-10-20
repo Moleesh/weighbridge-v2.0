@@ -25,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
 public class PrintUtilImpl implements PrintUtil {
     @Autowired
@@ -45,10 +44,10 @@ public class PrintUtilImpl implements PrintUtil {
     public Book printPrePrint(PrintWeight printWeight) {
         PageFormat pageFormat = new PageFormat();
         Paper paper = pageFormat.getPaper();
-        double paperWidth = 8d * 72d;
-        double paperHeight = 11.5d * 72d;
-        double paperWidthMargin = 0d * 72d;
-        double paperHeightMargin = 0d * 72d;
+        final double paperWidth = 8d * 72d;
+        final double paperHeight = 11.5d * 72d;
+        final double paperWidthMargin = 0d * 72d;
+        final double paperHeightMargin = 0d * 72d;
         paper.setSize(paperWidth, paperHeight);
         paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
                 paperHeight - (2 * paperHeightMargin));
@@ -56,7 +55,7 @@ public class PrintUtilImpl implements PrintUtil {
         Book book = new Book();
         book.append((graphics, pageFormat1, pageIndex) -> {
             // TODO: 29-07-2019 Pre Print
-            String initString = "";
+            final String initString = "";
             graphics.setFont(new Font("Courier New", Font.BOLD, 10));
             PrintUtilImpl.drawString(graphics, initString, 0, 0);
             graphics.drawLine(56, 129, 544, 129);
@@ -76,10 +75,10 @@ public class PrintUtilImpl implements PrintUtil {
 
         PageFormat pageFormat = new PageFormat();
         Paper paper = pageFormat.getPaper();
-        double paperWidth = 8d * 72d;
-        double paperHeight = 6d * 72d;
-        double paperWidthMargin = 0d * 72d;
-        double paperHeightMargin = .25d * 72d;
+        final double paperWidth = 8d * 72d;
+        final double paperHeight = 6d * 72d;
+        final double paperWidthMargin = 0d * 72d;
+        final double paperHeightMargin = .25d * 72d;
         paper.setSize(paperWidth, paperHeight);
         paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
                 paperHeight - (2 * paperHeightMargin));
@@ -87,7 +86,7 @@ public class PrintUtilImpl implements PrintUtil {
         Book book = new Book();
 
         book.append((graphics, pageFormat1, pageIndex) -> {
-            String format = "%1$-5s%2$-20s: ";
+            final String format = "%1$-5s%2$-20s: ";
 
             String initString = "\n\n" + StringUtils.center(printWeight.getWeighbridgeName(), 62);
             graphics.setFont(new Font("Courier New", Font.BOLD, 15));
@@ -151,32 +150,36 @@ public class PrintUtilImpl implements PrintUtil {
                 BufferedImage printImage = ImageIO
                         .read(new File("CameraOutput" + File.separator + printWeight.getWeight().getSlipNo() +
                                 ".jpeg"));
-                BufferedImage cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
+                BufferedImage cropImage;
+                if (cameraHeight < 1 || cameraWidth < 1) {
+                    cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, 1, 1);
+                } else {
+                    cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
+                }
                 graphics.drawImage(cropImage, 250, 125, 300,
                         (int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
             } catch (IOException | NullPointerException | RasterFormatException ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
             return Printable.PAGE_EXISTS;
         }, pageFormat);
         return book;
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public Book printReport(PrintReport printReport) {
         PageFormat pageFormat = new PageFormat();
         Paper paper = pageFormat.getPaper();
-        double paperWidth = 8d * 72d;
-        double paperHeight = 11.5d * 72d;
-        double paperWidthMargin = 0d * 72d;
-        double paperHeightMargin = .25d * 72d;
+        final double paperWidth = 8d * 72d;
+        final double paperHeight = 11.5d * 72d;
+        final double paperWidthMargin = 0d * 72d;
+        final double paperHeightMargin = .25d * 72d;
         paper.setSize(paperWidth, paperHeight);
         paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
                 paperHeight - (2 * paperHeightMargin));
         pageFormat.setPaper(paper);
         Book book = new Book();
-        String format = " %1$-5s %2$-19s %3$-15s %4$-15s %5$-8s %6$-8s %7$-8s";
+        final String format = " %1$-5s %2$-19s %3$-15s %4$-15s %5$-8s %6$-8s %7$-8s";
 
         List<Line> lines = new ArrayList<>();
 
@@ -216,7 +219,7 @@ public class PrintUtilImpl implements PrintUtil {
                 new Font("Courier New", Font.PLAIN, 10)));
         lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
         lines.add(new Line("\t\t\t\t\tSignature", new Font("Courier New", Font.PLAIN, 10)));
-        int LIMIT = 45;
+        final int LIMIT = 45;
         book.append((graphics, pageFormat1, pageIndex) -> {
             Coordinates coordinates = new Coordinates(25, 0);
             graphics.setFont(new Font("Courier New", Font.BOLD, 10));

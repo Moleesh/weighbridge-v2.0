@@ -13,9 +13,11 @@ node_modules
 build
 dist
 target
+CameraOutput
 
 ###Project Specific Files ###
 
 logs
 test.java
 weighdata.mv.db
+/weighdata.trace.db

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const RePrint = props => {
     // noinspection JSUnresolvedVariable
@@ -43,7 +43,7 @@ const RePrint = props => {
                             }}
                             onKeyDown={event => {
                                 // noinspection StatementWithEmptyBodyJS
-                                if (event.keyCode === 9 && event.shiftKey) ;
+                                if (event.keyCode === 9 && event.shiftKey);
                                 else if ((event.keyCode === 13) || (event.keyCode === 9))
                                     thisState.weighing.reference.rePrintButtonReference.current.focus();
                             }}
@@ -54,6 +54,7 @@ const RePrint = props => {
             </Modal.Body>
             <Modal.Footer>
                 <Button
+                    variant="info"
                     onClick={() => {
                         if (thisState.weighing.reprintSlipNo !== "") {
                             // noinspection DuplicatedCode
@@ -82,7 +83,7 @@ const RePrint = props => {
                                     thisState.weighing.disable.printDisabled = false;
                                     thisState.weight = result;
                                     thisState.weighing.reference.materialReference.value = [
-                                        {material: thisState.weight.material}
+                                        { material: thisState.weight.material }
                                     ];
                                     thisState.setMyState(thisState);
                                 })

@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Col, Form, Image, Row} from "react-bootstrap";
+import { Card, Col, Form, Image, Row } from "react-bootstrap";
 
 import ColumnOne from "./weighing/columnOne";
 import ColumnTwo from "./weighing/columnTwo";
@@ -18,10 +18,10 @@ const Weighing = props => {
                 }
             }}
         >
-            <Row style={{height: 200}}>
+            <Row style={{ height: 200 }}>
                 <Col sm="2" className="mt-5">
                     <Form.Group as={Row}>
-                        <Col sm="1"/>
+                        <Col sm="1" />
                         <Form.Check
                             type="radio"
                             name="Gross-Tare-Selector"
@@ -33,7 +33,7 @@ const Weighing = props => {
                                 thisState.weight.material = "";
                                 thisState.weighing.disable.materialDisabled = false;
                                 thisState.weighing.reference.materialReference.value = [
-                                    {material: ""}
+                                    { material: "" }
                                 ];
                                 thisState.setMyState(thisState);
                             }}
@@ -43,7 +43,7 @@ const Weighing = props => {
                         />
                     </Form.Group>
                     <Form.Group as={Row} className="mb-0">
-                        <Col sm="1"/>
+                        <Col sm="1" />
                         <Form.Check
                             type="radio"
                             name="Gross-Tare-Selector"
@@ -54,7 +54,7 @@ const Weighing = props => {
                                 thisState.weighing.grossSelector = false;
                                 thisState.weight.material = "Empty";
                                 thisState.weighing.reference.materialReference.value = [
-                                    {material: "Empty"}
+                                    { material: "Empty" }
                                 ];
                                 thisState.weighing.disable.materialDisabled = true;
                                 thisState.setMyState(thisState);
@@ -83,26 +83,34 @@ const Weighing = props => {
                 <Col sm="5">
                     <Image
                         src={thisState.weighing.cameraImage}
-                        style={{height: 200}}
+                        style={{ height: 200 }}
                         className="rounded mx-auto d-block"
-                        onError={() => {
-                            thisState.weighing.cameraImage = "";
+                        onLoad={() => {
+                            thisState.weighing.cameraImage =
+                                thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
                             thisState.setMyState(thisState);
+                        }}
+                        onError={async () => {
+                            setTimeout(function () {
+                                thisState.weighing.cameraImage =
+                                    thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
+                                thisState.setMyState(thisState);
+                            }, 5000);
                         }}
                         fluid
                     />
-                </Col>  
+                </Col>
             </Row>
             <Row>
-                <ColumnOne preState={thisState}/>
-                <ColumnTwo preState={thisState}/>
-                <ColumnThree preState={thisState}/>
+                <ColumnOne preState={thisState} />
+                <ColumnTwo preState={thisState} />
+                <ColumnThree preState={thisState} />
             </Row>
             <Row>
                 <Col sm="6">
-                    <Bottom preState={thisState}/>
+                    <Bottom preState={thisState} />
                 </Col>
-                <Col sm="6"/>
+                <Col sm="6" />
             </Row>
         </Form>
     );
