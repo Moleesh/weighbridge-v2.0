@@ -33,13 +33,6 @@
                         <phase>clean</phase>
                     </execution>
                     <execution>
-                        <id>install node and npm install</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <phase>compile</phase>
-                    </execution>
-                    <execution>
                         <id>npm up</id>
                         <phase>clean</phase>
                         <goals>
@@ -48,6 +41,24 @@
                         <configuration>
                             <arguments>--depth 9999 update</arguments>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <configuration>
+                    <nodeVersion>v12.8.1</nodeVersion>
+                    <skip>${skipUpdate}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm install</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>compile</phase>
                     </execution>
                     <execution>
                         <id>npm build</id>

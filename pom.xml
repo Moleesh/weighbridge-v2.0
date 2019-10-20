@@ -20,6 +20,10 @@
 
     <name>weighbridge</name>
     <description>Weighbridge Software</description>
+
+    <properties>
+        <skipUpdate>true</skipUpdate>
+    </properties>
     <build>
         <plugins>
             <plugin>
