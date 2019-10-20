@@ -25,7 +25,6 @@
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.1.0</version>
-                <inherited>false</inherited>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -54,8 +53,9 @@
                 <inherited>false</inherited>
                 <executions>
                     <execution>
-                        <phase>integration-test</phase>
+                        <phase>verify</phase>
                         <configuration>
+                            <failOnError>false</failOnError>
                             <target>
                                 <mkdir dir="WeighBridge"/>
                                 <copy file="target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>

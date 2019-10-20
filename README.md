@@ -3,7 +3,7 @@ WeighBridge V2.0
 
 ## To Build 
 npm -ig react-scripts 
-mvn clean integration-test
+mvn clean package verify
 
 ## To Run
 java -jar target/WeighBridge.jar
