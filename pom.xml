@@ -23,6 +23,7 @@
 
     <properties>
         <skipUpdate>none</skipUpdate>
+        <skipValidate>none</skipValidate>
     </properties>
     <build>
         <plugins>
@@ -47,6 +48,12 @@
                             <directory>frontend/node_modules</directory>
                         </fileset>
                         <fileset>
+                            <directory>backend/target</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>target</directory>
+                        </fileset>
+                        <fileset>
                             <directory>WeighBridge</directory>
                         </fileset>
                     </filesets>
@@ -57,10 +64,10 @@
                 <inherited>false</inherited>
                 <executions>
                     <execution>
-                        <phase>verify</phase>
+                        <phase>${skipValidate}</phase>
                         <configuration>
-                            <failOnError>false</failOnError>
                             <target>
+                                <delete dir="WeighBridge" quiet="true" failonerror="false"/>
                                 <mkdir dir="WeighBridge"/>
                                 <copy file="target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
                                 <copy file="RunMeForSchedulingInWindows.bat"

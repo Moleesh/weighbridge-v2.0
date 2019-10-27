@@ -34,7 +34,17 @@
         <appender-ref ref="RollingFile"/>
     </root>
 
-    <logger name="com.babulens.weighbridge" level="trace" additivity="false">
+    <logger name="com.babulens.weighbridge" level="TRACE" additivity="false">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
+
+    <logger name="org.springframework.boot" level="ERROR" additivity="false">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
+
+    <logger name="org.springframework.boot.StartupInfoLogger" level="INFO" additivity="false">
         <appender-ref ref="Console"/>
         <appender-ref ref="RollingFile"/>
     </logger>
