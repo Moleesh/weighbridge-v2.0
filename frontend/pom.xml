@@ -26,23 +26,6 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>install node and npm clean</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <phase>${skipUpdate}</phase>
-                    </execution>
-                    <execution>
-                        <id>npm up</id>
-                        <phase>${skipUpdate}</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>--depth 9999 update</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>install node and npm install</id>
                         <goals>
                             <goal>install-node-and-npm</goal>

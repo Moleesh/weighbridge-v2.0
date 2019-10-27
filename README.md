@@ -2,8 +2,6 @@ WeighBridge V2.0
 ================
 
 ## To Build 
-mvn clean -DskipUpdate=clean
-
 mvn clean
 
 mvn install

@@ -23,7 +23,6 @@
 
     <properties>
         <java.version>13</java.version>
-        <skipUpdate>none</skipUpdate>
         <skipValidate>none</skipValidate>
     </properties>
     <build>
