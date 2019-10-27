@@ -3,8 +3,8 @@ WeighBridge V2.0
 
 ## To Build 
 npm i -g react-scripts 
-mvn clean
 mvn clean -DskipUpdate=clean 
+mvn clean
 mvn install 
 mvn validate -DskipValidate=validate
 
