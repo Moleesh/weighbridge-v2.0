@@ -69,7 +69,7 @@
                             <target>
                                 <delete dir="WeighBridge" quiet="true" failonerror="false"/>
                                 <mkdir dir="WeighBridge"/>
-                                <copy file="target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
+                                <copy file="backend/target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
                                 <copy file="RunMeForSchedulingInWindows.bat"
                                       tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
                                 <copy file="cameras.xml" tofile="WeighBridge/cameras.xml"/>
