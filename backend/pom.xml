@@ -76,7 +76,6 @@
     </dependencies>
     <build>
         <finalName>weighbridge</finalName>
-        <directory>../target</directory>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -85,7 +84,7 @@
         </plugins>
         <resources>
             <resource>
-                <directory>src/resources</directory>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
     </build>

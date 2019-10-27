@@ -3,8 +3,10 @@ WeighBridge V2.0
 
 ## To Build 
 npm i -g react-scripts 
-mvn clean package verify
-mvn clean package verify -DskipUpdate=clean
+mvn clean
+mvn clean -DskipUpdate=clean 
+mvn install 
+mvn validate -DskipValidate=validate
 
 ## To Run
 java -jar target/WeighBridge.jar
