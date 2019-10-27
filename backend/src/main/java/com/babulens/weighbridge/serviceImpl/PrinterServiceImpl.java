@@ -162,7 +162,6 @@ public class PrinterServiceImpl implements PrinterService {
     @Override
     public void printReport(PrintReport printReport) {
         PrinterJob printerJob = PrinterJob.getPrinterJob();
-        // TODO: 18-08-2019 delete
         PrintUtil printUtil = new PrintUtilImpl();
         try {
             printerJob.setPageable(printUtil.printReport(printReport));
