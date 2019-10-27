@@ -1,11 +1,15 @@
 import React from "react";
-import {Col, Form, Row} from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import Clock from "react-live-clock";
-import {Menu, MenuItem, Typeahead} from "react-bootstrap-typeahead";
+import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
+
+import PreviousWeight from './columnOne/previousWeight';
 
 const ColumnOne = props => {
-    // noinspection JSUnresolvedVariable
+  // noinspection JSUnresolvedVariable
   let thisState = props.preState;
+  let weight = "";
+  let value = {};
   return (
     <Col sm="4" className="mt-2">
       <Form.Group as={Row}>
@@ -28,8 +32,8 @@ const ColumnOne = props => {
         <Form.Label column sm="6">
           Date & Time
         </Form.Label>
-          <Col sm="6" style={{textAlign: "center"}}>
-              <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true}/>
+        <Col sm="6" style={{ textAlign: "center" }}>
+          <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true} />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -47,59 +51,68 @@ const ColumnOne = props => {
               thisState.setMyState(thisState);
             }}
             onKeyDown={async event => {
-                // noinspection StatementWithEmptyBodyJS
+              // noinspection StatementWithEmptyBodyJS
               if (event.keyCode === 9 && event.shiftKey);
               else {
-                  // noinspection DuplicatedCode,DuplicatedCode
-                  if (event.keyCode === 13 || event.keyCode === 9) {
-                      thisState.weight.vehicleNo = thisState.weight.vehicleNo
-                          .toUpperCase()
-                          .replace(" ", "");
-                      if (thisState.weighing.tareSelector) {
-                          await fetch(
-                              thisState.INITIAL_URL +
-                              "/getGrossWeight?vehicleNo=" +
-                              thisState.weight.vehicleNo
-                          )
-                              .then(response => {
-                                  if (response.status === 200) {
-                                      return response.json();
-                                  } else throw Error(response.statusText);
-                              })
-                              .then(result => {
-                                  thisState.weight.grossWeight = result.grossWeight;
-                                  thisState.weight.grossTime = result.grossTime;
-                              })
-                              .catch(() => {
-                              });
-                      } else {
-                          await fetch(
-                              thisState.INITIAL_URL +
-                              "/getTareWeight?vehicleNo=" +
-                              thisState.weight.vehicleNo
-                          )
-                              .then(response => {
-                                  if (response.status === 200) {
-                                      return response.json();
-                                  } else throw Error(response.statusText);
-                              })
-                              .then(result => {
-                                  thisState.weight.tareWeight = result.tareWeight;
-                                  thisState.weight.tareTime = result.tareTime;
-                              })
-                              .catch(() => {
-                              });
-                      }
+                // noinspection DuplicatedCode,DuplicatedCode
+                if (event.keyCode === 13 || event.keyCode === 9) {
+                  thisState.weight.vehicleNo = thisState.weight.vehicleNo
+                    .toUpperCase()
+                    .replace(" ", "");
+                  if (thisState.weighing.tareSelector) {
+                    await fetch(
+                      thisState.INITIAL_URL +
+                      "/getGrossWeight?vehicleNo=" +
+                      thisState.weight.vehicleNo
+                    )
+                      .then(response => {
+                        if (response.status === 200) {
+                          return response.json();
+                        } else throw Error(response.statusText);
+                      })
+                      .then(result => {
 
-                      await thisState.setMyState(thisState);
-                      !thisState.weighing.disable.materialDisabled
+                        thisState.weighing.previousWeightSelector = true;
+                        thisState.weighing.previousWeight = "Gross";
+                        thisState.weighing.previousWeightResult = result;
+                        thisState.setMyState(thisState);
+                        thisState.weighing.reference.previousWeightReference.current.focus();
+                      })
+                      .catch(() => {
+                        !thisState.weighing.disable.materialDisabled
                           ? thisState.weighing.reference.materialReference.reference.current.focus()
                           : thisState.weighing.reference.customersNameReference.current.focus();
+                      });
+                  } else {
+                    await fetch(
+                      thisState.INITIAL_URL +
+                      "/getTareWeight?vehicleNo=" +
+                      thisState.weight.vehicleNo
+                    )
+                      .then(response => {
+                        if (response.status === 200) {
+                          return response.json();
+                        } else throw Error(response.statusText);
+                      })
+                      .then(result => {
+                        thisState.weighing.previousWeightSelector = true;
+                        thisState.weighing.previousWeight = "Tare";
+                        thisState.weighing.previousWeightResult = result;
+                        thisState.setMyState(thisState);
+                        thisState.weighing.reference.previousWeightReference.current.focus();
+                      })
+                      .catch(() => {
+                        !thisState.weighing.disable.materialDisabled
+                          ? thisState.weighing.reference.materialReference.reference.current.focus()
+                          : thisState.weighing.reference.customersNameReference.current.focus();
+                      });
                   }
+                }
               }
             }}
             autoFocus={true}
           />
+          <PreviousWeight preState={thisState} weight={weight} value={value} />
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
@@ -134,16 +147,16 @@ const ColumnOne = props => {
             disabled={thisState.weighing.disable.materialDisabled}
             open={thisState.weighing.reference.materialReference.open}
             onChange={event => {
-                // noinspection JSUnresolvedFunction
+              // noinspection JSUnresolvedFunction
               thisState.weighing.reference.materialReference.value =
                 event.length === 0
                   ? [
-                      {
-                        material: thisState.weighing.reference.materialReference.reference.current
-                          .getInstance()
-                          .getInput().value
-                      }
-                    ]
+                    {
+                      material: thisState.weighing.reference.materialReference.reference.current
+                        .getInstance()
+                        .getInput().value
+                    }
+                  ]
                   : event;
               thisState.weight.material =
                 thisState.weighing.reference.materialReference.value[0].material;

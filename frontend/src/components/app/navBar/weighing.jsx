@@ -35,6 +35,7 @@ const Weighing = props => {
                                 thisState.weighing.reference.materialReference.value = [
                                     { material: "" }
                                 ];
+                                thisState.weighing.reference.vehicleNoReference.current.focus()
                                 thisState.setMyState(thisState);
                             }}
                             onChange={() => {
@@ -57,6 +58,7 @@ const Weighing = props => {
                                     { material: "Empty" }
                                 ];
                                 thisState.weighing.disable.materialDisabled = true;
+                                thisState.weighing.reference.vehicleNoReference.current.focus()
                                 thisState.setMyState(thisState);
                             }}
                             onChange={() => {

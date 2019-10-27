@@ -3,16 +3,20 @@ package com.babulens.weighbridge.utilImpl;
 import com.itextpdf.awt.FontMapper;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
+import org.springframework.core.io.ClassPathResource;
 
 import java.awt.*;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PdfFontMapperImpl implements FontMapper {
 
     private BaseFont getBaseFontFromFile(String directory, String filename) {
-        try (InputStream inputStream = new FileInputStream(new File(directory + filename))) {
+        try (InputStream inputStream = new ClassPathResource(directory + filename).getInputStream()) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             byte[] bytes = new byte[1024];
             while (true) {
@@ -33,7 +37,7 @@ public class PdfFontMapperImpl implements FontMapper {
 
     @Override
     public BaseFont awtToPdf(Font font) {
-        String directory = "backend" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Fonts" + File.separator;
+        String directory = "Fonts" + File.separator;
         if (font.isBold()) {
             if (font.isItalic()) {
                 return getBaseFontFromFile(directory, "courbi.ttf");

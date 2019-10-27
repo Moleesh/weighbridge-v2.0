@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const Filter = props => {
     // noinspection JSUnresolvedVariable
@@ -9,11 +9,7 @@ const Filter = props => {
             show={thisState.report.filterPopUp}
             onHide={() => {
                 thisState.report.filterPopUp = false;
-                thisState
-                    .setMyState(thisState)
-                    .then(() =>
-                        thisState.weighing.reference.rePrintReference.current.focus()
-                    );
+                thisState.setMyState(thisState)
             }}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
@@ -35,7 +31,7 @@ const Filter = props => {
                                     onClick={() => {
                                         thisState.report.filter[key] = !thisState.report.filter[
                                             key
-                                            ];
+                                        ];
                                         thisState.setMyState(thisState);
                                     }}
                                     onChange={() => {

@@ -65,7 +65,7 @@ const GrossDetails = props => {
             </Modal.Body>
             <Modal.Footer>
                 <Button
-                    variant="warning"
+                    variant="secondary"
                     onClick={() => {
                         thisState.weighing.grossDetails = false;
                         thisState.setMyState(thisState)

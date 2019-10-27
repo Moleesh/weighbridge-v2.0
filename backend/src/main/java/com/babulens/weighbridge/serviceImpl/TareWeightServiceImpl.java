@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class TareWeightServiceImpl implements TareWeightService {
 
     @Autowired
-    private
+    private final
     TareWeightDAO tareWeightDAO;
 
     public TareWeightServiceImpl(TareWeightDAO tareWeightDAO) {
@@ -25,7 +24,7 @@ public class TareWeightServiceImpl implements TareWeightService {
     public TareWeight getTareWeight(String vehicleNo) {
         List<TareWeight> tareWeightList = getTareByVehicleNo(vehicleNo);
         if (tareWeightList.isEmpty()) {
-            return new TareWeight();
+            return null;
         } else {
             return tareWeightList.get(0);
         }

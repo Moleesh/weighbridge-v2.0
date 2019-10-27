@@ -51,6 +51,9 @@ class App extends Component {
     weighing: {
       weight: "-1",
       cameraImage: "",
+      previousWeightSelector: false,
+      previousWeight: "",
+      previousWeightResult: "",
       grossSelector: true,
       tareSelector: false,
       reprint: false,
@@ -73,6 +76,7 @@ class App extends Component {
         transporterNameReference: React.createRef(),
         chargesReference: React.createRef(),
         remarksReference: React.createRef(),
+        previousWeightReference: React.createRef(),
         getWeightReference: React.createRef(),
         saveReference: React.createRef(),
         printReference: React.createRef(),
@@ -93,6 +97,8 @@ class App extends Component {
         transporterNameDisabled: false,
         chargesDisabled: false,
         remarksDisabled: false,
+        grossDetailsDisabled: true,
+        tareDetailsWeightDisabled: true,
         getWeightDisabled: false,
         saveDisabled: true,
         printDisabled: true,
@@ -150,7 +156,7 @@ class App extends Component {
         remarks: false,
         manual: false
       },
-      reportSelect: "Daily",
+      reportSelect: "Daily Report",
       date: {
         start: moment()
           .startOf("day")
@@ -172,6 +178,7 @@ class App extends Component {
       value: {
         REFRESH_TIME_WEIGHT: "",
         RESET_SLIP_PASSWORD: "",
+        MANUAL_ENTRY_PASSWORD: "",
         weighbridgeName: "",
         weighbridgeAddress: "",
         footer: "",
@@ -225,14 +232,19 @@ class App extends Component {
         availableFlowControl: ["Xon/Xoff", "Hardware", "None"]
       },
       resetSlipNoDialog: false,
+      manualEntryDialog: false,
+      manualEntryPassword: "",
       resetSlipNo: 1,
       resetSlipNoPassword: "",
+      manualEntryPasswordReference: React.createRef(),
+      manualEntryReference: React.createRef(),
       resetSlipNoReference: React.createRef(),
       resetSlipNoPasswordReference: React.createRef(),
-      resetSlipNoButtonReference: React.createRef()
+      resetSlipNoButtonReference: React.createRef(),
+      manualEntry: false,
+      automation: false
     },
-    alerts: [],
-    automation: false
+    alerts: []
   };
 
   constructor(props) {

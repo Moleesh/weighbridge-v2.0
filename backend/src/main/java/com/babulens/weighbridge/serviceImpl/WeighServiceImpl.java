@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class WeighServiceImpl implements WeighService {
 
@@ -110,7 +109,7 @@ public class WeighServiceImpl implements WeighService {
                 return new TareWeight(vehicleNo, weigh.getGrossWeight(), weigh.getGrossTime());
             }
         }
-        return new TareWeight();
+        return null;
     }
 
     @Override

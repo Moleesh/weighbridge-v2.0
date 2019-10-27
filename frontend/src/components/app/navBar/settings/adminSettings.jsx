@@ -1,10 +1,12 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBackward} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
 import Toggle from "react-bootstrap-toggle";
+
 import ResetSlipNo from "./adminSettings/resetSlipNo";
+import ManualEntry from "./adminSettings/manualEntry";
 
 const AdminSettings = props => {
     // noinspection JSUnresolvedVariable
@@ -35,10 +37,36 @@ const AdminSettings = props => {
                                 );
                         }}
                     >
-                        <FontAwesomeIcon icon={faBackward} className="mr-3"/>
+                        <FontAwesomeIcon icon={faBackward} className="mr-3" />
                         Reset Slip No
                     </Button>
-                    <ResetSlipNo preState={thisState}/>
+                    <ResetSlipNo preState={thisState} />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    Manual Entry
+                </Form.Label>
+                <Col sm="9">
+                    <Toggle
+                        onClick={() => {
+                            thisState.setting.manualEntry = !thisState.setting.manualEntry;
+                            thisState.setting.manualEntryDialog = true;
+                            thisState.setting.manualEntryPassword = "";
+                            thisState
+                                .setMyState(thisState)
+                                .then(() =>
+                                    thisState.setting.manualEntryPasswordReference.current.focus()
+                                );
+                        }}
+                        on="ON"
+                        off="OFF"
+                        size="lg"
+                        offstyle="danger"
+                        active={thisState.setting.manualEntry}
+                        recalculateOnResize={true}
+                    />
+                    <ManualEntry preState={thisState} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -48,8 +76,9 @@ const AdminSettings = props => {
                 <Col sm="9">
                     <Toggle
                         onClick={() => {
-                            thisState.automation = !thisState.automation;
-                            if (thisState.automation) {
+                            thisState.setting.automation = !thisState.setting.automation;
+                            thisState.setMyState(thisState);
+                            if (thisState.setting.automation) {
                                 // noinspection DuplicatedCode
                                 fetch(thisState.INITIAL_URL + "/getNextSlipNo")
                                     .then(response => {
@@ -83,7 +112,7 @@ const AdminSettings = props => {
                                         thisState.weight.transporterName = "";
                                         thisState.weight.material = "";
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.weight.grossWeight = "";
                                         thisState.weight.grossTime = "";
@@ -133,7 +162,7 @@ const AdminSettings = props => {
                                         thisState.weight.transporterName = "";
                                         thisState.weight.material = "";
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.weight.grossWeight = "";
                                         thisState.weight.grossTime = "";
@@ -150,13 +179,12 @@ const AdminSettings = props => {
                                             );
                                     });
                             }
-                            thisState.setMyState(thisState);
                         }}
                         on="ON"
                         off="OFF"
                         size="lg"
                         offstyle="danger"
-                        active={thisState.automation}
+                        active={thisState.setting.automation}
                         recalculateOnResize={true}
                     />
                 </Col>

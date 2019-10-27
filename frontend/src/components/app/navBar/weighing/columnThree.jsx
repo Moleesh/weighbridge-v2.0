@@ -225,21 +225,25 @@ const ColumnThree = props => {
                         }}
                     />
                 </Col>
-                <Col sm="6">
-                    <Button className="adam-button " variant="primary" block onClick={() => {
-                        thisState.weighing.grossDetails = true;
-                        thisState.weighing.grossDetailsWeight = "";
-                        thisState.weighing.grossDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
-                        thisState
-                            .setMyState(thisState)
-                            .then(() =>
-                                thisState.weighing.reference.grossDetailsWeightReference.current.focus()
-                            );
-                    }} >
-                        Get Tare Details
+                {thisState.setting.manualEntry ?
+                    <Col sm="6">
+                        <Button className="adam-button " variant="primary" block
+                            disabled={thisState.weighing.disable.grossDetailsDisabled}
+                            onClick={() => {
+                                thisState.weighing.grossDetails = true;
+                                thisState.weighing.grossDetailsWeight = "";
+                                thisState.weighing.grossDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
+                                thisState
+                                    .setMyState(thisState)
+                                    .then(() =>
+                                        thisState.weighing.reference.grossDetailsWeightReference.current.focus()
+                                    );
+                            }} >
+                            Get Tare Details
                     </Button>
-                    <GrossDetails preState={thisState} />
-                </Col>
+                        <GrossDetails preState={thisState} />
+                    </Col>
+                    : ""}
             </Form.Group>
             <Form.Group as={Row}>
                 <Col sm="6">
@@ -257,21 +261,25 @@ const ColumnThree = props => {
                         }}
                     />
                 </Col>
-                <Col sm="6">
-                    <Button className="adam-button " variant="primary" block onClick={() => {
-                        thisState.weighing.tareDetails = true;
-                        thisState.weighing.tareDetailsWeight = "";
-                        thisState.weighing.tareDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
-                        thisState
-                            .setMyState(thisState)
-                            .then(() =>
-                                thisState.weighing.reference.tareDetailsWeightReference.current.focus()
-                            );
-                    }} >
-                        Get Tare Details
+                {thisState.setting.manualEntry ?
+                    <Col sm="6">
+                        <Button className="adam-button " variant="primary" block
+                            disabled={thisState.weighing.disable.tareDetailsWeightDisabled}
+                            onClick={() => {
+                                thisState.weighing.tareDetails = true;
+                                thisState.weighing.tareDetailsWeight = "";
+                                thisState.weighing.tareDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
+                                thisState
+                                    .setMyState(thisState)
+                                    .then(() =>
+                                        thisState.weighing.reference.tareDetailsWeightReference.current.focus()
+                                    );
+                            }} >
+                            Get Tare Details
                     </Button>
-                    <TareDetails preState={thisState} />
-                </Col>
+                        <TareDetails preState={thisState} />
+                    </Col>
+                    : ""}
             </Form.Group>
             <Form.Group as={Row}>
                 <Col sm="6">
@@ -288,11 +296,6 @@ const ColumnThree = props => {
                             thisState.setMyState(thisState);
                         }}
                     />
-                </Col>
-                <Col sm="6">
-                    <Button className="adam-button none" variant="primary" block disabled>
-                        Total
-                    </Button>
                 </Col>
             </Form.Group>
         </Col >

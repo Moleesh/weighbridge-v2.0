@@ -65,7 +65,7 @@ const TareDetails = props => {
             </Modal.Body>
             <Modal.Footer>
                 <Button
-                    variant="warning"
+                    variant="secondary"
                     onClick={() => {
                         thisState.weighing.tareDetails = false;
                         thisState.setMyState(thisState)

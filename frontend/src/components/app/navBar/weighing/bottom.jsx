@@ -27,6 +27,8 @@ const Bottom = props => {
                         thisState.weighing.disable.materialDisabled = true;
                         thisState.weighing.disable.chargesDisabled = true;
                         thisState.weighing.disable.remarksDisabled = true;
+                        thisState.weighing.disable.grossDetailsDisabled = true;
+                        thisState.weighing.disable.tareDetailsWeightDisabled = true;                    
                         thisState.weighing.disable.getWeightDisabled = true;
                         thisState.weighing.disable.saveDisabled = false;
 
@@ -38,7 +40,7 @@ const Bottom = props => {
                                 thisState.weight.grossTime = date;
                             }
                         } else {
-                            if (thisState.weight.tareWeight === ""  ) {
+                            if (thisState.weight.tareWeight === "") {
                                 thisState.weight.tareWeight = thisState.weighing.weight;
                                 thisState.weight.tareTime = date;
                             }
@@ -123,7 +125,7 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        thisState.weighing.tareDetails = true;
+                        thisState.weighing.reprint = true;
                         thisState.weighing.reprintSlipNo = "";
                         thisState
                             .setMyState(thisState)
@@ -245,6 +247,10 @@ const Bottom = props => {
                                 thisState.weight.remarks = "";
                                 thisState.weighing.grossSelector = true;
                                 thisState.weighing.tareSelector = false;
+                                if (thisState.setting.manualEntry) {
+                                    thisState.weighing.disable.grossDetailsDisabled = false;
+                                    thisState.weighing.disable.tareDetailsWeightDisabled = false;
+                                }
                                 thisState
                                     .setMyState(thisState)
                                     .then(() =>
@@ -314,6 +320,10 @@ const Bottom = props => {
                                 thisState.weight.remarks = "";
                                 thisState.weighing.grossSelector = true;
                                 thisState.weighing.tareSelector = false;
+                                if (thisState.setting.manualEntry) {
+                                    thisState.weighing.disable.grossDetailsDisabled = false;
+                                    thisState.weighing.disable.tareDetailsWeightDisabled = false;
+                                }
                                 thisState
                                     .setMyState(thisState)
                                     .then(() =>

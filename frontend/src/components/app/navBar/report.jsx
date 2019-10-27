@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Form, Row, Table} from "react-bootstrap";
+import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import DatetimeRangePicker from "react-datetime-range-picker";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFileDownload, faPrint} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileDownload, faPrint } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import FileSaver from "file-saver";
 
@@ -31,7 +31,7 @@ const Report = props => {
                                 onChange={event => {
                                     thisState.report.reportSelect = event.target.value;
                                     switch (event.target.value) {
-                                        case "Full":
+                                        case "Full Report":
                                             thisState.report.date = {
                                                 start: moment([2019, 1, 1]).toDate(),
                                                 end: moment()
@@ -43,7 +43,7 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = true;
                                             break;
-                                        case "Daily":
+                                        case "Daily Report":
                                             thisState.report.date = {
                                                 start: moment()
                                                     .startOf("day")
@@ -57,7 +57,7 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = true;
                                             break;
-                                        case "Weekly":
+                                        case "Weekly Report":
                                             thisState.report.date = {
                                                 start: moment()
                                                     .startOf("week")
@@ -71,7 +71,7 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = true;
                                             break;
-                                        case "Monthly":
+                                        case "Monthly Report":
                                             thisState.report.date = {
                                                 start: moment()
                                                     .startOf("month")
@@ -85,13 +85,13 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = true;
                                             break;
-                                        case "Custom Date":
+                                        case "Custom Date Report":
                                             thisState.report.dateDisabled = false;
                                             thisState.report.inputLabel = "";
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = true;
                                             break;
-                                        case "Slip No":
+                                        case "Slip No Report":
                                             thisState.report.date = {
                                                 start: moment([2019, 1, 1]).toDate(),
                                                 end: moment()
@@ -103,7 +103,7 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = false;
                                             break;
-                                        case "Customer Name":
+                                        case "Customer Name Report":
                                             thisState.report.date = {
                                                 start: moment([2019, 1, 1]).toDate(),
                                                 end: moment()
@@ -115,7 +115,7 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = false;
                                             break;
-                                        case "Transporter Name":
+                                        case "Transporter Name Report":
                                             thisState.report.date = {
                                                 start: moment([2019, 1, 1]).toDate(),
                                                 end: moment()
@@ -127,7 +127,7 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = false;
                                             break;
-                                        case "Vehicle No":
+                                        case "Vehicle No Report":
                                             thisState.report.date = {
                                                 start: moment([2019, 1, 1]).toDate(),
                                                 end: moment()
@@ -139,7 +139,7 @@ const Report = props => {
                                             thisState.report.input = "";
                                             thisState.report.inputDisabled = false;
                                             break;
-                                        case "Material":
+                                        case "Material Report":
                                             thisState.report.date = {
                                                 start: moment([2019, 1, 1]).toDate(),
                                                 end: moment()
@@ -156,16 +156,16 @@ const Report = props => {
                                     thisState.setMyState(thisState);
                                 }}
                             >
-                                <option value="Full">Full</option>
-                                <option value="Daily">Daily</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Custom Date">Custom Date</option>
-                                <option value="Slip No">Slip No</option>
-                                <option value="Customer Name">Customer Name</option>
-                                <option value="Transporter Name">Transporter Name</option>
-                                <option value="Vehicle No">Vehicle No</option>
-                                <option value="Material">Material</option>
+                                <option value="Full Report">Full Report</option>
+                                <option value="Daily Report">Daily Report</option>
+                                <option value="Weekly Report">Weekly Report</option>
+                                <option value="Monthly Report">Monthly Report</option>
+                                <option value="Custom Date Report">Custom Date Report</option>
+                                <option value="Slip No Report">Slip No Report</option>
+                                <option value="Customer Name Report">Customer Name Report</option>
+                                <option value="Transporter Name Report">Transporter Name Report</option>
+                                <option value="Vehicle No Report">Vehicle No Report</option>
+                                <option value="Material Report">Material Report</option>
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -187,7 +187,7 @@ const Report = props => {
                                     thisState.setMyState(thisState);
                                 }}
                                 isValidEndDate={() => true}
-                                inputProps={{disabled: thisState.report.dateDisabled}}
+                                inputProps={{ disabled: thisState.report.dateDisabled }}
                             />
                         </Col>
                     </Form.Group>
@@ -225,7 +225,7 @@ const Report = props => {
                                             inputLabel: thisState.report.inputLabel,
                                             input: thisState.report.input
                                         }),
-                                        headers: {"content-type": "application/json"}
+                                        headers: { "content-type": "application/json" }
                                     })
                                         .then(response => {
                                             if (response.status === 200) {
@@ -276,7 +276,7 @@ const Report = props => {
                             >
                                 Filter
                             </Button>
-                            <Filter preState={thisState}/>
+                            <Filter preState={thisState} />
                         </Col>
                     </Form.Group>
                 </Col>
@@ -335,7 +335,7 @@ const Report = props => {
                         <Col sm="7">
                             <Button variant="primary" block onClick={() => {
                             }} disabled>
-                                <FontAwesomeIcon icon={faFileDownload} className="mr-3"/>
+                                <FontAwesomeIcon icon={faFileDownload} className="mr-3" />
                                 Export as Excel
                             </Button>
                         </Col>
@@ -458,15 +458,15 @@ const Report = props => {
                                                 printerName: thisState.setting.value.printerName,
                                                 reportTitle: reportTitle,
                                                 weighbridgeName:
-                                                thisState.setting.value.weighbridgeName,
+                                                    thisState.setting.value.weighbridgeName,
                                                 weighbridgeAddress:
-                                                thisState.setting.value.weighbridgeAddress,
+                                                    thisState.setting.value.weighbridgeAddress,
                                                 totalRecords: thisState.report.totalRecords,
                                                 totalNettWeight: thisState.report.totalNettWeight,
                                                 totalTotalCharges: thisState.report.totalTotalCharges,
                                                 footer: thisState.setting.value.footer
                                             }),
-                                            headers: {"content-type": "application/json"}
+                                            headers: { "content-type": "application/json" }
                                         })
                                             .then(response => {
                                                 if (response.status !== 200)
@@ -488,15 +488,15 @@ const Report = props => {
                                                 printerName: thisState.setting.value.printerName,
                                                 reportTitle: reportTitle,
                                                 weighbridgeName:
-                                                thisState.setting.value.weighbridgeName,
+                                                    thisState.setting.value.weighbridgeName,
                                                 weighbridgeAddress:
-                                                thisState.setting.value.weighbridgeAddress,
+                                                    thisState.setting.value.weighbridgeAddress,
                                                 totalRecords: thisState.report.totalRecords,
                                                 totalNettWeight: thisState.report.totalNettWeight,
                                                 totalTotalCharges: thisState.report.totalTotalCharges,
                                                 footer: thisState.setting.value.footer
                                             }),
-                                            headers: {"content-type": "application/json"}
+                                            headers: { "content-type": "application/json" }
                                         })
                                             .then(response => {
                                                 if (response.status !== 200)
@@ -507,7 +507,7 @@ const Report = props => {
                                     }
                                 }}
                             >
-                                <FontAwesomeIcon icon={faPrint} className="mr-3"/>
+                                <FontAwesomeIcon icon={faPrint} className="mr-3" />
                                 Print
                             </Button>
                         </Col>
@@ -518,30 +518,30 @@ const Report = props => {
                 <Col>
                     <Table hover responsive size="sm">
                         <thead>
-                        <tr className="contentCenter">
-                            {Object.keys(thisState.report.header)
-                                .filter(key => thisState.report.filter[key])
-                                .map(key => (
-                                    <th key={key}>{thisState.report.header[key]}</th>
-                                ))}
-                        </tr>
+                            <tr className="contentCenter">
+                                {Object.keys(thisState.report.header)
+                                    .filter(key => thisState.report.filter[key])
+                                    .map(key => (
+                                        <th key={key}>{thisState.report.header[key]}</th>
+                                    ))}
+                            </tr>
                         </thead>
                         <tbody>
-                        {thisState.report.list.map((item, index) =>
-                            Object.values(item)
-                                .toString()
-                                .replace(",", ".")
-                                .indexOf(thisState.report.filterText) === -1 ? null : (
-                                <tr key={index} className="eachRow">
-                                    {Object.keys(item)
-                                        .filter(key => thisState.report.filter[key])
-                                        .map(key => (
-                                            <td
-                                                key={key + "" + item[key]}
-                                                className="contentCenter"
-                                            >
-                                                {item[key] !== null ? item[key] : ""}
-                                                {/* <Form.Control
+                            {thisState.report.list.map((item, index) =>
+                                Object.values(item)
+                                    .toString()
+                                    .replace(",", ".")
+                                    .indexOf(thisState.report.filterText) === -1 ? null : (
+                                        <tr key={index} className="eachRow">
+                                            {Object.keys(item)
+                                                .filter(key => thisState.report.filter[key])
+                                                .map(key => (
+                                                    <td
+                                                        key={key + "" + item[key]}
+                                                        className="contentCenter"
+                                                    >
+                                                        {item[key] !== null ? item[key] : ""}
+                                                        {/* <Form.Control
                             autoComplete="off"
                             className="text-center form-control reportInputs"
                             disabled
@@ -551,11 +551,11 @@ const Report = props => {
                             value={item[key] !== null ? item[key] : ""}
                             onChange={event => {}}
                           /> */}
-                                            </td>
-                                        ))}
-                                </tr>
-                            )
-                        )}
+                                                    </td>
+                                                ))}
+                                        </tr>
+                                    )
+                            )}
                         </tbody>
                     </Table>
                 </Col>
