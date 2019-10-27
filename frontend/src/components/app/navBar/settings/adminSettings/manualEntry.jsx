@@ -52,7 +52,7 @@ const ManualEntry = props => {
                 <Button
                     variant="secondary"
                     onClick={() => {
-                        thisState.weighing.grossDetails = false;
+                        thisState.setting.manualEntryDialog = false;
                         thisState.setMyState(thisState)
                     }}
                 >
@@ -62,9 +62,10 @@ const ManualEntry = props => {
                     variant="info"
                     onClick={() => {
                         if (
-                            thisState.setting.resetSlipNoPassword ===
+                            thisState.setting.manualEntryPassword ===
                             thisState.setting.value.MANUAL_ENTRY_PASSWORD
                         ) {
+                            thisState.setting.manualEntry = true;
                             thisState.weighing.disable.grossDetailsDisabled = false;
                             thisState.weighing.disable.tareDetailsWeightDisabled = false;
                             thisState.setting.manualEntryDialog = false;

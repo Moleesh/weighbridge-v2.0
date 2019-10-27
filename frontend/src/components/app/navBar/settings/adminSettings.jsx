@@ -6,8 +6,7 @@ import { faBackward } from "@fortawesome/free-solid-svg-icons";
 import Toggle from "react-bootstrap-toggle";
 
 import ResetSlipNo from "./adminSettings/resetSlipNo";
-import ManualEntry from "./adminSettings/manualEntry";
-
+import ManualEntry from "./adminSettings/manualEntry"
 const AdminSettings = props => {
     // noinspection JSUnresolvedVariable
     let thisState = props.preState;
@@ -50,14 +49,18 @@ const AdminSettings = props => {
                 <Col sm="9">
                     <Toggle
                         onClick={() => {
-                            thisState.setting.manualEntry = !thisState.setting.manualEntry;
-                            thisState.setting.manualEntryDialog = true;
-                            thisState.setting.manualEntryPassword = "";
-                            thisState
-                                .setMyState(thisState)
-                                .then(() =>
-                                    thisState.setting.manualEntryPasswordReference.current.focus()
-                                );
+                            if (!thisState.setting.manualEntry) {
+                                thisState.setting.manualEntryDialog = true;
+                                thisState.setting.manualEntryPassword = "";
+                                thisState
+                                    .setMyState(thisState)
+                                    .then(() =>
+                                        thisState.setting.manualEntryPasswordReference.current.focus()
+                                    );
+                            } else {
+                                thisState.setting.manualEntry = false;
+                                thisState.setMyState(thisState);
+                            }
                         }}
                         on="ON"
                         off="OFF"
