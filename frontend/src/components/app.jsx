@@ -227,8 +227,8 @@ class App extends Component {
           921600
         ],
         availableDataBits: [5, 6, 7, 8],
-        avaiableParity: ["Even", "Odd", "None", "Mark", "Space"],
-        avaiableStopBits: [1, 1.5, 2],
+        availableParity: ["Even", "Odd", "None", "Mark", "Space"],
+        availableStopBits: [1, 1.5, 2],
         availableFlowControl: ["Xon/Xoff", "Hardware", "None"]
       },
       resetSlipNoDialog: false,

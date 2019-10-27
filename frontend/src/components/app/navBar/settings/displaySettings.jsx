@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSync} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
 
 const DisplaySettings = props => {
     // noinspection JSUnresolvedVariable
@@ -90,7 +90,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.avaiableParity.map((item) => (
+                        {thisState.setting.array.availableParity.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -111,7 +111,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.avaiableStopBits.map((item) => (
+                        {thisState.setting.array.availableStopBits.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -160,7 +160,7 @@ const DisplaySettings = props => {
                         });
                 }}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
+                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                 Refresh Display CommPort Settings
             </Button>
         </Form>

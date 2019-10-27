@@ -74,7 +74,7 @@ const Weighing = props => {
                             className="text-center w-100 display-2 "
                             style={{
                                 color: "red",
-                                fontsize: "20px",
+                                fontSize: "20px",
                                 fontFamily: "sans-serif"
                             }}
                         >

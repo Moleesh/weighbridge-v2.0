@@ -63,7 +63,8 @@
                             <target>
                                 <mkdir dir="WeighBridge"/>
                                 <copy file="target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
-                                <copy file="RunMeForSchedulingInWindows.bat" tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
+                                <copy file="RunMeForSchedulingInWindows.bat"
+                                      tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
                                 <copy file="cameras.xml" tofile="WeighBridge/cameras.xml"/>
                             </target>
                         </configuration>

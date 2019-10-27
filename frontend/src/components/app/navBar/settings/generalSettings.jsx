@@ -1,7 +1,7 @@
 import React from "react";
-import {Col, Form, Row} from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 
-const GenearalSettings = props => {
+const GeneralSettings = props => {
     // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
@@ -66,4 +66,4 @@ const GenearalSettings = props => {
     );
 };
 
-export default GenearalSettings;
+export default GeneralSettings;
