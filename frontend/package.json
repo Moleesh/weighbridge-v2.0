@@ -17,9 +17,10 @@
     "eslint": "^6.4.0",
     "file-saver": "^2.0.2",
     "font-awesome-animation": "^0.2.1",
-    "fs-extra": "^7.0.1",
+    "fs-extra": "^8.1.0",
     "jquery": "^3.4.0",
     "moment": "^2.24.0",
+    "npm-check": "^5.9.0",
     "perfect-scrollbar": "^1.4.0",
     "react": "^16.9.0",
     "react-autocomplete": "^1.8.1",
@@ -31,7 +32,7 @@
     "react-datetime-range-picker": "^2.0.1",
     "react-dom": "^16.9.0",
     "react-live-clock": "^3.1.0",
-    "react-scripts": "^3.1.2",
+    "react-scripts": "^3.2.0",
     "typescript": "^3.6.3"
   },
   "scripts": {
