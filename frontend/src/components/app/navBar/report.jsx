@@ -345,7 +345,7 @@ const Report = props => {
                                     thisState.report.edit = !thisState.report.edit;
                                     thisState.setMyState(thisState);
                                 }}
-                                    // disabled={!thisState.setting.editEnable}
+                                    disabled={!thisState.setting.editEnable}
                                     className="none" >
                                     <FontAwesomeIcon icon={faEdit} className="mr-3" />
                                     Edit {thisState.report.edit ? "ON" : "OFF"}
@@ -354,7 +354,7 @@ const Report = props => {
                             <Col sm="5">
                                 <Button variant="secondary" block onClick={() => {
                                 }}
-                                    // disabled
+                                    disabled
                                     className="none">
                                     <FontAwesomeIcon icon={faFileDownload} className="mr-3" />
                                     Export to Excel
@@ -535,43 +535,6 @@ const Report = props => {
                         </Row>
                     </Col>
                 </Row>
-                {/* <Row>
-                <Col>
-                    <Table hover responsive size="sm">
-                        <thead>
-                            <tr className="contentCenter">
-                                {Object.keys(thisState.report.header)
-                                    .filter(key => thisState.report.filter[key])
-                                    .map(key => (
-                                        <th key={key}>{thisState.report.header[key]}</th>
-                                    ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {thisState.report.list.map((item, index) =>
-                                Object.values(item)
-                                    .toString()
-                                    .replace(",", ".")
-                                    .indexOf(thisState.report.filterText) === -1 ? null : (
-                                        <tr key={index} className="eachRow">
-                                            {Object.keys(item)
-                                                .filter(key => thisState.report.filter[key])
-                                                .map(key => (
-                                                    <td
-                                                        key={key + "" + item[key]}
-                                                        className="contentCenter"
-                                                    >
-                                                        {item[key] !== null ? item[key] : ""}
-                                                      
-                                                    </td>
-                                                ))}
-                                        </tr>
-                                    )
-                            )}
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row> */}
             </Form>
             <ReportTable preState={thisState} />
         </React.Fragment>
