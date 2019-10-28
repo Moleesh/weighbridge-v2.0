@@ -4,6 +4,8 @@ WeighBridge V2.0
 ## To Build 
 mvn clean
 
+mvn package
+
 mvn install
 
 mvn validate -DskipValidate=validate

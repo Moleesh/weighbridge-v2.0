@@ -30,11 +30,11 @@
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
-                        <phase>install</phase>
+                        <phase>package</phase>
                     </execution>
                     <execution>
                         <id>npm install</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -44,7 +44,7 @@
                     </execution>
                     <execution>
                         <id>npm build</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -54,7 +54,7 @@
                     </execution>
                     <execution>
                         <id>npm move</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
