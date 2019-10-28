@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 async function example () {
   try {
-        await fs.move('build','dist/META-INF/resources' , { overwrite: true } )
+        await fs.move('build','../backend/target/classes/public' , { overwrite: true } )
         .then(() => {
         console.log('success!')
         })
