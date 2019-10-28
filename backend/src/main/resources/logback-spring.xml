@@ -7,7 +7,8 @@
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %black(%d{ISO8601}) %highlight([%level]) [%blue(%t)] %yellow(%C{1.}) : %msg %n %throwable\n
+                %black(%d{dd-MM-yy HH:mm:ss}) %highlight([%level]) %yellow(%C{1.}.%M) %black(\(%F:%L\)): %msg
+                %throwable %n
             </Pattern>     
         </layout>
     </appender>

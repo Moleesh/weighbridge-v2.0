@@ -4,19 +4,13 @@ import { Button, Modal, Row, Col } from "react-bootstrap";
 const PreviousWeight = props => {
     // noinspection JSUnresolvedVariable
     let thisState = props.preState;
-    let prevent = false;
     return (
         <Modal
             show={thisState.weighing.previousWeightSelector}
             onHide={() => {
                 thisState.weighing.previousWeightSelector = false;
-                thisState
-                    .setMyState(thisState)
-                    .then(() =>
-                        !thisState.weighing.disable.materialDisabled
-                            ? thisState.weighing.reference.materialReference.reference.current.focus()
-                            : thisState.weighing.reference.customersNameReference.current.focus()
-                    );
+                thisState.weighing.preventVehicleNoFocus = true;
+                thisState.setMyState(thisState);
             }}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
@@ -59,16 +53,8 @@ const PreviousWeight = props => {
                             thisState.weight.tareWeight = thisState.weighing.previousWeightResult.tareWeight;
                             thisState.weight.tareTime = thisState.weighing.previousWeightResult.tareTime;
                         }
-                        thisState.setMyState(thisState)
-                        !thisState.weighing.disable.materialDisabled
-                            ? thisState.weighing.reference.materialReference.reference.current.focus()
-                            : thisState.weighing.reference.customersNameReference.current.focus();
-                    }}
-                    onKeyPress={event => {
-                        if (prevent) {
-                            prevent = false;
-                            event.preventDefault();
-                        }
+                        thisState.weighing.preventVehicleNoFocus = true;
+                        thisState.setMyState(thisState);
                     }}
                     ref={thisState.weighing.reference.previousWeightReference}
                 >
@@ -78,19 +64,8 @@ const PreviousWeight = props => {
                     variant="secondary"
                     onClick={() => {
                         thisState.weighing.previousWeightSelector = false;
-                        thisState.setMyState(thisState)
-                        !thisState.weighing.disable.materialDisabled
-                            ? thisState.weighing.reference.materialReference.reference.current.focus()
-                            : thisState.weighing.reference.customersNameReference.current.focus();
-                    }}
-                    onKeyPress={event => {
-                        if (prevent) {
-                            prevent = false;
-                            event.preventDefault();
-                        }
-                    }}
-                    onFocus={() => {
-                        prevent = true;
+                        thisState.weighing.preventVehicleNoFocus = true;
+                        thisState.setMyState(thisState);
                     }}
                 >
                     No

@@ -16,4 +16,6 @@ public interface WeighService {
     TareWeight getGrossWeight(String vehicleNo);
 
     void resetWeight(int slipNo);
+
+    Weight updateWeight(Weight weight);
 }

@@ -103,7 +103,7 @@ public class WeighServiceImpl implements WeighService {
 
     @Override
     public TareWeight getGrossWeight(String vehicleNo) {
-        Weight weigh = weightDAO.findOneByVehicleNoOrderByGrossTimeDesc(vehicleNo);
+        Weight weigh = weightDAO.findFirstByVehicleNoOrderBySlipNoDesc(vehicleNo);
         if (weigh != null) {
             if (weigh.getGrossTime() != null && weigh.getTareTime() == null) {
                 return new TareWeight(vehicleNo, weigh.getGrossWeight(), weigh.getGrossTime());
@@ -116,5 +116,12 @@ public class WeighServiceImpl implements WeighService {
     public void resetWeight(int slipNo) {
         weightDAO.deleteAll();
         settingsService.saveSettings(new Settings("slipNo", slipNo));
+    }
+
+    @Override
+    public Weight updateWeight(Weight weight) {
+        weight.setManual("Y");
+        weightDAO.save(weight);
+        return weight;
     }
 }

@@ -163,10 +163,6 @@ input {
     border-color: #ccc;
 }
 
-.none:disabled {
-    display: none;
-}
-
 .form-control:disabled,
 .form-control[readonly] {
     color: black;
@@ -178,4 +174,12 @@ input {
     cursor: pointer; 
     background-color: white;
     border: 1px solid rgb(226, 226, 226)
+}
+
+.none:disabled {
+    display: none !important;
+}
+
+.hand {
+    cursor: pointer;
 }

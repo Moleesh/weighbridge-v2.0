@@ -71,7 +71,6 @@ const ColumnOne = props => {
                         } else throw Error(response.statusText);
                       })
                       .then(result => {
-
                         thisState.weighing.previousWeightSelector = true;
                         thisState.weighing.previousWeight = "Gross";
                         thisState.weighing.previousWeightResult = result;
@@ -108,6 +107,15 @@ const ColumnOne = props => {
                       });
                   }
                 }
+              }
+            }}
+            onFocus={() => {
+              if (thisState.weighing.preventVehicleNoFocus) {
+                thisState.weighing.preventVehicleNoFocus = false;
+                thisState.setMyState(thisState);
+                !thisState.weighing.disable.materialDisabled
+                  ? thisState.weighing.reference.materialReference.reference.current.focus()
+                  : thisState.weighing.reference.customersNameReference.current.focus();
               }
             }}
             autoFocus={true}

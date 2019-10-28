@@ -23,6 +23,6 @@ public interface WeightDAO extends CrudRepository<Weight, Integer> {
 
     List<Weight> findAllByNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc(Date startNettTime, Date endNettTime);
 
-    Weight findOneByVehicleNoOrderByGrossTimeDesc(String vehicleNo);
+    Weight findFirstByVehicleNoOrderBySlipNoDesc(String vehicleNo);
 
 }

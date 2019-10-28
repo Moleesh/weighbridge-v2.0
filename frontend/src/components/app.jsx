@@ -10,8 +10,10 @@ const INITIAL_URL = "";
 
 class App extends Component {
   state = {
-    WEIGHT: "",
+    _WEIGHT: "",
+    WEIGHT: "-1",
     INITIAL_URL: INITIAL_URL,
+    cameraImage: "",
     configuration: {
       material: {
         header: ["Material Id", "Material Name"],
@@ -49,11 +51,10 @@ class App extends Component {
       }
     },
     weighing: {
-      weight: "-1",
-      cameraImage: "",
       previousWeightSelector: false,
       previousWeight: "",
       previousWeightResult: "",
+      preventVehicleNoFocus: false,
       grossSelector: true,
       tareSelector: false,
       reprint: false,
@@ -120,12 +121,11 @@ class App extends Component {
       nettTime: "",
       charges: "",
       remarks: "",
-      manual: false
+      manual: "N"
     },
     report: {
       filterText: "",
       header: {
-        slipNo: "Slip No",
         vehicleNo: "Vehicle No",
         material: "Material",
         customersName: "Customer Name",
@@ -137,11 +137,11 @@ class App extends Component {
         nettWeight: "Nett Weight",
         nettTime: "Nett Time",
         charges: "Charges",
-        remarks: "Remarks"
+        remarks: "Remarks",
+        manual: "Manual"
       },
       filterPopUp: false,
       filter: {
-        slipNo: true,
         vehicleNo: true,
         material: true,
         customersName: false,
@@ -172,13 +172,15 @@ class App extends Component {
       list: [],
       totalRecords: 0,
       totalNettWeight: 0,
-      totalTotalCharges: 0
+      totalTotalCharges: 0,
+      edit: false
     },
     setting: {
       value: {
         REFRESH_TIME_WEIGHT: "",
         RESET_SLIP_PASSWORD: "",
         MANUAL_ENTRY_PASSWORD: "",
+        EDIT_ENABLE_PASSWORD: "",
         weighbridgeName: "",
         weighbridgeAddress: "",
         footer: "",
@@ -234,14 +236,19 @@ class App extends Component {
       resetSlipNoDialog: false,
       manualEntryDialog: false,
       manualEntryPassword: "",
+      editEnableDialog: false,
+      editEnablePassword: "",
       resetSlipNo: 1,
       resetSlipNoPassword: "",
       manualEntryPasswordReference: React.createRef(),
       manualEntryReference: React.createRef(),
+      editEnablePasswordReference: React.createRef(),
+      editEnableReference: React.createRef(),
       resetSlipNoReference: React.createRef(),
       resetSlipNoPasswordReference: React.createRef(),
       resetSlipNoButtonReference: React.createRef(),
       manualEntry: false,
+      editEnable: false,
       automation: false
     },
     alerts: []
@@ -257,14 +264,14 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    fetch(INITIAL_URL + "/getNextSlipNo")
+    let thisState = { ...this.state, setMyState: this.setMyState };
+    fetch(thisState.INITIAL_URL + "/getNextSlipNo")
       .then(response => {
         if (response.status === 200) {
           return response.json();
         } else throw Error(response.statusText);
       })
       .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = result;
         // noinspection JSIncompatibleTypesComparison
         if (result === -1) {
@@ -273,95 +280,87 @@ class App extends Component {
         thisState.setMyState(thisState);
       })
       .catch(() => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.weight.slipNo = "-1";
         thisState.weighing.disable.getWeightDisabled = true;
         thisState.setMyState(thisState);
       });
-    fetch(INITIAL_URL + "/getAllMaterial")
+    fetch(thisState.INITIAL_URL + "/getAllMaterial")
       .then(response => {
         if (response.status === 200) {
           return response.json();
         } else throw Error(response.statusText);
       })
       .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.configuration.material.list = result;
         thisState.setMyState(thisState);
       })
       .catch(() => { });
-    fetch(INITIAL_URL + "/getAllDrivers")
+    fetch(thisState.INITIAL_URL + "/getAllDrivers")
       .then(response => {
         if (response.status === 200) {
           return response.json();
         } else throw Error(response.statusText);
       })
       .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.configuration.drivers.list = result;
         thisState.setMyState(thisState);
       })
       .catch(() => { });
-    fetch(INITIAL_URL + "/getAllTareWeight")
+    fetch(thisState.INITIAL_URL + "/getAllTareWeight")
       .then(response => {
         if (response.status === 200) {
           return response.json();
         } else throw Error(response.statusText);
       })
       .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.configuration.tareWeight.list = result;
         thisState.setMyState(thisState);
       })
       .catch(() => { });
     const wait = () => {
-      fetch(INITIAL_URL + "/getAllPrinters")
+      fetch(thisState.INITIAL_URL + "/getAllPrinters")
         .then(response => {
           if (response.status === 200) {
             return response.json();
           } else throw Error(response.statusText);
         })
         .then(result => {
-          let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.setting.array.availablePrinters = result;
           thisState.setMyState(thisState);
         })
         .catch(() => {
         });
-      fetch(INITIAL_URL + "/getAllPrintFormat")
+      fetch(thisState.INITIAL_URL + "/getAllPrintFormat")
         .then(response => {
           if (response.status === 200) {
             return response.json();
           } else throw Error(response.statusText);
         })
         .then(result => {
-          let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.setting.array.availablePrintFormat = result;
           thisState.setMyState(thisState);
         })
         .catch(() => {
         });
-      fetch(INITIAL_URL + "/getAllSerialPort")
+      fetch(thisState.INITIAL_URL + "/getAllSerialPort")
         .then(response => {
           if (response.status === 200) {
             return response.json();
           } else throw Error(response.statusText);
         })
         .then(result => {
-          let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.setting.array.availableCOMPorts = result;
           thisState.setMyState(thisState);
         })
         .catch(() => {
         });
-      fetch(INITIAL_URL + "/getAllCameras")
+      fetch(thisState.INITIAL_URL + "/getAllCameras")
         .then(response => {
           if (response.status === 200) {
             return response.json();
           } else throw Error(response.statusText);
         })
         .then(result => {
-          let thisState = { ...this.state, setMyState: this.setMyState };
           thisState.setting.array.availableCameras = result;
           thisState.setMyState(thisState);
         })
@@ -372,14 +371,13 @@ class App extends Component {
     };
     await wait();
 
-    fetch(INITIAL_URL + "/getAllSettings")
+    fetch(thisState.INITIAL_URL + "/getAllSettings")
       .then(response => {
         if (response.status === 200) {
           return response.json();
         } else throw Error(response.statusText);
       })
       .then(result => {
-        let thisState = { ...this.state, setMyState: this.setMyState };
         thisState.setting.value = result;
         if (
           thisState.setting.array.availableCameras.indexOf(
@@ -418,25 +416,27 @@ class App extends Component {
           );
         }
         thisState.setMyState(thisState).then(() => {
-          thisState.WEIGHT = setInterval(() => {
-            fetch(INITIAL_URL + "/getNextWeight")
+          thisState._WEIGHT = setInterval(() => {
+            fetch(thisState.INITIAL_URL + "/getNextWeight")
               .then(response => {
                 if (response.status === 200) {
                   return response.json();
                 } else throw Error(response.statusText);
               })
               .then(result => {
-                thisState.weighing.weight = result;
-                thisState.setMyState(thisState);
+                thisState.setMyState({
+                  WEIGHT: result
+                });
               })
               .catch(() => {
-                thisState.weighing.weight = "-1";
-                thisState.setMyState(thisState);
+                thisState.setMyState({
+                  WEIGHT: -1
+                });
               });
           }, thisState.setting.value.REFRESH_TIME_WEIGHT);
-          thisState.weighing.cameraImage =
-            INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
-          thisState.setMyState(thisState);
+          thisState.setMyState({
+            cameraImage: thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random()
+          });
         });
       })
       .catch(() => {

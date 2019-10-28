@@ -7,6 +7,8 @@ import Toggle from "react-bootstrap-toggle";
 
 import ResetSlipNo from "./adminSettings/resetSlipNo";
 import ManualEntry from "./adminSettings/manualEntry"
+import EditEnable from "./adminSettings/editEnable"
+
 const AdminSettings = props => {
     // noinspection JSUnresolvedVariable
     let thisState = props.preState;
@@ -74,6 +76,36 @@ const AdminSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
+                   Enable Edit Records
+                </Form.Label>
+                <Col sm="9">
+                    <Toggle
+                        onClick={() => {
+                            if (!thisState.setting.editEnable) {
+                                thisState.setting.editEnableDialog = true;
+                                thisState.setting.editEnablePassword = "";
+                                thisState
+                                    .setMyState(thisState)
+                                    .then(() =>
+                                        thisState.setting.editEnablePasswordReference.current.focus()
+                                    );
+                            } else {
+                                thisState.setting.editEnable = false;
+                                thisState.setMyState(thisState);
+                            }
+                        }}
+                        on="ON"
+                        off="OFF"
+                        size="lg"
+                        offstyle="danger"
+                        active={thisState.setting.editEnable}
+                        recalculateOnResize={true}
+                    />
+                    <EditEnable preState={thisState} />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
                     Automation
                 </Form.Label>
                 <Col sm="9">
@@ -125,11 +157,7 @@ const AdminSettings = props => {
                                         thisState.weight.nettTime = "";
                                         thisState.weight.charges = "";
                                         thisState.weight.remarks = "";
-                                        thisState
-                                            .setMyState(thisState)
-                                            .then(() =>
-                                                thisState.weighing.reference.vehicleNoReference.current.focus()
-                                            );
+                                        thisState.setMyState(thisState)
                                     });
                             } else {
                                 // noinspection DuplicatedCode
@@ -175,11 +203,7 @@ const AdminSettings = props => {
                                         thisState.weight.nettTime = "";
                                         thisState.weight.charges = "";
                                         thisState.weight.remarks = "";
-                                        thisState
-                                            .setMyState(thisState)
-                                            .then(() =>
-                                                thisState.weighing.reference.vehicleNoReference.current.focus()
-                                            );
+                                        thisState.setMyState(thisState)
                                     });
                             }
                         }}

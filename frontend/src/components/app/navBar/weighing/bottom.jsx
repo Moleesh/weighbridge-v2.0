@@ -28,7 +28,7 @@ const Bottom = props => {
                         thisState.weighing.disable.chargesDisabled = true;
                         thisState.weighing.disable.remarksDisabled = true;
                         thisState.weighing.disable.grossDetailsDisabled = true;
-                        thisState.weighing.disable.tareDetailsWeightDisabled = true;                    
+                        thisState.weighing.disable.tareDetailsWeightDisabled = true;
                         thisState.weighing.disable.getWeightDisabled = true;
                         thisState.weighing.disable.saveDisabled = false;
 
@@ -36,12 +36,12 @@ const Bottom = props => {
 
                         if (thisState.weighing.grossSelector) {
                             if (thisState.weight.grossWeight === "") {
-                                thisState.weight.grossWeight = thisState.weighing.weight;
+                                thisState.weight.grossWeight = thisState.WEIGHT;
                                 thisState.weight.grossTime = date;
                             }
                         } else {
                             if (thisState.weight.tareWeight === "") {
-                                thisState.weight.tareWeight = thisState.weighing.weight;
+                                thisState.weight.tareWeight = thisState.WEIGHT;
                                 thisState.weight.tareTime = date;
                             }
                         }
@@ -87,6 +87,7 @@ const Bottom = props => {
                     onClick={() => {
                         if (!preventSave) {
                             preventSave = true;
+                            thisState.weight.manual = "N";
                             fetch(thisState.INITIAL_URL + "/saveWeight", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),

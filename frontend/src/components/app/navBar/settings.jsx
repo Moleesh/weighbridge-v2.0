@@ -173,8 +173,8 @@ const Settings = props => {
                         size="lg"
                         onClick={() => {
                             // noinspection DuplicatedCode
-                            clearInterval(thisState.weight);
-                            thisState.weight = setInterval(() => {
+                            clearInterval(thisState._WEIGHT);
+                            thisState._WEIGHT = setInterval(() => {
                                 fetch(thisState.INITIAL_URL + "/getNextWeight")
                                     .then(response => {
                                         if (response.status === 200) {
@@ -182,15 +182,17 @@ const Settings = props => {
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.weighing.weight = result;
-                                        thisState.setMyState(thisState);
+                                        thisState.setMyState({
+                                            WEIGHT: result
+                                        });
                                     })
                                     .catch(() => {
-                                        thisState.weighing.weight = "-1";
-                                        thisState.setMyState(thisState);
+                                        thisState.setMyState({
+                                            WEIGHT: "-1"
+                                        });
                                     });
                             }, thisState.setting.value.REFRESH_TIME_WEIGHT);
-                            thisState.weighing.cameraImage =
+                            thisState.cameraImage =
                                 thisState.INITIAL_URL +
                                 "/getCameraImage?rnd=" +
                                 Math.random();

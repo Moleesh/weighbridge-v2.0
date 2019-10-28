@@ -77,25 +77,27 @@ const Weighing = props => {
                                 fontFamily: "sans-serif"
                             }}
                         >
-                            <Card.Header>{thisState.weighing.weight}</Card.Header>
+                            <Card.Header>{thisState.WEIGHT}</Card.Header>
                         </Card>
                     </Row>
                 </Col>
                 <Col sm="5">
                     <Image
-                        src={thisState.weighing.cameraImage}
+                        src={thisState.cameraImage}
                         style={{ height: 200 }}
                         className="rounded mx-auto d-block"
                         onLoad={() => {
-                            thisState.weighing.cameraImage =
-                                thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
-                            thisState.setMyState(thisState);
+                            thisState.setMyState({
+                                cameraImage:
+                                    thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random()
+                            });
                         }}
                         onError={async () => {
                             setTimeout(function () {
-                                thisState.weighing.cameraImage =
-                                    thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random();
-                                thisState.setMyState(thisState);
+                                thisState.setMyState({
+                                    cameraImage:
+                                        thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random()
+                                });
                             }, 5000);
                         }}
                         fluid

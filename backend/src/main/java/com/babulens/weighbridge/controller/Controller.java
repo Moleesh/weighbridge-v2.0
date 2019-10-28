@@ -109,6 +109,11 @@ class Controller {
         return weighService.saveWeight(weight);
     }
 
+    @RequestMapping(value = "/updateWeight", method = {RequestMethod.POST})
+    public Weight updateWeight(@RequestBody Weight weight) {
+        return weighService.updateWeight(weight);
+    }
+
     @RequestMapping(value = "/resetWeight", method = {RequestMethod.GET})
     public void resetWeight(@RequestParam int slipNo) {
         weighService.resetWeight(slipNo);

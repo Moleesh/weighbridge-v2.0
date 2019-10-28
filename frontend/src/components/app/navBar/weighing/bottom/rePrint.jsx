@@ -10,11 +10,7 @@ const RePrint = props => {
             show={thisState.weighing.reprint}
             onHide={() => {
                 thisState.weighing.reprint = false;
-                thisState
-                    .setMyState(thisState)
-                    .then(() =>
-                        thisState.weighing.reference.rePrintReference.current.focus()
-                    );
+                thisState.setMyState(thisState);
             }}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
@@ -89,19 +85,11 @@ const RePrint = props => {
                                 })
                                 .catch(() => {
                                     thisState.weighing.reprint = false;
-                                    thisState
-                                        .setMyState(thisState)
-                                        .then(() =>
-                                            thisState.weighing.reference.rePrintReference.current.focus()
-                                        );
+                                    thisState.setMyState(thisState);
                                 });
                         } else {
                             thisState.weighing.reprint = false;
-                            thisState
-                                .setMyState(thisState)
-                                .then(() =>
-                                    thisState.weighing.reference.rePrintReference.current.focus()
-                                );
+                            thisState.setMyState(thisState);
                         }
                     }}
                     onKeyPress={event => {

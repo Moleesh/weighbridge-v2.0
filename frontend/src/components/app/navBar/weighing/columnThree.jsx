@@ -127,10 +127,10 @@ const ColumnThree = props => {
                                     let date = moment().format("DD-MM-YYYY HH:mm:ss");
 
                                     if (thisState.weighing.grossSelector) {
-                                        thisState.weight.grossWeight = thisState.weighing.weight;
+                                        thisState.weight.grossWeight = thisState.WEIGHT;
                                         thisState.weight.grossTime = date;
                                     } else {
-                                        thisState.weight.tareWeight = thisState.weighing.weight;
+                                        thisState.weight.tareWeight = thisState.WEIGHT;
                                         thisState.weight.tareTime = date;
                                     }
 
@@ -189,7 +189,7 @@ const ColumnThree = props => {
                                                         thisState
                                                             .setMyState(thisState)
                                                             .then(() =>
-                                                                thisState.weighing.reference.vehicleNoReference.current.focus()
+                                                                thisState.weighing.reference.customersIdReference.current.focus()
                                                             );
                                                     });
 
@@ -239,7 +239,7 @@ const ColumnThree = props => {
                                         thisState.weighing.reference.grossDetailsWeightReference.current.focus()
                                     );
                             }} >
-                            Get Tare Details
+                            Get Gross Details
                     </Button>
                         <GrossDetails preState={thisState} />
                     </Col>

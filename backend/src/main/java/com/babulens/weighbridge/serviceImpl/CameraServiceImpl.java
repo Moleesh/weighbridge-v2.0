@@ -41,7 +41,6 @@ class MyIpCam extends IpCamDriver {
 class MyCompositeDriver extends WebcamCompositeDriver {
     MyCompositeDriver() {
         try {
-
             add(new IpCamDriver(new IpCamStorage("cameras.xml")));
         } catch (NullPointerException | WebcamException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -56,7 +55,6 @@ public class CameraServiceImpl implements CameraService {
     private static boolean nullWebCam = false;
 
     static {
-        Webcam.resetDriver();
         Webcam.setDriver(new MyCompositeDriver());
     }
 

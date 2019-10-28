@@ -26,14 +26,12 @@ public class Weight {
     private Date nettTime;
     private double charges;
     private String remarks;
-    private boolean manual;
+    private String manual;
 
     public Weight() {
     }
 
-    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName,
-                  long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime,
-                  double charges, String remarks, boolean manual) {
+    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime, double charges, String remarks, String manual) {
         this.slipNo = slipNo;
         this.vehicleNo = vehicleNo;
         this.material = material;
@@ -154,11 +152,11 @@ public class Weight {
         this.remarks = remarks;
     }
 
-    public boolean isManual() {
+    public String getManual() {
         return manual;
     }
 
-    public void setManual(boolean manual) {
+    public void setManual(String manual) {
         this.manual = manual;
     }
 
@@ -177,25 +175,5 @@ public class Weight {
     @Override
     public int hashCode() {
         return Objects.hash(getSlipNo());
-    }
-
-    @Override
-    public String toString() {
-        return "Weight{" +
-                "slipNo=" + slipNo +
-                ", vehicleNo='" + vehicleNo + '\'' +
-                ", material='" + material + '\'' +
-                ", customersName='" + customersName + '\'' +
-                ", transporterName='" + transporterName + '\'' +
-                ", grossWeight=" + grossWeight +
-                ", grossTime=" + grossTime +
-                ", tareWeight=" + tareWeight +
-                ", tareTime=" + tareTime +
-                ", nettWeight=" + nettWeight +
-                ", nettTime=" + nettTime +
-                ", charges=" + charges +
-                ", remarks='" + remarks + '\'' +
-                ", manual=" + manual +
-                '}';
     }
 }
