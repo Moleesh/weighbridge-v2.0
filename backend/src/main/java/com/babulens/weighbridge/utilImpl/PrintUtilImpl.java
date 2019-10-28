@@ -159,7 +159,8 @@ public class PrintUtilImpl implements PrintUtil {
                 graphics.drawImage(cropImage, 250, 125, 300,
                         (int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
             } catch (IOException | NullPointerException | RasterFormatException ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, printWeight.getWeight().getSlipNo() +
+                        ".jpeg Image not availabel");
             }
             return Printable.PAGE_EXISTS;
         }, pageFormat);
