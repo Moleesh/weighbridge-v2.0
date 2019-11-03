@@ -12,7 +12,7 @@ const ColumnThree = props => {
     let thisState = props.preState;
     return (
         <Col sm="4" className="mt-2">
-            {thisState.setting.manualEntry ?
+            {thisState.setting.automation ?
                 <React.Fragment>
                     <Form.Group as={Row}>
                         <Form.Label column sm="6">

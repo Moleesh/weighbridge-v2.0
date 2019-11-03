@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class SettingsServiceImpl implements SettingsService {
 
@@ -42,7 +41,9 @@ public class SettingsServiceImpl implements SettingsService {
     public void saveAllSettings(Map<String, String> settings) {
         List<Settings> settingsList = new ArrayList<>();
         for (String key : settings.keySet()) {
-            settingsList.add(new Settings(key, settings.get(key)));
+            if (!key.equals("slipNo")) {
+                settingsList.add(new Settings(key, settings.get(key)));
+            }
         }
         settingsDAO.saveAll(settingsList);
     }

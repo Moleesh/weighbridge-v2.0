@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 import DateTime from 'react-datetime';
+import moment from "moment";
 
 const GrossDetails = props => {
     // noinspection JSUnresolvedVariable
@@ -56,7 +57,7 @@ const GrossDetails = props => {
                                 className: "form-control details-input"
                             }}
                             onChange={event => {
-                                thisState.weighing.grossDetailsDate = event;
+                                thisState.weighing.grossDetailsDate = moment(event).format("DD-MM-YYYY HH:mm:ss");
                                 thisState.setMyState(thisState);
                             }}
                         />

@@ -183,8 +183,6 @@ input {
 .nullButton:disabled {
     background: none;
     border: none;
-
-    /* display: none !important; */
 }
 
 .hand {
