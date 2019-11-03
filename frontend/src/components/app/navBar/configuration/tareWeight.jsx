@@ -142,7 +142,7 @@ const TareWeight = props => {
                                         {Object.keys(item)
                                             .filter(key => key !== "id")
                                             .map(key => (
-                                                <td key={key + "" + item[key]}>
+                                                <td key={key + "_" + item["id"]}>
                                                     <Col>
                                                         <Form.Control
                                                             autoComplete="off"
@@ -155,7 +155,6 @@ const TareWeight = props => {
                                                             }
                                                             type="text"
                                                             name={key}
-                                                            id={"tareWeight_" + key + "_" + item["id"]}
                                                             value={item[key] !== null ? item[key] : ""}
                                                             onChange={event => {
                                                                 thisState.configuration.tareWeight.list[index][

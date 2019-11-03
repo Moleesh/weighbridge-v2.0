@@ -28,7 +28,7 @@ public class TareWeight {
         this.tareTime = tareTime;
     }
 
-    private int getId() {
+    public int getId() {
         return id;
     }
 

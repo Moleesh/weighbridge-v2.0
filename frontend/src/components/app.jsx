@@ -124,7 +124,7 @@ class App extends Component {
       manual: "N"
     },
     report: {
-      pdfURL:"",
+      pdfURL: "",
       filterText: "",
       header: {
         vehicleNo: "Vehicle No",

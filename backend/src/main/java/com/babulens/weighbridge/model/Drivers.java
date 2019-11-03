@@ -26,7 +26,7 @@ public class Drivers {
         this.transporterName = transporterName;
     }
 
-    private int getId() {
+    public int getId() {
         return id;
     }
 

@@ -23,7 +23,7 @@ public class Material {
         this.material = material;
     }
 
-    private int getId() {
+    public int getId() {
         return id;
     }
 
