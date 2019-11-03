@@ -41,6 +41,8 @@ goto :eof
     echo oLink.Save >> "%CURRENT_DIR%\temp.vbs"
     cscript /nologo "%CURRENT_DIR%\temp.vbs"
 
+	timeout 5
+
     del %SCRIPT%
 
 EXIT
