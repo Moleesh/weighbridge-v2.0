@@ -60,6 +60,7 @@ const AdminSettings = props => {
                                         thisState.setting.manualEntryPasswordReference.current.focus()
                                     );
                             } else {
+                                thisState.weight.manual = "N";
                                 thisState.setting.manualEntry = false;
                                 thisState.setMyState(thisState);
                             }
@@ -76,7 +77,7 @@ const AdminSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
-                   Enable Edit Records
+                    Enable Edit Records
                 </Form.Label>
                 <Col sm="9">
                     <Toggle

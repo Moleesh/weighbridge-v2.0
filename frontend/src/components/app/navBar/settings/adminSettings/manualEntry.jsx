@@ -65,12 +65,12 @@ const ManualEntry = props => {
                             thisState.setting.manualEntryPassword ===
                             thisState.setting.value.MANUAL_ENTRY_PASSWORD
                         ) {
+                            thisState.weight.manual = "Y";
                             thisState.setting.manualEntry = true;
                             thisState.weighing.disable.grossDetailsDisabled = false;
                             thisState.weighing.disable.tareDetailsWeightDisabled = false;
                             thisState.setting.manualEntryDialog = false;
                         } else {
-                            thisState.setting.manualEntry = false;
                             thisState.alerts.push({
                                 id: new Date().getTime(),
                                 type: "danger",

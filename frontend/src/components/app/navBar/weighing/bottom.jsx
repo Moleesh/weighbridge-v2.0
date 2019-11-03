@@ -86,8 +86,7 @@ const Bottom = props => {
                     block
                     onClick={() => {
                         if (!preventSave) {
-                            preventSave = true;
-                            thisState.weight.manual = "N";
+                            preventSave = true;                            
                             fetch(thisState.INITIAL_URL + "/saveWeight", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),
