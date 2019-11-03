@@ -450,7 +450,7 @@ class App extends Component {
   render() {
     let thisState = { ...this.state, setMyState: this.setMyState };
     return (
-      <Container fluid>
+      <Container fluid >
         <AlertList
           position={"top-right"}
           alerts={thisState.alerts}

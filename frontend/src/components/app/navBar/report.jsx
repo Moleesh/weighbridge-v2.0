@@ -367,17 +367,17 @@ const Report = props => {
                                     onClick={() => {
                                         let reportTitle = "";
                                         switch (thisState.report.reportSelect) {
-                                            case "Full":
+                                            case "Full Report":
                                                 reportTitle = "Full Report";
                                                 break;
-                                            case "Daily":
+                                            case "Daily Report":
                                                 reportTitle =
                                                     "Daily Report : " +
                                                     moment(thisState.report.date.start).format(
                                                         "DD-MM-YYYY"
                                                     );
                                                 break;
-                                            case "Weekly":
+                                            case "Weekly Report":
                                                 reportTitle =
                                                     "Weekly Report : " +
                                                     moment(thisState.report.date.start).format(
@@ -386,12 +386,12 @@ const Report = props => {
                                                     " - " +
                                                     moment(thisState.report.date.end).format("DD-MM-YYYY");
                                                 break;
-                                            case "Monthly":
+                                            case "Monthly Report":
                                                 reportTitle =
                                                     "Monthly Report : " +
                                                     moment(thisState.report.date.start).format("MM-YYYY");
                                                 break;
-                                            case "Custom Date":
+                                            case "Custom Date Report":
                                                 reportTitle =
                                                     "Custom Report : " +
                                                     moment(thisState.report.date.start).format(
@@ -402,7 +402,7 @@ const Report = props => {
                                                         "DD-MM-YYYY HH:mm:ss"
                                                     );
                                                 break;
-                                            case "Slip No":
+                                            case "Slip No Report":
                                                 reportTitle =
                                                     "Slip No Report (" +
                                                     thisState.report.input +
@@ -415,7 +415,7 @@ const Report = props => {
                                                         "DD-MM-YYYY HH:mm:ss"
                                                     );
                                                 break;
-                                            case "Customer Name":
+                                            case "Customer Name Report":
                                                 reportTitle =
                                                     "Customer Report (" +
                                                     thisState.report.input +
@@ -428,7 +428,7 @@ const Report = props => {
                                                         "DD-MM-YYYY HH:mm:ss"
                                                     );
                                                 break;
-                                            case "Transporter Name":
+                                            case "Transporter Name Report":
                                                 reportTitle =
                                                     "Transporter Report (" +
                                                     thisState.report.input +
@@ -441,7 +441,7 @@ const Report = props => {
                                                         "DD-MM-YYYY HH:mm:ss"
                                                     );
                                                 break;
-                                            case "Vehicle No":
+                                            case "Vehicle No Report":
                                                 reportTitle =
                                                     "Vehicle No Report (" +
                                                     thisState.report.input +
@@ -454,7 +454,7 @@ const Report = props => {
                                                         "DD-MM-YYYY HH:mm:ss"
                                                     );
                                                 break;
-                                            case "Material":
+                                            case "Material Report":
                                                 reportTitle =
                                                     "Material Report (" +
                                                     thisState.report.input +
@@ -536,7 +536,8 @@ const Report = props => {
                     </Col>
                 </Row>
             </Form>
-            <ReportTable preState={thisState} />
+            {thisState.report.list.length !== 0 ?
+                <ReportTable preState={thisState} className="flex-column" /> : ""}
         </React.Fragment>
     );
 };

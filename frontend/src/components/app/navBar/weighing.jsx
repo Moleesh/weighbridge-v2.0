@@ -86,6 +86,7 @@ const Weighing = props => {
                         src={thisState.cameraImage}
                         style={{ height: 200 }}
                         className="rounded mx-auto d-block"
+                        alt=""
                         onLoad={() => {
                             thisState.setMyState({
                                 cameraImage:

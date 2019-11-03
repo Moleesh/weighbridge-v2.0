@@ -180,6 +180,13 @@ input {
     display: none !important;
 }
 
+.nullButton:disabled {
+    background: none;
+    border: none;
+
+    /* display: none !important; */
+}
+
 .hand {
     cursor: pointer;
 }

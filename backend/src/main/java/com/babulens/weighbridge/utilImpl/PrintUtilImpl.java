@@ -186,24 +186,18 @@ public class PrintUtilImpl implements PrintUtil {
 
         lines.add(new Line(StringUtils.center(printReport.getWeighbridgeName(), 73), new Font("Courier New",
                 Font.BOLD, 12)));
-        lines.add(new Line("\n", new Font("Courier New", Font.BOLD, 10)));
         lines.add(new Line(StringUtils.center(printReport.getWeighbridgeAddress(), 86), new Font("Courier New",
                 Font.ITALIC, 10)));
-        lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
         lines.add(new Line(StringUtils.center(printReport.getReportTitle(), 86), new Font("Courier New", Font.ITALIC,
                 10)));
-        lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
-        lines.add(new Line("***************************************************************************************",
+        lines.add(new Line("----------------------------------------------------------------------------------------",
                 new Font("Courier New", Font.PLAIN, 10)));
-        lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
         lines.add(new Line(String.format(format, StringUtils.center("Sl.no", 5), StringUtils.center("Date & Time", 19),
                 StringUtils.center("Vehicle No", 15), StringUtils.center("Material", 15),
                 StringUtils.center("Gross Wt", 8), StringUtils.center("Tare Wt", 8),
                 StringUtils.center("Net Wt", 8)), new Font("Courier New", Font.PLAIN, 10)));
-        lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
-        lines.add(new Line("***************************************************************************************",
+        lines.add(new Line("----------------------------------------------------------------------------------------",
                 new Font("Courier New", Font.PLAIN, 10)));
-        lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
         for (Weight weight : printReport.getWeights()) {
             lines.add(new Line(String.format(format,
                     StringUtils.center("" + weight.getSlipNo(), 5),
@@ -214,20 +208,20 @@ public class PrintUtilImpl implements PrintUtil {
                     StringUtils.leftPad("" + weight.getTareWeight(), 8, " "),
                     StringUtils.leftPad("" + weight.getNettWeight(), 8, " ")), new Font("Courier New", Font.PLAIN,
                     10)));
-            lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
         }
-        lines.add(new Line("***************************************************************************************",
+        lines.add(new Line("----------------------------------------------------------------------------------------",
                 new Font("Courier New", Font.PLAIN, 10)));
-        lines.add(new Line("\n", new Font("Courier New", Font.ITALIC, 10)));
-        lines.add(new Line("\t\t\t\t\tSignature", new Font("Courier New", Font.PLAIN, 10)));
-        final int LIMIT = 45;
+        lines.add(new Line("\tTotal Records     : " + printReport.getTotalRecords(), new Font("Courier New", Font.ITALIC, 10)));
+        lines.add(new Line("\tTotal Nett Weight : " + printReport.getTotalNettWeight() + " Kg", new Font("Courier New", Font.ITALIC, 10)));
+        lines.add(new Line("\tTotal Charge      : Rs." + printReport.getTotalTotalCharges(), new Font("Courier New", Font.ITALIC, 10)));
+        lines.add(new Line("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tSignature", new Font("Courier New", Font.BOLD, 10)));
+        lines.add(new Line(printReport.getFooter(), new Font("Courier New", Font.ITALIC, 10)));
+
+        final int LIMIT = 35;
         book.append((graphics, pageFormat1, pageIndex) -> {
             Coordinates coordinates = new Coordinates(25, 0);
-            graphics.setFont(new Font("Courier New", Font.BOLD, 10));
-            coordinates = PrintUtilImpl.drawString(graphics, "\n", 25, coordinates.getY());
-            coordinates = PrintUtilImpl.drawString(graphics, "\n", 25, coordinates.getY());
-            coordinates = PrintUtilImpl.drawString(graphics, "\n", 25, coordinates.getY());
-
+            graphics.setFont(new Font("Courier New", Font.BOLD, 20));
+            coordinates = PrintUtilImpl.drawString(graphics, "\n\n\n", 25, coordinates.getY());
             if (pageIndex < lines.size() / LIMIT + 1) {
                 for (int i = 0; i < LIMIT && i + LIMIT * pageIndex < lines.size(); i++) {
                     graphics.setFont(lines.get(i + LIMIT * pageIndex).getFont());

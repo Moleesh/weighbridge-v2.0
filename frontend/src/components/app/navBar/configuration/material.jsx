@@ -35,7 +35,7 @@ const Material = props => {
                 <Form.Control
                     className="text-center form-control"
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search in material list ..."
                     value={thisState.configuration.material.filterText}
                     onChange={event => {
                         thisState.configuration.material.filterText = event.target.value;

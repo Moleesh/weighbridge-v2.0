@@ -35,7 +35,7 @@ const Drivers = props => {
                 <Form.Control
                     className="text-center form-control"
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search in driver list..."
                     value={thisState.configuration.drivers.filterText}
                     onChange={event => {
                         thisState.configuration.drivers.filterText = event.target.value;

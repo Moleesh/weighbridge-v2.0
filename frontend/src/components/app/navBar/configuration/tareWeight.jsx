@@ -35,7 +35,7 @@ const TareWeight = props => {
                 <Form.Control
                     className="text-center form-control"
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search in tare list..."
                     value={thisState.configuration.tareWeight.filterText}
                     onChange={event => {
                         thisState.configuration.tareWeight.filterText = event.target.value;

@@ -7,7 +7,7 @@ public class Line {
     private Font font;
 
     public Line(String line, Font font) {
-        this.line = line;
+        this.line = line.replaceAll("\t", "    ");
         this.font = font;
     }
 
@@ -16,7 +16,7 @@ public class Line {
     }
 
     public void setLine(String line) {
-        this.line = line;
+        this.line = line.replaceAll("\t", "    ");
     }
 
     public Font getFont() {
