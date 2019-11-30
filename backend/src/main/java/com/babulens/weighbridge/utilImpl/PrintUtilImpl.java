@@ -101,9 +101,9 @@ public class PrintUtilImpl implements PrintUtil {
             coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
 
             initString = String.format(format, "", "Sl.No") + printWeight.getWeight().getSlipNo() + "\n\n"
-                    + String.format(format, "", "Date") + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                    + String.format(format, "", "Date") + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()
                     + "\n\n" + String.format(format, "", "Time")
-                    + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.systemDefault()).toLocalTime() + "\n\n" + String.format(format, "", "Vehicle No")
+                    + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() + "\n\n" + String.format(format, "", "Vehicle No")
                     + printWeight.getWeight().getVehicleNo()
                     + "\n\n" + String.format(format, "", "Material") + printWeight.getWeight().getMaterial()
                     + "\n\n" + String.format(format, "", "Customer Name")
@@ -201,7 +201,7 @@ public class PrintUtilImpl implements PrintUtil {
         for (Weight weight : printReport.getWeights()) {
             lines.add(new Line(String.format(format,
                     StringUtils.center("" + weight.getSlipNo(), 5),
-                    StringUtils.center(weight.getNettTime() != null ? weight.getNettTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + " " + weight.getTareTime().toInstant().atZone(ZoneId.systemDefault()).toLocalTime() : "", 19),
+                    StringUtils.center(weight.getNettTime() != null ? weight.getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate() + " " + weight.getTareTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() : "", 19),
                     StringUtils.center(weight.getVehicleNo(), 15),
                     StringUtils.center(weight.getMaterial(), 15),
                     StringUtils.leftPad("" + weight.getGrossWeight(), 8, " "),
