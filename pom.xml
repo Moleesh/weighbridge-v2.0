@@ -1,119 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.3.BUILD-SNAPSHOT</version>
-        <relativePath/>
-    </parent>
-    <groupId>com.babulens</groupId>
-    <artifactId>weighbridge</artifactId>
-    <version>2.0.0-RELEASE</version>
-    <packaging>pom</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.3.BUILD-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>com.babulens</groupId>
+	<artifactId>weighbridge</artifactId>
+	<version>2.0.0-RELEASE</version>
+	<packaging>pom</packaging>
 
-    <modules>
-        <module>frontend</module>
-        <module>backend</module>
-    </modules>
+	<modules>
+		<module>frontend</module>
+		<module>backend</module>
+	</modules>
 
-    <name>weighbridge</name>
-    <description>Weighbridge Software</description>
+	<name>weighbridge</name>
+	<description>Weighbridge Software</description>
 
-    <properties>
-        <java.version>13</java.version>
-        <skipValidate>none</skipValidate>
-    </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>frontend/dist</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>frontend/build</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>frontend/target</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>frontend/node</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>frontend/node_modules</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>backend/target</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>target</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>WeighBridge</directory>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <phase>${skipValidate}</phase>
-                        <configuration>
-                            <target>
-                                <delete dir="WeighBridge" quiet="true" failonerror="false"/>
-                                <mkdir dir="WeighBridge"/>
-                                <copy file="backend/target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
-                                <copy file="RunMeForSchedulingInWindows.bat"
-                                      tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
-                                <copy file="Babulens_Logo.bmp" tofile="WeighBridge/Babulens_Logo.bmp"/>
-                                <copy file="cameras.xml" tofile="WeighBridge/cameras.xml"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-        </repository>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+	<properties>
+		<java.version>13</java.version>
+		<skipValidate>none</skipValidate>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>frontend/dist</directory>
+						</fileset>
+						<fileset>
+							<directory>frontend/build</directory>
+						</fileset>
+						<fileset>
+							<directory>frontend/target</directory>
+						</fileset>
+						<fileset>
+							<directory>frontend/node</directory>
+						</fileset>
+						<fileset>
+							<directory>frontend/node_modules</directory>
+						</fileset>
+						<fileset>
+							<directory>backend/target</directory>
+						</fileset>
+						<fileset>
+							<directory>target</directory>
+						</fileset>
+						<fileset>
+							<directory>WeighBridge</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<phase>${skipValidate}</phase>
+						<configuration>
+							<target>
+								<delete dir="WeighBridge" quiet="true" failonerror="false"/>
+								<mkdir dir="WeighBridge"/>
+								<copy file="backend/target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
+								<copy file="RunMeForSchedulingInWindows.bat"
+								      tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
+								<copy file="Babulens_Logo.bmp" tofile="WeighBridge/Babulens_Logo.bmp"/>
+								<copy file="cameras.xml" tofile="WeighBridge/cameras.xml"/>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>
