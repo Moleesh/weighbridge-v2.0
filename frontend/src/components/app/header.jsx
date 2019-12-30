@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../../logo.svg";
-import {Card, Col, Row} from "react-bootstrap";
+import logo from "../../assets/images/logo.svg";
+import { Card, Col, Row } from "react-bootstrap";
 
 const Header = props => {
     // noinspection JSUnresolvedVariable
@@ -21,7 +21,7 @@ const Header = props => {
                             alt=""
                             width="60"
                             height="60"
-                            className="d-inline-block align-top"
+                            className="d-inline-block align-top logo"
                         />
                     </Col>
                     <Col sm="10">

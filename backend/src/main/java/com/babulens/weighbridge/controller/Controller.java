@@ -6,14 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 @CrossOrigin(origins = "*")
@@ -84,24 +78,14 @@ class Controller {
 		return weighService.getGrossWeight(vehicleNo);
 	}
 
+	@RequestMapping(value = "/getDefaultSlipNo")
+	public int getDefaultSlipNo () {
+		return -1;
+	}
+
 	@RequestMapping(value = "/getNextSlipNo")
-	public int getNextSlipNo (HttpServletRequest request) {
-		String hostIp;
-		String clientIp = request.getRemoteAddr();
-		try {
-			hostIp = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException ex) {
-			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-			hostIp = clientIp;
-		}
-		if (clientIp.equalsIgnoreCase("0:0:0:0:0:0:0:1") || clientIp.equalsIgnoreCase("127.0.0.1")) {
-			clientIp = hostIp;
-		}
-		if (!Objects.equals(hostIp, clientIp)) {
-			return -1;
-		} else {
-			return Integer.parseInt((String) settingsService.getSetting("slipNo"));
-		}
+	public int getNextSlipNo () {
+		return Integer.parseInt(settingsService.getSetting("slipNo").toString());
 	}
 
 	@RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})

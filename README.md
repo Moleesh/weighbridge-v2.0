@@ -19,9 +19,6 @@ mvn versions:use-latest-releases
 mvn versions:update-properties
 
 ## check fr latest npm package 
-npm i npm-check
- 
-npm-check -u
 
 npm update --depth 9999
 

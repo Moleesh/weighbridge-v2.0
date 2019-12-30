@@ -188,3 +188,84 @@ input {
 .hand {
     cursor: pointer;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pageNotFound {
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+}
+
+.pageNotFound img {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    margin: auto; 
+    min-width: 50%;
+    min-height: 50%;
+}
+
+.LoginForm {
+    font-family: sans-serif;
+  }
+  
+  .LoginForm  h1 {
+    text-align: center;
+  }
+  
+  .LoginForm form {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .LoginForm label,
+  .LoginForm input {
+    display: block;
+    width: 100%;
+  }
+  
+  .LoginForm label {
+    margin-bottom: 5px;
+    height: 22px;
+  }
+  
+  .LoginForm input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #777;
+  }
+  
+  .LoginForm button {
+    padding: 10px 15px;
+    background-color: rgb(70, 153, 179);
+    color: white;
+    border: 1px solid rgb(70, 153, 179);
+    background-color: 250ms;
+  }
+  
+  .LoginForm button:hover {
+    cursor: pointer;
+    background-color: white;
+    color: rgb(70, 153, 179);
+  }
+  
