@@ -7,11 +7,11 @@ import java.util.Map;
 
 public interface SettingsService {
 
-    void saveSettings(Settings settings);
+	void saveSettings (Settings settings);
 
-    Map<String, String> getAllSettings();
+	Map<String, String> getAllSettings ();
 
-    void saveAllSettings(Map<String, String> settings);
+	void saveAllSettings (Map<String, String> settings);
 
-    Object getSetting(String id);
+	Object getSetting (String id);
 }

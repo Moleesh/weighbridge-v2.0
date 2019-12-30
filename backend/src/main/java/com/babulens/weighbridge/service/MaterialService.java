@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface MaterialService {
 
-    List<Material> getAllMaterial();
+	List<Material> getAllMaterial ();
 
-    Material addUpdateMaterial(Material material);
+	Material addUpdateMaterial (Material material);
 
-    void deleteMaterial(int id);
+	void deleteMaterial (int id);
 }

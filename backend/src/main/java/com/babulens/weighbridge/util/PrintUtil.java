@@ -6,9 +6,9 @@ import com.babulens.weighbridge.model.PrintWeight;
 import java.awt.print.Book;
 
 public interface PrintUtil {
-    Book printPrePrint(PrintWeight printWeight);
+	Book printPrePrint (PrintWeight printWeight);
 
-    Book printCameraPrint(PrintWeight printWeight);
+	Book printCameraPrint (PrintWeight printWeight);
 
-    Book printReport(PrintReport printReport);
+	Book printReport (PrintReport printReport);
 }

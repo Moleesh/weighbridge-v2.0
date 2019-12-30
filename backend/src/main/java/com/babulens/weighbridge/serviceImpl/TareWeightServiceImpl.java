@@ -12,41 +12,41 @@ import java.util.List;
 @Service
 public class TareWeightServiceImpl implements TareWeightService {
 
-    @Autowired
-    private final
-    TareWeightDAO tareWeightDAO;
+	@Autowired
+	private final
+	TareWeightDAO tareWeightDAO;
 
-    public TareWeightServiceImpl(TareWeightDAO tareWeightDAO) {
-        this.tareWeightDAO = tareWeightDAO;
-    }
+	public TareWeightServiceImpl (TareWeightDAO tareWeightDAO) {
+		this.tareWeightDAO = tareWeightDAO;
+	}
 
-    @Override
-    public TareWeight getTareWeight(String vehicleNo) {
-        List<TareWeight> tareWeightList = getTareByVehicleNo(vehicleNo);
-        if (tareWeightList.isEmpty()) {
-            return null;
-        } else {
-            return tareWeightList.get(0);
-        }
-    }
+	@Override
+	public TareWeight getTareWeight (String vehicleNo) {
+		List<TareWeight> tareWeightList = getTareByVehicleNo(vehicleNo);
+		if (tareWeightList.isEmpty()) {
+			return null;
+		} else {
+			return tareWeightList.get(0);
+		}
+	}
 
-    @Override
-    public List<TareWeight> getAllTareWeight() {
-        return Lists.newArrayList(tareWeightDAO.findAll());
-    }
+	@Override
+	public List<TareWeight> getAllTareWeight () {
+		return Lists.newArrayList(tareWeightDAO.findAll());
+	}
 
-    @Override
-    public TareWeight addUpdateTareWeight(TareWeight tareWeight) {
-        return tareWeightDAO.save(tareWeight);
-    }
+	@Override
+	public TareWeight addUpdateTareWeight (TareWeight tareWeight) {
+		return tareWeightDAO.save(tareWeight);
+	}
 
-    @Override
-    public void deleteTareWeight(int id) {
-        tareWeightDAO.deleteById(id);
-    }
+	@Override
+	public void deleteTareWeight (int id) {
+		tareWeightDAO.deleteById(id);
+	}
 
-    @Override
-    public List<TareWeight> getTareByVehicleNo(String vehicleNo) {
-        return tareWeightDAO.findByVehicleNo(vehicleNo);
-    }
+	@Override
+	public List<TareWeight> getTareByVehicleNo (String vehicleNo) {
+		return tareWeightDAO.findByVehicleNo(vehicleNo);
+	}
 }

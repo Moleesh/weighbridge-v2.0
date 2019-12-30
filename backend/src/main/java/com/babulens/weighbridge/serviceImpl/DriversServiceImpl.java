@@ -13,22 +13,22 @@ import java.util.List;
 @Service
 public class DriversServiceImpl implements DriversService {
 
-    @Autowired
-    private
-    DriversDAO driversDAO;
+	@Autowired
+	private
+	DriversDAO driversDAO;
 
-    @Override
-    public List<Drivers> getAllDrivers() {
-        return Lists.newArrayList(driversDAO.findAll());
-    }
+	@Override
+	public List<Drivers> getAllDrivers () {
+		return Lists.newArrayList(driversDAO.findAll());
+	}
 
-    @Override
-    public Drivers addUpdateDrivers(Drivers drivers) {
-        return driversDAO.save(drivers);
-    }
+	@Override
+	public Drivers addUpdateDrivers (Drivers drivers) {
+		return driversDAO.save(drivers);
+	}
 
-    @Override
-    public void deleteDrivers(int id) {
-        driversDAO.deleteById(id);
-    }
+	@Override
+	public void deleteDrivers (int id) {
+		driversDAO.deleteById(id);
+	}
 }

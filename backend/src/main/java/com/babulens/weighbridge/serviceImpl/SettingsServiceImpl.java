@@ -16,45 +16,45 @@ import java.util.Map;
 @Service
 public class SettingsServiceImpl implements SettingsService {
 
-    @Autowired
-    private
-    SettingsDAO settingsDAO;
+	@Autowired
+	private
+	SettingsDAO settingsDAO;
 
-    @Override
-    @CacheEvict(value = "Settings", key = "#settings.getKey()")
-    public void saveSettings(Settings settings) {
-        settingsDAO.save(settings);
-    }
+	@Override
+	@CacheEvict(value = "Settings", key = "#settings.getKey()")
+	public void saveSettings (Settings settings) {
+		settingsDAO.save(settings);
+	}
 
-    @Override
-    @Cacheable(cacheNames = "Settings")
-    public Map<String, String> getAllSettings() {
-        Map<String, String> settingMap = new HashMap<>();
-        for (Settings settings : settingsDAO.findAll()) {
-            settingMap.put(settings.getKey(), settings.getValue());
-        }
-        return settingMap;
-    }
+	@Override
+	@Cacheable(cacheNames = "Settings")
+	public Map<String, String> getAllSettings () {
+		Map<String, String> settingMap = new HashMap<>();
+		for (Settings settings : settingsDAO.findAll()) {
+			settingMap.put(settings.getKey(), settings.getValue());
+		}
+		return settingMap;
+	}
 
-    @Override
-    @CacheEvict(value = "Settings", allEntries = true)
-    public void saveAllSettings(Map<String, String> settings) {
-        List<Settings> settingsList = new ArrayList<>();
-        for (String key : settings.keySet()) {
-            if (!key.equals("slipNo")) {
-                settingsList.add(new Settings(key, settings.get(key)));
-            }
-        }
-        settingsDAO.saveAll(settingsList);
-    }
+	@Override
+	@CacheEvict(value = "Settings", allEntries = true)
+	public void saveAllSettings (Map<String, String> settings) {
+		List<Settings> settingsList = new ArrayList<>();
+		for (String key : settings.keySet()) {
+			if (!key.equals("slipNo")) {
+				settingsList.add(new Settings(key, settings.get(key)));
+			}
+		}
+		settingsDAO.saveAll(settingsList);
+	}
 
-    @Override
-    @Cacheable(cacheNames = "Settings", key = "#id")
-    public Object getSetting(String id) {
-        if (settingsDAO.findById(id).isPresent()) {
-            return settingsDAO.findById(id).get().getValue();
-        } else {
-            return null;
-        }
-    }
+	@Override
+	@Cacheable(cacheNames = "Settings", key = "#id")
+	public Object getSetting (String id) {
+		if (settingsDAO.findById(id).isPresent()) {
+			return settingsDAO.findById(id).get().getValue();
+		} else {
+			return null;
+		}
+	}
 }

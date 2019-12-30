@@ -6,15 +6,15 @@ import java.awt.*;
 import java.util.List;
 
 public interface CameraService {
-    void saveCameraImageToDisk(String fileName);
+	void saveCameraImageToDisk (String fileName);
 
-    byte[] getCameraImage();
+	byte[] getCameraImage ();
 
-    List<String> getAllCameras();
+	List<String> getAllCameras ();
 
-    Webcam getCamera(String camera);
+	Webcam getCamera (String camera);
 
-    Dimension getBestDimensions(Webcam webcam);
+	Dimension getBestDimensions (Webcam webcam);
 
-    void settingUpCamera();
+	void settingUpCamera ();
 }

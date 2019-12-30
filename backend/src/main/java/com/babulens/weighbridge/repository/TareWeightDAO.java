@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TareWeightDAO extends CrudRepository<TareWeight, Integer> {
-    List<TareWeight> findByVehicleNo(String vehicleNo);
+	List<TareWeight> findByVehicleNo (String vehicleNo);
 }

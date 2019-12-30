@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DriversService {
 
-    List<Drivers> getAllDrivers();
+	List<Drivers> getAllDrivers ();
 
-    Drivers addUpdateDrivers(Drivers drivers);
+	Drivers addUpdateDrivers (Drivers drivers);
 
-    void deleteDrivers(int id);
+	void deleteDrivers (int id);
 }
