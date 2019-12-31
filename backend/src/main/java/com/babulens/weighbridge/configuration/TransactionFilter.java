@@ -25,15 +25,15 @@ public class TransactionFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String clientIp = request.getRemoteAddr();
 		String sessionId = httpServletRequest.getSession().getId();
-		if (httpServletRequest.getContextPath().contains("error")) {
+		if (httpServletRequest.getRequestURI().contains("error")) {
 			chain.doFilter(request, response);
-		} else if (httpServletRequest.getContextPath().contains("loginForm")) {
+		} else if (httpServletRequest.getRequestURI().contains("loginForm")) {
 			if (TransactionFilter.list.contains(sessionId) || TransactionFilter.list.contains(clientIp)) {
 				((HttpServletResponse) response).sendRedirect("/");
 			} else {
 				chain.doFilter(request, response);
 			}
-		} else if (httpServletRequest.getContextPath().contains("login")) {
+		} else if (httpServletRequest.getRequestURI().contains("login")) {
 			if (httpServletRequest.getParameter("password").equals("147085") || TransactionFilter.list.contains(clientIp)) {
 				TransactionFilter.list.add(sessionId);
 				((HttpServletResponse) response).sendRedirect("/");
@@ -42,7 +42,7 @@ public class TransactionFilter implements Filter {
 			}
 		} else if (TransactionFilter.list.contains(clientIp)) {
 			chain.doFilter(request, response);
-		} else if (httpServletRequest.getContextPath().contains("getNextSlipNo")) {
+		} else if (httpServletRequest.getRequestURI().contains("getNextSlipNo")) {
 			((HttpServletResponse) response).sendRedirect("/getDefaultSlipNo");
 		} else if (!TransactionFilter.list.contains(httpServletRequest.getSession().getId())) {
 			((HttpServletResponse) response).sendRedirect("/error");
