@@ -25,7 +25,7 @@ public class TransactionFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String clientIp = request.getRemoteAddr();
 		String sessionId = httpServletRequest.getSession().getId();
-		if (TransactionFilter.list.contains(clientIp) || httpServletRequest.getContextPath().contains("error")) {
+		if (httpServletRequest.getContextPath().contains("error")) {
 			chain.doFilter(request, response);
 		} else if (httpServletRequest.getContextPath().contains("loginForm")) {
 			if (TransactionFilter.list.contains(sessionId) || TransactionFilter.list.contains(clientIp)) {
