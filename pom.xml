@@ -72,8 +72,8 @@
 								<mkdir dir="WeighBridge"/>
 								<copy file="backend/target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
 								<copy file="RunMeForSchedulingInWindows.bat"
-								      tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
-								<copy file="Babulens_Logo.bmp" tofile="WeighBridge/Babulens_Logo.bmp"/>
+									  tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
+								<copy file="babulensLogo.bmp" tofile="WeighBridge/babulensLogo.bmp"/>
 								<copy file="cameras.xml" tofile="WeighBridge/cameras.xml"/>
 							</target>
 						</configuration>

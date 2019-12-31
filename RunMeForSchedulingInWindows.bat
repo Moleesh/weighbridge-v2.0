@@ -25,7 +25,7 @@ goto :eof
     echo oLink.TargetPath = "%CURRENT_DIR%\Weighbridge.vbs" >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.Description = "WeighBridge Software" >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.WorkingDirectory = "%CURRENT_DIR%" >> "%CURRENT_DIR%\temp.vbs"
-    echo oLink.IconLocation = "%CURRENT_DIR%\Babulens_Logo.bmp" >> "%CURRENT_DIR%\temp.vbs"
+    echo oLink.IconLocation = "%CURRENT_DIR%\babulensLogo.bmp" >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.Save >> "%CURRENT_DIR%\temp.vbs"
 
     cscript /nologo "%CURRENT_DIR%\temp.vbs"
@@ -34,7 +34,7 @@ goto :eof
     echo sLinkFile = "%UserProfile%\Desktop\StartWeighbridge.lnk" >> "%CURRENT_DIR%\temp.vbs"
     echo Set oLink = oWS.CreateShortcut(sLinkFile) >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.TargetPath = "%CURRENT_DIR%\Weighbridge.vbs" >> "%CURRENT_DIR%\temp.vbs"
-    echo oLink.IconLocation = "%CURRENT_DIR%\Babulens_Logo.bmp" >> "%CURRENT_DIR%\temp.vbs"
+    echo oLink.IconLocation = "%CURRENT_DIR%\babulensLogo.bmp" >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.Save >> "%CURRENT_DIR%\temp.vbs"
     cscript /nologo "%CURRENT_DIR%\temp.vbs"
 
@@ -42,7 +42,7 @@ goto :eof
     echo sLinkFile = "%UserProfile%\Desktop\StopWeighbridge.lnk" >> "%CURRENT_DIR%\temp.vbs"
     echo Set oLink = oWS.CreateShortcut(sLinkFile) >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.TargetPath = "%CURRENT_DIR%\WeighbridgeStop.bat" >> "%CURRENT_DIR%\temp.vbs"
-    echo oLink.IconLocation = "%CURRENT_DIR%\Babulens_Logo.bmp" >> "%CURRENT_DIR%\temp.vbs"
+    echo oLink.IconLocation = "%CURRENT_DIR%\babulensLogo.bmp" >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.Save >> "%CURRENT_DIR%\temp.vbs"
     cscript /nologo "%CURRENT_DIR%\temp.vbs"
 
@@ -50,7 +50,7 @@ goto :eof
     echo sLinkFile = "%UserProfile%\Desktop\Weighbridge.lnk" >> "%CURRENT_DIR%\temp.vbs"
     echo Set oLink = oWS.CreateShortcut(sLinkFile) >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.TargetPath = "http://localhost:9000/" >> "%CURRENT_DIR%\temp.vbs"
-    echo oLink.IconLocation = "%CURRENT_DIR%\Babulens_Logo.bmp" >> "%CURRENT_DIR%\temp.vbs"
+    echo oLink.IconLocation = "%CURRENT_DIR%\babulensLogo.bmp" >> "%CURRENT_DIR%\temp.vbs"
     echo oLink.Save >> "%CURRENT_DIR%\temp.vbs"
     cscript /nologo "%CURRENT_DIR%\temp.vbs"
 
