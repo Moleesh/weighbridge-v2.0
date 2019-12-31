@@ -223,8 +223,4 @@ class Controller {
 		settingsService.saveAllSettings(settings);
 	}
 
-	@RequestMapping(value = "/login", method = {RequestMethod.POST})
-	public void login(@RequestBody Map<String, String> settings) {
-	}
-
 }
