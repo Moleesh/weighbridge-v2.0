@@ -10,8 +10,6 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("forward:/index.html");
-		registry.addViewController("/error").setViewName("forward:/404.html");
-		registry.addViewController("/404").setViewName("forward:/404.html");
 		registry.addViewController("/loginForm").setViewName("forward:/loginForm.html");
 	}
 }
