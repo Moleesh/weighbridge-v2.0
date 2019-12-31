@@ -214,13 +214,17 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/sendToDisplay", method = {RequestMethod.PUT})
-	public void sendToDisplay (@RequestBody String message) {
+	public void sendToDisplay(@RequestBody String message) {
 		serialPortService.sendToDisplay(message);
 	}
 
 	@RequestMapping(value = "/saveAllSettings", method = {RequestMethod.PUT})
-	public void saveAllSettings (@RequestBody Map<String, String> settings) {
+	public void saveAllSettings(@RequestBody Map<String, String> settings) {
 		settingsService.saveAllSettings(settings);
+	}
+
+	@RequestMapping(value = "/login", method = {RequestMethod.POST})
+	public void login(@RequestBody Map<String, String> settings) {
 	}
 
 }
