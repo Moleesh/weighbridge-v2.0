@@ -15,7 +15,6 @@ import java.util.Map;
 @SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
-	private int weight = -1;
 	private SerialPort commPortIndicator = null;
 	private SerialPort commPortDisplay = null;
 
@@ -72,7 +71,7 @@ public class SerialPortServiceImpl implements SerialPortService {
 
 	@Override
 	public int getWeight () {
-		return weight;
+		return SerialPortMessageListenerWithExceptions.getWeight();
 	}
 
 	@Override

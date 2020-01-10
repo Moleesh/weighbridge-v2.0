@@ -12,7 +12,7 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 
 	private String delimiter;
 	private String lastCharacter;
-	private int weight = -1;
+	private static int weight = -1;
 
 	public SerialPortMessageListenerWithExceptions(String delimiter, String lastCharacter) {
 		this.delimiter = delimiter;
@@ -39,13 +39,13 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 		return true;
 	}
 
-	@Override
-	public void serialEvent(SerialPortEvent event) {
-		weight =
-				Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9" + lastCharacter + "]", "").split(lastCharacter)[0]);
+	public static int getWeight() {
+		return weight;
 	}
 
-	public int getWeight() {
-		return weight;
+	@Override
+	public void serialEvent(SerialPortEvent event) {
+		SerialPortMessageListenerWithExceptions.weight =
+				Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9" + lastCharacter + "]", "").split(lastCharacter)[0]);
 	}
 }
