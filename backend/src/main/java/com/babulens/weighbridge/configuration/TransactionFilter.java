@@ -34,7 +34,7 @@ public class TransactionFilter implements Filter {
 				chain.doFilter(request, response);
 			}
 		} else if (httpServletRequest.getRequestURI().contains("login")) {
-			if (httpServletRequest.getParameter("password").equals("147085") || TransactionFilter.list.contains(clientIp)) {
+			if ((httpServletRequest.getParameter("password") != null && httpServletRequest.getParameter("password").equals("147085")) || TransactionFilter.list.contains(clientIp)) {
 				TransactionFilter.list.add(sessionId);
 				((HttpServletResponse) response).sendRedirect("/");
 			} else {
