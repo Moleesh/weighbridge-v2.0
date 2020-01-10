@@ -31,7 +31,7 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 
 	@Override
 	public byte[] getMessageDelimiter() {
-		return new byte[]{(byte) ' ', (byte) (Integer.parseInt(0 + delimiter.replaceAll("[^-0-9]", "")) % 128)};
+		return new byte[]{(byte) (Integer.parseInt(0 + delimiter.replaceAll("[^-0-9]", "")) % 128)};
 	}
 
 	@Override
