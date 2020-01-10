@@ -1,10 +1,10 @@
 package com.babulens.weighbridge.serviceImpl;
 
+import com.babulens.weighbridge.model.SerialPortMessageListenerWithExceptions;
 import com.babulens.weighbridge.service.SerialPortService;
 import com.babulens.weighbridge.service.SettingsService;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortEvent;
-import com.fazecast.jSerialComm.SerialPortMessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,8 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
@@ -27,9 +29,9 @@ public class SerialPortServiceImpl implements SerialPortService {
 	@Override
 	public List<String> getAllSerialPort () {
 		List<String> serialPorts = new ArrayList<>();
+		serialPorts.add("Dummy");
 		for (SerialPort serialPort : SerialPort.getCommPorts()) {
 			serialPorts.add(serialPort.getSystemPortName());
-
 		}
 		return serialPorts;
 	}
@@ -67,15 +69,20 @@ public class SerialPortServiceImpl implements SerialPortService {
 					Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")),
 					Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
 			commPortIndicator.openPort();
-			commPortIndicator.addDataListener(new SerialPortMessageListener() {
+			commPortIndicator.addDataListener(new SerialPortMessageListenerWithExceptions() {
 				@Override
-				public int getListeningEvents () {
+				public void catchException(Exception ex) {
+					Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+				}
+
+				@Override
+				public int getListeningEvents() {
 					return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
 				}
 
 				@Override
-				public byte[] getMessageDelimiter () {
-					return new byte[] {(byte) (Integer.parseInt(0 + delimiter.replaceAll("[^-0-9]", "")) % 128)};
+				public byte[] getMessageDelimiter() {
+					return new byte[]{(byte) (Integer.parseInt(0 + delimiter.replaceAll("[^-0-9]", "")) % 128)};
 				}
 
 				@Override
