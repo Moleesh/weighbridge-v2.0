@@ -48,7 +48,8 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 		try {
 			SerialPortMessageListenerWithExceptions.weight =
 					Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9" + lastCharacter + "]", "").split(lastCharacter)[0]);
-		} catch (NullPointerException ignore) {
+		} catch (Exception ex) {
+			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 		}
 	}
 }
