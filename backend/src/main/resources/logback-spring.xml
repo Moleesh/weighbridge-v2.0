@@ -30,7 +30,7 @@
 		</encoder>
 	</appender>
 
-	<root level="warn">
+	<root level="WARN">
 		<appender-ref ref="Console"/>
 		<appender-ref ref="RollingFile"/>
 	</root>
