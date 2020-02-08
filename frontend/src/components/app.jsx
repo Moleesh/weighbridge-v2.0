@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-// noinspection ES6CheckImport
 import { AlertList } from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
-const INITIAL_URL = "";
+const INITIAL_URL = "http://localhost:9000";
 
 class App extends Component {
   state = {
@@ -264,7 +263,7 @@ class App extends Component {
     this.setState(myState);
   }
 
-  async componentDidMount() {
+  async UNSAFE_componentWillMount() {
     let thisState = { ...this.state, setMyState: this.setMyState };
     fetch(thisState.INITIAL_URL + "/getNextSlipNo")
       .then(response => {
