@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Col, Nav, Row, Tab } from "react-bootstrap";
+import {Button, Col, Nav, Row, Tab} from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRetweet, faSync, faWrench } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faRetweet, faSync, faWrench} from "@fortawesome/free-solid-svg-icons";
 
 import GeneralSettings from "./settings/generalSettings";
-import CameraSettings from "./settings/cameraSettings";
+import WebCamSettings from "./settings/webCamSettings";
 import PrinterSettings from "./settings/printerSettings";
 import IndicatorSettings from "./settings/indicatorSettings";
 import DisplaySettings from "./settings/displaySettings";
@@ -48,7 +48,7 @@ const Settings = props => {
                             <GeneralSettings preState={thisState} key="generalSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="cameraSettings">
-                            <CameraSettings preState={thisState} key="cameraSettings" />
+                            <WebCamSettings preState={thisState} key="cameraSettings"/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="printerSettings">
                             <PrinterSettings preState={thisState} key="printerSettings" />

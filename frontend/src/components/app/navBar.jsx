@@ -1,10 +1,12 @@
 import React from "react";
-import { Tab, Tabs } from "react-bootstrap";
+import {Tab, Tabs} from "react-bootstrap";
 
 import Weighing from "./navBar/weighing";
 import Configuration from "./navBar/configuration";
 import Report from "./navBar/report";
 import Settings from "./navBar/settings";
+import WebCam from "./navBar/webCam";
+
 
 const NavBar = props => {
     // noinspection JSUnresolvedVariable
@@ -19,12 +21,15 @@ const NavBar = props => {
                 className="mt-1 h5 py-2 pb-1"
             >
                 <Tab eventKey="weighing" title="Weighing"
-                    onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
-                    <Weighing preState={thisState} />
+                     onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
+                    <Weighing preState={thisState}/>
+                </Tab>
+                <Tab eventKey="webcam" title="WebCam">
+                    <WebCam preState={thisState}/>
                 </Tab>
                 <Tab eventKey="report" title="Report" onEntered={() => {
                 }}>
-                    <Report preState={thisState} />
+                    <Report preState={thisState}/>
                 </Tab>
                 <Tab
                     eventKey="configuration"

@@ -5,7 +5,6 @@ import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.service.PrinterService;
 import com.babulens.weighbridge.util.PrintUtil;
 import com.babulens.weighbridge.utilImpl.PdfFontMapperImpl;
-import com.babulens.weighbridge.utilImpl.PrintUtilImpl;
 import com.itextpdf.awt.PdfGraphics2D;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -26,15 +25,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
 public class PrinterServiceImpl implements PrinterService {
 
+	private final PrintUtil printUtil;
+
 	@Autowired
-	private PrintUtil printUtil;
+	public PrinterServiceImpl(PrintUtil printUtil) {
+		this.printUtil = printUtil;
+	}
 
 	@Override
-	public PrintService getPrinter (String printer) {
+	public PrintService getPrinter(String printer) {
 		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
 			if (printer.equals(printerPrintService.getName())) {
 				return printerPrintService;
@@ -43,9 +45,8 @@ public class PrinterServiceImpl implements PrinterService {
 		return null;
 	}
 
-	@SuppressWarnings("DuplicatedCode")
 	@Override
-	public byte[] getPrintWeightPDF (PrintWeight printWeight) {
+	public byte[] getPrintWeightPDF(PrintWeight printWeight) {
 		Book book = new Book();
 		switch (printWeight.getPrintFormat()) {
 			case "Normal Print":
@@ -53,10 +54,14 @@ public class PrinterServiceImpl implements PrinterService {
 			case "Pre Print":
 				book = printUtil.printPrePrint(printWeight);
 				break;
-			case "Camera Print":
-				book = printUtil.printCameraPrint(printWeight);
+			case "WebCam Print":
+				book = printUtil.printWebCamPrint(printWeight);
 				break;
 		}
+		return getBook(book);
+	}
+
+	private byte[] getBook(Book book) {
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			Document document = new Document(new RectangleReadOnly((float) book.getPageFormat(0).getWidth(),
@@ -83,46 +88,18 @@ public class PrinterServiceImpl implements PrinterService {
 			return byteArrayOutputStream.toByteArray();
 		} catch (DocumentException | PrinterException | IndexOutOfBoundsException ex) {
 			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-
 		}
 		return null;
 	}
 
 	@Override
-	public byte[] getPrintReportPDF (PrintReport printReport) {
+	public byte[] getPrintReportPDF(PrintReport printReport) {
 		Book book = printUtil.printReport(printReport);
-		try {
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			Document document = new Document(new RectangleReadOnly((float) book.getPageFormat(0).getWidth(),
-					(float) book.getPageFormat(0).getHeight()),
-					(float) (book.getPageFormat(0).getHeight() - book.getPageFormat(0).getImageableHeight()) / 2,
-					(float) (book.getPageFormat(0).getWidth() - book.getPageFormat(0).getImageableWidth()) / 2,
-					(float) (book.getPageFormat(0).getHeight() - book.getPageFormat(0).getImageableHeight()) / 2,
-					(float) (book.getPageFormat(0).getWidth() - book.getPageFormat(0).getImageableWidth()) / 2);
-			PdfWriter writer = PdfWriter.getInstance(document, byteArrayOutputStream);
-			document.open();
-
-			for (int j = 0; j < book.getNumberOfPages(); j++) {
-				PdfGraphics2D pdfGraphics2D = new PdfGraphics2D(writer.getDirectContent(),
-						(float) book.getPageFormat(0).getWidth(), (float) book.getPageFormat(0).getHeight(),
-						new PdfFontMapperImpl());
-				book.getPrintable(j).print(pdfGraphics2D, book.getPageFormat(j), j);
-				pdfGraphics2D.dispose();
-				if (j + 1 < book.getNumberOfPages()) {
-					document.newPage();
-				}
-			}
-			document.close();
-			writer.close();
-			return byteArrayOutputStream.toByteArray();
-		} catch (DocumentException | PrinterException | IndexOutOfBoundsException ex) {
-			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-		}
-		return null;
+		return getBook(book);
 	}
 
 	@Override
-	public List<String> getAllPrinters () {
+	public List<String> getAllPrinters() {
 		List<String> printers = new ArrayList<>();
 		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
 			printers.add(printerPrintService.getName());
@@ -132,12 +109,12 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
-	public List<String> getAllPrintFormat () {
-		return Arrays.asList("Normal Print", "Pre Print", "Camera Print");
+	public List<String> getAllPrintFormat() {
+		return Arrays.asList("Normal Print", "Pre Print", "WebCam Print");
 	}
 
 	@Override
-	public void printWeight (PrintWeight printWeight) {
+	public void printWeight(PrintWeight printWeight) {
 		int noOfCopies = printWeight.getNoOfCopies();
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 		switch (printWeight.getPrintFormat()) {
@@ -146,8 +123,8 @@ public class PrinterServiceImpl implements PrinterService {
 			case "Pre Print":
 				printerJob.setPageable(printUtil.printPrePrint(printWeight));
 				break;
-			case "Camera Print":
-				printerJob.setPageable(printUtil.printCameraPrint(printWeight));
+			case "WebCam Print":
+				printerJob.setPageable(printUtil.printWebCamPrint(printWeight));
 				break;
 		}
 		try {
@@ -160,9 +137,9 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
-	public void printReport (PrintReport printReport) {
+	public void printReport(PrintReport printReport) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
-		PrintUtil printUtil = new PrintUtilImpl();
+
 		try {
 			printerJob.setPageable(printUtil.printReport(printReport));
 			printerJob.setPrintService(getPrinter(printReport.getPrinterName()));

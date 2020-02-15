@@ -13,7 +13,7 @@ import java.util.Set;
 @Component
 @Order(1)
 public class TransactionFilter implements Filter {
-	public static Set<String> list = new HashSet<>();
+	public static final Set<String> list = new HashSet<>();
 
 	public TransactionFilter() {
 		list.add("0:0:0:0:0:0:0:1");

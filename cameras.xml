@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <storage>
 	<ipcam name="test" url="http://www.dasding.de/ext/webcam/webcam770.php?cam=1"/>
-	<ipcam name="My Camera" url="http://192.168.1.64/ISAPI/Streaming/channels/1/picture" mode="pull">
-		<auth user="admin" password="12345678a"/>
+	<ipcam name="camera_1" url="http://192.168.1.64/ISAPI/Streaming/channels/1/picture" mode="pull">
+		<auth user="admin" password="123456"/>
+	</ipcam>
+	<ipcam name="camera_2" url="http://192.168.1.64/ISAPI/Streaming/channels/1/picture" mode="pull">
+		<auth user="admin" password="123456"/>
 	</ipcam>
 </storage>

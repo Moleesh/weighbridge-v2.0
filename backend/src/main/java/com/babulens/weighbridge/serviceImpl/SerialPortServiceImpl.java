@@ -1,29 +1,33 @@
 package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.configuration.SerialPortMessageListenerWithExceptions;
+import com.babulens.weighbridge.model.StaticVariable;
+import com.babulens.weighbridge.model.entity.SerialPortDetails;
 import com.babulens.weighbridge.service.SerialPortService;
-import com.babulens.weighbridge.service.SettingsService;
+import com.babulens.weighbridge.service.SerialPortSettingsService;
 import com.fazecast.jSerialComm.SerialPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
-@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "DuplicatedCode"})
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
-	private SerialPort commPortIndicator = null;
-	private SerialPort commPortDisplay = null;
+
+	final
+	SerialPortSettingsService serialPortSettingsService;
 
 	@Autowired
-	private SettingsService settingsService;
-
+	public SerialPortServiceImpl(SerialPortSettingsService serialPortSettingsService) {
+		this.serialPortSettingsService = serialPortSettingsService;
+		settingUpSerialPort("indicator", true);
+		settingUpSerialPort("display", false);
+	}
 
 	@Override
-	public List<String> getAllSerialPort () {
+	public List<String> getAllSerialPort() {
 		List<String> serialPorts = new ArrayList<>();
 		serialPorts.add("Dummy");
 		for (SerialPort serialPort : SerialPort.getCommPorts()) {
@@ -32,84 +36,58 @@ public class SerialPortServiceImpl implements SerialPortService {
 		return serialPorts;
 	}
 
-	@SuppressWarnings("DuplicatedCode")
 	@Override
-	@PostConstruct
-	public synchronized void settingUpIndicator () {
+	public void settingUpSerialPort(String serialPort, boolean setDataListener) {
 
-		Map<String, String> settings = settingsService.getAllSettings();
-		String port = settings.get("indicatorCOMPort");
-		String baudRate = settings.get("indicatorBaudRate");
-		String dataBits = settings.get("indicatorDataBits");
-		String parity = settings.get("indicatorParity");
-		String stopBits = settings.get("indicatorStopBits");
-//            String flowControl = settings.get("indicatorFlowControl");
-		String delimiter = settings.get("indicatorDelimiter");
-		String lastCharacter = settings.get("indicatorLastCharacter");
+		SerialPortDetails serialPortDetails = serialPortSettingsService.getSerialPortDetails(serialPort);
+		SerialPort __serialPort = StaticVariable.getSerialPorts(serialPort);
 
-		if (commPortIndicator != null) {
-			commPortIndicator.removeDataListener();
-			commPortIndicator.closePort();
-			commPortIndicator = null;
+		if (serialPortDetails == null) {
+			return;
 		}
-		for (SerialPort serialPort : SerialPort.getCommPorts()) {
-			if (serialPort.getSystemPortName().equals(port)) {
-				commPortIndicator = serialPort;
+
+		if (__serialPort != null) {
+			__serialPort.removeDataListener();
+			__serialPort.closePort();
+		}
+		for (SerialPort _serialPort : SerialPort.getCommPorts()) {
+			if (_serialPort.getSystemPortName().equals(serialPortDetails.getSerialPort())) {
+				__serialPort = _serialPort;
 				break;
 			}
 		}
 
-		if (commPortIndicator != null) {
-			commPortIndicator.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")),
-					Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")),
-					Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")),
-					Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
-			commPortIndicator.openPort();
-			commPortIndicator.addDataListener(new SerialPortMessageListenerWithExceptions(delimiter, lastCharacter));
+		if (__serialPort != null) {
+			__serialPort.setComPortParameters(serialPortDetails.getBaudRate(),
+					serialPortDetails.getDataBits(),
+					serialPortDetails.getStopBits(),
+					serialPortDetails.getParity());
+			__serialPort.openPort();
 		}
+
+		if (setDataListener) {
+			Objects.requireNonNull(__serialPort).addDataListener(new SerialPortMessageListenerWithExceptions(serialPortDetails.getDelimiter(), serialPortDetails.getLastCharacter()));
+		}
+
 	}
 
 	@Override
-	public int getWeight () {
+	public int getWeight() {
 		return SerialPortMessageListenerWithExceptions.getWeight();
 	}
 
 	@Override
-	@PostConstruct
-	public synchronized void settingUpDisplay () {
-		Map<String, String> settings = settingsService.getAllSettings();
-		String port = settings.get("indicatorCOMPort");
-		String baudRate = settings.get("indicatorBaudRate");
-		String dataBits = settings.get("indicatorDataBits");
-		String parity = settings.get("indicatorParity");
-		String stopBits = settings.get("indicatorStopBits");
-
-		if (commPortDisplay != null) {
-			commPortDisplay.closePort();
-			commPortDisplay = null;
-		}
-		for (SerialPort serialPort : SerialPort.getCommPorts()) {
-			if (serialPort.getSystemPortName().equals(port)) {
-				commPortDisplay = serialPort;
-				break;
-			}
+	public void sendToDisplay(String message) {
+		SerialPort display = StaticVariable.getSerialPorts("display");
+		if (display == null) {
+			settingUpSerialPort("display", false);
 		}
 
-		if (commPortDisplay != null) {
-			commPortDisplay.setComPortParameters(Integer.parseInt(0 + baudRate.replaceAll("[^-0-9]", "")),
-					Integer.parseInt(0 + dataBits.replaceAll("[^-0-9]", "")),
-					Integer.parseInt(0 + stopBits.replaceAll("[^-0-9]", "")),
-					Integer.parseInt(0 + parity.replaceAll("[^-0-9]", "")));
-			commPortDisplay.openPort();
+		if (display == null) {
+			return;
 		}
-	}
 
-	@Override
-	public void sendToDisplay (String message) {
-		if (commPortDisplay == null) {
-			settingUpDisplay();
-		}
 		byte[] sendData = message.getBytes();
-		commPortDisplay.writeBytes(sendData, sendData.length);
+		display.writeBytes(sendData, sendData.length);
 	}
 }

@@ -1,5 +1,7 @@
 package com.babulens.weighbridge.model;
 
+import com.babulens.weighbridge.model.entity.Weight;
+
 import java.util.List;
 
 public class PrintReport {
@@ -13,75 +15,75 @@ public class PrintReport {
 	private int totalTotalCharges;
 	private String footer;
 
-	public List<Weight> getWeights () {
+	public List<Weight> getWeights() {
 		return weights;
 	}
 
-	public void setWeights (List<Weight> weights) {
+	public void setWeights(List<Weight> weights) {
 		this.weights = weights;
 	}
 
-	public String getPrinterName () {
+	public String getPrinterName() {
 		return printerName;
 	}
 
-	public void setPrinterName (String printerName) {
+	public void setPrinterName(String printerName) {
 		this.printerName = printerName;
 	}
 
-	public String getReportTitle () {
+	public String getReportTitle() {
 		return reportTitle;
 	}
 
-	public void setReportTitle (String reportTitle) {
+	public void setReportTitle(String reportTitle) {
 		this.reportTitle = reportTitle;
 	}
 
-	public String getWeighbridgeName () {
+	public String getWeighbridgeName() {
 		return weighbridgeName;
 	}
 
-	public void setWeighbridgeName (String weighbridgeName) {
+	public void setWeighbridgeName(String weighbridgeName) {
 		this.weighbridgeName = weighbridgeName;
 	}
 
-	public String getWeighbridgeAddress () {
+	public String getWeighbridgeAddress() {
 		return weighbridgeAddress;
 	}
 
-	public void setWeighbridgeAddress (String weighbridgeAddress) {
+	public void setWeighbridgeAddress(String weighbridgeAddress) {
 		this.weighbridgeAddress = weighbridgeAddress;
 	}
 
-	public int getTotalRecords () {
+	public int getTotalRecords() {
 		return totalRecords;
 	}
 
-	public void setTotalRecords (int totalRecords) {
+	public void setTotalRecords(int totalRecords) {
 		this.totalRecords = totalRecords;
 	}
 
-	public int getTotalNettWeight () {
+	public int getTotalNettWeight() {
 		return totalNettWeight;
 	}
 
-	public void setTotalNettWeight (int totalNettWeight) {
+	public void setTotalNettWeight(int totalNettWeight) {
 		this.totalNettWeight = totalNettWeight;
 	}
 
-	public int getTotalTotalCharges () {
+	public int getTotalTotalCharges() {
 		return totalTotalCharges;
 	}
 
-	public void setTotalTotalCharges (int totalTotalCharges) {
+	public void setTotalTotalCharges(int totalTotalCharges) {
 		this.totalTotalCharges = totalTotalCharges;
 	}
 
-	public String getFooter () {
+	public String getFooter() {
 		return footer;
 	}
 
-	public void setFooter (String footer) {
+	public void setFooter(String footer) {
 		this.footer = footer;
 	}
 }

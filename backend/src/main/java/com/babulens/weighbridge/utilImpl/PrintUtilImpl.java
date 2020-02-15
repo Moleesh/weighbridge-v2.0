@@ -1,6 +1,12 @@
 package com.babulens.weighbridge.utilImpl;
 
-import com.babulens.weighbridge.model.*;
+import com.babulens.weighbridge.model.Coordinates;
+import com.babulens.weighbridge.model.Line;
+import com.babulens.weighbridge.model.PrintReport;
+import com.babulens.weighbridge.model.PrintWeight;
+import com.babulens.weighbridge.model.entity.WebCamDetails;
+import com.babulens.weighbridge.model.entity.Weight;
+import com.babulens.weighbridge.repository.WebCamDetailsDAO;
 import com.babulens.weighbridge.service.SettingsService;
 import com.babulens.weighbridge.util.PrintUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -20,18 +26,25 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 @Service
 public class PrintUtilImpl implements PrintUtil {
-	@Autowired
-	private
+	final
 	SettingsService settingsService;
+	final
+	WebCamDetailsDAO webCamDetailsDAO;
 
-	private static Coordinates drawString (Graphics g, String text, int x, int y) {
+	@Autowired
+	public PrintUtilImpl(SettingsService settingsService, WebCamDetailsDAO webCamDetailsDAO) {
+		this.settingsService = settingsService;
+		this.webCamDetailsDAO = webCamDetailsDAO;
+	}
+
+
+	private static Coordinates drawString(Graphics g, String text, int x, int y) {
 		int length = 0;
 		for (String line : text.split("\n")) {
 			g.drawString(line, x + 10, y += g.getFontMetrics().getHeight() - 1);
@@ -40,19 +53,23 @@ public class PrintUtilImpl implements PrintUtil {
 		return new Coordinates(length, y + g.getFontMetrics().getHeight() - 1);
 	}
 
-	@Override
-	public Book printPrePrint (PrintWeight printWeight) {
-		PageFormat pageFormat = new PageFormat();
-		Paper paper = pageFormat.getPaper();
-		final double paperWidth = 8d * 72d;
-		final double paperHeight = 11.5d * 72d;
-		final double paperWidthMargin = 0d * 72d;
-		final double paperHeightMargin = 0d * 72d;
+
+	@SuppressWarnings("SameParameterValue")
+	private void setPaper(PageFormat pageFormat, Paper paper, double paperWidth, double paperHeight, double paperWidthMargin, double paperHeightMargin) {
 		paper.setSize(paperWidth, paperHeight);
 		paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
 				paperHeight - (2 * paperHeightMargin));
 		pageFormat.setPaper(paper);
+	}
+
+	@Override
+	public Book printPrePrint(PrintWeight printWeight) {
+		PageFormat pageFormat = new PageFormat();
+		Paper paper = pageFormat.getPaper();
+
+		setPaper(pageFormat, paper, 8d * 72d, 11.5d * 72d, 0d * 72d, 0d * 72d);
 		Book book = new Book();
+
 		book.append((graphics, pageFormat1, pageIndex) -> {
 			// TODO: 29-07-2019 Pre Print
 			final String initString = "";
@@ -66,23 +83,14 @@ public class PrintUtilImpl implements PrintUtil {
 	}
 
 	@Override
-	public Book printCameraPrint (PrintWeight printWeight) {
-		Map<String, String> settings = settingsService.getAllSettings();
-		int cameraXAxis = Integer.parseInt(settings.get("cameraXAxis"));
-		int cameraYAxis = Integer.parseInt(settings.get("cameraYAxis"));
-		int cameraWidth = Integer.parseInt(settings.get("cameraWidth"));
-		int cameraHeight = Integer.parseInt(settings.get("cameraHeight"));
+	public Book printWebCamPrint(PrintWeight printWeight) {
+
+		WebCamDetails webCamDetails = webCamDetailsDAO.findByMyPrimaryIsTrue();
 
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
-		final double paperWidth = 8d * 72d;
-		final double paperHeight = 6d * 72d;
-		final double paperWidthMargin = 0d * 72d;
-		final double paperHeightMargin = .25d * 72d;
-		paper.setSize(paperWidth, paperHeight);
-		paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
-				paperHeight - (2 * paperHeightMargin));
-		pageFormat.setPaper(paper);
+
+		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
 		Book book = new Book();
 
 		book.append((graphics, pageFormat1, pageIndex) -> {
@@ -101,14 +109,14 @@ public class PrintUtilImpl implements PrintUtil {
 			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
 
 			initString = String.format(format, "", "Sl.No") + printWeight.getWeight().getSlipNo() + "\n\n"
-					+ String.format(format, "", "Date") + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()
-					+ "\n\n" + String.format(format, "", "Time")
-					+ printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() + "\n\n" + String.format(format, "", "Vehicle No")
-					+ printWeight.getWeight().getVehicleNo()
-					+ "\n\n" + String.format(format, "", "Material") + printWeight.getWeight().getMaterial()
-					+ "\n\n" + String.format(format, "", "Customer Name")
-					+ printWeight.getWeight().getCustomersName() + "\n\n" + String.format(format, "", "Charges")
-					+ "Rs. " + (int) printWeight.getWeight().getCharges() + "\n\n";
+					             + String.format(format, "", "Date") + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()
+					             + "\n\n" + String.format(format, "", "Time")
+					             + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() + "\n\n" + String.format(format, "", "Vehicle No")
+					             + printWeight.getWeight().getVehicleNo()
+					             + "\n\n" + String.format(format, "", "Material") + printWeight.getWeight().getMaterial()
+					             + "\n\n" + String.format(format, "", "Customer Name")
+					             + printWeight.getWeight().getCustomersName() + "\n\n" + String.format(format, "", "Charges")
+					             + "Rs. " + (int) printWeight.getWeight().getCharges() + "\n\n";
 			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
 			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
 
@@ -142,25 +150,25 @@ public class PrintUtilImpl implements PrintUtil {
 			coordinates = PrintUtilImpl.drawString(graphics, initString, coordinates.getX(), yTemp);
 
 			initString = "\n\n\n" + "     " + StringUtils.rightPad(printWeight.getFooter(), 70, " ")
-					+ "Signature";
+					             + "Signature";
 			graphics.setFont(new Font("Courier New", Font.BOLD + Font.ITALIC, 10));
 			PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
 
 			try {
 				BufferedImage printImage = ImageIO
-						.read(new File("CameraOutput" + File.separator + printWeight.getWeight().getSlipNo() +
-								".jpeg"));
+						                           .read(new File("WebCamOutput" + File.separator + printWeight.getWeight().getProfile() + "_" + printWeight.getWeight().getSlipNo() +
+								                                          ".jpeg"));
 				BufferedImage cropImage;
-				if (cameraHeight < 1 || cameraWidth < 1) {
-					cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, 1, 1);
+				if (webCamDetails.getHeight() < 1 || webCamDetails.getWidth() < 1) {
+					cropImage = printImage.getSubimage(webCamDetails.getX_Axis(), webCamDetails.getY_Axis(), 1, 1);
 				} else {
-					cropImage = printImage.getSubimage(cameraXAxis, cameraYAxis, cameraWidth, cameraHeight);
+					cropImage = printImage.getSubimage(webCamDetails.getX_Axis(), webCamDetails.getY_Axis(), webCamDetails.getWidth(), webCamDetails.getHeight());
 				}
 				graphics.drawImage(cropImage, 250, 125, 300,
 						(int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
 			} catch (IOException | NullPointerException | RasterFormatException ex) {
 				Logger.getLogger(getClass().getName()).log(Level.SEVERE, printWeight.getWeight().getSlipNo() +
-						".jpeg Image not availabel");
+						                                                         ".jpeg Image not availabel");
 			}
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
@@ -168,18 +176,13 @@ public class PrintUtilImpl implements PrintUtil {
 	}
 
 	@Override
-	public Book printReport (PrintReport printReport) {
+	public Book printReport(PrintReport printReport) {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
-		final double paperWidth = 8d * 72d;
-		final double paperHeight = 11.5d * 72d;
-		final double paperWidthMargin = 0d * 72d;
-		final double paperHeightMargin = .25d * 72d;
-		paper.setSize(paperWidth, paperHeight);
-		paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
-				paperHeight - (2 * paperHeightMargin));
-		pageFormat.setPaper(paper);
+
+		setPaper(pageFormat, paper, 8d * 72d, 11.5d * 72d, 0d * 72d, 0.25d * 72d);
 		Book book = new Book();
+
 		final String format = " %1$-5s %2$-19s %3$-15s %4$-15s %5$-8s %6$-8s %7$-8s";
 
 		List<Line> lines = new ArrayList<>();

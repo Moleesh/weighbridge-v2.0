@@ -3,13 +3,11 @@ package com.babulens.weighbridge.service;
 import java.util.List;
 
 public interface SerialPortService {
-	int getWeight ();
+	int getWeight();
 
-	void settingUpIndicator ();
+	void settingUpSerialPort(String serialPort, boolean setDataListener);
 
-	List<String> getAllSerialPort ();
+	List<String> getAllSerialPort();
 
-	void settingUpDisplay ();
-
-	void sendToDisplay (String message);
+	void sendToDisplay(String message);
 }

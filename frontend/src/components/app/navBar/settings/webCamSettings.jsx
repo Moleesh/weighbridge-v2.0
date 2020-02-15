@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSync } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSync} from "@fortawesome/free-solid-svg-icons";
 
-const CameraSettings = props => {
+const WebCamSettings = props => {
     // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     // noinspection DuplicatedCode
@@ -177,8 +177,8 @@ const CameraSettings = props => {
                                 thisState.alerts.push({
                                     id: new Date().getTime(),
                                     type: "success",
-                                    headline: "Camera Settings Refreshed",
-                                    message: "Camera Settings Refreshed Successfully."
+                                    headline: "WebCam Settings Refreshed",
+                                    message: "WebCam Settings Refreshed Successfully."
                                 });
                                 thisState.setMyState(thisState);
                             } else throw Error(response.statusText);
@@ -194,4 +194,4 @@ const CameraSettings = props => {
     );
 };
 
-export default CameraSettings;
+export default WebCamSettings;

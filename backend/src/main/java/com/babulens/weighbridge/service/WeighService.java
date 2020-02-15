@@ -1,21 +1,21 @@
 package com.babulens.weighbridge.service;
 
 import com.babulens.weighbridge.model.PrintReport;
-import com.babulens.weighbridge.model.TareWeight;
-import com.babulens.weighbridge.model.Weight;
+import com.babulens.weighbridge.model.entity.TareWeight;
+import com.babulens.weighbridge.model.entity.Weight;
 
 import java.util.Date;
 
 public interface WeighService {
-	Weight saveWeight (Weight weight);
+	Weight saveWeight(Weight weight);
 
-	Weight getWeight (int slipNo);
+	Weight getWeightBySlipNoAndProfile(int slipNo, String profile);
 
-	PrintReport getReport (Date startDate, Date endDate, String inputLabel, String input);
+	PrintReport getReportByProfile(Date startDate, Date endDate, String inputLabel, String input, String profile);
 
-	TareWeight getGrossWeight (String vehicleNo);
+	TareWeight getGrossWeightByVehicleNoAndProfile(String vehicleNo, String profile);
 
-	void resetWeight (int slipNo);
+	void resetWeightByProfile(String slipNo, String profile);
 
-	Weight updateWeight (Weight weight);
+	Weight updateWeight(Weight weight);
 }

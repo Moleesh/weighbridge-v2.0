@@ -1,6 +1,7 @@
 package com.babulens.weighbridge.serviceImpl;
 
-import com.babulens.weighbridge.model.Settings;
+import com.babulens.weighbridge.model.entity.Profile;
+import com.babulens.weighbridge.model.entity.Settings;
 import com.babulens.weighbridge.repository.SettingsDAO;
 import com.babulens.weighbridge.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,43 +17,46 @@ import java.util.Map;
 @Service
 public class SettingsServiceImpl implements SettingsService {
 
-	@Autowired
-	private
+	private final
 	SettingsDAO settingsDAO;
 
-	@Override
-	@CacheEvict(value = "Settings", key = "#settings.getKey()")
-	public void saveSettings (Settings settings) {
-		settingsDAO.save(settings);
+	@Autowired
+	public SettingsServiceImpl(SettingsDAO settingsDAO) {
+		this.settingsDAO = settingsDAO;
 	}
 
 	@Override
 	@Cacheable(cacheNames = "Settings")
-	public Map<String, String> getAllSettings () {
+	public Map<String, String> getAllSettingsByProfile(String profile) {
 		Map<String, String> settingMap = new HashMap<>();
-		for (Settings settings : settingsDAO.findAll()) {
+		for (Settings settings : settingsDAO.findAllByProfile(new Profile(profile))) {
 			settingMap.put(settings.getKey(), settings.getValue());
 		}
 		return settingMap;
 	}
 
 	@Override
+	public void saveSetting(Settings setting) {
+		settingsDAO.save(setting);
+	}
+
+	@Override
 	@CacheEvict(value = "Settings", allEntries = true)
-	public void saveAllSettings (Map<String, String> settings) {
+	public void saveAllSettingsByProfile(Map<String, String> settings, String profile) {
 		List<Settings> settingsList = new ArrayList<>();
 		for (String key : settings.keySet()) {
 			if (!key.equals("slipNo")) {
-				settingsList.add(new Settings(key, settings.get(key)));
+				settingsList.add(new Settings(key, settings.get(key), new Profile(profile)));
 			}
 		}
 		settingsDAO.saveAll(settingsList);
 	}
 
 	@Override
-	@Cacheable(cacheNames = "Settings", key = "#id")
-	public Object getSetting (String id) {
-		if (settingsDAO.findById(id).isPresent()) {
-			return settingsDAO.findById(id).get().getValue();
+	@Cacheable(cacheNames = "Settings")
+	public String getSettingByProfile(String key, String profile) {
+		if (settingsDAO.findOneByKeyAndProfile(key, new Profile(profile)) != null) {
+			return settingsDAO.findOneByKeyAndProfile(key, new Profile(profile)).getValue();
 		} else {
 			return null;
 		}

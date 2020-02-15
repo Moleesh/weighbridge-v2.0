@@ -1,6 +1,12 @@
 package com.babulens.weighbridge.controller;
 
-import com.babulens.weighbridge.model.*;
+import com.babulens.weighbridge.model.GetReport;
+import com.babulens.weighbridge.model.PrintReport;
+import com.babulens.weighbridge.model.PrintWeight;
+import com.babulens.weighbridge.model.entity.Drivers;
+import com.babulens.weighbridge.model.entity.Material;
+import com.babulens.weighbridge.model.entity.TareWeight;
+import com.babulens.weighbridge.model.entity.Weight;
 import com.babulens.weighbridge.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,203 +20,202 @@ import java.util.Map;
 @RestController
 class Controller {
 
-	@Autowired
-	private
+	private final
 	WeighService weighService;
 
-	@Autowired
-	private
+	private final
 	MaterialService materialService;
 
-	@Autowired
-	private
+	private final
 	DriversService driversService;
 
-	@Autowired
-	private
+	private final
 	TareWeightService tareWeightService;
 
-	@Autowired
-	private
+	private final
 	SettingsService settingsService;
 
-	@Autowired
-	private
+	private final
 	PrinterService printerService;
 
-	@Autowired
-	private
+	private final
 	SerialPortService serialPortService;
 
+	private final
+	WebCamService webCamService;
+
 	@Autowired
-	private
-	CameraService cameraService;
-
-	@RequestMapping(value = "/settingUpCamera", method = {RequestMethod.GET})
-	public void settingUpCamera () {
-		cameraService.settingUpCamera();
+	public Controller(WeighService weighService, MaterialService materialService, DriversService driversService, TareWeightService tareWeightService, SettingsService settingsService, PrinterService printerService, SerialPortService serialPortService, WebCamService webCamService) {
+		this.weighService = weighService;
+		this.materialService = materialService;
+		this.driversService = driversService;
+		this.tareWeightService = tareWeightService;
+		this.settingsService = settingsService;
+		this.printerService = printerService;
+		this.serialPortService = serialPortService;
+		this.webCamService = webCamService;
 	}
 
-	@RequestMapping(value = "/getAllCameras", method = {RequestMethod.GET})
-	public List<String> getAllCameras () {
-		return cameraService.getAllCameras();
+	@RequestMapping(value = "/settingUpWebCam", method = {RequestMethod.GET})
+	public void settingUpWebCam(@RequestParam("webcam") String webcam) {
+		webCamService.settingUpWebCam(webcam);
 	}
 
-	@RequestMapping(value = "/getCameraImage", method = RequestMethod.GET,
+	@RequestMapping(value = "/getAllWebCams", method = {RequestMethod.GET})
+	public List<String> getAllWebCams() {
+		return webCamService.getAllWebCams();
+	}
+
+	@RequestMapping(value = "/getWebCamImage", method = RequestMethod.GET,
 			produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody
-	byte[] getImage () {
-		return cameraService.getCameraImage();
+	byte[] getImage(@RequestParam("webcam") String webcam) {
+		return webCamService.getWebCamImage(webcam);
 	}
 
 	@RequestMapping(value = "/getNextWeight")
-	public int getNextWeight () {
+	public int getNextWeight() {
 		return serialPortService.getWeight();
 	}
 
-	@RequestMapping(value = "/getTareWeight")
-	public TareWeight getTareWeight (@RequestParam("vehicleNo") String vehicleNo) {
-		return tareWeightService.getTareWeight(vehicleNo);
+	@RequestMapping(value = "/getTareWeightByVehicleNoAndProfile")
+	public TareWeight getTareWeightByVehicleNoAndProfile(@RequestParam("vehicleNo") String vehicleNo, @RequestParam("profile") String profile) {
+		return tareWeightService.getTareWeightByVehicleNoAndProfile(vehicleNo, profile);
 	}
 
-	@RequestMapping(value = "/getGrossWeight")
-	public TareWeight getGrossWeight (@RequestParam("vehicleNo") String vehicleNo) {
-		return weighService.getGrossWeight(vehicleNo);
+	@RequestMapping(value = "/getGrossWeightByVehicleNoAndProfile")
+	public TareWeight getGrossWeightByVehicleNoAndProfile(@RequestParam("vehicleNo") String vehicleNo, @RequestParam("profile") String profile) {
+		return weighService.getGrossWeightByVehicleNoAndProfile(vehicleNo, profile);
 	}
 
 	@RequestMapping(value = "/getDefaultSlipNo")
-	public int getDefaultSlipNo () {
+	public int getDefaultSlipNo() {
 		return -1;
 	}
 
 	@RequestMapping(value = "/getNextSlipNo")
-	public int getNextSlipNo () {
-		return Integer.parseInt(settingsService.getSetting("slipNo").toString());
+	public int getNextSlipNo(@RequestParam("profile") String profile) {
+		return Integer.parseInt(settingsService.getSettingByProfile("slipNo", profile));
 	}
 
 	@RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})
-	public Weight saveWeight (@RequestBody Weight weight) {
+	public Weight saveWeight(@RequestBody Weight weight) {
 		return weighService.saveWeight(weight);
 	}
 
 	@RequestMapping(value = "/updateWeight", method = {RequestMethod.POST})
-	public Weight updateWeight (@RequestBody Weight weight) {
+	public Weight updateWeight(@RequestBody Weight weight) {
 		return weighService.updateWeight(weight);
 	}
 
-	@RequestMapping(value = "/resetWeight", method = {RequestMethod.GET})
-	public void resetWeight (@RequestParam int slipNo) {
-		weighService.resetWeight(slipNo);
+	@RequestMapping(value = "/resetWeightByProfile", method = {RequestMethod.GET})
+	public void resetWeightByProfile(@RequestParam String slipNo, @RequestParam String profile) {
+		weighService.resetWeightByProfile(slipNo, profile);
 	}
 
-	@RequestMapping(value = "/getWeight")
-	public Weight getWeight (@RequestParam("slipNo") int slipNo) {
-		return weighService.getWeight(slipNo);
+	@RequestMapping(value = "/getWeightBySlipNoAndProfile")
+	public Weight getWeightBySlipNoAndProfile(@RequestParam("slipNo") int slipNo, @RequestParam String profile) {
+		return weighService.getWeightBySlipNoAndProfile(slipNo, profile);
 	}
 
 	@RequestMapping(value = "/getReport", method = {RequestMethod.POST})
-	public PrintReport getReport (@RequestBody GetReport getReport) {
-		return weighService.getReport(getReport.getStartDate(), getReport.getEndDate(), getReport.getInputLabel(),
-				getReport.getInput());
+	public PrintReport getReport(@RequestBody GetReport getReport) {
+		return weighService.getReportByProfile(getReport.getStartDate(), getReport.getEndDate(), getReport.getInputLabel(),
+				getReport.getInput(), getReport.getProfile());
 	}
 
-	@RequestMapping(value = "/getAllMaterial")
-	public List<Material> getAllMaterial () {
-		return materialService.getAllMaterial();
+	@RequestMapping(value = "/getAllMaterialByProfile")
+	public List<Material> getAllMaterialByProfile(@RequestParam String profile) {
+		return materialService.getAllMaterialByProfile(profile);
 	}
 
 	@RequestMapping(value = "/addUpdateMaterial", method = {RequestMethod.POST, RequestMethod.PUT})
-	public Material addUpdateMaterial (@RequestBody Material material) {
+	public Material addUpdateMaterial(@RequestBody Material material) {
 		return materialService.addUpdateMaterial(material);
 	}
 
 	@RequestMapping(value = "/deleteMaterial", method = {RequestMethod.DELETE})
-	public void deleteMaterial (@RequestParam("id") int id) {
+	public void deleteMaterial(@RequestParam("id") int id) {
 		materialService.deleteMaterial(id);
 	}
 
-	@RequestMapping(value = "/getAllDrivers")
-	public List<Drivers> getAllDrivers () {
-		return driversService.getAllDrivers();
+	@RequestMapping(value = "/getAllDriversByProfile")
+	public List<Drivers> getAllDriversByProfile(@RequestParam String profile) {
+		return driversService.getAllDriversByProfile(profile);
 	}
 
 	@RequestMapping(value = "/addUpdateDrivers", method = {RequestMethod.POST, RequestMethod.PUT})
-	public Drivers addUpdateDrivers (@RequestBody Drivers drivers) {
+	public Drivers addUpdateDrivers(@RequestBody Drivers drivers) {
 		return driversService.addUpdateDrivers(drivers);
 	}
 
 	@RequestMapping(value = "/deleteDrivers", method = {RequestMethod.DELETE})
-	public void deleteDrivers (@RequestParam("id") int id) {
+	public void deleteDrivers(@RequestParam("id") int id) {
 		driversService.deleteDrivers(id);
 	}
 
-	@RequestMapping(value = "/getAllTareWeight")
-	public List<TareWeight> getAllTareWeight () {
-		return tareWeightService.getAllTareWeight();
+	@RequestMapping(value = "/getAllTareWeightByProfile")
+	public List<TareWeight> getAllTareWeightByProfile(@RequestParam String profile) {
+		return tareWeightService.getAllTareWeightByProfile(profile);
 	}
 
 	@RequestMapping(value = "/addUpdateTareWeight", method = {RequestMethod.POST, RequestMethod.PUT})
-	public TareWeight addUpdateTareWeight (@RequestBody TareWeight tareWeight) {
+	public TareWeight addUpdateTareWeight(@RequestBody TareWeight tareWeight) {
 		return tareWeightService.addUpdateTareWeight(tareWeight);
 	}
 
 	@RequestMapping(value = "/deleteTareWeight", method = {RequestMethod.DELETE})
-	public void deleteTareWeight (@RequestParam("id") int id) {
+	public void deleteTareWeight(@RequestParam("id") int id) {
 		tareWeightService.deleteTareWeight(id);
 	}
 
 	@RequestMapping(value = "/getAllSettings", method = {RequestMethod.GET})
-	public Map<String, String> getAllSettings () {
-		return settingsService.getAllSettings();
+	public Map<String, String> getAllSettings(@RequestParam("profile") String profile) {
+		return settingsService.getAllSettingsByProfile(profile);
 	}
 
 	@RequestMapping(value = "/getAllPrinters", method = {RequestMethod.GET})
-	public List<String> getAllPrinters () {
+	public List<String> getAllPrinters() {
 		return printerService.getAllPrinters();
 	}
 
 	@RequestMapping(value = "/getAllPrintFormat", method = {RequestMethod.GET})
-	public List<String> getAllPrintFormat () {
+	public List<String> getAllPrintFormat() {
 		return printerService.getAllPrintFormat();
 	}
 
 	@RequestMapping(value = "/printWeight", method = {RequestMethod.POST})
-	public void printWeight (@RequestBody PrintWeight printWeight) {
+	public void printWeight(@RequestBody PrintWeight printWeight) {
 		printerService.printWeight(printWeight);
 	}
 
 	@RequestMapping(value = "/getPrintWeightPDF", method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody
-	byte[] getPrintWeightPDF (@RequestBody PrintWeight printWeight) {
+	byte[] getPrintWeightPDF(@RequestBody PrintWeight printWeight) {
 		return printerService.getPrintWeightPDF(printWeight);
 	}
 
 	@RequestMapping(value = "/printReport", method = {RequestMethod.POST})
-	public void printReport (@RequestBody PrintReport printReport) {
+	public void printReport(@RequestBody PrintReport printReport) {
 		printerService.printReport(printReport);
 	}
 
 	@RequestMapping(value = "/getReportPDF", method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody
-	byte[] getReportPDF (@RequestBody PrintReport printReport) {
+	byte[] getReportPDF(@RequestBody PrintReport printReport) {
 		return printerService.getPrintReportPDF(printReport);
 	}
 
 	@RequestMapping(value = "/getAllSerialPort", method = {RequestMethod.GET})
-	public List<String> getAllSerialPort () {
+	public List<String> getAllSerialPort() {
 		return serialPortService.getAllSerialPort();
 	}
 
-	@RequestMapping(value = "/settingUpIndicator", method = {RequestMethod.GET})
-	public void settingUpIndicator () {
-		serialPortService.settingUpIndicator();
-	}
-
-	@RequestMapping(value = "/settingUpDisplay", method = {RequestMethod.GET})
-	public void settingUpDisplay () {
-		serialPortService.settingUpDisplay();
+	@RequestMapping(value = "/settingUpSerialPort", method = {RequestMethod.GET})
+	public void settingUpSerialPort(@RequestParam("serialPort") String serialPort, @RequestParam("serialPort") Boolean setDataListener) {
+		serialPortService.settingUpSerialPort(serialPort, setDataListener);
 	}
 
 	@RequestMapping(value = "/sendToDisplay", method = {RequestMethod.PUT})
@@ -219,8 +224,8 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/saveAllSettings", method = {RequestMethod.PUT})
-	public void saveAllSettings(@RequestBody Map<String, String> settings) {
-		settingsService.saveAllSettings(settings);
+	public void saveAllSettings(@RequestBody Map<String, String> settings, String profile) {
+		settingsService.saveAllSettingsByProfile(settings, profile);
 	}
 
 }

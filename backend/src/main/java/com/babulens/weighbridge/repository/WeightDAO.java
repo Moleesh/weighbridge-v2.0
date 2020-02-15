@@ -1,6 +1,7 @@
 package com.babulens.weighbridge.repository;
 
-import com.babulens.weighbridge.model.Weight;
+import com.babulens.weighbridge.model.entity.Profile;
+import com.babulens.weighbridge.model.entity.Weight;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,18 +12,18 @@ import java.util.List;
 @Repository
 public interface WeightDAO extends CrudRepository<Weight, Integer> {
 
-	List<Weight> findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc (int input, Date startNettTime, Date endNettTime);
+	List<Weight> findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(int slipNo, Date nettTime, Date nettTime2, Profile profile);
 
-	List<Weight> findAllByCustomersNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc (String input, Date startNettTime, Date endNettTime);
+	List<Weight> findAllByCustomersNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(String customersName, Date nettTime, Date nettTime2, Profile profile);
 
-	List<Weight> findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc (String input, Date startNettTime, Date endNettTime);
+	List<Weight> findAllByTransporterNameContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(String transporterName, Date nettTime, Date nettTime2, Profile profile);
 
-	List<Weight> findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc (String input, Date startNettTime, Date endNettTime);
+	List<Weight> findAllByVehicleNoContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(String vehicleNo, Date nettTime, Date nettTime2, Profile profile);
 
-	List<Weight> findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc (String input, Date startNettTime, Date endNettTime);
+	List<Weight> findAllByMaterialContainingAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(String material, Date nettTime, Date nettTime2, Profile profile);
 
-	List<Weight> findAllByNettTimeGreaterThanEqualAndNettTimeLessThanEqualOrderBySlipNoAsc (Date startNettTime, Date endNettTime);
+	List<Weight> findAllByNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(Date nettTime, Date nettTime2, Profile profile);
 
-	Weight findFirstByVehicleNoOrderBySlipNoDesc (String vehicleNo);
+	Weight findFirstByVehicleNoAndProfileOrderBySlipNoDesc(String vehicleNo, Profile profile);
 
 }

@@ -1,15 +1,15 @@
 package com.babulens.weighbridge.service;
 
 
-import com.babulens.weighbridge.model.Material;
+import com.babulens.weighbridge.model.entity.Material;
 
 import java.util.List;
 
 public interface MaterialService {
 
-	List<Material> getAllMaterial ();
+	List<Material> getAllMaterialByProfile(String profile);
 
-	Material addUpdateMaterial (Material material);
+	Material addUpdateMaterial(Material material);
 
-	void deleteMaterial (int id);
+	void deleteMaterial(int id);
 }

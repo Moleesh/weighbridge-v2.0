@@ -1,19 +1,19 @@
 package com.babulens.weighbridge.service;
 
 
-import com.babulens.weighbridge.model.TareWeight;
+import com.babulens.weighbridge.model.entity.TareWeight;
 
 import java.util.List;
 
 public interface TareWeightService {
 
-	TareWeight getTareWeight (String vehicleNo);
+	TareWeight getTareWeightByVehicleNoAndProfile(String vehicleNo, String profile);
 
-	List<TareWeight> getAllTareWeight ();
+	List<TareWeight> getAllTareWeightByProfile(String profile);
 
-	TareWeight addUpdateTareWeight (TareWeight tareWeight);
+	TareWeight addUpdateTareWeight(TareWeight tareWeight);
 
-	void deleteTareWeight (int id);
+	void deleteTareWeight(int id);
 
-	List<TareWeight> getTareByVehicleNo (String vehicleNo);
+	List<TareWeight> getTareByVehicleNoAndProfile(String vehicleNo, String profile);
 }

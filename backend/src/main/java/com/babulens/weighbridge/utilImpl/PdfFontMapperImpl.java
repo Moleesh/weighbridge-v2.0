@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class PdfFontMapperImpl implements FontMapper {
 
-	private BaseFont getBaseFontFromFile (String directory, String filename) {
+	private BaseFont getBaseFontFromFile(String directory, String filename) {
 		try (InputStream inputStream = new ClassPathResource(directory + filename).getInputStream()) {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			byte[] bytes = new byte[1024];
@@ -36,7 +36,7 @@ public class PdfFontMapperImpl implements FontMapper {
 	}
 
 	@Override
-	public BaseFont awtToPdf (Font font) {
+	public BaseFont awtToPdf(Font font) {
 		String directory = "Fonts" + File.separator;
 		if (font.isBold()) {
 			if (font.isItalic()) {
@@ -51,7 +51,7 @@ public class PdfFontMapperImpl implements FontMapper {
 	}
 
 	@Override
-	public Font pdfToAwt (BaseFont baseFont, int size) {
+	public Font pdfToAwt(BaseFont baseFont, int size) {
 		throw new UnsupportedOperationException();
 	}
 }

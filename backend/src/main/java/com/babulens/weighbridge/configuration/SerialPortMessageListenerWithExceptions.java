@@ -10,13 +10,17 @@ import java.util.logging.Logger;
 
 public final class SerialPortMessageListenerWithExceptions implements SerialPortDataListenerWithExceptions, SerialPortMessageListener {
 
-	private String delimiter;
-	private String lastCharacter;
 	private static int weight = -1;
+	private final String delimiter;
+	private final String lastCharacter;
 
 	public SerialPortMessageListenerWithExceptions(String delimiter, String lastCharacter) {
 		this.delimiter = delimiter;
 		this.lastCharacter = lastCharacter;
+	}
+
+	public static int getWeight() {
+		return weight;
 	}
 
 	@Override
@@ -37,10 +41,6 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 	@Override
 	public boolean delimiterIndicatesEndOfMessage() {
 		return true;
-	}
-
-	public static int getWeight() {
-		return weight;
 	}
 
 	@Override
