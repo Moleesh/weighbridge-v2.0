@@ -16,7 +16,7 @@ public class SerialPortDetails {
 	private int parity = SerialPort.NO_PARITY;
 	private int stopBits = SerialPort.ONE_STOP_BIT;
 	private int flowControl = SerialPort.FLOW_CONTROL_DISABLED;
-	private String delimiter = "";
+	private int delimiter = 10;
 	private String lastCharacter = "";
 
 	public SerialPortDetails() {
@@ -26,7 +26,7 @@ public class SerialPortDetails {
 		this.name = name;
 	}
 
-	public SerialPortDetails(String name, String serialPort, int baudRate, int dataBits, int parity, int stopBits, int flowControl, String delimiter, String lastCharacter) {
+	public SerialPortDetails(String name, String serialPort, int baudRate, int dataBits, int parity, int stopBits, int flowControl, int delimiter, String lastCharacter) {
 		this.name = name;
 		this.serialPort = serialPort;
 		this.baudRate = baudRate;
@@ -95,11 +95,11 @@ public class SerialPortDetails {
 		this.flowControl = flowControl;
 	}
 
-	public String getDelimiter() {
+	public int getDelimiter() {
 		return delimiter;
 	}
 
-	public void setDelimiter(String delimiter) {
+	public void setDelimiter(int delimiter) {
 		this.delimiter = delimiter;
 	}
 

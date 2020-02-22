@@ -11,10 +11,10 @@ import java.util.logging.Logger;
 public final class SerialPortMessageListenerWithExceptions implements SerialPortDataListenerWithExceptions, SerialPortMessageListener {
 
 	private static int weight = -1;
-	private final String delimiter;
+	private final int delimiter;
 	private final String lastCharacter;
 
-	public SerialPortMessageListenerWithExceptions(String delimiter, String lastCharacter) {
+	public SerialPortMessageListenerWithExceptions(int delimiter, String lastCharacter) {
 		this.delimiter = delimiter;
 		this.lastCharacter = lastCharacter;
 	}
@@ -35,7 +35,7 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 
 	@Override
 	public byte[] getMessageDelimiter() {
-		return new byte[]{(byte) (Integer.parseInt(0 + delimiter.replaceAll("[^-0-9]", "")) % 128)};
+		return new byte[]{(byte) (delimiter % 128)};
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 	public void serialEvent(SerialPortEvent event) {
 		try {
 			SerialPortMessageListenerWithExceptions.weight =
-					Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^-0-9" + lastCharacter + "]", "").split(lastCharacter)[0]);
+					Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^0-9" + lastCharacter + "]", "").split(lastCharacter)[0]);
 		} catch (Exception ex) {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 		}
