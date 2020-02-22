@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { AlertList } from "react-bs-notifier";
+import React, {Component} from "react";
+import {Col, Container, Row} from "react-bootstrap";
+import {AlertList} from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
@@ -260,25 +260,25 @@ class App extends Component {
   UNSAFE_componentWillMount() {
     let thisState = { ...this.state, setMyState: this.setMyState };
     Promise.all(
-      [
-        fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/profile/getMyPrimaryProfile").then(resp => resp.text()),
-        fetch(thisState.INITIAL_URL + "/profile/getAllProfile").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormat").then(resp => resp.json())
-      ]
+        [
+          fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/profile/getMyPrimaryProfile").then(resp => resp.text()),
+          fetch(thisState.INITIAL_URL + "/profile/getAllProfiles").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormats").then(resp => resp.json())
+        ]
     ).then(([adminSettings, profile, profiles]) => {
       thisState.adminSettings = adminSettings;
       thisState.PROFILE = profile;
       thisState.profiles = profiles;
       Promise.all(
-        [
-          fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + profile).then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/material/getAllMaterialByProfile?profile=" + profile).then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + profile).then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightByProfile?profile=" + profile).then(resp => resp.json())
+          [
+            fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + profile).then(resp => resp.json()),
+            fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + profile).then(resp => resp.json()),
+            fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + profile).then(resp => resp.json()),
+            fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + profile).then(resp => resp.json())
 
-        ]
+          ]
       ).then(([settings, materials, drivers, tareWeights]) => {
         thisState.settings.value = settings;
         thisState.configuration.materials.list = materials;
