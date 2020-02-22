@@ -35,32 +35,6 @@ public class PrinterServiceImpl implements PrinterService {
 		this.printUtil = printUtil;
 	}
 
-	@Override
-	public PrintService getPrinter(String printer) {
-		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
-			if (printer.equals(printerPrintService.getName())) {
-				return printerPrintService;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public byte[] getPrintWeightPDF(PrintWeight printWeight) {
-		Book book = new Book();
-		switch (printWeight.getPrintFormat()) {
-			case "Normal Print":
-				break;
-			case "Pre Print":
-				book = printUtil.printPrePrint(printWeight);
-				break;
-			case "WebCam Print":
-				book = printUtil.printWebCamPrint(printWeight);
-				break;
-		}
-		return getBook(book);
-	}
-
 	private byte[] getBook(Book book) {
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -92,10 +66,13 @@ public class PrinterServiceImpl implements PrinterService {
 		return null;
 	}
 
-	@Override
-	public byte[] getPrintReportPDF(PrintReport printReport) {
-		Book book = printUtil.printReport(printReport);
-		return getBook(book);
+	public PrintService getPrinter(String printer) {
+		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
+			if (printer.equals(printerPrintService.getName())) {
+				return printerPrintService;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -137,6 +114,22 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
+	public byte[] getPrintWeightPDF(PrintWeight printWeight) {
+		Book book = new Book();
+		switch (printWeight.getPrintFormat()) {
+			case "Normal Print":
+				break;
+			case "Pre Print":
+				book = printUtil.printPrePrint(printWeight);
+				break;
+			case "WebCam Print":
+				book = printUtil.printWebCamPrint(printWeight);
+				break;
+		}
+		return getBook(book);
+	}
+
+	@Override
 	public void printReport(PrintReport printReport) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 
@@ -147,6 +140,12 @@ public class PrinterServiceImpl implements PrinterService {
 		} catch (PrinterException ex) {
 			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 		}
+	}
+
+	@Override
+	public byte[] getPrintReportPDF(PrintReport printReport) {
+		Book book = printUtil.printReport(printReport);
+		return getBook(book);
 	}
 
 }

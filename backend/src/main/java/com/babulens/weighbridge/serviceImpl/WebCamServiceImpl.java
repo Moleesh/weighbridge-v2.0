@@ -1,8 +1,8 @@
 package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.model.StaticVariable;
-import com.babulens.weighbridge.model.entity.WebCamDetails;
-import com.babulens.weighbridge.repository.WebCamDetailsDAO;
+import com.babulens.weighbridge.model.entity.WebCamDetail;
+import com.babulens.weighbridge.repository.WebCamDetailDAO;
 import com.babulens.weighbridge.service.WebCamService;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamException;
@@ -26,19 +26,19 @@ import java.util.logging.Logger;
 public class WebCamServiceImpl implements WebCamService {
 
 	final
-	WebCamDetailsDAO webCamDetailsDAO;
+	WebCamDetailDAO webCamDetailDAO;
 
 	@Autowired
-	public WebCamServiceImpl(WebCamDetailsDAO webCamDetailsDAO) {
-		this.webCamDetailsDAO = webCamDetailsDAO;
+	public WebCamServiceImpl(WebCamDetailDAO webCamDetailDAO) {
+		this.webCamDetailDAO = webCamDetailDAO;
 		getAllWebCams();
 //		settingUpWebCam(webCamDetailsDAO.findByMyPrimaryIsTrue().getName());
 	}
 
 	@Override
 	public void settingUpWebCam(String webcam) {
-		WebCamDetails webCamDetails = webCamDetailsDAO.findById(webcam).orElse(null);
-		Webcam __webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetails).getName());
+		WebCamDetail webCamDetail = webCamDetailDAO.findById(webcam).orElse(null);
+		Webcam __webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetail).getName());
 
 		if (__webcam != null && __webcam.isOpen()) {
 			__webcam.close();
@@ -57,8 +57,8 @@ public class WebCamServiceImpl implements WebCamService {
 
 	@Override
 	public void saveWebCamImageToDisk(String fileName, String webcam) {
-		WebCamDetails webCamDetails = webCamDetailsDAO.findById(webcam).orElse(null);
-		Webcam __webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetails).getName());
+		WebCamDetail webCamDetail = webCamDetailDAO.findById(webcam).orElse(null);
+		Webcam __webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetail).getName());
 
 		if (__webcam != null && __webcam.isOpen()) {
 			File directory = new File("WebCamOutput");
@@ -78,18 +78,18 @@ public class WebCamServiceImpl implements WebCamService {
 
 	@Override
 	public byte[] getWebCamImage(String webcam) {
-		WebCamDetails webCamDetails = webCamDetailsDAO.findById(webcam).orElse(null);
-		Webcam __webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetails).getName());
+		WebCamDetail webCamDetail = webCamDetailDAO.findById(webcam).orElse(null);
+		Webcam __webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetail).getName());
 
 		if (__webcam != null && __webcam.isOpen()) {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			try {
 				try {
-					if (webCamDetails.getWidth() < 1 || webCamDetails.getHeight() < 1) {
+					if (webCamDetail.getWidth() < 1 || webCamDetail.getHeight() < 1) {
 						ImageIO.write(__webcam.getImage().getSubimage(0, 0, 1, 1),
 								"jpeg", outputStream);
 					} else {
-						ImageIO.write(__webcam.getImage().getSubimage(webCamDetails.getX_Axis(), webCamDetails.getY_Axis(), webCamDetails.getWidth(), webCamDetails.getHeight()),
+						ImageIO.write(__webcam.getImage().getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), webCamDetail.getWidth(), webCamDetail.getHeight()),
 								"jpeg", outputStream);
 					}
 				} catch (NullPointerException ex1) {

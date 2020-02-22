@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ProfileDAO extends CrudRepository<Profile, String> {
-	List<Profile> findByMyPrimaryIsTrue();
+	Profile findFirstByMyPrimaryIsTrue();
 }

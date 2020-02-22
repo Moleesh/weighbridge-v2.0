@@ -1,13 +1,13 @@
 package com.babulens.weighbridge.utilImpl;
 
-import com.babulens.weighbridge.model.Coordinates;
+import com.babulens.weighbridge.model.Coordinate;
 import com.babulens.weighbridge.model.Line;
 import com.babulens.weighbridge.model.PrintReport;
 import com.babulens.weighbridge.model.PrintWeight;
-import com.babulens.weighbridge.model.entity.WebCamDetails;
+import com.babulens.weighbridge.model.entity.WebCamDetail;
 import com.babulens.weighbridge.model.entity.Weight;
-import com.babulens.weighbridge.repository.WebCamDetailsDAO;
-import com.babulens.weighbridge.service.SettingsService;
+import com.babulens.weighbridge.repository.WebCamDetailDAO;
+import com.babulens.weighbridge.service.SettingService;
 import com.babulens.weighbridge.util.PrintUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,24 +33,24 @@ import java.util.logging.Logger;
 @Service
 public class PrintUtilImpl implements PrintUtil {
 	final
-	SettingsService settingsService;
+	SettingService settingService;
 	final
-	WebCamDetailsDAO webCamDetailsDAO;
+	WebCamDetailDAO webCamDetailDAO;
 
 	@Autowired
-	public PrintUtilImpl(SettingsService settingsService, WebCamDetailsDAO webCamDetailsDAO) {
-		this.settingsService = settingsService;
-		this.webCamDetailsDAO = webCamDetailsDAO;
+	public PrintUtilImpl(SettingService settingService, WebCamDetailDAO webCamDetailDAO) {
+		this.settingService = settingService;
+		this.webCamDetailDAO = webCamDetailDAO;
 	}
 
 
-	private static Coordinates drawString(Graphics g, String text, int x, int y) {
+	private static Coordinate drawString(Graphics g, String text, int x, int y) {
 		int length = 0;
 		for (String line : text.split("\n")) {
 			g.drawString(line, x + 10, y += g.getFontMetrics().getHeight() - 1);
 			length = g.getFontMetrics().stringWidth(line);
 		}
-		return new Coordinates(length, y + g.getFontMetrics().getHeight() - 1);
+		return new Coordinate(length, y + g.getFontMetrics().getHeight() - 1);
 	}
 
 
@@ -85,7 +85,7 @@ public class PrintUtilImpl implements PrintUtil {
 	@Override
 	public Book printWebCamPrint(PrintWeight printWeight) {
 
-		WebCamDetails webCamDetails = webCamDetailsDAO.findByMyPrimaryIsTrue();
+		WebCamDetail webCamDetail = webCamDetailDAO.findByMyPrimaryIsTrue();
 
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
@@ -99,14 +99,14 @@ public class PrintUtilImpl implements PrintUtil {
 			String initString = "\n\n" + StringUtils.center(printWeight.getWeighbridgeName(), 62);
 			graphics.setFont(new Font("Courier New", Font.BOLD, 15));
 
-			Coordinates coordinates = PrintUtilImpl.drawString(graphics, initString, 0, 0);
+			Coordinate coordinate = PrintUtilImpl.drawString(graphics, initString, 0, 0);
 			initString = StringUtils.center(printWeight.getWeighbridgeAddress(), 73);
 			graphics.setFont(new Font("Courier New", Font.BOLD + Font.ITALIC, 13));
-			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
 
 			initString = StringUtils.center("WEIGHMENT RECEIPT", 79) + "\n";
 			graphics.setFont(new Font("Courier New", Font.BOLD + Font.ITALIC, 12));
-			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
 
 			initString = String.format(format, "", "Sl.No") + printWeight.getWeight().getSlipNo() + "\n\n"
 					             + String.format(format, "", "Date") + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()
@@ -118,51 +118,51 @@ public class PrintUtilImpl implements PrintUtil {
 					             + printWeight.getWeight().getCustomersName() + "\n\n" + String.format(format, "", "Charges")
 					             + "Rs. " + (int) printWeight.getWeight().getCharges() + "\n\n";
 			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
-			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
 
 			initString = String.format(format, "", "Gross Wt");
 			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
-			int yTemp = coordinates.getY();
-			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
-			int y = coordinates.getY();
+			int yTemp = coordinate.getY();
+			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
+			int y = coordinate.getY();
 
 			initString = StringUtils.rightPad("" + printWeight.getWeight().getGrossWeight(), 7) + "Kg";
 			graphics.setFont(new Font("Courier New", Font.BOLD, 12));
-			PrintUtilImpl.drawString(graphics, initString, coordinates.getX(), yTemp);
+			PrintUtilImpl.drawString(graphics, initString, coordinate.getX(), yTemp);
 
 			initString = String.format(format, "", "Tare Wt");
 			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
 			yTemp = y;
-			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, y);
-			y = coordinates.getY();
+			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, y);
+			y = coordinate.getY();
 
 			initString = StringUtils.rightPad("" + printWeight.getWeight().getTareWeight(), 7) + "Kg";
 			graphics.setFont(new Font("Courier New", Font.BOLD, 12));
-			PrintUtilImpl.drawString(graphics, initString, coordinates.getX(), yTemp);
+			PrintUtilImpl.drawString(graphics, initString, coordinate.getX(), yTemp);
 
 			initString = String.format(format, "", "Net Wt");
 			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
 			yTemp = y;
-			coordinates = PrintUtilImpl.drawString(graphics, initString, 0, y);
+			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, y);
 
 			initString = StringUtils.rightPad("" + printWeight.getWeight().getNettWeight(), 7) + "Kg";
 			graphics.setFont(new Font("Courier New", Font.BOLD, 12));
-			coordinates = PrintUtilImpl.drawString(graphics, initString, coordinates.getX(), yTemp);
+			coordinate = PrintUtilImpl.drawString(graphics, initString, coordinate.getX(), yTemp);
 
 			initString = "\n\n\n" + "     " + StringUtils.rightPad(printWeight.getFooter(), 70, " ")
 					             + "Signature";
 			graphics.setFont(new Font("Courier New", Font.BOLD + Font.ITALIC, 10));
-			PrintUtilImpl.drawString(graphics, initString, 0, coordinates.getY());
+			PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
 
 			try {
 				BufferedImage printImage = ImageIO
 						                           .read(new File("WebCamOutput" + File.separator + printWeight.getWeight().getProfile() + "_" + printWeight.getWeight().getSlipNo() +
 								                                          ".jpeg"));
 				BufferedImage cropImage;
-				if (webCamDetails.getHeight() < 1 || webCamDetails.getWidth() < 1) {
-					cropImage = printImage.getSubimage(webCamDetails.getX_Axis(), webCamDetails.getY_Axis(), 1, 1);
+				if (webCamDetail.getHeight() < 1 || webCamDetail.getWidth() < 1) {
+					cropImage = printImage.getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), 1, 1);
 				} else {
-					cropImage = printImage.getSubimage(webCamDetails.getX_Axis(), webCamDetails.getY_Axis(), webCamDetails.getWidth(), webCamDetails.getHeight());
+					cropImage = printImage.getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), webCamDetail.getWidth(), webCamDetail.getHeight());
 				}
 				graphics.drawImage(cropImage, 250, 125, 300,
 						(int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
@@ -222,14 +222,14 @@ public class PrintUtilImpl implements PrintUtil {
 
 		final int LIMIT = 35;
 		book.append((graphics, pageFormat1, pageIndex) -> {
-			Coordinates coordinates = new Coordinates(25, 0);
+			Coordinate coordinate = new Coordinate(25, 0);
 			graphics.setFont(new Font("Courier New", Font.BOLD, 20));
-			coordinates = PrintUtilImpl.drawString(graphics, "\n\n\n", 25, coordinates.getY());
+			coordinate = PrintUtilImpl.drawString(graphics, "\n\n\n", 25, coordinate.getY());
 			if (pageIndex < lines.size() / LIMIT + 1) {
 				for (int i = 0; i < LIMIT && i + LIMIT * pageIndex < lines.size(); i++) {
 					graphics.setFont(lines.get(i + LIMIT * pageIndex).getFont());
-					coordinates = PrintUtilImpl.drawString(graphics, lines.get(i + LIMIT * pageIndex).getLine(), 25,
-							coordinates.getY());
+					coordinate = PrintUtilImpl.drawString(graphics, lines.get(i + LIMIT * pageIndex).getLine(), 25,
+							coordinate.getY());
 				}
 				return Printable.PAGE_EXISTS;
 			} else {

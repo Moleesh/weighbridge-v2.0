@@ -2,7 +2,7 @@ import React from "react";
 import {Col, Nav, Row, Tab} from "react-bootstrap";
 
 import Material from "./configuration/material";
-import Drivers from "./configuration/drivers";
+import Drivers from "./configuration/driver";
 import TareWeight from "./configuration/tareWeight";
 
 const Configuration = props => {
@@ -33,7 +33,7 @@ const Configuration = props => {
                             >Materials</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="drivers" onSelect={() => {
+                            <Nav.Link eventKey="driver" onSelect={() => {
                                 fetch(thisState.INITIAL_URL + "/getAllDrivers")
                                     .then(response => {
                                         if (response.status === 200) {
@@ -41,7 +41,7 @@ const Configuration = props => {
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.configuration.drivers.list = result;
+                                        thisState.configuration.driver.list = result;
                                         thisState.setMyState(thisState);
                                     })
                                     .catch(() => {
@@ -71,8 +71,8 @@ const Configuration = props => {
                         <Tab.Pane eventKey="material">
                             <Material preState={thisState} key="material"/>
                         </Tab.Pane>
-                        <Tab.Pane eventKey="drivers">
-                            <Drivers preState={thisState} key="drivers"/>
+                        <Tab.Pane eventKey="driver">
+                            <Drivers preState={thisState} key="driver"/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="tareWeight">
                             <TareWeight preState={thisState} key="tareWeight"/>

@@ -2,7 +2,7 @@ package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.configuration.SerialPortMessageListenerWithExceptions;
 import com.babulens.weighbridge.model.StaticVariable;
-import com.babulens.weighbridge.model.entity.SerialPortDetails;
+import com.babulens.weighbridge.model.entity.SerialPortDetail;
 import com.babulens.weighbridge.service.SerialPortService;
 import com.babulens.weighbridge.service.SerialPortSettingsService;
 import com.fazecast.jSerialComm.SerialPort;
@@ -38,10 +38,10 @@ public class SerialPortServiceImpl implements SerialPortService {
 	@Override
 	public void settingUpSerialPort(String serialPort, boolean setDataListener) {
 
-		SerialPortDetails serialPortDetails = serialPortSettingsService.getSerialPortDetails(serialPort);
+		SerialPortDetail serialPortDetail = serialPortSettingsService.getSerialPortDetails(serialPort);
 		SerialPort __serialPort = StaticVariable.getSerialPorts(serialPort);
 
-		if (serialPortDetails == null) {
+		if (serialPortDetail == null) {
 			return;
 		}
 
@@ -50,22 +50,22 @@ public class SerialPortServiceImpl implements SerialPortService {
 			__serialPort.closePort();
 		}
 		for (SerialPort _serialPort : SerialPort.getCommPorts()) {
-			if (_serialPort.getSystemPortName().equals(serialPortDetails.getSerialPort())) {
+			if (_serialPort.getSystemPortName().equals(serialPortDetail.getSerialPort())) {
 				__serialPort = _serialPort;
 				break;
 			}
 		}
 
 		if (__serialPort != null) {
-			__serialPort.setComPortParameters(serialPortDetails.getBaudRate(),
-					serialPortDetails.getDataBits(),
-					serialPortDetails.getStopBits(),
-					serialPortDetails.getParity());
+			__serialPort.setComPortParameters(serialPortDetail.getBaudRate(),
+					serialPortDetail.getDataBits(),
+					serialPortDetail.getStopBits(),
+					serialPortDetail.getParity());
 			__serialPort.openPort();
 		}
 
 		if (__serialPort != null && setDataListener) {
-			__serialPort.addDataListener(new SerialPortMessageListenerWithExceptions(serialPortDetails.getDelimiter(), serialPortDetails.getLastCharacter()));
+			__serialPort.addDataListener(new SerialPortMessageListenerWithExceptions(serialPortDetail.getDelimiter(), serialPortDetail.getLastCharacter()));
 		}
 
 	}

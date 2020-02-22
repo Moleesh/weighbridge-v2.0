@@ -1,11 +1,11 @@
 package com.babulens.weighbridge.service;
 
-import com.babulens.weighbridge.model.entity.SerialPortDetails;
+import com.babulens.weighbridge.model.entity.SerialPortDetail;
 
 public interface SerialPortSettingsService {
-	SerialPortDetails getSerialPortDetails(String name);
+	SerialPortDetail getSerialPortDetails(String name);
 
-	SerialPortDetails addUpdateSerialPortDetails(SerialPortDetails serialPortDetails);
+	SerialPortDetail addUpdateSerialPortDetails(SerialPortDetail serialPortDetail);
 
 	void deleteSerialPortDetails(String name);
 }

@@ -4,7 +4,7 @@ import {Tab, Tabs} from "react-bootstrap";
 import Weighing from "./navBar/weighing";
 import Configuration from "./navBar/configuration";
 import Report from "./navBar/report";
-import Settings from "./navBar/settings";
+import Settings from "./navBar/setting";
 import WebCam from "./navBar/webCam";
 
 
@@ -76,7 +76,7 @@ const NavBar = props => {
                     <Configuration preState={thisState} />
                 </Tab>
                 <Tab
-                    eventKey="settings"
+                    eventKey="setting"
                     title="Settings"
                     onEntered={() => {
                         fetch(thisState.INITIAL_URL + "/getAllSettings")

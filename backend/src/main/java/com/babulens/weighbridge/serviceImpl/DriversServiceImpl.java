@@ -1,9 +1,9 @@
 package com.babulens.weighbridge.serviceImpl;
 
-import com.babulens.weighbridge.model.entity.Drivers;
+import com.babulens.weighbridge.model.entity.Driver;
 import com.babulens.weighbridge.model.entity.Profile;
-import com.babulens.weighbridge.repository.DriversDAO;
-import com.babulens.weighbridge.service.DriversService;
+import com.babulens.weighbridge.repository.DriverDAO;
+import com.babulens.weighbridge.service.DriverService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,28 +11,28 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DriversServiceImpl implements DriversService {
+public class DriversServiceImpl implements DriverService {
 
 	private final
-	DriversDAO driversDAO;
+	DriverDAO driverDAO;
 
 	@Autowired
-	public DriversServiceImpl(DriversDAO driversDAO) {
-		this.driversDAO = driversDAO;
+	public DriversServiceImpl(DriverDAO driverDAO) {
+		this.driverDAO = driverDAO;
 	}
 
 	@Override
-	public List<Drivers> getAllDriversByProfile(String profile) {
-		return Lists.newArrayList(driversDAO.findAllByProfile(new Profile(profile)));
+	public List<Driver> getAllDriversByProfile(String profile) {
+		return Lists.newArrayList(driverDAO.findAllByProfile(new Profile(profile)));
 	}
 
 	@Override
-	public Drivers addUpdateDrivers(Drivers drivers) {
-		return driversDAO.save(drivers);
+	public Driver addUpdateDrivers(Driver driver) {
+		return driverDAO.save(driver);
 	}
 
 	@Override
 	public void deleteDrivers(int id) {
-		driversDAO.deleteById(id);
+		driverDAO.deleteById(id);
 	}
 }

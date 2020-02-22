@@ -2,12 +2,12 @@ package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.model.PrintReport;
 import com.babulens.weighbridge.model.entity.Profile;
-import com.babulens.weighbridge.model.entity.Settings;
+import com.babulens.weighbridge.model.entity.Setting;
 import com.babulens.weighbridge.model.entity.TareWeight;
 import com.babulens.weighbridge.model.entity.Weight;
-import com.babulens.weighbridge.repository.WebCamDetailsDAO;
+import com.babulens.weighbridge.repository.WebCamDetailDAO;
 import com.babulens.weighbridge.repository.WeightDAO;
-import com.babulens.weighbridge.service.SettingsService;
+import com.babulens.weighbridge.service.SettingService;
 import com.babulens.weighbridge.service.TareWeightService;
 import com.babulens.weighbridge.service.WebCamService;
 import com.babulens.weighbridge.service.WeighService;
@@ -27,21 +27,21 @@ public class WeighServiceImpl implements WeighService {
 	TareWeightService tareWeightService;
 
 	private final
-	SettingsService settingsService;
+	SettingService settingService;
 
 	private final
 	WebCamService webCamService;
 
 	private final
-	WebCamDetailsDAO webCamDetailsDAO;
+	WebCamDetailDAO webCamDetailDAO;
 
 	@Autowired
-	public WeighServiceImpl(WeightDAO weightDAO, TareWeightService tareWeightService, SettingsService settingsService, WebCamService webCamService, WebCamDetailsDAO webCamDetailsDAO) {
+	public WeighServiceImpl(WeightDAO weightDAO, TareWeightService tareWeightService, SettingService settingService, WebCamService webCamService, WebCamDetailDAO webCamDetailDAO) {
 		this.weightDAO = weightDAO;
 		this.tareWeightService = tareWeightService;
-		this.settingsService = settingsService;
+		this.settingService = settingService;
 		this.webCamService = webCamService;
-		this.webCamDetailsDAO = webCamDetailsDAO;
+		this.webCamDetailDAO = webCamDetailDAO;
 	}
 
 	@Override
@@ -59,10 +59,10 @@ public class WeighServiceImpl implements WeighService {
 					tareWeightService.addUpdateTareWeight(tareWeightList.get(0));
 				}
 			}
-			weight.setSlipNo(Integer.parseInt(settingsService.getSettingByProfile("slipNo", weight.getProfile().getProfileName())));
-			new Thread(() -> webCamService.saveWebCamImageToDisk(weight.getProfile() + "_" + weight.getSlipNo() + ".jpeg", webCamDetailsDAO.findByMyPrimaryIsTrue().getName())).start();
+			weight.setSlipNo(Integer.parseInt(settingService.getSettingByProfile("slipNo", weight.getProfile().getProfileName())));
+			new Thread(() -> webCamService.saveWebCamImageToDisk(weight.getProfile() + "_" + weight.getSlipNo() + ".jpeg", webCamDetailDAO.findByMyPrimaryIsTrue().getName())).start();
 			weightDAO.save(weight);
-			settingsService.saveSetting(new Settings("slipNo", "" + Integer.parseInt(settingsService.getSettingByProfile(
+			settingService.saveSetting(new Setting("slipNo", "" + Integer.parseInt(settingService.getSettingByProfile(
 					"slipNo", weight.getProfile().getProfileName()) + 1), weight.getProfile()));
 		}
 		return weight;
@@ -125,7 +125,7 @@ public class WeighServiceImpl implements WeighService {
 	@Override
 	public void resetWeightByProfile(String slipNo, String profile) {
 		weightDAO.deleteAll();
-		settingsService.saveSetting(new Settings("slipNo", slipNo, new Profile(profile)));
+		settingService.saveSetting(new Setting("slipNo", slipNo, new Profile(profile)));
 	}
 
 	@Override

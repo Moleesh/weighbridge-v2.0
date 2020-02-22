@@ -9,13 +9,11 @@ import java.util.List;
 public interface PrinterService {
 	List<String> getAllPrinters();
 
+	List<String> getAllPrintFormat();
+
 	void printWeight(PrintWeight printWeight);
 
 	void printReport(PrintReport printReport);
-
-	List<String> getAllPrintFormat();
-
-	PrintService getPrinter(String printer);
 
 	byte[] getPrintWeightPDF(PrintWeight printWeight);
 

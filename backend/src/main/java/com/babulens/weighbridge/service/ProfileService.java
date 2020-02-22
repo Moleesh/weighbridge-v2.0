@@ -8,8 +8,12 @@ import java.util.List;
 
 public interface ProfileService {
 
-	List<Profile> getAllProfile();
+	String getMyPrimaryProfile();
 
-	Material addUpdateProfile(Profile profile);
+	List<String> getAllProfile();
+
+	void changeMyPrimaryProfile(String profile);
+
+	void addUpdateProfile(String profile);
 
 }

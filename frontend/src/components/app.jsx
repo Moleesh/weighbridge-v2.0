@@ -9,12 +9,72 @@ const INITIAL_URL = "http://localhost:9000";
 
 class App extends Component {
   state = {
-    _WEIGHT: "",
-    WEIGHT: "-1",
     INITIAL_URL: INITIAL_URL,
-    cameraImage: "",
+    adminSettings: {
+      REFRESH_TIME_WEIGHT: "",
+      RESET_SLIP_PASSWORD: "",
+      MANUAL_ENTRY_PASSWORD: "",
+      EDIT_ENABLE_PASSWORD: ""
+    },
+    PROFILE: "Standard",
+    profiles: [
+      "Standard"
+    ],
+    settings: {
+      value: {
+        slipNo: -1,
+        weighbridgeName: "",
+        weighbridgeAddress: "",
+        footer: "",
+        printerName: "",
+        noOfCopies: "",
+        printFormat: ""
+      },
+      array: {
+        availableCameras: [],
+        availablePrinters: [],
+        availablePrintFormat: [],
+        availableCOMPorts: [],
+        availableBaudRate: [
+          110,
+          300,
+          1200,
+          2400,
+          4800,
+          9600,
+          19200,
+          38400,
+          57600,
+          115200,
+          230400,
+          460800,
+          921600
+        ],
+        availableDataBits: [5, 6, 7, 8],
+        availableParity: [0],
+        availableStopBits: [1, 1.5, 2],
+        availableFlowControl: [0]
+      },
+      resetSlipNoDialog: false,
+      manualEntryDialog: false,
+      manualEntryPassword: "",
+      editEnableDialog: false,
+      editEnablePassword: "",
+      resetSlipNo: 1,
+      resetSlipNoPassword: "",
+      manualEntryPasswordReference: React.createRef(),
+      manualEntryReference: React.createRef(),
+      editEnablePasswordReference: React.createRef(),
+      editEnableReference: React.createRef(),
+      resetSlipNoReference: React.createRef(),
+      resetSlipNoPasswordReference: React.createRef(),
+      resetSlipNoButtonReference: React.createRef(),
+      manualEntry: false,
+      editEnable: false,
+      automation: false
+    },
     configuration: {
-      material: {
+      materials: {
         header: ["Material Id", "Material Name"],
         filterText: "",
         template: { materialId: "", material: "" },
@@ -40,7 +100,7 @@ class App extends Component {
         editable: true,
         unlock: false
       },
-      tareWeight: {
+      tareWeights: {
         header: ["Vehicle No", "Tare Weight", "Tare Time"],
         filterText: "",
         template: { vehicleNo: "", tareWeight: "", tareTime: "" },
@@ -49,6 +109,12 @@ class App extends Component {
         unlock: false
       }
     },
+
+
+    _WEIGHT: "",
+    WEIGHT: "-1",
+    cameraImage: "",
+
     weighing: {
       previousWeightSelector: false,
       previousWeight: "",
@@ -106,6 +172,7 @@ class App extends Component {
         materialIdDisabled: true
       }
     },
+    
     weight: {
       slipNo: "-1",
       vehicleNo: "",
@@ -175,82 +242,9 @@ class App extends Component {
       totalTotalCharges: 0,
       edit: false
     },
-    setting: {
-      value: {
-        REFRESH_TIME_WEIGHT: "",
-        RESET_SLIP_PASSWORD: "",
-        MANUAL_ENTRY_PASSWORD: "",
-        EDIT_ENABLE_PASSWORD: "",
-        weighbridgeName: "",
-        weighbridgeAddress: "",
-        footer: "",
-        cameraName: "",
-        cameraXAxis: 0,
-        cameraYAxis: 0,
-        cameraWidth: 0,
-        cameraHeight: 0,
-        printerName: "",
-        noOfCopies: 0,
-        printFormat: "",
-        indicatorCOMPort: "",
-        indicatorBaudRate: "",
-        indicatorDataBits: "",
-        indicatorParity: "",
-        indicatorStopBits: "",
-        indicatorFlowControl: "",
-        indicatorDelimiter: "",
-        indicatorLastCharacter: "",
-        displayCOMPort: "",
-        displayBaudRate: "",
-        displayDataBits: "",
-        displayParity: "",
-        displayStopBits: "",
-        displayFlowControl: "",
-        slipNo: -1
-      },
-      array: {
-        availableCameras: [],
-        availablePrinters: [],
-        availablePrintFormat: [],
-        availableCOMPorts: [],
-        availableBaudRate: [
-          110,
-          300,
-          1200,
-          2400,
-          4800,
-          9600,
-          19200,
-          38400,
-          57600,
-          115200,
-          230400,
-          460800,
-          921600
-        ],
-        availableDataBits: [5, 6, 7, 8],
-        availableParity: ["Even", "Odd", "None", "Mark", "Space"],
-        availableStopBits: [1, 1.5, 2],
-        availableFlowControl: ["Xon/Xoff", "Hardware", "None"]
-      },
-      resetSlipNoDialog: false,
-      manualEntryDialog: false,
-      manualEntryPassword: "",
-      editEnableDialog: false,
-      editEnablePassword: "",
-      resetSlipNo: 1,
-      resetSlipNoPassword: "",
-      manualEntryPasswordReference: React.createRef(),
-      manualEntryReference: React.createRef(),
-      editEnablePasswordReference: React.createRef(),
-      editEnableReference: React.createRef(),
-      resetSlipNoReference: React.createRef(),
-      resetSlipNoPasswordReference: React.createRef(),
-      resetSlipNoButtonReference: React.createRef(),
-      manualEntry: false,
-      editEnable: false,
-      automation: false
-    },
+
+
+
     alerts: []
   };
 
@@ -263,8 +257,40 @@ class App extends Component {
     this.setState(myState);
   }
 
-  async UNSAFE_componentWillMount() {
+  UNSAFE_componentWillMount() {
     let thisState = { ...this.state, setMyState: this.setMyState };
+    Promise.all(
+      [
+        fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/profile/getMyPrimaryProfile").then(resp => resp.text()),
+        fetch(thisState.INITIAL_URL + "/profile/getAllProfile").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormat").then(resp => resp.json())
+      ]
+    ).then(([adminSettings, profile, profiles]) => {
+      thisState.adminSettings = adminSettings;
+      thisState.PROFILE = profile;
+      thisState.profiles = profiles;
+      Promise.all(
+        [
+          fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + profile).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/material/getAllMaterialByProfile?profile=" + profile).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + profile).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightByProfile?profile=" + profile).then(resp => resp.json())
+
+        ]
+      ).then(([settings, materials, drivers, tareWeights]) => {
+        thisState.settings.value = settings;
+        thisState.configuration.materials.list = materials;
+        thisState.configuration.drivers.list = drivers;
+        thisState.configuration.tareWeights.list = tareWeights;
+        debugger;
+      })
+      thisState.setMyState(thisState)
+    }).catch(eror => { debugger })
+
+    return;
+
     fetch(thisState.INITIAL_URL + "/getNextSlipNo")
       .then(response => {
         if (response.status === 200) {
@@ -284,39 +310,8 @@ class App extends Component {
         thisState.weighing.disable.getWeightDisabled = true;
         thisState.setMyState(thisState);
       });
-    fetch(thisState.INITIAL_URL + "/getAllMaterial")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        thisState.configuration.material.list = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(() => { });
-    fetch(thisState.INITIAL_URL + "/getAllDrivers")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        thisState.configuration.drivers.list = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(() => { });
-    fetch(thisState.INITIAL_URL + "/getAllTareWeight")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        thisState.configuration.tareWeight.list = result;
-        thisState.setMyState(thisState);
-      })
-      .catch(() => { });
+
+   
     const wait = () => {
       fetch(thisState.INITIAL_URL + "/getAllPrinters")
         .then(response => {
@@ -369,7 +364,7 @@ class App extends Component {
         .catch(() => {
         });
     };
-    await wait();
+    // await wait();
 
     fetch(thisState.INITIAL_URL + "/getAllSettings")
       .then(response => {
