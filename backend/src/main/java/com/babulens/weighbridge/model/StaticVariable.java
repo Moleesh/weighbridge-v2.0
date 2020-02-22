@@ -11,14 +11,15 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 import com.github.sarxos.webcam.ds.ipcam.IpCamStorage;
 
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class StaticVariable {
 
-	private static Map<String, SerialPort> serialPorts;
-	private static Map<String, Webcam> webcams;
+	private static final Map<String, SerialPort> serialPorts = new HashMap<>();
+	private static final Map<String, Webcam> webcams = new HashMap<>();
 
 	static {
 		Webcam.setDriver(new WebcamCompositeDriver() {

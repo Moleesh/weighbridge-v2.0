@@ -32,7 +32,7 @@ public class WebCamServiceImpl implements WebCamService {
 	public WebCamServiceImpl(WebCamDetailsDAO webCamDetailsDAO) {
 		this.webCamDetailsDAO = webCamDetailsDAO;
 		getAllWebCams();
-		settingUpWebCam(webCamDetailsDAO.findByMyPrimaryIsTrue().getName());
+//		settingUpWebCam(webCamDetailsDAO.findByMyPrimaryIsTrue().getName());
 	}
 
 	@Override

@@ -73,27 +73,27 @@ class Controller {
 		return webCamService.getWebCamImage(webcam);
 	}
 
-	@RequestMapping(value = "/getNextWeight")
+	@RequestMapping(value = "/getNextWeight", method = {RequestMethod.GET})
 	public int getNextWeight() {
 		return serialPortService.getWeight();
 	}
 
-	@RequestMapping(value = "/getTareWeightByVehicleNoAndProfile")
+	@RequestMapping(value = "/getTareWeightByVehicleNoAndProfile", method = {RequestMethod.GET})
 	public TareWeight getTareWeightByVehicleNoAndProfile(@RequestParam("vehicleNo") String vehicleNo, @RequestParam("profile") String profile) {
 		return tareWeightService.getTareWeightByVehicleNoAndProfile(vehicleNo, profile);
 	}
 
-	@RequestMapping(value = "/getGrossWeightByVehicleNoAndProfile")
+	@RequestMapping(value = "/getGrossWeightByVehicleNoAndProfile", method = {RequestMethod.GET})
 	public TareWeight getGrossWeightByVehicleNoAndProfile(@RequestParam("vehicleNo") String vehicleNo, @RequestParam("profile") String profile) {
 		return weighService.getGrossWeightByVehicleNoAndProfile(vehicleNo, profile);
 	}
 
-	@RequestMapping(value = "/getDefaultSlipNo")
+	@RequestMapping(value = "/getDefaultSlipNo", method = {RequestMethod.GET})
 	public int getDefaultSlipNo() {
 		return -1;
 	}
 
-	@RequestMapping(value = "/getNextSlipNo")
+	@RequestMapping(value = "/getNextSlipNo", method = {RequestMethod.GET})
 	public int getNextSlipNo(@RequestParam("profile") String profile) {
 		return Integer.parseInt(settingsService.getSettingByProfile("slipNo", profile));
 	}
@@ -124,7 +124,7 @@ class Controller {
 				getReport.getInput(), getReport.getProfile());
 	}
 
-	@RequestMapping(value = "/getAllMaterialByProfile")
+	@RequestMapping(value = "/getAllMaterialByProfile", method = {RequestMethod.GET})
 	public List<Material> getAllMaterialByProfile(@RequestParam String profile) {
 		return materialService.getAllMaterialByProfile(profile);
 	}
@@ -139,7 +139,7 @@ class Controller {
 		materialService.deleteMaterial(id);
 	}
 
-	@RequestMapping(value = "/getAllDriversByProfile")
+	@RequestMapping(value = "/getAllDriversByProfile", method = {RequestMethod.GET})
 	public List<Drivers> getAllDriversByProfile(@RequestParam String profile) {
 		return driversService.getAllDriversByProfile(profile);
 	}
@@ -154,7 +154,7 @@ class Controller {
 		driversService.deleteDrivers(id);
 	}
 
-	@RequestMapping(value = "/getAllTareWeightByProfile")
+	@RequestMapping(value = "/getAllTareWeightByProfile", method = {RequestMethod.GET})
 	public List<TareWeight> getAllTareWeightByProfile(@RequestParam String profile) {
 		return tareWeightService.getAllTareWeightByProfile(profile);
 	}
@@ -227,5 +227,4 @@ class Controller {
 	public void saveAllSettings(@RequestBody Map<String, String> settings, String profile) {
 		settingsService.saveAllSettingsByProfile(settings, profile);
 	}
-
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
@@ -65,8 +64,8 @@ public class SerialPortServiceImpl implements SerialPortService {
 			__serialPort.openPort();
 		}
 
-		if (setDataListener) {
-			Objects.requireNonNull(__serialPort).addDataListener(new SerialPortMessageListenerWithExceptions(serialPortDetails.getDelimiter(), serialPortDetails.getLastCharacter()));
+		if (__serialPort != null && setDataListener) {
+			__serialPort.addDataListener(new SerialPortMessageListenerWithExceptions(serialPortDetails.getDelimiter(), serialPortDetails.getLastCharacter()));
 		}
 
 	}

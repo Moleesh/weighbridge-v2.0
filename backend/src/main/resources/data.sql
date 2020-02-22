@@ -49,16 +49,28 @@ SELECT 'Standard_printFormat', 'printFormat', 'WebCam Print', 'Standard'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTINGS WHERE KEY = 'printFormat' AND PROFILE_PROFILE_NAME like 'Standard');
 
-INSERT INTO COMM_PORT_SETTINGS
+INSERT INTO SERIAL_PORT_DETAILS
 SELECT 'indicator',
-       '1200',
-       'Dummy',
-       '8',
-       '10',
-       'Hardware',
+       1200,
+       8,
+       10,
+       0,
        '~~~',
-       'None',
-       '1'
+       0,
+       'Dummy',
+       1
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM COMM_PORT_SETTINGS WHERE NAME LIKE 'indicator' AND TYPE LIKE 'INDICATOR');
+WHERE NOT EXISTS(SELECT * FROM SERIAL_PORT_DETAILS WHERE NAME LIKE 'indicator');
 
+INSERT INTO SERIAL_PORT_DETAILS
+SELECT 'display',
+       1200,
+       8,
+       10,
+       0,
+       '~~~',
+       0,
+       'Dummy',
+       1
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SERIAL_PORT_DETAILS WHERE NAME LIKE 'display');
