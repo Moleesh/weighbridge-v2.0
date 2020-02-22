@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 
 public class StaticVariable {
 
+	private static int weight = -1;
 	private static final Map<String, SerialPort> serialPorts = new HashMap<>();
 	private static final Map<String, Webcam> webcams = new HashMap<>();
 
@@ -44,6 +45,14 @@ public class StaticVariable {
 	}
 
 	StaticVariable() {
+	}
+
+	public static int getWeight() {
+		return weight;
+	}
+
+	public static void setWeight(int weight) {
+		StaticVariable.weight = weight;
 	}
 
 	public static SerialPort getSerialPorts(String serialPort) {

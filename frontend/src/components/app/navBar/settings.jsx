@@ -119,38 +119,38 @@ const Settings = props => {
                                     thisState.setting.value = result;
                                     if (
                                         thisState.setting.array.availableCameras.indexOf(
-                                            thisState.setting.value.cameraName
+                                            thisState.settings.value.cameraName
                                         ) === -1
                                     ) {
                                         thisState.setting.array.availableCameras.push(
-                                            thisState.setting.value.cameraName
+                                            thisState.settings.value.cameraName
                                         );
                                     }
                                     if (
                                         thisState.setting.array.availablePrinters.indexOf(
-                                            thisState.setting.value.printerName
+                                            thisState.settings.value.printerName
                                         ) === -1
                                     ) {
                                         thisState.setting.array.availablePrinters.push(
-                                            thisState.setting.value.printerName
+                                            thisState.settings.value.printerName
                                         );
                                     }
                                     if (
                                         thisState.setting.array.availableCOMPorts.indexOf(
-                                            thisState.setting.value.indicatorCOMPort
+                                            thisState.settings.value.indicatorCOMPort
                                         ) === -1
                                     ) {
                                         thisState.setting.array.availableCOMPorts.push(
-                                            thisState.setting.value.indicatorCOMPort
+                                            thisState.settings.value.indicatorCOMPort
                                         );
                                     }
                                     if (
                                         thisState.setting.array.availableCOMPorts.indexOf(
-                                            thisState.setting.value.displayCOMPort
+                                            thisState.settings.value.displayCOMPort
                                         ) === -1
                                     ) {
                                         thisState.setting.array.availableCOMPorts.push(
-                                            thisState.setting.value.displayCOMPort
+                                            thisState.settings.value.displayCOMPort
                                         );
                                     }
                                     thisState.alerts.push({
@@ -191,7 +191,7 @@ const Settings = props => {
                                             WEIGHT: "-1"
                                         });
                                     });
-                            }, thisState.setting.value.REFRESH_TIME_WEIGHT);
+                            }, thisState.settings.value.REFRESH_TIME_WEIGHT);
                             thisState.cameraImage =
                                 thisState.INITIAL_URL +
                                 "/getCameraImage?rnd=" +

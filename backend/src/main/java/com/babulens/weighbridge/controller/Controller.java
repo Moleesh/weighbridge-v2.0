@@ -71,9 +71,9 @@ class Controller {
 		return profileService.getMyPrimaryProfile();
 	}
 
-	@RequestMapping(value = "/profile/getAllProfile", method = {RequestMethod.GET})
-	public List<String> getAllProfile() {
-		return profileService.getAllProfile();
+	@RequestMapping(value = "/profile/getAllProfiles", method = {RequestMethod.GET})
+	public List<String> getAllProfiles() {
+		return profileService.getAllProfiles();
 	}
 
 	@RequestMapping(value = "/printer/getAllPrinters", method = {RequestMethod.GET})
@@ -81,9 +81,9 @@ class Controller {
 		return printerService.getAllPrinters();
 	}
 
-	@RequestMapping(value = "/printer/getAllPrintFormat", method = {RequestMethod.GET})
-	public List<String> getAllPrintFormat() {
-		return printerService.getAllPrintFormat();
+	@RequestMapping(value = "/printer/getAllPrintFormats", method = {RequestMethod.GET})
+	public List<String> getAllPrintFormats() {
+		return printerService.getAllPrintFormats();
 	}
 
 	@RequestMapping(value = "/setting/getAllSettingsByProfile", method = {RequestMethod.GET})
@@ -91,9 +91,14 @@ class Controller {
 		return settingService.getAllSettingsByProfile(profile);
 	}
 
-	@RequestMapping(value = "/material/getAllMaterialByProfile", method = {RequestMethod.GET})
-	public List<Material> getAllMaterialByProfile(@RequestParam String profile) {
-		return materialService.getAllMaterialByProfile(profile);
+	@RequestMapping(value = "/getNextSlipNoByProfile", method = {RequestMethod.GET})
+	public int getNextSlipNoByProfile(@RequestParam("profile") String profile) {
+		return Integer.parseInt(settingService.getSettingByProfile("slipNo", profile));
+	}
+
+	@RequestMapping(value = "/material/getAllMaterialsByProfile", method = {RequestMethod.GET})
+	public List<Material> getAllMaterialsByProfile(@RequestParam String profile) {
+		return materialService.getAllMaterialsByProfile(profile);
 	}
 
 	@RequestMapping(value = "/driver/getAllDriversByProfile", method = {RequestMethod.GET})
@@ -101,11 +106,49 @@ class Controller {
 		return driverService.getAllDriversByProfile(profile);
 	}
 
-	@RequestMapping(value = "/tareWeight/getAllTareWeightByProfile", method = {RequestMethod.GET})
-	public List<TareWeight> getAllTareWeightByProfile(@RequestParam String profile) {
-		return tareWeightService.getAllTareWeightByProfile(profile);
+	@RequestMapping(value = "/tareWeight/getAllTareWeightsByProfile", method = {RequestMethod.GET})
+	public List<TareWeight> getAllTareWeightsByProfile(@RequestParam String profile) {
+		return tareWeightService.getAllTareWeightsByProfile(profile);
 	}
 
+	@RequestMapping(value = "/webCamDetail/getMyPrimaryWebCam", method = {RequestMethod.GET})
+	public String getMyPrimaryWebCam() {
+		return webCamService.getMyPrimaryWebCam();
+	}
+
+
+	@RequestMapping(value = "/webCamDetail/getAllWebCamDetails", method = {RequestMethod.GET})
+	public List<WebCamDetail> getAllWebCamDetails() {
+		return webCamService.getAllWebCamDetails();
+	}
+
+	@RequestMapping(value = "/webCamDetail/getWebCamImage", method = RequestMethod.GET,
+			produces = MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody
+	byte[] getImage(@RequestParam("webcam") String webcam) {
+		return webCamService.getWebCamImage(webcam);
+	}
+
+
+	@RequestMapping(value = "/webCamDetail/getAllWebCams", method = {RequestMethod.GET})
+	public List<String> getAllWebCams() {
+		return webCamService.getAllWebCams();
+	}
+
+	@RequestMapping(value = "/serialPortDetail/getSerialPortDetailByName", method = {RequestMethod.GET})
+	public SerialPortDetail getSerialPortDetailByName(@RequestParam String name) {
+		return serialPortService.getSerialPortDetailByName(name);
+	}
+
+	@RequestMapping(value = "/serialPortDetail/getAllSerialPorts", method = {RequestMethod.GET})
+	public List<String> getAllSerialPortDetails() {
+		return serialPortService.getAllSerialPort();
+	}
+
+	@RequestMapping(value = "/serialPortDetail/getNextWeight", method = {RequestMethod.GET})
+	public int getNextWeight() {
+		return serialPortService.getWeight();
+	}
 
 
 	@RequestMapping(value = "/settingUpWebCam", method = {RequestMethod.GET})
@@ -113,22 +156,8 @@ class Controller {
 		webCamService.settingUpWebCam(webcam);
 	}
 
-	@RequestMapping(value = "/getAllWebCams", method = {RequestMethod.GET})
-	public List<String> getAllWebCams() {
-		return webCamService.getAllWebCams();
-	}
 
-	@RequestMapping(value = "/getWebCamImage", method = RequestMethod.GET,
-			produces = MediaType.IMAGE_JPEG_VALUE)
-	public @ResponseBody
-	byte[] getImage(@RequestParam("webcam") String webcam) {
-		return webCamService.getWebCamImage(webcam);
-	}
 
-	@RequestMapping(value = "/getNextWeight", method = {RequestMethod.GET})
-	public int getNextWeight() {
-		return serialPortService.getWeight();
-	}
 
 	@RequestMapping(value = "/getTareWeightByVehicleNoAndProfile", method = {RequestMethod.GET})
 	public TareWeight getTareWeightByVehicleNoAndProfile(@RequestParam("vehicleNo") String vehicleNo, @RequestParam("profile") String profile) {
@@ -145,10 +174,6 @@ class Controller {
 		return -1;
 	}
 
-	@RequestMapping(value = "/getNextSlipNo", method = {RequestMethod.GET})
-	public int getNextSlipNo(@RequestParam("profile") String profile) {
-		return Integer.parseInt(settingService.getSettingByProfile("slipNo", profile));
-	}
 
 	@RequestMapping(value = "/saveWeight", method = {RequestMethod.POST})
 	public Weight saveWeight(@RequestBody Weight weight) {
@@ -242,10 +267,6 @@ class Controller {
 		return printerService.getPrintReportPDF(printReport);
 	}
 
-	@RequestMapping(value = "/getAllSerialPort", method = {RequestMethod.GET})
-	public List<String> getAllSerialPort() {
-		return serialPortService.getAllSerialPort();
-	}
 
 	@RequestMapping(value = "/settingUpSerialPort", method = {RequestMethod.GET})
 	public void settingUpSerialPort(@RequestParam("serialPort") String serialPort, @RequestParam("serialPort") Boolean setDataListener) {

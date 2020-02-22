@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import moment from "moment";
 import FileSaver from "file-saver";
 
@@ -86,11 +86,11 @@ const Bottom = props => {
                     block
                     onClick={() => {
                         if (!preventSave) {
-                            preventSave = true;                            
+                            preventSave = true;
                             fetch(thisState.INITIAL_URL + "/saveWeight", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),
-                                headers: { "content-type": "application/json" }
+                                headers: {"content-type": "application/json"}
                             })
                                 .then(response => {
                                     if (response.status === 200) {
@@ -156,18 +156,18 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        if (thisState.setting.value.printerName === "get as .pdf File") {
+                        if (thisState.settings.value.printerName === "get as .pdf File") {
                             fetch(thisState.INITIAL_URL + "/getPrintWeightPDF", {
                                 method: "POST",
                                 body: JSON.stringify({
                                     weight: thisState.weight,
-                                    printerName: thisState.setting.value.printerName,
-                                    noOfCopies: thisState.setting.value.noOfCopies,
-                                    printFormat: thisState.setting.value.printFormat,
-                                    weighbridgeName: thisState.setting.value.weighbridgeName,
+                                    printerName: thisState.settings.value.printerName,
+                                    noOfCopies: thisState.settings.value.noOfCopies,
+                                    printFormat: thisState.settings.value.printFormat,
+                                    weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                        thisState.setting.value.weighbridgeAddress,
-                                    footer: thisState.setting.value.footer
+                                    thisState.settings.value.weighbridgeAddress,
+                                    footer: thisState.settings.value.footer
                                 }),
                                 headers: { "content-type": "application/json" }
                             })
@@ -188,13 +188,13 @@ const Bottom = props => {
                                 method: "POST",
                                 body: JSON.stringify({
                                     weight: thisState.weight,
-                                    printerName: thisState.setting.value.printerName,
-                                    noOfCopies: thisState.setting.value.noOfCopies,
-                                    printFormat: thisState.setting.value.printFormat,
-                                    weighbridgeName: thisState.setting.value.weighbridgeName,
+                                    printerName: thisState.settings.value.printerName,
+                                    noOfCopies: thisState.settings.value.noOfCopies,
+                                    printFormat: thisState.settings.value.printFormat,
+                                    weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                        thisState.setting.value.weighbridgeAddress,
-                                    footer: thisState.setting.value.footer
+                                    thisState.settings.value.weighbridgeAddress,
+                                    footer: thisState.settings.value.footer
                                 }),
                                 headers: { "content-type": "application/json" }
                             })

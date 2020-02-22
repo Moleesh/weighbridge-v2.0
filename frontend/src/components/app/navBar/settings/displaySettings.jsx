@@ -21,9 +21,9 @@ const DisplaySettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.displayCOMPort}
+                        value={thisState.settings.value.displayCOMPort}
                         onChange={event => {
-                            thisState.setting.value.displayCOMPort = event.target.value;
+                            thisState.settings.value.displayCOMPort = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -42,9 +42,9 @@ const DisplaySettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.displayBaudRate}
+                        value={thisState.settings.value.displayBaudRate}
                         onChange={event => {
-                            thisState.setting.value.displayBaudRate = event.target.value;
+                            thisState.settings.value.displayBaudRate = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -63,9 +63,9 @@ const DisplaySettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.displayDataBits}
+                        value={thisState.settings.value.displayDataBits}
                         onChange={event => {
-                            thisState.setting.value.displayDataBits = event.target.value;
+                            thisState.settings.value.displayDataBits = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -84,9 +84,9 @@ const DisplaySettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.displayParity}
+                        value={thisState.settings.value.displayParity}
                         onChange={event => {
-                            thisState.setting.value.displayParity = event.target.value;
+                            thisState.settings.value.displayParity = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -105,9 +105,9 @@ const DisplaySettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.displayStopBits}
+                        value={thisState.settings.value.displayStopBits}
                         onChange={event => {
-                            thisState.setting.value.displayStopBits = event.target.value;
+                            thisState.settings.value.displayStopBits = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -126,9 +126,9 @@ const DisplaySettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.displayFlowControl}
+                        value={thisState.settings.value.displayFlowControl}
                         onChange={event => {
-                            thisState.setting.value.displayFlowControl = event.target.value;
+                            thisState.settings.value.displayFlowControl = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >

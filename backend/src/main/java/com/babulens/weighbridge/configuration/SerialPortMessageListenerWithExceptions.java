@@ -1,5 +1,6 @@
 package com.babulens.weighbridge.configuration;
 
+import com.babulens.weighbridge.model.StaticVariable;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListenerWithExceptions;
 import com.fazecast.jSerialComm.SerialPortEvent;
@@ -10,17 +11,12 @@ import java.util.logging.Logger;
 
 public final class SerialPortMessageListenerWithExceptions implements SerialPortDataListenerWithExceptions, SerialPortMessageListener {
 
-	private static int weight = -1;
 	private final int delimiter;
 	private final String lastCharacter;
 
 	public SerialPortMessageListenerWithExceptions(int delimiter, String lastCharacter) {
 		this.delimiter = delimiter;
 		this.lastCharacter = lastCharacter;
-	}
-
-	public static int getWeight() {
-		return weight;
 	}
 
 	@Override
@@ -46,8 +42,8 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 	@Override
 	public void serialEvent(SerialPortEvent event) {
 		try {
-			SerialPortMessageListenerWithExceptions.weight =
-					Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^0-9" + lastCharacter + "]", "").split(lastCharacter)[0]);
+			StaticVariable.setWeight(
+					Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^0-9" + lastCharacter + "]", "").split(lastCharacter)[0]));
 		} catch (Exception ex) {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 		}

@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface MaterialDAO extends CrudRepository<Material, Integer> {
+
 	List<Material> findAllByProfile(Profile profile);
+
 }

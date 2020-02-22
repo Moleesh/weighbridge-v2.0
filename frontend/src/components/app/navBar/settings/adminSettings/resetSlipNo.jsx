@@ -81,7 +81,7 @@ const ResetSlipNo = props => {
                     onClick={() => {
                         if (
                             thisState.setting.resetSlipNoPassword ===
-                            thisState.setting.value.RESET_SLIP_PASSWORD
+                            thisState.settings.value.RESET_SLIP_PASSWORD
                         ) {
                             fetch(
                                 thisState.INITIAL_URL +

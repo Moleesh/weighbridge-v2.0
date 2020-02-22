@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class WeighServiceImpl implements WeighService {
@@ -46,25 +45,26 @@ public class WeighServiceImpl implements WeighService {
 
 	@Override
 	public Weight saveWeight(Weight weight) {
-		if (weight.getSlipNo() != -1) {
-			if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
-				List<TareWeight> tareWeightList = tareWeightService.getTareByVehicleNoAndProfile(weight.getVehicleNo(), weight.getProfile().getProfileName());
-				if (tareWeightList.isEmpty()) {
-					tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(),
-							weight.getTareWeight(), weight.getTareTime(), weight.getProfile().getProfileName()));
-				} else {
-					TareWeight tareWeight = tareWeightList.get(0);
-					tareWeight.setTareTime(weight.getTareTime());
-					tareWeight.setTareWeight(weight.getTareWeight());
-					tareWeightService.addUpdateTareWeight(tareWeightList.get(0));
-				}
-			}
-			weight.setSlipNo(Integer.parseInt(settingService.getSettingByProfile("slipNo", weight.getProfile().getProfileName())));
-			new Thread(() -> webCamService.saveWebCamImageToDisk(weight.getProfile() + "_" + weight.getSlipNo() + ".jpeg", webCamDetailDAO.findByMyPrimaryIsTrue().getName())).start();
-			weightDAO.save(weight);
-			settingService.saveSetting(new Setting("slipNo", "" + Integer.parseInt(settingService.getSettingByProfile(
-					"slipNo", weight.getProfile().getProfileName()) + 1), weight.getProfile()));
-		}
+		// TODO: 2/22/2020 weight
+//		if (weight.getSlipNo() != -1) {
+//			if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
+//				TareWeight tareWeight = tareWeightService.getTareWeightByVehicleNoAndProfile(weight.getVehicleNo(), weight.getProfile().getProfileName());
+//				if (tareWeightList.isEmpty()) {
+//					tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(),
+//							weight.getTareWeight(), weight.getTareTime(), weight.getProfile().getProfileName()));
+//				} else {
+//					TareWeight tareWeight = tareWeightList.get(0);
+//					tareWeight.setTareTime(weight.getTareTime());
+//					tareWeight.setTareWeight(weight.getTareWeight());
+//					tareWeightService.addUpdateTareWeight(tareWeightList.get(0));
+//				}
+//			}
+//			weight.setSlipNo(Integer.parseInt(settingService.getSettingByProfile("slipNo", weight.getProfile().getProfileName())));
+//			new Thread(() -> webCamService.saveWebCamImageToDisk(weight.getProfile() + "_" + weight.getSlipNo() + ".jpeg", webCamDetailDAO.findByMyPrimaryIsTrue().getName())).start();
+//			weightDAO.save(weight);
+//			settingService.saveSetting(new Setting("slipNo", "" + Integer.parseInt(settingService.getSettingByProfile(
+//					"slipNo", weight.getProfile().getProfileName()) + 1), weight.getProfile()));
+//		}
 		return weight;
 	}
 

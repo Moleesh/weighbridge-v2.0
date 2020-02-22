@@ -10,6 +10,26 @@ const INITIAL_URL = "http://localhost:9000";
 class App extends Component {
   state = {
     INITIAL_URL: INITIAL_URL,
+    _WEIGHT: "",
+    WEIGHT: "-1",
+    cameraImage: "",
+    weight: {
+      slipNo: "-1",
+      vehicleNo: "",
+      material: "",
+      customersName: "",
+      transporterName: "",
+      grossWeight: "",
+      grossTime: "",
+      tareWeight: "",
+      tareTime: "",
+      nettWeight: "",
+      nettTime: "",
+      charges: "",
+      remarks: "",
+      manual: "N",
+      profile: "Standard"
+    },
     adminSettings: {
       REFRESH_TIME_WEIGHT: "",
       RESET_SLIP_PASSWORD: "",
@@ -17,6 +37,7 @@ class App extends Component {
       EDIT_ENABLE_PASSWORD: ""
     },
     PROFILE: "Standard",
+    WEBCAM: "dummy",
     profiles: [
       "Standard"
     ],
@@ -28,13 +49,36 @@ class App extends Component {
         footer: "",
         printerName: "",
         noOfCopies: "",
-        printFormat: ""
+        printFormat: "",
+        automation: false
+      },
+      indicator: {
+        name: "indicator",
+        serialPort: "dummy",
+        baudRate: 1200,
+        dataBits: 8,
+        parity: 0,
+        stopBits: 1,
+        flowControl: 0,
+        delimiter: 10,
+        lastCharacter: "~~~"
+      },
+      display: {
+        name: "display",
+        serialPort: "dummy",
+        baudRate: 1200,
+        dataBits: 8,
+        parity: 0,
+        stopBits: 1,
+        flowControl: 0,
+        delimiter: 10,
+        lastCharacter: "~~~"
       },
       array: {
-        availableCameras: [],
         availablePrinters: [],
-        availablePrintFormat: [],
-        availableCOMPorts: [],
+        availablePrintFormats: [],
+        availableWebCams: [],
+        availableserialPorts: [],
         availableBaudRate: [
           110,
           300,
@@ -103,17 +147,16 @@ class App extends Component {
       tareWeights: {
         header: ["Vehicle No", "Tare Weight", "Tare Time"],
         filterText: "",
-        template: { vehicleNo: "", tareWeight: "", tareTime: "" },
+        template: {vehicleNo: "", tareWeight: "", tareTime: ""},
         list: [],
         editable: false,
         unlock: false
       }
     },
+    webCam: {
+      details: []
+    },
 
-
-    _WEIGHT: "",
-    WEIGHT: "-1",
-    cameraImage: "",
 
     weighing: {
       previousWeightSelector: false,
@@ -172,23 +215,8 @@ class App extends Component {
         materialIdDisabled: true
       }
     },
-    
-    weight: {
-      slipNo: "-1",
-      vehicleNo: "",
-      material: "",
-      customersName: "",
-      transporterName: "",
-      grossWeight: "",
-      grossTime: "",
-      tareWeight: "",
-      tareTime: "",
-      nettWeight: "",
-      nettTime: "",
-      charges: "",
-      remarks: "",
-      manual: "N"
-    },
+
+
     report: {
       pdfURL: "",
       filterText: "",
@@ -265,177 +293,73 @@ class App extends Component {
           fetch(thisState.INITIAL_URL + "/profile/getMyPrimaryProfile").then(resp => resp.text()),
           fetch(thisState.INITIAL_URL + "/profile/getAllProfiles").then(resp => resp.json()),
           fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormats").then(resp => resp.json())
+          fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormats").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/webCamDetail/getMyPrimaryWebCam").then(resp => resp.text()),
+          fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCamDetails").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCams").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/serialPortDetail/getAllSerialPorts").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=indicator").then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=display").then(resp => resp.json()),
         ]
-    ).then(([adminSettings, profile, profiles]) => {
+    ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCam, webCams, seialPorts, indicator, display]) => {
       thisState.adminSettings = adminSettings;
       thisState.PROFILE = profile;
       thisState.profiles = profiles;
+      thisState.settings.array.availablePrinters = printers;
+      thisState.settings.array.availablePrintFormats = printFormats;
+      thisState.webCam.details = webCamDetails;
+      thisState.WEBCAM = webCam;
+      thisState.settings.array.availableWebCams = webCams;
+      thisState.settings.array.availableserialPorts = seialPorts;
+      thisState.settings.indicator = indicator;
+      thisState.settings.display = display;
       Promise.all(
           [
             fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + profile).then(resp => resp.json()),
             fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + profile).then(resp => resp.json()),
             fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + profile).then(resp => resp.json()),
-            fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + profile).then(resp => resp.json())
-
+            fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeighsByProfile?profile=" + profile).then(resp => resp.json()),
+            fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + profile).then(resp => resp.text())
           ]
-      ).then(([settings, materials, drivers, tareWeights]) => {
+      ).then(([settings, materials, drivers, tareWeights, slipNo]) => {
         thisState.settings.value = settings;
         thisState.configuration.materials.list = materials;
         thisState.configuration.drivers.list = drivers;
         thisState.configuration.tareWeights.list = tareWeights;
-        debugger;
-      })
-      thisState.setMyState(thisState)
-    }).catch(eror => { debugger })
-
-    return;
-
-    fetch(thisState.INITIAL_URL + "/getNextSlipNo")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        thisState.weight.slipNo = result;
-        // noinspection JSIncompatibleTypesComparison
-        if (result === -1) {
+        thisState.weight.slipNo = slipNo;
+        if (slipNo === -1) {
           thisState.weighing.disable.getWeightDisabled = true;
         }
-        thisState.setMyState(thisState);
-      })
-      .catch(() => {
-        thisState.weight.slipNo = "-1";
-        thisState.weighing.disable.getWeightDisabled = true;
-        thisState.setMyState(thisState);
-      });
-
-   
-    const wait = () => {
-      fetch(thisState.INITIAL_URL + "/getAllPrinters")
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else throw Error(response.statusText);
-        })
-        .then(result => {
-          thisState.setting.array.availablePrinters = result;
-          thisState.setMyState(thisState);
-        })
-        .catch(() => {
-        });
-      fetch(thisState.INITIAL_URL + "/getAllPrintFormat")
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else throw Error(response.statusText);
-        })
-        .then(result => {
-          thisState.setting.array.availablePrintFormat = result;
-          thisState.setMyState(thisState);
-        })
-        .catch(() => {
-        });
-      fetch(thisState.INITIAL_URL + "/getAllSerialPort")
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else throw Error(response.statusText);
-        })
-        .then(result => {
-          thisState.setting.array.availableCOMPorts = result;
-          thisState.setMyState(thisState);
-        })
-        .catch(() => {
-        });
-      fetch(thisState.INITIAL_URL + "/getAllCameras")
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else throw Error(response.statusText);
-        })
-        .then(result => {
-          thisState.setting.array.availableCameras = result;
-          thisState.setMyState(thisState);
-        })
-        .then(() => {
-        })
-        .catch(() => {
-        });
-    };
-    // await wait();
-
-    fetch(thisState.INITIAL_URL + "/getAllSettings")
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else throw Error(response.statusText);
-      })
-      .then(result => {
-        thisState.setting.value = result;
-        if (
-          thisState.setting.array.availableCameras.indexOf(
-            thisState.setting.value.cameraName
-          ) === -1
-        ) {
-          thisState.setting.array.availableCameras.push(
-            thisState.setting.value.cameraName
-          );
+        if (thisState.setting.array.availablePrinters.indexOf(thisState.settings.value.printerName) === -1) {
+          thisState.setting.array.availablePrinters.push(thisState.settings.value.printerName);
         }
-        if (
-          thisState.setting.array.availablePrinters.indexOf(
-            thisState.setting.value.printerName
-          ) === -1
-        ) {
-          thisState.setting.array.availablePrinters.push(
-            thisState.setting.value.printerName
-          );
-        }
-        if (
-          thisState.setting.array.availableCOMPorts.indexOf(
-            thisState.setting.value.indicatorCOMPort
-          ) === -1
-        ) {
-          thisState.setting.array.availableCOMPorts.push(
-            thisState.setting.value.indicatorCOMPort
-          );
-        }
-        if (
-          thisState.setting.array.availableCOMPorts.indexOf(
-            thisState.setting.value.displayCOMPort
-          ) === -1
-        ) {
-          thisState.setting.array.availableCOMPorts.push(
-            thisState.setting.value.displayCOMPort
-          );
-        }
-        thisState.setMyState(thisState).then(() => {
-          thisState._WEIGHT = setInterval(() => {
-            fetch(thisState.INITIAL_URL + "/getNextWeight")
+        thisState._WEIGHT = setInterval(() => {
+          fetch(thisState.INITIAL_URL + "/serialPortDetail/getNextWeight")
               .then(response => {
                 if (response.status === 200) {
                   return response.json();
-                } else throw Error(response.statusText);
+                } else {
+                  return -1;
+                }
               })
               .then(result => {
                 thisState.setMyState({
                   WEIGHT: result
                 });
               })
-              .catch(() => {
-                thisState.setMyState({
-                  WEIGHT: -1
-                });
-              });
-          }, thisState.setting.value.REFRESH_TIME_WEIGHT);
-          thisState.setMyState({
-            cameraImage: thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random()
-          });
-        });
+        }, thisState.settings.value.REFRESH_TIME_WEIGHT);
+        thisState.cameraImage = thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?rnd=" + Math.random();
+        thisState.setMyState(thisState)
+      }).catch(() => {
+        thisState.weight.slipNo = "-1";
+        thisState.weighing.disable.getWeightDisabled = true;
+        thisState.setMyState(thisState);
       })
-      .catch(() => {
-      });
+    }).catch(() => {
+      thisState.weight.slipNo = "-1";
+      thisState.weighing.disable.getWeightDisabled = true;
+      thisState.setMyState(thisState);
+    })
   }
 
   componentWillUnmount() {
@@ -467,7 +391,7 @@ class App extends Component {
         </Row>
         <div className="footer-copyright text-center py-3 ">
           <footer className="">
-            &copy; {new Date().getFullYear()} Copyright:{" "}
+            &copy; {new Date().getFullYear()} Copyright:
             <a href="https://www.Babulens.com"> Babulens.com </a>
           </footer>
         </div>

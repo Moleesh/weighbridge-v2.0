@@ -85,7 +85,7 @@ public class PrintUtilImpl implements PrintUtil {
 	@Override
 	public Book printWebCamPrint(PrintWeight printWeight) {
 
-		WebCamDetail webCamDetail = webCamDetailDAO.findByMyPrimaryIsTrue();
+		WebCamDetail webCamDetail = webCamDetailDAO.findFirstByMyPrimaryIsTrue();
 
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();

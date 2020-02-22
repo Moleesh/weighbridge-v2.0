@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 
 const GeneralSettings = props => {
     // noinspection JSUnresolvedVariable
@@ -20,9 +20,9 @@ const GeneralSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.setting.value.weighbridgeName}
+                        value={thisState.settings.value.weighbridgeName}
                         onChange={event => {
-                            thisState.setting.value.weighbridgeName = event.target.value;
+                            thisState.settings.value.weighbridgeName = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     />
@@ -37,9 +37,9 @@ const GeneralSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.setting.value.weighbridgeAddress}
+                        value={thisState.settings.value.weighbridgeAddress}
                         onChange={event => {
-                            thisState.setting.value.weighbridgeAddress = event.target.value;
+                            thisState.settings.value.weighbridgeAddress = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     />
@@ -54,9 +54,9 @@ const GeneralSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.setting.value.footer}
+                        value={thisState.settings.value.footer}
                         onChange={event => {
-                            thisState.setting.value.footer = event.target.value;
+                            thisState.settings.value.footer = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     />

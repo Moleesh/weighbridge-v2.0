@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 const EditEnable = props => {
     // noinspection JSUnresolvedVariable
@@ -63,7 +63,7 @@ const EditEnable = props => {
                     onClick={() => {
                         if (
                             thisState.setting.editEnablePassword ===
-                            thisState.setting.value.EDIT_ENABLE_PASSWORD
+                            thisState.settings.value.EDIT_ENABLE_PASSWORD
                         ) {
                             thisState.setting.editEnable = true;
                             thisState.weighing.disable.grossDetailsDisabled = false;

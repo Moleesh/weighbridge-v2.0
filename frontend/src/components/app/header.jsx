@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/images/logo.svg";
-import { Card, Col, Row } from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
 
 const Header = props => {
     // noinspection JSUnresolvedVariable
@@ -26,10 +26,10 @@ const Header = props => {
                     </Col>
                     <Col sm="10">
                         <Row className="justify-content-center font-weight-bold  h3">
-                            {thisState.setting.value.weighbridgeName}
+                            {thisState.settings.value.weighbridgeName}
                         </Row>
                         <Row className="justify-content-center h5">
-                            {thisState.setting.value.weighbridgeAddress}
+                            {thisState.settings.value.weighbridgeAddress}
                         </Row>
                     </Col>
                 </Row>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 const ManualEntry = props => {
     // noinspection JSUnresolvedVariable
@@ -63,7 +63,7 @@ const ManualEntry = props => {
                     onClick={() => {
                         if (
                             thisState.setting.manualEntryPassword ===
-                            thisState.setting.value.MANUAL_ENTRY_PASSWORD
+                            thisState.settings.value.MANUAL_ENTRY_PASSWORD
                         ) {
                             thisState.weight.manual = "Y";
                             thisState.setting.manualEntry = true;

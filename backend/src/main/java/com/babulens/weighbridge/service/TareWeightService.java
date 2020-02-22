@@ -9,11 +9,10 @@ public interface TareWeightService {
 
 	TareWeight getTareWeightByVehicleNoAndProfile(String vehicleNo, String profile);
 
-	List<TareWeight> getAllTareWeightByProfile(String profile);
+	List<TareWeight> getAllTareWeightsByProfile(String profile);
 
 	TareWeight addUpdateTareWeight(TareWeight tareWeight);
 
 	void deleteTareWeight(int id);
 
-	List<TareWeight> getTareByVehicleNoAndProfile(String vehicleNo, String profile);
 }

@@ -30,7 +30,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	@Cacheable(cacheNames = "Profiles")
-	public List<String> getAllProfile() {
+	public List<String> getAllProfiles() {
 		List<String> profiles = new ArrayList<>();
 		profileDAO.findAll().forEach(profile -> profiles.add(profile.getProfileName()));
 		return profiles;

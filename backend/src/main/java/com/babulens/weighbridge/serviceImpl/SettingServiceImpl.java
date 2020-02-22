@@ -27,15 +27,24 @@ public class SettingServiceImpl implements SettingService {
 
 	@Override
 	@Cacheable(cacheNames = "Settings")
-	public Map<String, String> getAllSettingsByProfile(String profile) {
-		Map<String, String> settingMap = new HashMap<>();
-		for (Setting setting : settingDAO.findAllByProfile(new Profile(profile))) {
-			settingMap.put(setting.getKey(), setting.getValue());
+	public String getSettingByProfile(String key, String profile) {
+		if (settingDAO.findOneByKeyAndProfile(key, new Profile(profile)) != null) {
+			return settingDAO.findOneByKeyAndProfile(key, new Profile(profile)).getValue();
+		} else {
+			return null;
 		}
-		return settingMap;
 	}
 
 	@Override
+	@Cacheable(cacheNames = "Settings")
+	public Map<String, String> getAllSettingsByProfile(String profile) {
+		Map<String, String> settings = new HashMap<>();
+		settingDAO.findAll().forEach(setting -> settings.put(setting.getKey(), setting.getValue()));
+		return settings;
+	}
+
+	@Override
+	@CacheEvict(value = "Settings", allEntries = true)
 	public void saveSetting(Setting setting) {
 		settingDAO.save(setting);
 	}
@@ -52,13 +61,4 @@ public class SettingServiceImpl implements SettingService {
 		settingDAO.saveAll(settingList);
 	}
 
-	@Override
-	@Cacheable(cacheNames = "Settings")
-	public String getSettingByProfile(String key, String profile) {
-		if (settingDAO.findOneByKeyAndProfile(key, new Profile(profile)) != null) {
-			return settingDAO.findOneByKeyAndProfile(key, new Profile(profile)).getValue();
-		} else {
-			return null;
-		}
-	}
 }

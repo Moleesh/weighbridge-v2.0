@@ -11,6 +11,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.RectangleReadOnly;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.print.PrintService;
@@ -76,6 +77,7 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "PrintFormats")
 	public List<String> getAllPrinters() {
 		List<String> printers = new ArrayList<>();
 		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
@@ -86,7 +88,8 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
-	public List<String> getAllPrintFormat() {
+	@Cacheable(cacheNames = "PrintFormats")
+	public List<String> getAllPrintFormats() {
 		return Arrays.asList("Normal Print", "Pre Print", "WebCam Print");
 	}
 

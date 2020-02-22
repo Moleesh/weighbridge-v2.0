@@ -11,7 +11,7 @@ goto :eof
     echo %CURRENT_DIVE% > "%CURRENT_DIR%\WeighbridgeStart.bat"
     echo cd "%CURRENT_DIR%" >> "%CURRENT_DIR%\WeighbridgeStart.bat"
     echo taskkill /f /im javaw.exe >> "%CURRENT_DIR%\WeighbridgeStart.bat"
-    echo "%ProgramFiles%\java\jdk-13\bin\javaw.exe" -jar weighbridge.jar >> "%CURRENT_DIR%\WeighbridgeStart.bat"
+    echo javaw.exe -Djava.security.egd=file:/dev/./urandom -jar weighbridge.jar >> "%CURRENT_DIR%\WeighbridgeStart.bat"
 
     echo taskkill /f /im javaw.exe > "%CURRENT_DIR%\WeighbridgeStop.bat"
 

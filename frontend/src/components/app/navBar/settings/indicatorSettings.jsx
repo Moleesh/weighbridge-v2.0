@@ -21,9 +21,9 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.indicatorCOMPort}
+                        value={thisState.settings.value.indicatorCOMPort}
                         onChange={event => {
-                            thisState.setting.value.indicatorCOMPort = event.target.value;
+                            thisState.settings.value.indicatorCOMPort = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -42,9 +42,9 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.indicatorBaudRate}
+                        value={thisState.settings.value.indicatorBaudRate}
                         onChange={event => {
-                            thisState.setting.value.indicatorBaudRate = event.target.value;
+                            thisState.settings.value.indicatorBaudRate = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -63,9 +63,9 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.indicatorDataBits}
+                        value={thisState.settings.value.indicatorDataBits}
                         onChange={event => {
-                            thisState.setting.value.indicatorDataBits = event.target.value;
+                            thisState.settings.value.indicatorDataBits = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -84,9 +84,9 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.indicatorParity}
+                        value={thisState.settings.value.indicatorParity}
                         onChange={event => {
-                            thisState.setting.value.indicatorParity = event.target.value;
+                            thisState.settings.value.indicatorParity = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -105,9 +105,9 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.indicatorStopBits}
+                        value={thisState.settings.value.indicatorStopBits}
                         onChange={event => {
-                            thisState.setting.value.indicatorStopBits = event.target.value;
+                            thisState.settings.value.indicatorStopBits = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -126,9 +126,9 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.indicatorFlowControl}
+                        value={thisState.settings.value.indicatorFlowControl}
                         onChange={event => {
-                            thisState.setting.value.indicatorFlowControl = event.target.value;
+                            thisState.settings.value.indicatorFlowControl = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -149,9 +149,9 @@ const IndicatorSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.setting.value.indicatorDelimiter}
+                        value={thisState.settings.value.indicatorDelimiter}
                         onChange={event => {
-                            thisState.setting.value.indicatorDelimiter =
+                            thisState.settings.value.indicatorDelimiter =
                                 (event.target.value.match("[0-9]+") || []).pop() || "";
                             thisState.setMyState(thisState);
                         }}
@@ -167,9 +167,9 @@ const IndicatorSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.setting.value.indicatorLastCharacter}
+                        value={thisState.settings.value.indicatorLastCharacter}
                         onChange={event => {
-                            thisState.setting.value.indicatorLastCharacter =
+                            thisState.settings.value.indicatorLastCharacter =
                                 event.target.value;
                             thisState.setMyState(thisState);
                         }}
@@ -185,9 +185,9 @@ const IndicatorSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.setting.value.REFRESH_TIME_WEIGHT}
+                        value={thisState.settings.value.REFRESH_TIME_WEIGHT}
                         onChange={event => {
-                            thisState.setting.value.REFRESH_TIME_WEIGHT =
+                            thisState.settings.value.REFRESH_TIME_WEIGHT =
                                 (event.target.value.match("[0-9]+") || []).pop() || "";
                             thisState.setMyState(thisState);
                         }}

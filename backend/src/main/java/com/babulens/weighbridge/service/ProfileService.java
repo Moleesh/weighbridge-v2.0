@@ -1,16 +1,13 @@
 package com.babulens.weighbridge.service;
 
 
-import com.babulens.weighbridge.model.entity.Material;
-import com.babulens.weighbridge.model.entity.Profile;
-
 import java.util.List;
 
 public interface ProfileService {
 
 	String getMyPrimaryProfile();
 
-	List<String> getAllProfile();
+	List<String> getAllProfiles();
 
 	void changeMyPrimaryProfile(String profile);
 

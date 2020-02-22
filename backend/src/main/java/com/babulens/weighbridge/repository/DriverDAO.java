@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface DriverDAO extends CrudRepository<Driver, Integer> {
+
 	List<Driver> findAllByProfile(Profile profile);
+
 }

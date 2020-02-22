@@ -5,6 +5,8 @@ import com.babulens.weighbridge.model.entity.TareWeight;
 import com.babulens.weighbridge.repository.TareWeightDAO;
 import com.babulens.weighbridge.service.TareWeightService;
 import com.google.common.collect.Lists;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,32 +22,27 @@ public class TareWeightServiceImpl implements TareWeightService {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "TareWeights")
 	public TareWeight getTareWeightByVehicleNoAndProfile(String vehicleNo, String profile) {
-		List<TareWeight> tareWeightList = getTareByVehicleNoAndProfile(vehicleNo, profile);
-		if (tareWeightList.isEmpty()) {
-			return null;
-		} else {
-			return tareWeightList.get(0);
-		}
+		return tareWeightDAO.findFirstByVehicleNoAndProfile(vehicleNo, new Profile(profile));
 	}
 
 	@Override
-	public List<TareWeight> getAllTareWeightByProfile(String profile) {
+	@Cacheable(cacheNames = "TareWeights")
+	public List<TareWeight> getAllTareWeightsByProfile(String profile) {
 		return Lists.newArrayList(tareWeightDAO.findAllByProfile(new Profile(profile)));
 	}
 
 	@Override
+	@CacheEvict(value = "TareWeights", allEntries = true)
 	public TareWeight addUpdateTareWeight(TareWeight tareWeight) {
 		return tareWeightDAO.save(tareWeight);
 	}
 
 	@Override
+	@CacheEvict(value = "TareWeights", allEntries = true)
 	public void deleteTareWeight(int id) {
 		tareWeightDAO.deleteById(id);
 	}
 
-	@Override
-	public List<TareWeight> getTareByVehicleNoAndProfile(String vehicleNo, String profile) {
-		return tareWeightDAO.findAllByVehicleNoAndProfile(vehicleNo, new Profile(profile));
-	}
 }

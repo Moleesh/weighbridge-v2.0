@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface SettingDAO extends CrudRepository<Setting, String> {
+
 	List<Setting> findAllByProfile(Profile profile);
 
 	Setting findOneByKeyAndProfile(String key, Profile profile);
+
 }

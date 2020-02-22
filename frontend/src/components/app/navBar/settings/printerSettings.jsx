@@ -18,9 +18,9 @@ const PrinterSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.printerName}
+                        value={thisState.settings.value.printerName}
                         onChange={event => {
-                            thisState.setting.value.printerName = event.target.value;
+                            thisState.settings.value.printerName = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -41,21 +41,21 @@ const PrinterSettings = props => {
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.noOfCopies - 1 < 0) return;
-                                thisState.setting.value.noOfCopies =
-                                    thisState.setting.value.noOfCopies - 1;
+                                if (thisState.settings.value.noOfCopies - 1 < 0) return;
+                                thisState.settings.value.noOfCopies =
+                                    thisState.settings.value.noOfCopies - 1;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.setting.value.noOfCopies}</span>
+                        <span>{thisState.settings.value.noOfCopies}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.noOfCopies + 1 > 100) return;
-                                thisState.setting.value.noOfCopies =
-                                    thisState.setting.value.noOfCopies - 1 + 2;
+                                if (thisState.settings.value.noOfCopies + 1 > 100) return;
+                                thisState.settings.value.noOfCopies =
+                                    thisState.settings.value.noOfCopies - 1 + 2;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -71,9 +71,9 @@ const PrinterSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.printFormat}
+                        value={thisState.settings.value.printFormat}
                         onChange={event => {
-                            thisState.setting.value.printFormat = event.target.value;
+                            thisState.settings.value.printFormat = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >

@@ -22,12 +22,12 @@ const WebCamSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.setting.value.cameraName}
+                        value={thisState.settings.value.cameraName}
                         onChange={event => {
-                            thisState.setting.value.cameraName = event.target.value;
+                            thisState.settings.value.cameraName = event.target.value;
                             if (event.target.value.includes("["))
-                                thisState.setting.value.cameraWidth = event.target.value.split("[")[1].split("=")[1].split(",")[0];
-                            thisState.setting.value.cameraHeight = event.target.value.split("[")[1].split("=")[2].split("]")[0];
+                                thisState.settings.value.cameraWidth = event.target.value.split("[")[1].split("=")[1].split(",")[0];
+                            thisState.settings.value.cameraHeight = event.target.value.split("[")[1].split("=")[2].split("]")[0];
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -48,21 +48,21 @@ const WebCamSettings = props => {
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraXAxis - 5 < 0) return;
-                                thisState.setting.value.cameraXAxis =
-                                    thisState.setting.value.cameraXAxis - 5;
+                                if (thisState.settings.value.cameraXAxis - 5 < 0) return;
+                                thisState.settings.value.cameraXAxis =
+                                    thisState.settings.value.cameraXAxis - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.setting.value.cameraXAxis}</span>
+                        <span>{thisState.settings.value.cameraXAxis}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraXAxis + 5 > 10000) return;
-                                thisState.setting.value.cameraXAxis =
-                                    thisState.setting.value.cameraXAxis - 1 + 6;
+                                if (thisState.settings.value.cameraXAxis + 5 > 10000) return;
+                                thisState.settings.value.cameraXAxis =
+                                    thisState.settings.value.cameraXAxis - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -80,21 +80,21 @@ const WebCamSettings = props => {
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraYAxis - 5 < 0) return;
-                                thisState.setting.value.cameraYAxis =
-                                    thisState.setting.value.cameraYAxis - 5;
+                                if (thisState.settings.value.cameraYAxis - 5 < 0) return;
+                                thisState.settings.value.cameraYAxis =
+                                    thisState.settings.value.cameraYAxis - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.setting.value.cameraYAxis}</span>
+                        <span>{thisState.settings.value.cameraYAxis}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraYAxis + 5 > 10000) return;
-                                thisState.setting.value.cameraYAxis =
-                                    thisState.setting.value.cameraYAxis - 1 + 6;
+                                if (thisState.settings.value.cameraYAxis + 5 > 10000) return;
+                                thisState.settings.value.cameraYAxis =
+                                    thisState.settings.value.cameraYAxis - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -112,21 +112,21 @@ const WebCamSettings = props => {
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraWidth - 5 <= 0) return;
-                                thisState.setting.value.cameraWidth =
-                                    thisState.setting.value.cameraWidth - 5;
+                                if (thisState.settings.value.cameraWidth - 5 <= 0) return;
+                                thisState.settings.value.cameraWidth =
+                                    thisState.settings.value.cameraWidth - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.setting.value.cameraWidth}</span>
+                        <span>{thisState.settings.value.cameraWidth}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraWidth + 5 > 10000) return;
-                                thisState.setting.value.cameraWidth =
-                                    thisState.setting.value.cameraWidth - 1 + 6;
+                                if (thisState.settings.value.cameraWidth + 5 > 10000) return;
+                                thisState.settings.value.cameraWidth =
+                                    thisState.settings.value.cameraWidth - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -144,21 +144,21 @@ const WebCamSettings = props => {
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraHeight - 5 <= 0) return;
-                                thisState.setting.value.cameraHeight =
-                                    thisState.setting.value.cameraHeight - 5;
+                                if (thisState.settings.value.cameraHeight - 5 <= 0) return;
+                                thisState.settings.value.cameraHeight =
+                                    thisState.settings.value.cameraHeight - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.setting.value.cameraHeight}</span>
+                        <span>{thisState.settings.value.cameraHeight}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.setting.value.cameraHeight + 5 > 10000) return;
-                                thisState.setting.value.cameraHeight =
-                                    thisState.setting.value.cameraHeight - 1 + 6;
+                                if (thisState.settings.value.cameraHeight + 5 > 10000) return;
+                                thisState.settings.value.cameraHeight =
+                                    thisState.settings.value.cameraHeight - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >

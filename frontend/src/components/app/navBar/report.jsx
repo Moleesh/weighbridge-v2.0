@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import DatetimeRangePicker from "react-datetime-range-picker";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileDownload, faPrint, faFilter, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faFileDownload, faFilter, faPrint} from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import FileSaver from "file-saver";
 
@@ -485,16 +485,16 @@ const Report = props => {
                                             method: "POST",
                                             body: JSON.stringify({
                                                 weights: thisState.report.list,
-                                                printerName: thisState.setting.value.printerName,
+                                                printerName: thisState.settings.value.printerName,
                                                 reportTitle: reportTitle,
                                                 weighbridgeName:
-                                                    thisState.setting.value.weighbridgeName,
+                                                thisState.settings.value.weighbridgeName,
                                                 weighbridgeAddress:
-                                                    thisState.setting.value.weighbridgeAddress,
+                                                thisState.settings.value.weighbridgeAddress,
                                                 totalRecords: thisState.report.totalRecords,
                                                 totalNettWeight: thisState.report.totalNettWeight,
                                                 totalTotalCharges: thisState.report.totalTotalCharges,
-                                                footer: thisState.setting.value.footer
+                                                footer: thisState.settings.value.footer
                                             }),
                                             headers: { "content-type": "application/json" }
                                         })
@@ -504,10 +504,10 @@ const Report = props => {
                                                 return response.blob();
                                             })
                                             .then(blob => {
-                                                if (thisState.setting.value.printerName === "get as .pdf File") {
+                                                if (thisState.settings.value.printerName === "get as .pdf File") {
                                                     FileSaver.saveAs(blob, "report.pdf");
                                                 } else {
-                                                    thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
+                                                    thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}));
                                                     thisState.setMyState(thisState);
                                                 }
                                             })

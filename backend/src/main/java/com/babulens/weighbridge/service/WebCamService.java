@@ -1,20 +1,21 @@
 package com.babulens.weighbridge.service;
 
-import com.github.sarxos.webcam.Webcam;
+import com.babulens.weighbridge.model.entity.WebCamDetail;
 
-import java.awt.*;
 import java.util.List;
 
 public interface WebCamService {
-	void saveWebCamImageToDisk(String fileName, String webcam);
 
-	byte[] getWebCamImage(String webcam);
+	String getMyPrimaryWebCam();
+
+	List<WebCamDetail> getAllWebCamDetails();
 
 	List<String> getAllWebCams();
 
-	Webcam getWebCam(String WebCam);
+	void settingUpWebCam(String name);
 
-	Dimension getBestDimensions(Webcam webcam);
+	byte[] getWebCamImage(String name);
 
-	void settingUpWebCam(String webcam);
+	void saveWebCamImageToDisk(String fileName, String name);
+
 }

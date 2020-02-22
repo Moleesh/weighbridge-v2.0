@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface MaterialService {
 
-	List<Material> getAllMaterialByProfile(String profile);
+	List<Material> getAllMaterialsByProfile(String profile);
 
 	Material addUpdateMaterial(Material material);
 
 	void deleteMaterial(int id);
+
 }

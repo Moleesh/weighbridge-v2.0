@@ -7,6 +7,7 @@ import com.babulens.weighbridge.model.entity.Weight;
 import java.util.Date;
 
 public interface WeighService {
+
 	Weight saveWeight(Weight weight);
 
 	Weight getWeightBySlipNoAndProfile(int slipNo, String profile);
