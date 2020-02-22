@@ -24,7 +24,7 @@ const Configuration = props => {
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.configuration.material.list = result;
+                                        thisState.configuration.materials.list = result;
                                         thisState.setMyState(thisState);
                                     })
                                     .catch(() => {
@@ -57,7 +57,7 @@ const Configuration = props => {
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.configuration.tareWeight.list = result;
+                                        thisState.configuration.tareWeights.list = result;
                                         thisState.setMyState(thisState);
                                     })
                                     .catch(() => {
@@ -69,13 +69,13 @@ const Configuration = props => {
                 <Col sm="10" className="pt-2">
                     <Tab.Content>
                         <Tab.Pane eventKey="material">
-                            <Material preState={thisState} key="material"/>
+                            <Material preState={thisState} key="material" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="drivers">
-                            <Drivers preState={thisState} key="drivers"/>
+                            <Drivers preState={thisState} key="drivers" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="tareWeight">
-                            <TareWeight preState={thisState} key="tareWeight"/>
+                            <TareWeight preState={thisState} key="tareWeight" />
                         </Tab.Pane>
                     </Tab.Content>
                 </Col>

@@ -8,9 +8,9 @@ const EditEnable = props => {
 
     return (
         <Modal
-            show={thisState.setting.editEnableDialog}
+            show={thisState.settings.editEnableDialog}
             onHide={() => {
-                thisState.setting.editEnableDialog = false;
+                thisState.settings.editEnableDialog = false;
                 thisState.setMyState(thisState);
             }}
             size="lg"
@@ -32,18 +32,18 @@ const EditEnable = props => {
                             type="password"
                             autoComplete="off"
                             className="text-centre"
-                            value={thisState.setting.editEnablePassword}
+                            value={thisState.settings.editEnablePassword}
                             onChange={event => {
-                                thisState.setting.editEnablePassword = event.target.value;
+                                thisState.settings.editEnablePassword = event.target.value;
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
                                 // noinspection StatementWithEmptyBodyJS
                                 if (event.keyCode === 9 && event.shiftKey);
                                 else if (event.keyCode === 13 || event.keyCode === 9)
-                                    thisState.setting.editEnableReference.current.focus();
+                                    thisState.settings.editEnableReference.current.focus();
                             }}
-                            ref={thisState.setting.editEnablePasswordReference}
+                            ref={thisState.settings.editEnablePasswordReference}
                         />
                     </Col>
                 </Form.Group>
@@ -52,7 +52,7 @@ const EditEnable = props => {
                 <Button
                     variant="secondary"
                     onClick={() => {
-                        thisState.setting.editEnableDialog = false;
+                        thisState.settings.editEnableDialog = false;
                         thisState.setMyState(thisState)
                     }}
                 >
@@ -62,15 +62,15 @@ const EditEnable = props => {
                     variant="info"
                     onClick={() => {
                         if (
-                            thisState.setting.editEnablePassword ===
+                            thisState.settings.editEnablePassword ===
                             thisState.settings.value.EDIT_ENABLE_PASSWORD
                         ) {
-                            thisState.setting.editEnable = true;
+                            thisState.settings.editEnable = true;
                             thisState.weighing.disable.grossDetailsDisabled = false;
                             thisState.weighing.disable.tareDetailsWeightDisabled = false;
-                            thisState.setting.editEnableDialog = false;
+                            thisState.settings.editEnableDialog = false;
                         } else {
-                            thisState.setting.editEnable = false;
+                            thisState.settings.editEnable = false;
                             thisState.alerts.push({
                                 id: new Date().getTime(),
                                 type: "danger",
@@ -89,7 +89,7 @@ const EditEnable = props => {
                     onFocus={() => {
                         prevent = true;
                     }}
-                    ref={thisState.setting.editEnableReference}
+                    ref={thisState.settings.editEnableReference}
                 >
                     Enable Edit Records
                 </Button>

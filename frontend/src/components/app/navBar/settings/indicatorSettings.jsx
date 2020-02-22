@@ -21,13 +21,13 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.indicatorCOMPort}
+                        value={thisState.settings.indicator.serialPort}
                         onChange={event => {
-                            thisState.settings.value.indicatorCOMPort = event.target.value;
+                            thisState.settings.indicator.serialPort = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableCOMPorts.map(item => (
+                        {thisState.settings.array.availableserialPorts.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -42,13 +42,13 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.indicatorBaudRate}
+                        value={thisState.settings.indicator.baudRate}
                         onChange={event => {
-                            thisState.settings.value.indicatorBaudRate = event.target.value;
+                            thisState.settings.indicator.baudRate = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableBaudRate.map(item => (
+                        {thisState.settings.array.availableBaudRate.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -63,13 +63,13 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.indicatorDataBits}
+                        value={thisState.settings.indicator.dataBits}
                         onChange={event => {
-                            thisState.settings.value.indicatorDataBits = event.target.value;
+                            thisState.settings.indicator.dataBits = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableDataBits.map(item => (
+                        {thisState.settings.array.availableDataBits.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -84,13 +84,13 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.indicatorParity}
+                        value={thisState.settings.indicator.parity}
                         onChange={event => {
-                            thisState.settings.value.indicatorParity = event.target.value;
+                            thisState.settings.indicator.parity = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableParity.map(item => (
+                        {thisState.settings.array.availableParity.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -105,13 +105,13 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.indicatorStopBits}
+                        value={thisState.settings.indicator.stopBits}
                         onChange={event => {
-                            thisState.settings.value.indicatorStopBits = event.target.value;
+                            thisState.settings.indicator.stopBits = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableStopBits.map(item => (
+                        {thisState.settings.array.availableStopBits.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -126,13 +126,13 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.indicatorFlowControl}
+                        value={thisState.settings.indicator.flowControl}
                         onChange={event => {
-                            thisState.settings.value.indicatorFlowControl = event.target.value;
+                            thisState.settings.indicator.flowControl = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableFlowControl.map(item => (
+                        {thisState.settings.array.availableFlowControl.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -149,9 +149,9 @@ const IndicatorSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.settings.value.indicatorDelimiter}
+                        value={thisState.settings.indicator.delimiter}
                         onChange={event => {
-                            thisState.settings.value.indicatorDelimiter =
+                            thisState.settings.indicator.delimiter =
                                 (event.target.value.match("[0-9]+") || []).pop() || "";
                             thisState.setMyState(thisState);
                         }}
@@ -167,9 +167,9 @@ const IndicatorSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.settings.value.indicatorLastCharacter}
+                        value={thisState.settings.indicator.lastCharacter}
                         onChange={event => {
-                            thisState.settings.value.indicatorLastCharacter =
+                            thisState.settings.indicator.lastCharacter =
                                 event.target.value;
                             thisState.setMyState(thisState);
                         }}
@@ -214,7 +214,7 @@ const IndicatorSettings = props => {
                         });
                 }}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
+                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                 Refresh Indicator SerialPort Settings
             </Button>
         </Form>

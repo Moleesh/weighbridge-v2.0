@@ -55,18 +55,26 @@ public class StaticVariable {
 		StaticVariable.weight = weight;
 	}
 
-	public static SerialPort getSerialPorts(String serialPort) {
+	public static SerialPort getSerialPort(String serialPort) {
 		if (!serialPorts.containsKey(serialPort)) {
 			serialPorts.put(serialPort, null);
 		}
 		return serialPorts.get(serialPort);
 	}
 
-	public static Webcam getWebcams(String webCam) {
+	public static void setSerialPort(String key, SerialPort serialPort) {
+		StaticVariable.serialPorts.put(key, serialPort);
+	}
+
+	public static Webcam getWebcam(String webCam) {
 		if (!webcams.containsKey(webCam)) {
 			webcams.put(webCam, null);
 		}
 		return webcams.get(webCam);
+	}
+
+	public static void setWebcam(String key, Webcam webcam) {
+		StaticVariable.webcams.put(key, webcam);
 	}
 
 }

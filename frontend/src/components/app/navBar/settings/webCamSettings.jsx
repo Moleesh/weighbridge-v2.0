@@ -22,16 +22,16 @@ const WebCamSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.cameraName}
+                        value={thisState.WEBCAM}
                         onChange={event => {
-                            thisState.settings.value.cameraName = event.target.value;
+                            thisState.WEBCAM = event.target.value;
                             if (event.target.value.includes("["))
                                 thisState.settings.value.cameraWidth = event.target.value.split("[")[1].split("=")[1].split(",")[0];
                             thisState.settings.value.cameraHeight = event.target.value.split("[")[1].split("=")[2].split("]")[0];
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableCameras.map(item => (
+                        {thisState.settings.array.availableWebCams.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>

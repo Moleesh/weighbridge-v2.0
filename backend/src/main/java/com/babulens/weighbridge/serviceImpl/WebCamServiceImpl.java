@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,8 +89,8 @@ public class WebCamServiceImpl implements WebCamService {
 
 	@Override
 	public void settingUpWebCam(String name) {
-		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(null);
-		Webcam webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetail).getName());
+		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
+		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
 
 		if (webcam != null && webcam.isOpen()) {
 			webcam.close();
@@ -106,12 +105,14 @@ public class WebCamServiceImpl implements WebCamService {
 				webcam.close();
 			}
 		}
+		StaticVariable.setWebcam(name, webcam);
+
 	}
 
 	@Override
-	public byte[] getWebCamImage(String name) {
-		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(null);
-		Webcam webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetail).getName());
+	public byte[]  getWebCamImage(String name) {
+		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
+		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
 
 		if (webcam != null && webcam.isOpen()) {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -139,8 +140,8 @@ public class WebCamServiceImpl implements WebCamService {
 
 	@Override
 	public void saveWebCamImageToDisk(String fileName, String name) {
-		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(null);
-		Webcam webcam = StaticVariable.getWebcams(Objects.requireNonNull(webCamDetail).getName());
+		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
+		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
 
 		if (webcam != null && webcam.isOpen()) {
 			File directory = new File("WebCamOutput");

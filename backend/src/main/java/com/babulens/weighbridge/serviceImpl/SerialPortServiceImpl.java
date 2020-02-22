@@ -55,7 +55,7 @@ public class SerialPortServiceImpl implements SerialPortService {
 	public void settingUpSerialPort(String name, boolean setDataListener) {
 
 		SerialPortDetail serialPortDetail = getSerialPortDetailByName(name);
-		SerialPort serialPort = StaticVariable.getSerialPorts(name);
+		SerialPort serialPort = StaticVariable.getSerialPort(name);
 
 		if (serialPortDetail == null) {
 			return;
@@ -113,6 +113,8 @@ public class SerialPortServiceImpl implements SerialPortService {
 				}
 			});
 		}
+		StaticVariable.setSerialPort(name, serialPort);
+
 	}
 
 	@Override
@@ -127,7 +129,7 @@ public class SerialPortServiceImpl implements SerialPortService {
 
 	@Override
 	public void sendToDisplay(String message) {
-		SerialPort display = StaticVariable.getSerialPorts("display");
+		SerialPort display = StaticVariable.getSerialPort("display");
 		if (display == null) {
 			settingUpSerialPort("display", false);
 		}

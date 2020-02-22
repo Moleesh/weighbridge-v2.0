@@ -357,7 +357,7 @@ const Report = props => {
                                     thisState.report.edit = !thisState.report.edit;
                                     thisState.setMyState(thisState);
                                 }}
-                                    disabled={!thisState.setting.editEnable}
+                                    disabled={!thisState.settings.editEnable}
                                     className="none" >
                                     <FontAwesomeIcon icon={faEdit} className="mr-3" />
                                     Edit {thisState.report.edit ? "ON" : "OFF"}
@@ -488,9 +488,9 @@ const Report = props => {
                                                 printerName: thisState.settings.value.printerName,
                                                 reportTitle: reportTitle,
                                                 weighbridgeName:
-                                                thisState.settings.value.weighbridgeName,
+                                                    thisState.settings.value.weighbridgeName,
                                                 weighbridgeAddress:
-                                                thisState.settings.value.weighbridgeAddress,
+                                                    thisState.settings.value.weighbridgeAddress,
                                                 totalRecords: thisState.report.totalRecords,
                                                 totalNettWeight: thisState.report.totalNettWeight,
                                                 totalTotalCharges: thisState.report.totalTotalCharges,
@@ -507,7 +507,7 @@ const Report = props => {
                                                 if (thisState.settings.value.printerName === "get as .pdf File") {
                                                     FileSaver.saveAs(blob, "report.pdf");
                                                 } else {
-                                                    thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}));
+                                                    thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
                                                     thisState.setMyState(thisState);
                                                 }
                                             })

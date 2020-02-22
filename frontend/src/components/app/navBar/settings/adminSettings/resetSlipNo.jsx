@@ -7,11 +7,11 @@ const ResetSlipNo = props => {
     let prevent = false;
     return (
         <Modal
-            show={thisState.setting.resetSlipNoDialog}
+            show={thisState.settings.resetSlipNoDialog}
             onHide={() => {
-                thisState.setting.resetSlipNo = 1;
-                thisState.setting.resetSlipNoPassword = "";
-                thisState.setting.resetSlipNoDialog = false;
+                thisState.settings.resetSlipNo = 1;
+                thisState.settings.resetSlipNoPassword = "";
+                thisState.settings.resetSlipNoDialog = false;
                 thisState.setMyState(thisState);
             }}
             size="lg"
@@ -32,22 +32,22 @@ const ResetSlipNo = props => {
                         <Form.Control
                             className="text-centre"
                             value={
-                                thisState.setting.resetSlipNo <= 0
+                                thisState.settings.resetSlipNo <= 0
                                     ? 1
-                                    : thisState.setting.resetSlipNo
+                                    : thisState.settings.resetSlipNo
                             }
                             onChange={event => {
-                                thisState.setting.resetSlipNo =
+                                thisState.settings.resetSlipNo =
                                     (event.target.value.match("[0-9]+") || []).pop() || "";
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
                                 // noinspection StatementWithEmptyBodyJS
-                                if (event.keyCode === 9 && event.shiftKey) ;
+                                if (event.keyCode === 9 && event.shiftKey);
                                 else if (event.keyCode === 13 || event.keyCode === 9)
-                                    thisState.setting.resetSlipNoPasswordReference.current.focus();
+                                    thisState.settings.resetSlipNoPasswordReference.current.focus();
                             }}
-                            ref={thisState.setting.resetSlipNoReference}
+                            ref={thisState.settings.resetSlipNoReference}
                         />
                     </Col>
                 </Form.Group>
@@ -60,18 +60,18 @@ const ResetSlipNo = props => {
                             type="password"
                             autoComplete="off"
                             className="text-centre"
-                            value={thisState.setting.resetSlipNoPassword}
+                            value={thisState.settings.resetSlipNoPassword}
                             onChange={event => {
-                                thisState.setting.resetSlipNoPassword = event.target.value;
+                                thisState.settings.resetSlipNoPassword = event.target.value;
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
                                 // noinspection StatementWithEmptyBodyJS
-                                if (event.keyCode === 9 && event.shiftKey) ;
+                                if (event.keyCode === 9 && event.shiftKey);
                                 else if (event.keyCode === 13 || event.keyCode === 9)
-                                    thisState.setting.resetSlipNoButtonReference.current.focus();
+                                    thisState.settings.resetSlipNoButtonReference.current.focus();
                             }}
-                            ref={thisState.setting.resetSlipNoPasswordReference}
+                            ref={thisState.settings.resetSlipNoPasswordReference}
                         />
                     </Col>
                 </Form.Group>
@@ -80,13 +80,13 @@ const ResetSlipNo = props => {
                 <Button
                     onClick={() => {
                         if (
-                            thisState.setting.resetSlipNoPassword ===
+                            thisState.settings.resetSlipNoPassword ===
                             thisState.settings.value.RESET_SLIP_PASSWORD
                         ) {
                             fetch(
                                 thisState.INITIAL_URL +
                                 "/resetWeight?slipNo=" +
-                                thisState.setting.resetSlipNo
+                                thisState.settings.resetSlipNo
                             )
                                 .then(response => {
                                     if (response.status === 200) {
@@ -122,7 +122,7 @@ const ResetSlipNo = props => {
                                                 thisState.weight.transporterName = "";
                                                 thisState.weight.material = "";
                                                 thisState.weighing.reference.materialReference.value = [
-                                                    {material: ""}
+                                                    { material: "" }
                                                 ];
                                                 thisState.weight.grossWeight = "";
                                                 thisState.weight.grossTime = "";
@@ -140,9 +140,9 @@ const ResetSlipNo = props => {
                                                     headline: "Reset Slip No",
                                                     message: "Slip No Reset Successfully."
                                                 });
-                                                thisState.setting.resetSlipNo = 1;
-                                                thisState.setting.resetSlipNoPassword = "";
-                                                thisState.setting.resetSlipNoDialog = false;
+                                                thisState.settings.resetSlipNo = 1;
+                                                thisState.settings.resetSlipNoPassword = "";
+                                                thisState.settings.resetSlipNoDialog = false;
                                                 thisState.setMyState(thisState);
                                             });
                                     } else throw Error(response.statusText);
@@ -156,9 +156,9 @@ const ResetSlipNo = props => {
                                 headline: "Reset Slip No",
                                 message: "Password incorrect"
                             });
-                            thisState.setting.resetSlipNoPassword = "";
+                            thisState.settings.resetSlipNoPassword = "";
                             thisState.setMyState(thisState);
-                            thisState.setting.resetSlipNoPasswordReference.current.focus();
+                            thisState.settings.resetSlipNoPasswordReference.current.focus();
                         }
                     }}
                     onKeyPress={event => {
@@ -170,7 +170,7 @@ const ResetSlipNo = props => {
                     onFocus={() => {
                         prevent = true;
                     }}
-                    ref={thisState.setting.resetSlipNoButtonReference}
+                    ref={thisState.settings.resetSlipNoButtonReference}
                 >
                     Reset Slip No
                 </Button>

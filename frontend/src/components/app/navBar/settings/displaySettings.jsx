@@ -27,7 +27,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableCOMPorts.map((item) => (
+                        {thisState.settings.array.availableserialPorts.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -48,7 +48,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableBaudRate.map((item) => (
+                        {thisState.settings.array.availableBaudRate.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -69,7 +69,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableDataBits.map((item) => (
+                        {thisState.settings.array.availableDataBits.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -90,7 +90,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableParity.map((item) => (
+                        {thisState.settings.array.availableParity.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -111,7 +111,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableStopBits.map((item) => (
+                        {thisState.settings.array.availableStopBits.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -132,7 +132,7 @@ const DisplaySettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availableFlowControl.map((item) => (
+                        {thisState.settings.array.availableFlowControl.map((item) => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -160,7 +160,7 @@ const DisplaySettings = props => {
                         });
                 }}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
+                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                 Refresh Display SerialPort Settings
             </Button>
         </Form>

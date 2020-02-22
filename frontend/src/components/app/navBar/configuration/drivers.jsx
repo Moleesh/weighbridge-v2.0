@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Row, Table } from "react-bootstrap";
+import {Button, Col, Form, Row, Table} from "react-bootstrap";
 
 import Toggle from "react-bootstrap-toggle";
 
@@ -148,8 +148,8 @@ const Drivers = props => {
                                                             className="text-center form-control reportInputs"
                                                             disabled={
                                                                 !(
-                                                                    thisState.configuration.material.unlock &&
-                                                                    thisState.configuration.material.editable
+                                                                    thisState.configuration.materials.unlock &&
+                                                                    thisState.configuration.materials.editable
                                                                 )
                                                             }
                                                             type="text"

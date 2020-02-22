@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-import { Button, Col, Form, Row } from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 import TareDetails from "./columnThree/tareDetails";
 import GrossDetails from "./columnThree/grossDetails";
@@ -12,7 +12,7 @@ const ColumnThree = props => {
     let thisState = props.preState;
     return (
         <Col sm="4" className="mt-2">
-            {thisState.setting.automation ?
+            {thisState.settings.value.automation ?
                 <React.Fragment>
                     <Form.Group as={Row}>
                         <Form.Label column sm="6">
@@ -71,7 +71,7 @@ const ColumnThree = props => {
                                         thisState.weighing.reference.customersIdReference.current.focus();
                                     else { // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
                                         if ((event.keyCode === 13) || (event.keyCode === 9)) {
-                                            let material = thisState.configuration.material.list.filter(
+                                            let material = thisState.configuration.materials.list.filter(
                                                 item =>
                                                     parseInt(item.materialId) ===
                                                     parseInt(thisState.weighing.materialId)
@@ -248,7 +248,7 @@ const ColumnThree = props => {
                         }}
                     />
                 </Col>
-                {thisState.setting.manualEntry ?
+                {thisState.settings.manualEntry ?
                     <Col sm="6">
                         <Button className="adam-button " variant="primary" block
                             disabled={thisState.weighing.disable.grossDetailsDisabled}
@@ -284,7 +284,7 @@ const ColumnThree = props => {
                         }}
                     />
                 </Col>
-                {thisState.setting.manualEntry ?
+                {thisState.settings.manualEntry ?
                     <Col sm="6">
                         <Button className="adam-button " variant="primary" block
                             disabled={thisState.weighing.disable.tareDetailsWeightDisabled}

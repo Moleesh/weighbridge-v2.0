@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col, Form, Image, Row } from "react-bootstrap";
+import {Card, Col, Form, Image, Row} from "react-bootstrap";
 
 import ColumnOne from "./weighing/columnOne";
 import ColumnTwo from "./weighing/columnTwo";
@@ -90,14 +90,14 @@ const Weighing = props => {
                         onLoad={() => {
                             thisState.setMyState({
                                 cameraImage:
-                                    thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random()
+                                    thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" + Math.random()
                             });
                         }}
                         onError={async () => {
                             setTimeout(function () {
                                 thisState.setMyState({
                                     cameraImage:
-                                        thisState.INITIAL_URL + "/getCameraImage?rnd=" + Math.random()
+                                        thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" + Math.random()
                                 });
                             }, 5000);
                         }}

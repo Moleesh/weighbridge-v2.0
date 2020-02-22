@@ -90,7 +90,7 @@ const Bottom = props => {
                             fetch(thisState.INITIAL_URL + "/saveWeight", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             })
                                 .then(response => {
                                     if (response.status === 200) {
@@ -166,7 +166,7 @@ const Bottom = props => {
                                     printFormat: thisState.settings.value.printFormat,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
+                                        thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
                                 headers: { "content-type": "application/json" }
@@ -193,7 +193,7 @@ const Bottom = props => {
                                     printFormat: thisState.settings.value.printFormat,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
+                                        thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
                                 headers: { "content-type": "application/json" }
@@ -247,7 +247,7 @@ const Bottom = props => {
                                 thisState.weight.remarks = "";
                                 thisState.weighing.grossSelector = true;
                                 thisState.weighing.tareSelector = false;
-                                if (thisState.setting.manualEntry) {
+                                if (thisState.settings.manualEntry) {
                                     thisState.weighing.disable.grossDetailsDisabled = false;
                                     thisState.weighing.disable.tareDetailsWeightDisabled = false;
                                 }
@@ -320,7 +320,7 @@ const Bottom = props => {
                                 thisState.weight.remarks = "";
                                 thisState.weighing.grossSelector = true;
                                 thisState.weighing.tareSelector = false;
-                                if (thisState.setting.manualEntry) {
+                                if (thisState.settings.manualEntry) {
                                     thisState.weighing.disable.grossDetailsDisabled = false;
                                     thisState.weighing.disable.tareDetailsWeightDisabled = false;
                                 }

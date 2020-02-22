@@ -48,6 +48,10 @@ INSERT INTO SETTING
 SELECT 'Standard_printFormat', 'printFormat', 'WebCam Print', 'Standard'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormat' AND PROFILE_PROFILE_NAME like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_automation', 'automation', false, 'Standard'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'automation' AND PROFILE_PROFILE_NAME like 'Standard');
 
 INSERT INTO SERIAL_PORT_DETAIL
 SELECT 'indicator',

@@ -91,7 +91,7 @@ class Controller {
 		return settingService.getAllSettingsByProfile(profile);
 	}
 
-	@RequestMapping(value = "/getNextSlipNoByProfile", method = {RequestMethod.GET})
+	@RequestMapping(value = "/setting/getNextSlipNoByProfile", method = {RequestMethod.GET})
 	public int getNextSlipNoByProfile(@RequestParam("profile") String profile) {
 		return Integer.parseInt(settingService.getSettingByProfile("slipNo", profile));
 	}

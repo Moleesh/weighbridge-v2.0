@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBackward} from "@fortawesome/free-solid-svg-icons";
 import Toggle from "react-bootstrap-toggle";
 
 import ResetSlipNo from "./adminSettings/resetSlipNo";
@@ -28,13 +28,13 @@ const AdminSettings = props => {
                         variant="danger"
                         size="lg"
                         onClick={() => {
-                            thisState.setting.resetSlipNo = 1;
-                            thisState.setting.resetSlipNoPassword = "";
-                            thisState.setting.resetSlipNoDialog = true;
+                            thisState.settings.resetSlipNo = 1;
+                            thisState.settings.resetSlipNoPassword = "";
+                            thisState.settings.resetSlipNoDialog = true;
                             thisState
                                 .setMyState(thisState)
                                 .then(() =>
-                                    thisState.setting.resetSlipNoReference.current.focus()
+                                    thisState.settings.resetSlipNoReference.current.focus()
                                 );
                         }}
                     >
@@ -51,17 +51,17 @@ const AdminSettings = props => {
                 <Col sm="9">
                     <Toggle
                         onClick={() => {
-                            if (!thisState.setting.manualEntry) {
-                                thisState.setting.manualEntryDialog = true;
-                                thisState.setting.manualEntryPassword = "";
+                            if (!thisState.settings.manualEntry) {
+                                thisState.settings.manualEntryDialog = true;
+                                thisState.settings.manualEntryPassword = "";
                                 thisState
                                     .setMyState(thisState)
                                     .then(() =>
-                                        thisState.setting.manualEntryPasswordReference.current.focus()
+                                        thisState.settings.manualEntryPasswordReference.current.focus()
                                     );
                             } else {
                                 thisState.weight.manual = "N";
-                                thisState.setting.manualEntry = false;
+                                thisState.settings.manualEntry = false;
                                 thisState.setMyState(thisState);
                             }
                         }}
@@ -69,7 +69,7 @@ const AdminSettings = props => {
                         off="OFF"
                         size="lg"
                         offstyle="danger"
-                        active={thisState.setting.manualEntry}
+                        active={thisState.settings.manualEntry}
                         recalculateOnResize={true}
                     />
                     <ManualEntry preState={thisState} />
@@ -82,16 +82,16 @@ const AdminSettings = props => {
                 <Col sm="9">
                     <Toggle
                         onClick={() => {
-                            if (!thisState.setting.editEnable) {
-                                thisState.setting.editEnableDialog = true;
-                                thisState.setting.editEnablePassword = "";
+                            if (!thisState.settings.editEnable) {
+                                thisState.settings.editEnableDialog = true;
+                                thisState.settings.editEnablePassword = "";
                                 thisState
                                     .setMyState(thisState)
                                     .then(() =>
-                                        thisState.setting.editEnablePasswordReference.current.focus()
+                                        thisState.settings.editEnablePasswordReference.current.focus()
                                     );
                             } else {
-                                thisState.setting.editEnable = false;
+                                thisState.settings.editEnable = false;
                                 thisState.setMyState(thisState);
                             }
                         }}
@@ -99,7 +99,7 @@ const AdminSettings = props => {
                         off="OFF"
                         size="lg"
                         offstyle="danger"
-                        active={thisState.setting.editEnable}
+                        active={thisState.settings.editEnable}
                         recalculateOnResize={true}
                     />
                     <EditEnable preState={thisState} />
@@ -112,9 +112,9 @@ const AdminSettings = props => {
                 <Col sm="9">
                     <Toggle
                         onClick={() => {
-                            thisState.setting.automation = !thisState.setting.automation;
+                            thisState.settings.automation = !thisState.settings.automation;
                             thisState.setMyState(thisState);
-                            if (thisState.setting.automation) {
+                            if (thisState.settings.automation) {
                                 // noinspection DuplicatedCode
                                 fetch(thisState.INITIAL_URL + "/getNextSlipNo")
                                     .then(response => {
@@ -212,7 +212,7 @@ const AdminSettings = props => {
                         off="OFF"
                         size="lg"
                         offstyle="danger"
-                        active={thisState.setting.automation}
+                        active={thisState.settings.automation}
                         recalculateOnResize={true}
                     />
                 </Col>

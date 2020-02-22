@@ -24,7 +24,7 @@ const PrinterSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availablePrinters.map(item => (
+                        {thisState.settings.array.availablePrinters.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
@@ -77,7 +77,7 @@ const PrinterSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.setting.array.availablePrintFormat.map(item => (
+                        {thisState.settings.array.availablePrintFormats.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>

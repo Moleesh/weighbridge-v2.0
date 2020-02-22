@@ -48,7 +48,7 @@ const Settings = props => {
                             <GeneralSettings preState={thisState} key="generalSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="cameraSettings">
-                            <WebCamSettings preState={thisState} key="cameraSettings"/>
+                            <WebCamSettings preState={thisState} key="cameraSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="printerSettings">
                             <PrinterSettings preState={thisState} key="printerSettings" />
@@ -75,7 +75,7 @@ const Settings = props => {
                         onClick={() => {
                             fetch(thisState.INITIAL_URL + "/saveAllSettings", {
                                 method: "PUT",
-                                body: JSON.stringify(thisState.setting.value),
+                                body: JSON.stringify(thisState.settings.value),
                                 headers: { "content-type": "application/json" }
                             })
                                 .then(response => {
@@ -116,40 +116,40 @@ const Settings = props => {
                                     } else throw Error(response.statusText);
                                 })
                                 .then(result => {
-                                    thisState.setting.value = result;
+                                    thisState.settings.value = result;
                                     if (
-                                        thisState.setting.array.availableCameras.indexOf(
-                                            thisState.settings.value.cameraName
+                                        thisState.settings.array.availableWebCams.indexOf(
+                                            thisState.WEBCAM
                                         ) === -1
                                     ) {
-                                        thisState.setting.array.availableCameras.push(
-                                            thisState.settings.value.cameraName
+                                        thisState.settings.array.availableWebCams.push(
+                                            thisState.WEBCAM
                                         );
                                     }
                                     if (
-                                        thisState.setting.array.availablePrinters.indexOf(
+                                        thisState.settings.array.availablePrinters.indexOf(
                                             thisState.settings.value.printerName
                                         ) === -1
                                     ) {
-                                        thisState.setting.array.availablePrinters.push(
+                                        thisState.settings.array.availablePrinters.push(
                                             thisState.settings.value.printerName
                                         );
                                     }
                                     if (
-                                        thisState.setting.array.availableCOMPorts.indexOf(
+                                        thisState.settings.array.availableserialPorts.indexOf(
                                             thisState.settings.value.indicatorCOMPort
                                         ) === -1
                                     ) {
-                                        thisState.setting.array.availableCOMPorts.push(
+                                        thisState.settings.array.availableserialPorts.push(
                                             thisState.settings.value.indicatorCOMPort
                                         );
                                     }
                                     if (
-                                        thisState.setting.array.availableCOMPorts.indexOf(
+                                        thisState.settings.array.availableserialPorts.indexOf(
                                             thisState.settings.value.displayCOMPort
                                         ) === -1
                                     ) {
-                                        thisState.setting.array.availableCOMPorts.push(
+                                        thisState.settings.array.availableserialPorts.push(
                                             thisState.settings.value.displayCOMPort
                                         );
                                     }
@@ -194,7 +194,7 @@ const Settings = props => {
                             }, thisState.settings.value.REFRESH_TIME_WEIGHT);
                             thisState.cameraImage =
                                 thisState.INITIAL_URL +
-                                "/getCameraImage?rnd=" +
+                                "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" +
                                 Math.random();
                             thisState.alerts.push({
                                 id: new Date().getTime(),

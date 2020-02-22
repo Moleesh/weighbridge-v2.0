@@ -1,7 +1,7 @@
 import React from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import Clock from "react-live-clock";
-import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
+import {Menu, MenuItem, Typeahead} from "react-bootstrap-typeahead";
 
 import PreviousWeight from './columnOne/previousWeight';
 
@@ -149,7 +149,7 @@ const ColumnOne = props => {
                 </Menu>
               ) : null
             }
-            options={thisState.configuration.material.list}
+            options={thisState.configuration.materials.list}
             maxHeight={"200px"}
             selected={thisState.weighing.reference.materialReference.value}
             disabled={thisState.weighing.disable.materialDisabled}

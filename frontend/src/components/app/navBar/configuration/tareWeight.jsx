@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Row, Table } from "react-bootstrap";
+import {Button, Col, Form, Row, Table} from "react-bootstrap";
 
 import Toggle from "react-bootstrap-toggle";
 
@@ -17,7 +17,7 @@ const TareWeight = props => {
                     <Row className="justify-content-center">
                         <Toggle
                             onClick={() => {
-                                thisState.configuration.tareWeight.unlock = !thisState
+                                thisState.configuration.tareWeights.unlock = !thisState
                                     .configuration.tareWeight.unlock;
                                 thisState.setMyState(thisState);
                             }}
@@ -25,7 +25,7 @@ const TareWeight = props => {
                             off="OFF"
                             size="lg"
                             offstyle="danger"
-                            active={thisState.configuration.tareWeight.unlock}
+                            active={thisState.configuration.tareWeights.unlock}
                             recalculateOnResize={true}
                         />
                     </Row>
@@ -36,26 +36,26 @@ const TareWeight = props => {
                     className="text-center form-control"
                     type="text"
                     placeholder="Search in tare list..."
-                    value={thisState.configuration.tareWeight.filterText}
+                    value={thisState.configuration.tareWeights.filterText}
                     onChange={event => {
-                        thisState.configuration.tareWeight.filterText = event.target.value;
+                        thisState.configuration.tareWeights.filterText = event.target.value;
                         thisState.setMyState(thisState);
                     }}
                 />
             </Form.Group>
-            {thisState.configuration.tareWeight.unlock &&
-                thisState.configuration.tareWeight.editable ? (
+            {thisState.configuration.tareWeights.unlock &&
+                thisState.configuration.tareWeights.editable ? (
                     <Form.Row>
-                        {Object.keys(thisState.configuration.tareWeight.template).map(key => (
+                        {Object.keys(thisState.configuration.tareWeights.template).map(key => (
                             <Col className="pb-2" key={key}>
                                 <Form.Control
                                     className="text-center form-control"
                                     type="text"
                                     name={key}
                                     autoComplete="off"
-                                    value={thisState.configuration.tareWeight.template[key]}
+                                    value={thisState.configuration.tareWeights.template[key]}
                                     onChange={event => {
-                                        thisState.configuration.tareWeight.template[key] =
+                                        thisState.configuration.tareWeights.template[key] =
                                             event.target.value;
                                         thisState.setMyState(thisState);
                                     }}
@@ -68,7 +68,7 @@ const TareWeight = props => {
                                 type="button"
                                 onClick={() => {
                                     let send = true;
-                                    Object.values(thisState.configuration.tareWeight.template).map(
+                                    Object.values(thisState.configuration.tareWeights.template).map(
                                         value => {
                                             if (value === "") send = false;
                                             return null;
@@ -78,7 +78,7 @@ const TareWeight = props => {
                                         fetch(thisState.INITIAL_URL + "/addUpdateTareWeight", {
                                             method: "PUT",
                                             body: JSON.stringify(
-                                                thisState.configuration.tareWeight.template
+                                                thisState.configuration.tareWeights.template
                                             ),
                                             headers: { "content-type": "application/json" }
                                         })
@@ -89,14 +89,14 @@ const TareWeight = props => {
                                             })
                                             .then(result => {
                                                 Object.keys(
-                                                    thisState.configuration.tareWeight.template
+                                                    thisState.configuration.tareWeights.template
                                                 ).map(
                                                     key =>
-                                                        (thisState.configuration.tareWeight.template[key] =
+                                                        (thisState.configuration.tareWeights.template[key] =
                                                             "")
                                                 );
                                                 thisState.setMyState(thisState).then(() => {
-                                                    thisState.configuration.tareWeight.list.push(result);
+                                                    thisState.configuration.tareWeights.list.push(result);
                                                     thisState.setMyState(thisState);
                                                 });
                                             })
@@ -124,19 +124,19 @@ const TareWeight = props => {
             <Table hover size="sm">
                 <thead>
                     <tr>
-                        {thisState.configuration.tareWeight.header.map(item => (
+                        {thisState.configuration.tareWeights.header.map(item => (
                             <th key={item}>{item}</th>
                         ))}
-                        {thisState.configuration.tareWeight.unlock ? <th /> : null}
+                        {thisState.configuration.tareWeights.unlock ? <th /> : null}
                     </tr>
                 </thead>
                 <tbody>
-                    {thisState.configuration.tareWeight.list.map((item, index) => (
+                    {thisState.configuration.tareWeights.list.map((item, index) => (
                         <tr key={index} className="eachRow">
                             {Object.values(item)
                                 .toString()
                                 .replace(",", ".")
-                                .indexOf(thisState.configuration.tareWeight.filterText) ===
+                                .indexOf(thisState.configuration.tareWeights.filterText) ===
                                 -1 ? null : (
                                     <React.Fragment>
                                         {Object.keys(item)
@@ -149,15 +149,15 @@ const TareWeight = props => {
                                                             className="text-center form-control reportInputs"
                                                             disabled={
                                                                 !(
-                                                                    thisState.configuration.tareWeight.unlock &&
-                                                                    thisState.configuration.tareWeight.editable
+                                                                    thisState.configuration.tareWeights.unlock &&
+                                                                    thisState.configuration.tareWeights.editable
                                                                 )
                                                             }
                                                             type="text"
                                                             name={key}
                                                             value={item[key] !== null ? item[key] : ""}
                                                             onChange={event => {
-                                                                thisState.configuration.tareWeight.list[index][
+                                                                thisState.configuration.tareWeights.list[index][
                                                                     key
                                                                 ] = event.target.value;
                                                                 thisState.setMyState(thisState);
@@ -166,10 +166,10 @@ const TareWeight = props => {
                                                     </Col>
                                                 </td>
                                             ))}
-                                        {thisState.configuration.tareWeight.unlock ? (
+                                        {thisState.configuration.tareWeights.unlock ? (
                                             <td>
                                                 <Row>
-                                                    {thisState.configuration.tareWeight.editable ? (
+                                                    {thisState.configuration.tareWeights.editable ? (
                                                         <Col>
                                                             <Button
                                                                 block
@@ -181,7 +181,7 @@ const TareWeight = props => {
                                                                         {
                                                                             method: "PUT",
                                                                             body: JSON.stringify(
-                                                                                thisState.configuration.tareWeight.list[
+                                                                                thisState.configuration.tareWeights.list[
                                                                                 index
                                                                                 ]
                                                                             ),
@@ -215,7 +215,7 @@ const TareWeight = props => {
                                                                 fetch(
                                                                     thisState.INITIAL_URL +
                                                                     "/deleteTareWeight?id=" +
-                                                                    thisState.configuration.tareWeight.list[index]
+                                                                    thisState.configuration.tareWeights.list[index]
                                                                         .id,
                                                                     {
                                                                         method: "DELETE"
@@ -223,7 +223,7 @@ const TareWeight = props => {
                                                                 )
                                                                     .then(response => {
                                                                         if (response.status === 200) {
-                                                                            thisState.configuration.tareWeight.list.splice(
+                                                                            thisState.configuration.tareWeights.list.splice(
                                                                                 index,
                                                                                 1
                                                                             );

@@ -147,7 +147,7 @@ class App extends Component {
       tareWeights: {
         header: ["Vehicle No", "Tare Weight", "Tare Time"],
         filterText: "",
-        template: {vehicleNo: "", tareWeight: "", tareTime: ""},
+        template: { vehicleNo: "", tareWeight: "", tareTime: "" },
         list: [],
         editable: false,
         unlock: false
@@ -288,20 +288,20 @@ class App extends Component {
   UNSAFE_componentWillMount() {
     let thisState = { ...this.state, setMyState: this.setMyState };
     Promise.all(
-        [
-          fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/profile/getMyPrimaryProfile").then(resp => resp.text()),
-          fetch(thisState.INITIAL_URL + "/profile/getAllProfiles").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormats").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/webCamDetail/getMyPrimaryWebCam").then(resp => resp.text()),
-          fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCamDetails").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCams").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/serialPortDetail/getAllSerialPorts").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=indicator").then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=display").then(resp => resp.json()),
-        ]
-    ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCam, webCams, seialPorts, indicator, display]) => {
+      [
+        fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/profile/getMyPrimaryProfile").then(resp => resp.text()),
+        fetch(thisState.INITIAL_URL + "/profile/getAllProfiles").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormats").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/webCamDetail/getMyPrimaryWebCam").then(resp => resp.text()),
+        fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCamDetails").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCams").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/serialPortDetail/getAllSerialPorts").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=indicator").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=display").then(resp => resp.json()),
+      ]
+    ).then(([adminSettings, profile, profiles, printers, printFormats, webCam, webCamDetails, webCams, seialPorts, indicator, display]) => {
       thisState.adminSettings = adminSettings;
       thisState.PROFILE = profile;
       thisState.profiles = profiles;
@@ -314,13 +314,13 @@ class App extends Component {
       thisState.settings.indicator = indicator;
       thisState.settings.display = display;
       Promise.all(
-          [
-            fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + profile).then(resp => resp.json()),
-            fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + profile).then(resp => resp.json()),
-            fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + profile).then(resp => resp.json()),
-            fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeighsByProfile?profile=" + profile).then(resp => resp.json()),
-            fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + profile).then(resp => resp.text())
-          ]
+        [
+          fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + profile).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + profile).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + profile).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + profile).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + profile).then(resp => resp.text())
+        ]
       ).then(([settings, materials, drivers, tareWeights, slipNo]) => {
         thisState.settings.value = settings;
         thisState.configuration.materials.list = materials;
@@ -330,25 +330,25 @@ class App extends Component {
         if (slipNo === -1) {
           thisState.weighing.disable.getWeightDisabled = true;
         }
-        if (thisState.setting.array.availablePrinters.indexOf(thisState.settings.value.printerName) === -1) {
-          thisState.setting.array.availablePrinters.push(thisState.settings.value.printerName);
+        if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerName) === -1) {
+          thisState.settings.array.availablePrinters.push(thisState.settings.value.printerName);
         }
         thisState._WEIGHT = setInterval(() => {
           fetch(thisState.INITIAL_URL + "/serialPortDetail/getNextWeight")
-              .then(response => {
-                if (response.status === 200) {
-                  return response.json();
-                } else {
-                  return -1;
-                }
-              })
-              .then(result => {
-                thisState.setMyState({
-                  WEIGHT: result
-                });
-              })
+            .then(response => {
+              if (response.status === 200) {
+                return response.json();
+              } else {
+                return -1;
+              }
+            })
+            .then(result => {
+              thisState.setMyState({
+                WEIGHT: result
+              });
+            })
         }, thisState.settings.value.REFRESH_TIME_WEIGHT);
-        thisState.cameraImage = thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?rnd=" + Math.random();
+        thisState.cameraImage = thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" + Math.random();
         thisState.setMyState(thisState)
       }).catch(() => {
         thisState.weight.slipNo = "-1";

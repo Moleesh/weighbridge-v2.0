@@ -21,15 +21,15 @@ const NavBar = props => {
                 className="mt-1 h5 py-2 pb-1"
             >
                 <Tab eventKey="weighing" title="Weighing"
-                     onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
-                    <Weighing preState={thisState}/>
+                    onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
+                    <Weighing preState={thisState} />
                 </Tab>
                 <Tab eventKey="webcam" title="WebCam">
-                    <WebCam preState={thisState}/>
+                    <WebCam preState={thisState} />
                 </Tab>
                 <Tab eventKey="report" title="Report" onEntered={() => {
                 }}>
-                    <Report preState={thisState}/>
+                    <Report preState={thisState} />
                 </Tab>
                 <Tab
                     eventKey="configuration"
@@ -42,7 +42,7 @@ const NavBar = props => {
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                thisState.configuration.material.list = result;
+                                thisState.configuration.materials.list = result;
                                 thisState.setMyState(thisState);
                             })
                             .catch(() => {
@@ -66,7 +66,7 @@ const NavBar = props => {
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                thisState.configuration.tareWeight.list = result;
+                                thisState.configuration.tareWeights.list = result;
                                 thisState.setMyState(thisState);
                             })
                             .catch(() => {
@@ -86,7 +86,7 @@ const NavBar = props => {
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                thisState.setting.value = result;
+                                thisState.settings.value = result;
                                 thisState.setMyState(thisState);
                             })
                             .catch(() => {

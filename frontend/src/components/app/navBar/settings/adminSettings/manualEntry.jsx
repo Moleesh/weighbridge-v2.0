@@ -8,9 +8,9 @@ const ManualEntry = props => {
 
     return (
         <Modal
-            show={thisState.setting.manualEntryDialog}
+            show={thisState.settings.manualEntryDialog}
             onHide={() => {
-                thisState.setting.manualEntryDialog = false;
+                thisState.settings.manualEntryDialog = false;
                 thisState.setMyState(thisState);
             }}
             size="lg"
@@ -32,18 +32,18 @@ const ManualEntry = props => {
                             type="password"
                             autoComplete="off"
                             className="text-centre"
-                            value={thisState.setting.manualEntryPassword}
+                            value={thisState.settings.manualEntryPassword}
                             onChange={event => {
-                                thisState.setting.manualEntryPassword = event.target.value;
+                                thisState.settings.manualEntryPassword = event.target.value;
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
                                 // noinspection StatementWithEmptyBodyJS
                                 if (event.keyCode === 9 && event.shiftKey);
                                 else if (event.keyCode === 13 || event.keyCode === 9)
-                                    thisState.setting.manualEntryReference.current.focus();
+                                    thisState.settings.manualEntryReference.current.focus();
                             }}
-                            ref={thisState.setting.manualEntryPasswordReference}
+                            ref={thisState.settings.manualEntryPasswordReference}
                         />
                     </Col>
                 </Form.Group>
@@ -52,7 +52,7 @@ const ManualEntry = props => {
                 <Button
                     variant="secondary"
                     onClick={() => {
-                        thisState.setting.manualEntryDialog = false;
+                        thisState.settings.manualEntryDialog = false;
                         thisState.setMyState(thisState)
                     }}
                 >
@@ -62,14 +62,14 @@ const ManualEntry = props => {
                     variant="info"
                     onClick={() => {
                         if (
-                            thisState.setting.manualEntryPassword ===
+                            thisState.settings.manualEntryPassword ===
                             thisState.settings.value.MANUAL_ENTRY_PASSWORD
                         ) {
                             thisState.weight.manual = "Y";
-                            thisState.setting.manualEntry = true;
+                            thisState.settings.manualEntry = true;
                             thisState.weighing.disable.grossDetailsDisabled = false;
                             thisState.weighing.disable.tareDetailsWeightDisabled = false;
-                            thisState.setting.manualEntryDialog = false;
+                            thisState.settings.manualEntryDialog = false;
                         } else {
                             thisState.alerts.push({
                                 id: new Date().getTime(),
@@ -89,7 +89,7 @@ const ManualEntry = props => {
                     onFocus={() => {
                         prevent = true;
                     }}
-                    ref={thisState.setting.manualEntryReference}
+                    ref={thisState.settings.manualEntryReference}
                 >
                     Manual Entry
                 </Button>

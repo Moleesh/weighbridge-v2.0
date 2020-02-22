@@ -10,12 +10,16 @@ public class WebCamDetail implements Serializable {
 	@Id
 	private String name;
 	private boolean myPrimary = false;
-	private int x_Axis;
-	private int y_Axis;
-	private int width;
-	private int height;
+	private int x_Axis =5;
+	private int y_Axis=5;
+	private int width=5;
+	private int height=5;
 
 	public WebCamDetail() {
+	}
+
+	public WebCamDetail(String name) {
+		this.name = name;
 	}
 
 	public WebCamDetail(String name, int x_Axis, int y_Axis, int width, int height) {
