@@ -6,9 +6,7 @@ import Drivers from "./configuration/drivers";
 import TareWeight from "./configuration/tareWeight";
 
 const Configuration = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
-    // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
     return (
         <Tab.Container defaultActiveKey="material">
             <Row>
@@ -69,13 +67,13 @@ const Configuration = props => {
                 <Col sm="10" className="pt-2">
                     <Tab.Content>
                         <Tab.Pane eventKey="material">
-                            <Material preState={thisState} key="material" />
+                            <Material preState={thisState} key="material"/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="drivers">
-                            <Drivers preState={thisState} key="drivers" />
+                            <Drivers preState={thisState} key="drivers"/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="tareWeight">
-                            <TareWeight preState={thisState} key="tareWeight" />
+                            <TareWeight preState={thisState} key="tareWeight"/>
                         </Tab.Pane>
                     </Tab.Content>
                 </Col>

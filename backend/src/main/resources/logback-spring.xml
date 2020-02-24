@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<property name="LOG_DIR" value="./logs"/>
+    <property name="LOG_DIR" value="./logs"/>
 
-	<appender name="Console"
-	          class="ch.qos.logback.core.ConsoleAppender">
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<Pattern>
-				%black(%d{dd-MM-yy HH:mm:ss}) %highlight([%level]) %yellow(%C{1.}.%M) %black(\(%F:%L\)): %msg
-				%throwable %n
-			</Pattern>     
-		</layout>
-	</appender>
+    <appender name="Console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %black(%d{dd-MM-yy HH:mm:ss}) %highlight([%level]) %yellow(%C{1.}.%M) %black(\(%F:%L\)): %msg
+                %throwable %n
+            </Pattern>     
+        </layout>
+    </appender>
 
-	<appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/System.out</file>
-		<append>true</append>
-		<immediateFlush>true</immediateFlush>
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/System.out</file>
+        <append>true</append>
+        <immediateFlush>true</immediateFlush>
 
-		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/System.out.%i</fileNamePattern>
-		</rollingPolicy>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/System.out.%i</fileNamePattern>
+        </rollingPolicy>
 
-		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<maxFileSize>5MB</maxFileSize>
-		</triggeringPolicy>
-		<encoder>
-			<pattern>%d{ISO8601} [%level] [%t] %C{1.} : %msg %n %throwable\n</pattern>
-		</encoder>
-	</appender>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} [%level] [%t] %C{1.} : %msg %n %throwable\n</pattern>
+        </encoder>
+    </appender>
 
-	<root level="WARN">
-		<appender-ref ref="Console"/>
-		<appender-ref ref="RollingFile"/>
-	</root>
+    <root level="WARN">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </root>
 
-	<logger name="com.babulens.weighbridge" level="TRACE" additivity="false">
-		<appender-ref ref="Console"/>
-		<appender-ref ref="RollingFile"/>
-	</logger>
+    <logger name="com.babulens.weighbridge" level="TRACE" additivity="false">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
 
-	<logger name="org.springframework.boot" level="ERROR" additivity="false">
-		<appender-ref ref="Console"/>
-		<appender-ref ref="RollingFile"/>
-	</logger>
+    <logger name="org.springframework.boot" level="ERROR" additivity="false">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
 
-	<logger name="org.springframework.boot.StartupInfoLogger" level="INFO" additivity="false">
-		<appender-ref ref="Console"/>
-		<appender-ref ref="RollingFile"/>
-	</logger>
+    <logger name="org.springframework.boot.StartupInfoLogger" level="INFO" additivity="false">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
 
 </configuration>

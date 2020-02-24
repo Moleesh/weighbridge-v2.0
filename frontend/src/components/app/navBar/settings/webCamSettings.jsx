@@ -5,9 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faSync} from "@fortawesome/free-solid-svg-icons";
 
 const WebCamSettings = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
-    // noinspection DuplicatedCode
     return (
         <Form>
             <Row className="pb-5">
@@ -175,7 +173,7 @@ const WebCamSettings = props => {
                     fetch(thisState.INITIAL_URL + "/webCam/updateWebCam", {
                         method: "POST",
                         body: JSON.stringify(thisState.webCam.details[0]),
-                        headers: { "content-type": "application/json" }
+                        headers: {"content-type": "application/json"}
                     }).then(response => {
                         if (response.status === 200) {
                             thisState.alerts.push({
@@ -196,7 +194,7 @@ const WebCamSettings = props => {
                     });
                 }}
             >
-                <FontAwesomeIcon icon={faEdit} edclassName="mr-3" />
+                <FontAwesomeIcon icon={faEdit} edclassName="mr-3"/>
                 update WebCam SerialPort Settings
             </Button>
             <Button
@@ -219,7 +217,7 @@ const WebCamSettings = props => {
                         });
                 }}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
+                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
                 Refresh WebCam Settings
             </Button>
         </Form>

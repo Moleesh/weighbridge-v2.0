@@ -9,9 +9,7 @@ import WebCam from "./navBar/webCam";
 
 
 const NavBar = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
-    // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
     return (
         <Tab.Container defaultActiveKey="first">
             <Tabs
@@ -21,15 +19,15 @@ const NavBar = props => {
                 className="mt-1 h5 py-2 pb-1"
             >
                 <Tab eventKey="weighing" title="Weighing"
-                    onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
-                    <Weighing preState={thisState} />
+                     onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
+                    <Weighing preState={thisState}/>
                 </Tab>
                 <Tab eventKey="webcam" title="WebCam">
-                    <WebCam preState={thisState} />
+                    <WebCam preState={thisState}/>
                 </Tab>
                 <Tab eventKey="report" title="Report" onEntered={() => {
                 }}>
-                    <Report preState={thisState} />
+                    <Report preState={thisState}/>
                 </Tab>
                 <Tab
                     eventKey="configuration"
@@ -73,7 +71,7 @@ const NavBar = props => {
                             });
                     }}
                 >
-                    <Configuration preState={thisState} />
+                    <Configuration preState={thisState}/>
                 </Tab>
                 <Tab
                     eventKey="settings"
@@ -94,10 +92,10 @@ const NavBar = props => {
                             });
                     }}
                 >
-                    <Settings preState={thisState} />
+                    <Settings preState={thisState}/>
                 </Tab>
             </Tabs>
-        </Tab.Container >
+        </Tab.Container>
     );
 };
 

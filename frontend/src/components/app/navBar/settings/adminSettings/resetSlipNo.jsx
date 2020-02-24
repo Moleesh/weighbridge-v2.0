@@ -2,7 +2,6 @@ import React from "react";
 import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 const ResetSlipNo = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     let prevent = false;
     return (
@@ -42,8 +41,7 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                // noinspection StatementWithEmptyBodyJS
-                                if (event.keyCode === 9 && event.shiftKey);
+                                if (event.keyCode === 9 && event.shiftKey) ;
                                 else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.settings.resetSlipNoPasswordReference.current.focus();
                             }}
@@ -66,8 +64,7 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                // noinspection StatementWithEmptyBodyJS
-                                if (event.keyCode === 9 && event.shiftKey);
+                                if (event.keyCode === 9 && event.shiftKey) ;
                                 else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.settings.resetSlipNoButtonReference.current.focus();
                             }}
@@ -90,7 +87,6 @@ const ResetSlipNo = props => {
                             )
                                 .then(response => {
                                     if (response.status === 200) {
-                                        // noinspection DuplicatedCode
                                         fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
                                             .then(response => {
                                                 if (response.status === 200) {
@@ -122,7 +118,7 @@ const ResetSlipNo = props => {
                                                 thisState.weight.transporterName = "";
                                                 thisState.weight.material = "";
                                                 thisState.weighing.reference.materialReference.value = [
-                                                    { material: "" }
+                                                    {material: ""}
                                                 ];
                                                 thisState.weight.grossWeight = "";
                                                 thisState.weight.grossTime = "";

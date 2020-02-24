@@ -2,7 +2,6 @@ import React from "react";
 import {Col, Form, Row} from "react-bootstrap";
 
 const PrinterSettings = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <Form>

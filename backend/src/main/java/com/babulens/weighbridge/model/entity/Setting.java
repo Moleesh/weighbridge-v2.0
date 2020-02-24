@@ -20,7 +20,7 @@ public class Setting implements Serializable {
 		this.key = key;
 		this.value = value.toString();
 		this.profile = profile;
-				this.id = profile + "_" + key;
+		this.id = profile + "_" + key;
 	}
 
 	public String getId() {

@@ -2,7 +2,6 @@ import React from "react";
 import {Col, Form, Row} from "react-bootstrap";
 
 const ColumnTwo = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <Col sm="4" className="mt-2">
@@ -21,7 +20,6 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            // noinspection DuplicatedCode,DuplicatedCode
                             if (event.keyCode === 9 && event.shiftKey)
                                 thisState.weighing.reference.materialReference.reference.current.focus();
                             else if ((event.keyCode === 13) || (event.keyCode === 9)) {
@@ -49,7 +47,6 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
                             if (event.keyCode === 9 && event.shiftKey)
                                 thisState.weighing.reference.customersNameReference.current.focus();
                             else if ((event.keyCode === 13) || (event.keyCode === 9)) {

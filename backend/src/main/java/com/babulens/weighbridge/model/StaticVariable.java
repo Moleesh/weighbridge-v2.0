@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 
 public class StaticVariable {
 
-	private static int weight = -1;
 	private static final Map<String, SerialPort> serialPorts = new HashMap<>();
 	private static final Map<String, Webcam> webcams = new HashMap<>();
+	private static int weight = -1;
 
 	static {
 		Webcam.setDriver(new WebcamCompositeDriver() {

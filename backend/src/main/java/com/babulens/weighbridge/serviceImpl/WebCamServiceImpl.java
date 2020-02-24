@@ -114,7 +114,7 @@ public class WebCamServiceImpl implements WebCamService {
 	}
 
 	@Override
-	public byte[]  getWebCamImage(String name) {
+	public byte[] getWebCamImage(String name) {
 		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
 		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
 

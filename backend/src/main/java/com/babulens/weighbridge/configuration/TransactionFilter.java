@@ -3,10 +3,12 @@ package com.babulens.weighbridge.configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +23,7 @@ public class TransactionFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
+	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) {
 		try {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			String clientIp = request.getRemoteAddr();
@@ -50,7 +52,7 @@ public class TransactionFilter implements Filter {
 			} else {
 				chain.doFilter(request, response);
 			}
-		}catch (Exception ex){
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
 
-	SerialPortSettingDAO serialPortSettingDAO;
+	final SerialPortSettingDAO serialPortSettingDAO;
 
 	@Autowired
 	public SerialPortServiceImpl(SerialPortSettingDAO serialPortSettingDAO) {
@@ -119,7 +119,7 @@ public class SerialPortServiceImpl implements SerialPortService {
 
 	@Override
 	public void updateSerialPortDetail(SerialPortDetail serialPortDetail) {
-
+		serialPortSettingDAO.save(serialPortDetail);
 	}
 
 	@Override

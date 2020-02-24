@@ -16,8 +16,6 @@ target
 WeighBridge
 WebCamOutput
 .settings
-backend/.settings
-frontend/.settings
 logs
 
 ###Project Specific Files ###

@@ -31,7 +31,7 @@ public class WeighServiceImpl implements WeighService {
 
 
 	@Autowired
-	public WeighServiceImpl(WeightDAO weightDAO, TareWeightService tareWeightService, SettingService settingService, WebCamService webCamService ) {
+	public WeighServiceImpl(WeightDAO weightDAO, TareWeightService tareWeightService, SettingService settingService, WebCamService webCamService) {
 		this.weightDAO = weightDAO;
 		this.tareWeightService = tareWeightService;
 		this.settingService = settingService;

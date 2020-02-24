@@ -1,7 +1,6 @@
 import React from "react";
 
 const WebCam = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
 

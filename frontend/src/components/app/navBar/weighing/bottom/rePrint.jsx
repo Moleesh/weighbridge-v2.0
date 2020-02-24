@@ -2,7 +2,6 @@ import React from "react";
 import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 const RePrint = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     let prevent = false;
     return (
@@ -38,8 +37,7 @@ const RePrint = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                // noinspection StatementWithEmptyBodyJS
-                                if (event.keyCode === 9 && event.shiftKey);
+                                if (event.keyCode === 9 && event.shiftKey) ;
                                 else if ((event.keyCode === 13) || (event.keyCode === 9))
                                     thisState.weighing.reference.rePrintButtonReference.current.focus();
                             }}
@@ -53,7 +51,6 @@ const RePrint = props => {
                     variant="info"
                     onClick={() => {
                         if (thisState.weighing.reprintSlipNo !== "") {
-                            // noinspection DuplicatedCode
                             fetch(
                                 thisState.INITIAL_URL +
                                 "/weight/getWeightBySlipNoAndProfile?profile=" + thisState.PROFILE + "&slipNo=" +
@@ -79,7 +76,7 @@ const RePrint = props => {
                                     thisState.weighing.disable.printDisabled = false;
                                     thisState.weight = result;
                                     thisState.weighing.reference.materialReference.value = [
-                                        { material: thisState.weight.material }
+                                        {material: thisState.weight.material}
                                     ];
                                     thisState.setMyState(thisState);
                                 })

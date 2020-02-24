@@ -1,11 +1,10 @@
 import React from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 import DateTime from 'react-datetime';
 import moment from "moment";
 
 const TareDetails = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <Modal
@@ -47,7 +46,7 @@ const TareDetails = props => {
                     <Form.Label column sm="6">
                         Tare Date & TIme
                     </Form.Label>
-                    <Col sm="6" >
+                    <Col sm="6">
                         <DateTime
                             dateFormat="DD-MM-YYYY"
                             timeFormat="HH:mm:ss"
@@ -57,7 +56,8 @@ const TareDetails = props => {
                                 className: "form-control details-input"
                             }}
                             onChange={event => {
-                                thisState.weighing.tareDetailsDate = moment(event).format("DD-MM-YYYY HH:mm:ss");;
+                                thisState.weighing.tareDetailsDate = moment(event).format("DD-MM-YYYY HH:mm:ss");
+
                                 thisState.setMyState(thisState);
                             }}
                         />
@@ -96,7 +96,7 @@ const TareDetails = props => {
                     Get Details
                 </Button>
             </Modal.Footer>
-        </Modal >
+        </Modal>
     );
 };
 

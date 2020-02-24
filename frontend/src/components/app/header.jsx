@@ -3,7 +3,6 @@ import logo from "../../assets/images/logo.svg";
 import {Card, Col, Row} from "react-bootstrap";
 
 const Header = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <Card

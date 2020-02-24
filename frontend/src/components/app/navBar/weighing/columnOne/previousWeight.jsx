@@ -1,8 +1,7 @@
 import React from "react";
-import { Button, Modal, Row, Col } from "react-bootstrap";
+import {Button, Col, Modal, Row} from "react-bootstrap";
 
 const PreviousWeight = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <Modal
@@ -17,24 +16,25 @@ const PreviousWeight = props => {
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Previous {thisState.weighing.previousWeight} Weight</Modal.Title>
+                <Modal.Title
+                    id="contained-modal-title-vcenter">Previous {thisState.weighing.previousWeight} Weight</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Row className="my-4  ml-3" >
+                <Row className="my-4  ml-3">
                     Please select 'YES' to enter the previous {thisState.weighing.previousWeight} weight ...
-                        </Row>
-                <Row >
+                </Row>
+                <Row>
                     <Col className="my-3  ml-5" sm="4">
                         {thisState.weighing.previousWeight} Weight
-                            </Col>
+                    </Col>
                     <Col className="my-3">
                         : <b>{thisState.weighing.previousWeightResult.tareWeight}</b>
                     </Col>
                 </Row>
-                <Row >
+                <Row>
                     <Col className="my-3  ml-5" sm="4">
                         {thisState.weighing.previousWeight} Date & Time
-                            </Col>
+                    </Col>
                     <Col className="my-3">
                         : <b>{thisState.weighing.previousWeightResult.tareTime}</b>
                     </Col>
@@ -71,7 +71,7 @@ const PreviousWeight = props => {
                     No
                 </Button>
             </Modal.Footer>
-        </Modal >
+        </Modal>
     );
 };
 

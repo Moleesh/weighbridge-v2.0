@@ -1,11 +1,10 @@
 import React from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 import DateTime from 'react-datetime';
 import moment from "moment";
 
 const GrossDetails = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <Modal
@@ -47,7 +46,7 @@ const GrossDetails = props => {
                     <Form.Label column sm="6">
                         Gross Date & TIme
                     </Form.Label>
-                    <Col sm="6" >
+                    <Col sm="6">
                         <DateTime
                             dateFormat="DD-MM-YYYY"
                             timeFormat="HH:mm:ss"
@@ -96,7 +95,7 @@ const GrossDetails = props => {
                     Get Details
                 </Button>
             </Modal.Footer>
-        </Modal >
+        </Modal>
     );
 };
 

@@ -8,7 +8,6 @@ import GrossDetails from "./columnThree/grossDetails";
 
 
 const ColumnThree = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <Col sm="4" className="mt-2">
@@ -55,7 +54,7 @@ const ColumnThree = props => {
                     <Form.Group as={Row}>
                         <Form.Label column sm="6">
                             Material Id
-                </Form.Label>
+                        </Form.Label>
                         <Col sm="6">
                             <Form.Control
                                 className="text-center"
@@ -69,7 +68,7 @@ const ColumnThree = props => {
                                 onKeyDown={async event => {
                                     if (event.keyCode === 9 && event.shiftKey)
                                         thisState.weighing.reference.customersIdReference.current.focus();
-                                    else { // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
+                                    else {
                                         if ((event.keyCode === 13) || (event.keyCode === 9)) {
                                             let material = thisState.configuration.material.list.filter(
                                                 item =>
@@ -78,7 +77,7 @@ const ColumnThree = props => {
                                             )[0];
                                             if (material !== undefined) {
                                                 thisState.weighing.reference.materialReference.value = [
-                                                    { material: material.material }
+                                                    {material: material.material}
                                                 ];
                                                 thisState.weight.material = material.material;
                                                 if (material.material === "EMPTY") {
@@ -87,7 +86,7 @@ const ColumnThree = props => {
                                                 }
                                             } else {
                                                 thisState.weighing.reference.materialReference.value = [
-                                                    { material: "" }
+                                                    {material: ""}
                                                 ];
                                                 thisState.weight.material = "";
                                             }
@@ -151,7 +150,7 @@ const ColumnThree = props => {
                                             fetch(thisState.INITIAL_URL + "/weight/saveWeight", {
                                                 method: "POST",
                                                 body: JSON.stringify(thisState.weight),
-                                                headers: { "content-type": "application/json" }
+                                                headers: {"content-type": "application/json"}
                                             })
                                                 .then(response => {
                                                     if (response.status === 200) {
@@ -176,7 +175,7 @@ const ColumnThree = props => {
                                                                 thisState.weighing.customersId = "";
                                                                 thisState.weighing.materialId = "";
                                                                 thisState.weighing.reference.materialReference.value = [
-                                                                    { material: "" }
+                                                                    {material: ""}
                                                                 ];
                                                                 thisState.weight.grossWeight = "";
                                                                 thisState.weight.grossTime = "";
@@ -220,7 +219,7 @@ const ColumnThree = props => {
                                 disabled
 
                             />
-                        </Col >
+                        </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Col>
@@ -229,7 +228,7 @@ const ColumnThree = props => {
                                 disabled
 
                             />
-                        </Col >
+                        </Col>
                     </Form.Group>
                 </React.Fragment>}
             <Form.Group as={Row}>
@@ -251,20 +250,20 @@ const ColumnThree = props => {
                 {thisState.settings.manualEntry ?
                     <Col sm="6">
                         <Button className="adam-button " variant="primary" block
-                            disabled={thisState.weighing.disable.grossDetailsDisabled}
-                            onClick={() => {
-                                thisState.weighing.grossDetails = true;
-                                thisState.weighing.grossDetailsWeight = "";
-                                thisState.weighing.grossDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
-                                thisState
-                                    .setMyState(thisState)
-                                    .then(() =>
-                                        thisState.weighing.reference.grossDetailsWeightReference.current.focus()
-                                    );
-                            }} >
+                                disabled={thisState.weighing.disable.grossDetailsDisabled}
+                                onClick={() => {
+                                    thisState.weighing.grossDetails = true;
+                                    thisState.weighing.grossDetailsWeight = "";
+                                    thisState.weighing.grossDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
+                                    thisState
+                                        .setMyState(thisState)
+                                        .then(() =>
+                                            thisState.weighing.reference.grossDetailsWeightReference.current.focus()
+                                        );
+                                }}>
                             Get Gross Details
-                    </Button>
-                        <GrossDetails preState={thisState} />
+                        </Button>
+                        <GrossDetails preState={thisState}/>
                     </Col>
                     : ""}
             </Form.Group>
@@ -287,20 +286,20 @@ const ColumnThree = props => {
                 {thisState.settings.manualEntry ?
                     <Col sm="6">
                         <Button className="adam-button " variant="primary" block
-                            disabled={thisState.weighing.disable.tareDetailsWeightDisabled}
-                            onClick={() => {
-                                thisState.weighing.tareDetails = true;
-                                thisState.weighing.tareDetailsWeight = "";
-                                thisState.weighing.tareDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
-                                thisState
-                                    .setMyState(thisState)
-                                    .then(() =>
-                                        thisState.weighing.reference.tareDetailsWeightReference.current.focus()
-                                    );
-                            }} >
+                                disabled={thisState.weighing.disable.tareDetailsWeightDisabled}
+                                onClick={() => {
+                                    thisState.weighing.tareDetails = true;
+                                    thisState.weighing.tareDetailsWeight = "";
+                                    thisState.weighing.tareDetailsDate = moment().format("DD-MM-YYYY HH:mm:ss")
+                                    thisState
+                                        .setMyState(thisState)
+                                        .then(() =>
+                                            thisState.weighing.reference.tareDetailsWeightReference.current.focus()
+                                        );
+                                }}>
                             Get Tare Details
-                    </Button>
-                        <TareDetails preState={thisState} />
+                        </Button>
+                        <TareDetails preState={thisState}/>
                     </Col>
                     : ""}
             </Form.Group>
@@ -321,7 +320,7 @@ const ColumnThree = props => {
                     />
                 </Col>
             </Form.Group>
-        </Col >
+        </Col>
     );
 };
 

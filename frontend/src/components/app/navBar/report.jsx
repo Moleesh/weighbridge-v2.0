@@ -11,22 +11,21 @@ import ReportTable from "./report/reportTable";
 
 
 const Report = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     return (
         <React.Fragment>
             <iframe src={thisState.report.pdfURL}
-                disabled
-                name="Report Print"
-                type="application/pdf"
-                onLoad={() => {
-                    if (thisState.report.pdfURL !== "") {
-                        window.frames["Report Print"].print();
-                    }
-                }}
-                title="Report Print"
-                style={{ display: "none" }}
-                className="none" />
+                    disabled
+                    name="Report Print"
+                    type="application/pdf"
+                    onLoad={() => {
+                        if (thisState.report.pdfURL !== "") {
+                            window.frames["Report Print"].print();
+                        }
+                    }}
+                    title="Report Print"
+                    style={{display: "none"}}
+                    className="none"/>
             <Form className="justify-content-center ">
                 <Row className="pb-1">
                     <Col className="pl-3">
@@ -38,7 +37,7 @@ const Report = props => {
                         <Form.Group as={Row}>
                             <Form.Label column sm="4">
                                 Report Type
-                        </Form.Label>
+                            </Form.Label>
                             <Col sm="8">
                                 <Form.Control
                                     as="select"
@@ -189,7 +188,7 @@ const Report = props => {
                         <Form.Group as={Row}>
                             <Form.Label column sm="3">
                                 Choose Date
-                        </Form.Label>
+                            </Form.Label>
                             <Col sm="9">
                                 <DatetimeRangePicker
                                     startDate={thisState.report.date.start}
@@ -202,7 +201,7 @@ const Report = props => {
                                         thisState.setMyState(thisState);
                                     }}
                                     isValidEndDate={() => true}
-                                    inputProps={{ disabled: thisState.report.dateDisabled }}
+                                    inputProps={{disabled: thisState.report.dateDisabled}}
                                 />
                             </Col>
                         </Form.Group>
@@ -241,7 +240,7 @@ const Report = props => {
                                                 input: thisState.report.input,
                                                 profile: thisState.PROFILE
                                             }),
-                                            headers: { "content-type": "application/json" }
+                                            headers: {"content-type": "application/json"}
                                         })
                                             .then(response => {
                                                 if (response.status === 200) {
@@ -261,7 +260,7 @@ const Report = props => {
                                     }}
                                 >
                                     Go
-                            </Button>
+                                </Button>
                             </Col>
                         </Form.Group>
                     </Col>
@@ -290,10 +289,10 @@ const Report = props => {
                                         thisState.setMyState(thisState);
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faFilter} className="mr-3" />
+                                    <FontAwesomeIcon icon={faFilter} className="mr-3"/>
                                     Filter Records
-                            </Button>
-                                <Filter preState={thisState} />
+                                </Button>
+                                <Filter preState={thisState}/>
                             </Col>
                         </Form.Group>
                     </Col>
@@ -305,7 +304,7 @@ const Report = props => {
                                 <Form.Group as={Row}>
                                     <Form.Label column sm="6">
                                         Total Records
-                        </Form.Label>
+                                    </Form.Label>
                                     <Col sm="6">
                                         <Form.Control
                                             autoComplete="off"
@@ -321,7 +320,7 @@ const Report = props => {
                                 <Form.Group as={Row}>
                                     <Form.Label column sm="6">
                                         Total Nett Weight
-                        </Form.Label>
+                                    </Form.Label>
                                     <Col sm="6">
                                         <Form.Control
                                             autoComplete="off"
@@ -337,7 +336,7 @@ const Report = props => {
                                 <Form.Group as={Row}>
                                     <Form.Label column sm="6">
                                         Total Charges
-                        </Form.Label>
+                                    </Form.Label>
                                     <Col sm="6">
                                         <Form.Control
                                             autoComplete="off"
@@ -358,20 +357,20 @@ const Report = props => {
                                     thisState.report.edit = !thisState.report.edit;
                                     thisState.setMyState(thisState);
                                 }}
-                                    disabled={!thisState.settings.editEnable}
-                                    className="none" >
-                                    <FontAwesomeIcon icon={faEdit} className="mr-3" />
+                                        disabled={!thisState.settings.editEnable}
+                                        className="none">
+                                    <FontAwesomeIcon icon={faEdit} className="mr-3"/>
                                     Edit {thisState.report.edit ? "ON" : "OFF"}
                                 </Button>
                             </Col>
                             <Col sm="5">
                                 <Button variant="secondary" block onClick={() => {
                                 }}
-                                    disabled
-                                    className="none">
-                                    <FontAwesomeIcon icon={faFileDownload} className="mr-3" />
+                                        disabled
+                                        className="none">
+                                    <FontAwesomeIcon icon={faFileDownload} className="mr-3"/>
                                     Export to Excel
-                            </Button>
+                                </Button>
                             </Col>
                             <Col sm="3">
                                 <Button
@@ -490,15 +489,15 @@ const Report = props => {
                                                     printerName: thisState.settings.value.printerName,
                                                     reportTitle: reportTitle,
                                                     weighbridgeName:
-                                                        thisState.settings.value.weighbridgeName,
+                                                    thisState.settings.value.weighbridgeName,
                                                     weighbridgeAddress:
-                                                        thisState.settings.value.weighbridgeAddress,
+                                                    thisState.settings.value.weighbridgeAddress,
                                                     totalRecords: thisState.report.totalRecords,
                                                     totalNettWeight: thisState.report.totalNettWeight,
                                                     totalTotalCharges: thisState.report.totalTotalCharges,
                                                     footer: thisState.settings.value.footer
                                                 }),
-                                                headers: { "content-type": "application/json" }
+                                                headers: {"content-type": "application/json"}
                                             }).then(response => {
                                                 if (response.status !== 200)
                                                     throw Error(response.statusText);
@@ -507,7 +506,7 @@ const Report = props => {
                                                 if (thisState.settings.value.printerName === "get as .pdf File") {
                                                     FileSaver.saveAs(blob, "report.pdf");
                                                 } else {
-                                                    thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
+                                                    thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}));
                                                     thisState.setMyState(thisState);
                                                 }
                                             }).catch(error => {
@@ -521,15 +520,15 @@ const Report = props => {
                                                     printerName: thisState.settings.value.printerName,
                                                     reportTitle: reportTitle,
                                                     weighbridgeName:
-                                                        thisState.settings.value.weighbridgeName,
+                                                    thisState.settings.value.weighbridgeName,
                                                     weighbridgeAddress:
-                                                        thisState.settings.value.weighbridgeAddress,
+                                                    thisState.settings.value.weighbridgeAddress,
                                                     totalRecords: thisState.report.totalRecords,
                                                     totalNettWeight: thisState.report.totalNettWeight,
                                                     totalTotalCharges: thisState.report.totalTotalCharges,
                                                     footer: thisState.settings.value.footer
                                                 }),
-                                                headers: { "content-type": "application/json" }
+                                                headers: {"content-type": "application/json"}
                                             }).then(response => {
                                                 if (response.status !== 200)
                                                     throw Error(response.statusText);
@@ -539,16 +538,16 @@ const Report = props => {
                                         }
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faPrint} className="mr-3" />
+                                    <FontAwesomeIcon icon={faPrint} className="mr-3"/>
                                     Print
-                            </Button>
+                                </Button>
                             </Col>
                         </Row>
                     </Col>
                 </Row>
             </Form>
             {thisState.report.list.length !== 0 ?
-                <ReportTable preState={thisState} className="flex-column" /> : ""}
+                <ReportTable preState={thisState} className="flex-column"/> : ""}
         </React.Fragment>
     );
 };

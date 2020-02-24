@@ -2,7 +2,6 @@ import React from "react";
 import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 const EditEnable = props => {
-    // noinspection JSUnresolvedVariable
     let thisState = props.preState;
     let prevent = false;
 
@@ -38,8 +37,7 @@ const EditEnable = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                // noinspection StatementWithEmptyBodyJS
-                                if (event.keyCode === 9 && event.shiftKey);
+                                if (event.keyCode === 9 && event.shiftKey) ;
                                 else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.settings.editEnableReference.current.focus();
                             }}
