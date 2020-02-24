@@ -17,15 +17,14 @@ const Material = props => {
                     <Row className="justify-content-center">
                         <Toggle
                             onClick={() => {
-                                thisState.configuration.materials.unlock = !thisState
-                                    .configuration.material.unlock;
+                                thisState.configuration.material.unlock = !thisState.configuration.material.unlock;
                                 thisState.setMyState(thisState);
                             }}
                             on="ON"
                             off="OFF"
                             size="lg"
                             offstyle="danger"
-                            active={thisState.configuration.materials.unlock}
+                            active={thisState.configuration.material.unlock}
                             recalculateOnResize={true}
                         />
                     </Row>
@@ -36,26 +35,26 @@ const Material = props => {
                     className="text-center form-control"
                     type="text"
                     placeholder="Search in material list ..."
-                    value={thisState.configuration.materials.filterText}
+                    value={thisState.configuration.material.filterText}
                     onChange={event => {
-                        thisState.configuration.materials.filterText = event.target.value;
+                        thisState.configuration.material.filterText = event.target.value;
                         thisState.setMyState(thisState);
                     }}
                 />
             </Form.Group>
 
-            {thisState.configuration.materials.unlock ? (
+            {thisState.configuration.material.unlock ? (
                 <Form.Row>
-                    {Object.keys(thisState.configuration.materials.template).map(key => (
+                    {Object.keys(thisState.configuration.material.template).map(key => (
                         <Col className="pb-2" key={key}>
                             <Form.Control
                                 className="text-center form-control"
                                 type="text"
                                 name={key}
                                 autoComplete="off"
-                                value={thisState.configuration.materials.template[key]}
+                                value={thisState.configuration.material.template[key]}
                                 onChange={event => {
-                                    thisState.configuration.materials.template[key] =
+                                    thisState.configuration.material.template[key] =
                                         event.target.value;
                                     thisState.setMyState(thisState);
                                 }}
@@ -68,17 +67,20 @@ const Material = props => {
                             type="button"
                             onClick={() => {
                                 let send = true;
-                                Object.values(thisState.configuration.materials.template).map(
+                                Object.values(thisState.configuration.material.template).map(
                                     value => {
                                         if (value === "") send = false;
                                         return null;
                                     }
                                 );
-                                if (send) { // noinspection DuplicatedCode
-                                    fetch(thisState.INITIAL_URL + "/addUpdateMaterial", {
+                                if (send) {
+                                    fetch(thisState.INITIAL_URL + "/material/addUpdateMaterial", {
                                         method: "PUT",
                                         body: JSON.stringify(
-                                            thisState.configuration.materials.template
+                                            {
+                                                ...thisState.configuration.material.template,
+                                                profile: thisState.PROFILE
+                                            }
                                         ),
                                         headers: { "content-type": "application/json" }
                                     })
@@ -89,13 +91,13 @@ const Material = props => {
                                         })
                                         .then(result => {
                                             Object.keys(
-                                                thisState.configuration.materials.template
+                                                thisState.configuration.material.template
                                             ).map(
                                                 key =>
-                                                    (thisState.configuration.materials.template[key] = "")
+                                                    (thisState.configuration.material.template[key] = "")
                                             );
                                             thisState.setMyState(thisState).then(() => {
-                                                thisState.configuration.materials.list.push(result);
+                                                thisState.configuration.material.list.push(result);
 
                                                 thisState.setMyState(thisState);
                                             });
@@ -124,25 +126,25 @@ const Material = props => {
             <Table hover size="sm">
                 <thead>
                     <tr>
-                        {thisState.configuration.materials.header.map(item => (
+                        {thisState.configuration.material.header.map(item => (
                             <th key={item} className="justify-content-center">
                                 {item}
                             </th>
                         ))}
-                        {thisState.configuration.materials.unlock ? <th /> : null}
+                        {thisState.configuration.material.unlock ? <th /> : null}
                     </tr>
                 </thead>
                 <tbody>
-                    {thisState.configuration.materials.list.map((item, index) => (
+                    {thisState.configuration.material.list.map((item, index) => (
                         <tr key={index} className="eachRow">
                             {Object.values(item)
                                 .toString()
                                 .replace(",", ".")
-                                .indexOf(thisState.configuration.materials.filterText) ===
+                                .indexOf(thisState.configuration.material.filterText) ===
                                 -1 ? null : (
                                     <React.Fragment>
                                         {Object.keys(item)
-                                            .filter(key => key !== "id")
+                                            .filter(key => key !== "id" && key !== "profile")
                                             .map(key => (
                                                 <td key={key + "_" + item["id"]}>
                                                     <Col>
@@ -151,15 +153,15 @@ const Material = props => {
                                                             className="text-center form-control reportInputs"
                                                             disabled={
                                                                 !(
-                                                                    thisState.configuration.materials.unlock &&
-                                                                    thisState.configuration.materials.editable
+                                                                    thisState.configuration.material.unlock &&
+                                                                    thisState.configuration.material.editable
                                                                 )
                                                             }
                                                             type="text"
                                                             name={key}
                                                             value={item[key] !== null ? item[key] : ""}
                                                             onChange={event => {
-                                                                thisState.configuration.materials.list[index][
+                                                                thisState.configuration.material.list[index][
                                                                     key
                                                                 ] = event.target.value;
                                                                 thisState.setMyState(thisState);
@@ -168,23 +170,21 @@ const Material = props => {
                                                     </Col>
                                                 </td>
                                             ))}
-                                        {thisState.configuration.materials.unlock ? (
+                                        {thisState.configuration.material.unlock ? (
                                             <td>
                                                 <Row>
-                                                    {thisState.configuration.materials.editable ? (
+                                                    {thisState.configuration.material.editable ? (
                                                         <Col>
                                                             <Button
                                                                 block
                                                                 variant="warning"
                                                                 onClick={() => {
                                                                     fetch(
-                                                                        thisState.INITIAL_URL + "/addUpdateMaterial",
+                                                                        thisState.INITIAL_URL + "/material/addUpdateMaterial",
                                                                         {
                                                                             method: "PUT",
                                                                             body: JSON.stringify(
-                                                                                thisState.configuration.materials.list[
-                                                                                index
-                                                                                ]
+                                                                                thisState.configuration.material.list[index]
                                                                             ),
                                                                             headers: {
                                                                                 "content-type": "application/json"
@@ -215,8 +215,8 @@ const Material = props => {
                                                             onClick={() => {
                                                                 fetch(
                                                                     thisState.INITIAL_URL +
-                                                                    "/deleteMaterial?id=" +
-                                                                    thisState.configuration.materials.list[index]
+                                                                    "/material/deleteMaterial?id=" +
+                                                                    thisState.configuration.material.list[index]
                                                                         .id,
                                                                     {
                                                                         method: "DELETE"
@@ -224,7 +224,7 @@ const Material = props => {
                                                                 )
                                                                     .then(response => {
                                                                         if (response.status === 200) {
-                                                                            thisState.configuration.materials.list.splice(
+                                                                            thisState.configuration.material.list.splice(
                                                                                 index,
                                                                                 1
                                                                             );

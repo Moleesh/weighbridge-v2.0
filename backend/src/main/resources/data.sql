@@ -21,37 +21,37 @@ FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM ADMIN_SETTING WHERE KEY = 'EDIT_ENABLE_PASSWORD');
 
 INSERT INTO SETTING
-SELECT 'Standard_slipNo', 'slipNo', 1, 'Standard'
+SELECT 'Standard_slipNo', 'slipNo', 'Standard', 1
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'slipNo' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'slipNo' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_weighbridgeName', 'weighbridgeName', 'Babulens Enterprises', 'Standard'
+SELECT 'Standard_weighbridgeName', 'weighbridgeName', 'Standard', 'Babulens Enterprises'
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'weighbridgeName' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'weighbridgeName' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_weighbridgeAddress', 'weighbridgeAddress', 'Nagercoil', 'Standard'
+SELECT 'Standard_weighbridgeAddress', 'weighbridgeAddress', 'Standard', 'Nagercoil'
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'weighbridgeAddress' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'weighbridgeAddress' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_footer', 'footer', '', 'Standard'
+SELECT 'Standard_footer', 'footer', 'Standard', ''
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'footer' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'footer' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_printerName', 'printerName', 'get as .pdf File', 'Standard'
+SELECT 'Standard_printerName', 'printerName', 'Standard', 'get as .pdf File'
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printerName' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printerName' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_noOfCopies', 'noOfCopies', 1, 'Standard'
+SELECT 'Standard_noOfCopies', 'noOfCopies', 'Standard', 1
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'noOfCopies' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'noOfCopies' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_printFormat', 'printFormat', 'WebCam Print', 'Standard'
+SELECT 'Standard_printFormat', 'printFormat', 'Standard', 'WebCam Print'
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormat' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormat' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_automation', 'automation', false, 'Standard'
+SELECT 'Standard_automation', 'automation', 'Standard', false
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'automation' AND PROFILE_PROFILE_NAME like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'automation' AND PROFILE like 'Standard');
 
 INSERT INTO SERIAL_PORT_DETAIL
 SELECT 'indicator',

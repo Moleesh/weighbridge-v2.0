@@ -63,7 +63,6 @@ public class WebCamServiceImpl implements WebCamService {
 	@Override
 	@Cacheable(cacheNames = "MyPrimaryWebCam")
 	public String getMyPrimaryWebCam() {
-		WebCamDetail webCamDetail = webCamDetailDAO.findFirstByMyPrimaryIsTrue();
 		return webCamDetailDAO.findFirstByMyPrimaryIsTrue().getName();
 	}
 
@@ -75,16 +74,16 @@ public class WebCamServiceImpl implements WebCamService {
 	@Override
 	@Cacheable(cacheNames = "WebCams")
 	public List<String> getAllWebCams() {
-		List<String> cameras = new ArrayList<>();
+		List<String> webcams = new ArrayList<>();
 		for (Webcam webcam : Webcam.getWebcams()) {
 			try {
 				Dimension dimension = getBestDimensions(webcam);
-				cameras.add(webcam.getName() + " [" + dimension.getWidth() + "*" + dimension.getHeight() + "]");
+				webcams.add(webcam.getName() + " [" + dimension.getWidth() + "*" + dimension.getHeight() + "]");
 			} catch (WebcamException ex) {
-				cameras.add(webcam.getName() + " " + "[0*0]");
+				webcams.add(webcam.getName() + " " + "[0*0]");
 			}
 		}
-		return cameras;
+		return webcams;
 	}
 
 	@Override
@@ -110,6 +109,11 @@ public class WebCamServiceImpl implements WebCamService {
 	}
 
 	@Override
+	public void updateWebCam(WebCamDetail webCamDetail) {
+		webCamDetailDAO.save(webCamDetail);
+	}
+
+	@Override
 	public byte[]  getWebCamImage(String name) {
 		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
 		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
@@ -125,7 +129,7 @@ public class WebCamServiceImpl implements WebCamService {
 						ImageIO.write(webcam.getImage().getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), webCamDetail.getWidth(), webCamDetail.getHeight()),
 								"jpeg", outputStream);
 					}
-				} catch (NullPointerException ex1) {
+				} catch (NullPointerException | WebcamException ex1) {
 					Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
 					return null;
 				}

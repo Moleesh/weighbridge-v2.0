@@ -9,8 +9,8 @@ public interface DriverService {
 
 	List<Driver> getAllDriversByProfile(String profile);
 
-	Driver addUpdateDrivers(Driver driver);
+	Driver addUpdateDriver(Driver driver);
 
-	void deleteDrivers(int id);
+	void deleteDriver(int id);
 
 }

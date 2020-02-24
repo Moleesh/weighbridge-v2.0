@@ -24,7 +24,7 @@ const Settings = props => {
                             <Nav.Link eventKey="generalSettings">General Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="cameraSettings">Camera Settings</Nav.Link>
+                            <Nav.Link eventKey="webCamSettings">WebCam Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="printerSettings">Printer Settings</Nav.Link>
@@ -47,8 +47,8 @@ const Settings = props => {
                         <Tab.Pane eventKey="generalSettings">
                             <GeneralSettings preState={thisState} key="generalSettings" />
                         </Tab.Pane>
-                        <Tab.Pane eventKey="cameraSettings">
-                            <WebCamSettings preState={thisState} key="cameraSettings" />
+                        <Tab.Pane eventKey="webCamSettings">
+                            <WebCamSettings preState={thisState} key="webCamSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="printerSettings">
                             <PrinterSettings preState={thisState} key="printerSettings" />
@@ -73,7 +73,7 @@ const Settings = props => {
                         size="lg"
                         className="mr-3"
                         onClick={() => {
-                            fetch(thisState.INITIAL_URL + "/saveAllSettings", {
+                            fetch(thisState.INITIAL_URL + "/setting/saveAllSettingsByProfile?profile=" + thisState.PROFILE, {
                                 method: "PUT",
                                 body: JSON.stringify(thisState.settings.value),
                                 headers: { "content-type": "application/json" }
@@ -109,50 +109,15 @@ const Settings = props => {
                         className="mr-3"
                         onClick={() => {
                             // noinspection DuplicatedCode
-                            fetch(thisState.INITIAL_URL + "/getAllSettings")
+                            fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE)
                                 .then(response => {
                                     if (response.status === 200) {
                                         return response.json();
                                     } else throw Error(response.statusText);
                                 })
                                 .then(result => {
+                                    result.automation = result.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
                                     thisState.settings.value = result;
-                                    if (
-                                        thisState.settings.array.availableWebCams.indexOf(
-                                            thisState.WEBCAM
-                                        ) === -1
-                                    ) {
-                                        thisState.settings.array.availableWebCams.push(
-                                            thisState.WEBCAM
-                                        );
-                                    }
-                                    if (
-                                        thisState.settings.array.availablePrinters.indexOf(
-                                            thisState.settings.value.printerName
-                                        ) === -1
-                                    ) {
-                                        thisState.settings.array.availablePrinters.push(
-                                            thisState.settings.value.printerName
-                                        );
-                                    }
-                                    if (
-                                        thisState.settings.array.availableserialPorts.indexOf(
-                                            thisState.settings.value.indicatorCOMPort
-                                        ) === -1
-                                    ) {
-                                        thisState.settings.array.availableserialPorts.push(
-                                            thisState.settings.value.indicatorCOMPort
-                                        );
-                                    }
-                                    if (
-                                        thisState.settings.array.availableserialPorts.indexOf(
-                                            thisState.settings.value.displayCOMPort
-                                        ) === -1
-                                    ) {
-                                        thisState.settings.array.availableserialPorts.push(
-                                            thisState.settings.value.displayCOMPort
-                                        );
-                                    }
                                     thisState.alerts.push({
                                         id: new Date().getTime(),
                                         type: "success",
@@ -191,10 +156,10 @@ const Settings = props => {
                                             WEIGHT: "-1"
                                         });
                                     });
-                            }, thisState.settings.value.REFRESH_TIME_WEIGHT);
-                            thisState.cameraImage =
+                            }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
+                            thisState.primaryWebCamImage =
                                 thisState.INITIAL_URL +
-                                "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" +
+                                "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" +
                                 Math.random();
                             thisState.alerts.push({
                                 id: new Date().getTime(),

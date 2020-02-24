@@ -63,9 +63,8 @@ const ManualEntry = props => {
                     onClick={() => {
                         if (
                             thisState.settings.manualEntryPassword ===
-                            thisState.settings.value.MANUAL_ENTRY_PASSWORD
+                            thisState.adminSettings.MANUAL_ENTRY_PASSWORD
                         ) {
-                            thisState.weight.manual = "Y";
                             thisState.settings.manualEntry = true;
                             thisState.weighing.disable.grossDetailsDisabled = false;
                             thisState.weighing.disable.tareDetailsWeightDisabled = false;

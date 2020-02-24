@@ -1,6 +1,5 @@
 package com.babulens.weighbridge.serviceImpl;
 
-import com.babulens.weighbridge.model.entity.Profile;
 import com.babulens.weighbridge.model.entity.TareWeight;
 import com.babulens.weighbridge.repository.TareWeightDAO;
 import com.babulens.weighbridge.service.TareWeightService;
@@ -24,13 +23,13 @@ public class TareWeightServiceImpl implements TareWeightService {
 	@Override
 	@Cacheable(cacheNames = "TareWeights")
 	public TareWeight getTareWeightByVehicleNoAndProfile(String vehicleNo, String profile) {
-		return tareWeightDAO.findFirstByVehicleNoAndProfile(vehicleNo, new Profile(profile));
+		return tareWeightDAO.findFirstByVehicleNoAndProfileOrderByTareTimeDesc(vehicleNo, profile);
 	}
 
 	@Override
 	@Cacheable(cacheNames = "TareWeights")
 	public List<TareWeight> getAllTareWeightsByProfile(String profile) {
-		return Lists.newArrayList(tareWeightDAO.findAllByProfile(new Profile(profile)));
+		return Lists.newArrayList(tareWeightDAO.findAllByProfile(profile));
 	}
 
 	@Override

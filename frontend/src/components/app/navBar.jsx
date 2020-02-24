@@ -35,38 +35,38 @@ const NavBar = props => {
                     eventKey="configuration"
                     title="Configuration"
                     onEntered={() => {
-                        fetch(thisState.INITIAL_URL + "/getAllMaterial")
+                        fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE)
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                thisState.configuration.materials.list = result;
+                                thisState.configuration.material.list = result;
                                 thisState.setMyState(thisState);
                             })
                             .catch(() => {
                             });
-                        fetch(thisState.INITIAL_URL + "/getAllDrivers")
+                        fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE)
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                thisState.configuration.drivers.list = result;
+                                thisState.configuration.driver.list = result;
                                 thisState.setMyState(thisState);
                             })
                             .catch(() => {
                             });
-                        fetch(thisState.INITIAL_URL + "/getAllTareWeight")
+                        fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE)
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                thisState.configuration.tareWeights.list = result;
+                                thisState.configuration.tareWeight.list = result;
                                 thisState.setMyState(thisState);
                             })
                             .catch(() => {
@@ -79,13 +79,14 @@ const NavBar = props => {
                     eventKey="settings"
                     title="Settings"
                     onEntered={() => {
-                        fetch(thisState.INITIAL_URL + "/getAllSettings")
+                        fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE)
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
+                                result.automation = result.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
                                 thisState.settings.value = result;
                                 thisState.setMyState(thisState);
                             })

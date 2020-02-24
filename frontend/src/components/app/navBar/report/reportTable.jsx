@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDataGrid from 'react-data-grid';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSave} from "@fortawesome/free-solid-svg-icons";
 
 const ReportTable = props => {
 
@@ -25,6 +25,7 @@ const ReportTable = props => {
                 { key: "charges", name: "Charges", editable: thisState.report.edit, width: thisState.report.filter.charges ? 100 : 0.01 },
                 { key: "remarks", name: "Remarks", editable: thisState.report.edit, width: thisState.report.filter.remarks ? "" : 0.01 },
                 { key: "manual", name: "Manual", width: thisState.report.filter.manual ? "" : 0.01 },
+                { key: "profile", name: "Profile", width: 0.01 },
                 { key: "slipNo", name: "Slip No", width: 100 }
             ]}
             rowGetter={row => thisState.report.list.filter((item) => Object.values(item)
@@ -39,7 +40,7 @@ const ReportTable = props => {
                         {
                             icon: <FontAwesomeIcon icon={faSave} className="mt-2 hand" />,
                             callback: () => {
-                                fetch(thisState.INITIAL_URL + "/updateWeight", {
+                                fetch(thisState.INITIAL_URL + "/weight/updateWeight", {
                                     method: "POST",
                                     body: JSON.stringify(row),
                                     headers: { "content-type": "application/json" }

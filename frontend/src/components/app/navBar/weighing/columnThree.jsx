@@ -30,7 +30,7 @@ const ColumnThree = props => {
                                 }}
                                 onKeyDown={event => {
                                     if ((event.keyCode === 13) || (event.keyCode === 9)) {
-                                        let driver = thisState.configuration.drivers.list.filter(
+                                        let driver = thisState.configuration.driver.list.filter(
                                             item =>
                                                 parseInt(item.customerId) ===
                                                 parseInt(thisState.weighing.customersId)
@@ -71,7 +71,7 @@ const ColumnThree = props => {
                                         thisState.weighing.reference.customersIdReference.current.focus();
                                     else { // noinspection DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode,DuplicatedCode
                                         if ((event.keyCode === 13) || (event.keyCode === 9)) {
-                                            let material = thisState.configuration.materials.list.filter(
+                                            let material = thisState.configuration.material.list.filter(
                                                 item =>
                                                     parseInt(item.materialId) ===
                                                     parseInt(thisState.weighing.materialId)
@@ -94,7 +94,7 @@ const ColumnThree = props => {
                                             if (thisState.weighing.tareSelector) {
                                                 await fetch(
                                                     thisState.INITIAL_URL +
-                                                    "/getGrossWeight?vehicleNo=" +
+                                                    "/weight/getGrossWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
                                                     thisState.weight.vehicleNo
                                                 )
                                                     .then(response => {
@@ -111,7 +111,7 @@ const ColumnThree = props => {
                                             } else {
                                                 await fetch(
                                                     thisState.INITIAL_URL +
-                                                    "/getTareWeight?vehicleNo=" +
+                                                    "/tareWeight/getTareWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
                                                     thisState.weight.vehicleNo
                                                 )
                                                     .then(response => {
@@ -148,14 +148,14 @@ const ColumnThree = props => {
                                                 thisState.weight.nettWeight = total;
                                             }
                                             thisState.weight.nettTime = date;
-                                            fetch(thisState.INITIAL_URL + "/saveWeight", {
+                                            fetch(thisState.INITIAL_URL + "/weight/saveWeight", {
                                                 method: "POST",
                                                 body: JSON.stringify(thisState.weight),
                                                 headers: { "content-type": "application/json" }
                                             })
                                                 .then(response => {
                                                     if (response.status === 200) {
-                                                        fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+                                                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
                                                             .then(response => {
                                                                 if (response.status === 200) {
                                                                     return response.json();

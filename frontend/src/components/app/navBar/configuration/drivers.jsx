@@ -17,15 +17,14 @@ const Drivers = props => {
                     <Row className="justify-content-center">
                         <Toggle
                             onClick={() => {
-                                thisState.configuration.drivers.unlock = !thisState
-                                    .configuration.drivers.unlock;
+                                thisState.configuration.driver.unlock = !thisState.configuration.driver.unlock;
                                 thisState.setMyState(thisState);
                             }}
                             on="ON"
                             off="OFF"
                             size="lg"
                             offstyle="danger"
-                            active={thisState.configuration.drivers.unlock}
+                            active={thisState.configuration.driver.unlock}
                             recalculateOnResize={true}
                         />
                     </Row>
@@ -36,25 +35,25 @@ const Drivers = props => {
                     className="text-center form-control"
                     type="text"
                     placeholder="Search in driver list..."
-                    value={thisState.configuration.drivers.filterText}
+                    value={thisState.configuration.driver.filterText}
                     onChange={event => {
-                        thisState.configuration.drivers.filterText = event.target.value;
+                        thisState.configuration.driver.filterText = event.target.value;
                         thisState.setMyState(thisState);
                     }}
                 />
             </Form.Group>
-            {thisState.configuration.drivers.unlock ? (
+            {thisState.configuration.driver.unlock ? (
                 <Form.Row>
-                    {Object.keys(thisState.configuration.drivers.template).map(key => (
+                    {Object.keys(thisState.configuration.driver.template).map(key => (
                         <Col className="pb-2" key={key}>
                             <Form.Control
                                 className="text-center form-control"
                                 type="text"
                                 name={key}
                                 autoComplete="off"
-                                value={thisState.configuration.drivers.template[key]}
+                                value={thisState.configuration.driver.template[key]}
                                 onChange={event => {
-                                    thisState.configuration.drivers.template[key] =
+                                    thisState.configuration.driver.template[key] =
                                         event.target.value;
                                     thisState.setMyState(thisState);
                                 }}
@@ -67,17 +66,20 @@ const Drivers = props => {
                             type="button"
                             onClick={() => {
                                 let send = true;
-                                Object.values(thisState.configuration.drivers.template).map(
+                                Object.values(thisState.configuration.driver.template).map(
                                     value => {
                                         if (value === "") send = false;
                                         return null;
                                     }
                                 );
                                 if (send) { // noinspection DuplicatedCode
-                                    fetch(thisState.INITIAL_URL + "/addUpdateDrivers", {
+                                    fetch(thisState.INITIAL_URL + "/driver/addUpdateDriver", {
                                         method: "PUT",
                                         body: JSON.stringify(
-                                            thisState.configuration.drivers.template
+                                            {
+                                                ...thisState.configuration.driver.template,
+                                                profile: thisState.PROFILE
+                                            }
                                         ),
                                         headers: { "content-type": "application/json" }
                                     })
@@ -87,12 +89,12 @@ const Drivers = props => {
                                             } else throw Error(response.statusText);
                                         })
                                         .then(result => {
-                                            Object.keys(thisState.configuration.drivers.template).map(
+                                            Object.keys(thisState.configuration.driver.template).map(
                                                 key =>
-                                                    (thisState.configuration.drivers.template[key] = "")
+                                                    (thisState.configuration.driver.template[key] = "")
                                             );
                                             thisState.setMyState(thisState).then(() => {
-                                                thisState.configuration.drivers.list.push(result);
+                                                thisState.configuration.driver.list.push(result);
 
                                                 thisState.setMyState(thisState);
                                             });
@@ -121,25 +123,25 @@ const Drivers = props => {
             <Table hover size="sm">
                 <thead>
                     <tr>
-                        {thisState.configuration.drivers.header.map(item => (
+                        {thisState.configuration.driver.header.map(item => (
                             <th key={item} className="centre">
                                 {item}
                             </th>
                         ))}
-                        {thisState.configuration.drivers.unlock ? <th /> : null}
+                        {thisState.configuration.driver.unlock ? <th /> : null}
                     </tr>
                 </thead>
                 <tbody>
-                    {thisState.configuration.drivers.list.map((item, index) => (
+                    {thisState.configuration.driver.list.map((item, index) => (
                         <tr key={index} className="eachRow">
                             {Object.values(item)
                                 .toString()
                                 .replace(",", ".")
-                                .indexOf(thisState.configuration.drivers.filterText) ===
+                                .indexOf(thisState.configuration.driver.filterText) ===
                                 -1 ? null : (
                                     <React.Fragment>
                                         {Object.keys(item)
-                                            .filter(key => key !== "id")
+                                            .filter(key => key !== "id" && key !== "profile")
                                             .map(key => (
                                                 <td key={key + "_" + item["id"]}>
                                                     <Col>
@@ -148,15 +150,15 @@ const Drivers = props => {
                                                             className="text-center form-control reportInputs"
                                                             disabled={
                                                                 !(
-                                                                    thisState.configuration.materials.unlock &&
-                                                                    thisState.configuration.materials.editable
+                                                                    thisState.configuration.material.unlock &&
+                                                                    thisState.configuration.material.editable
                                                                 )
                                                             }
                                                             type="text"
                                                             name={key}
                                                             value={item[key] !== null ? item[key] : ""}
                                                             onChange={event => {
-                                                                thisState.configuration.drivers.list[index][key] =
+                                                                thisState.configuration.driver.list[index][key] =
                                                                     event.target.value;
                                                                 thisState.setMyState(thisState);
                                                             }}
@@ -164,23 +166,21 @@ const Drivers = props => {
                                                     </Col>
                                                 </td>
                                             ))}
-                                        {thisState.configuration.drivers.unlock ? (
+                                        {thisState.configuration.driver.unlock ? (
                                             <td>
                                                 <Row>
-                                                    {thisState.configuration.drivers.editable ? (
+                                                    {thisState.configuration.driver.editable ? (
                                                         <Col>
                                                             <Button
                                                                 block
                                                                 variant="warning"
                                                                 onClick={() => {
                                                                     fetch(
-                                                                        thisState.INITIAL_URL + "/addUpdateDrivers",
+                                                                        thisState.INITIAL_URL + "/driver/addUpdateDriver",
                                                                         {
                                                                             method: "PUT",
                                                                             body: JSON.stringify(
-                                                                                thisState.configuration.drivers.list[
-                                                                                index
-                                                                                ]
+                                                                                thisState.configuration.driver.list[index]
                                                                             ),
                                                                             headers: {
                                                                                 "content-type": "application/json"
@@ -211,16 +211,15 @@ const Drivers = props => {
                                                             onClick={() => {
                                                                 fetch(
                                                                     thisState.INITIAL_URL +
-                                                                    "/deleteDrivers?id=" +
-                                                                    thisState.configuration.drivers.list[index]
-                                                                        .id,
+                                                                    "/driver/deleteDriver?id=" +
+                                                                    thisState.configuration.driver.list[index].id,
                                                                     {
                                                                         method: "DELETE"
                                                                     }
                                                                 )
                                                                     .then(response => {
                                                                         if (response.status === 200) {
-                                                                            thisState.configuration.drivers.list.splice(
+                                                                            thisState.configuration.driver.list.splice(
                                                                                 index,
                                                                                 1
                                                                             );

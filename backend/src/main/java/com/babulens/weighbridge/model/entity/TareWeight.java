@@ -2,7 +2,10 @@ package com.babulens.weighbridge.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,8 +18,7 @@ public class TareWeight {
 	private long tareWeight;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date tareTime;
-	@ManyToOne
-	private Profile profile;
+	private String profile;
 
 	public TareWeight() {
 	}
@@ -25,7 +27,7 @@ public class TareWeight {
 		this.vehicleNo = vehicleNo;
 		this.tareWeight = tareWeight;
 		this.tareTime = tareTime;
-		this.profile = new Profile(profile);
+		this.profile = profile;
 	}
 
 	public int getId() {
@@ -60,11 +62,11 @@ public class TareWeight {
 		this.tareTime = tareTime;
 	}
 
-	public Profile getProfile() {
+	public String getProfile() {
 		return profile;
 	}
 
-	public void setProfile(Profile profile) {
+	public void setProfile(String profile) {
 		this.profile = profile;
 	}
 

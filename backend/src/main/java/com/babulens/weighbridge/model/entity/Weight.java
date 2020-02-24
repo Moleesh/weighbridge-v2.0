@@ -2,7 +2,10 @@ package com.babulens.weighbridge.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
 
@@ -27,14 +30,13 @@ public class Weight {
 	private Date nettTime;
 	private double charges;
 	private String remarks;
-	private String manual;
-	@ManyToOne
-	private Profile profile;
+	private boolean manual;
+	private String profile;
 
 	public Weight() {
 	}
 
-	public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime, double charges, String remarks, String manual, String profile) {
+	public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime, double charges, String remarks, boolean manual, String profile) {
 		this.slipNo = slipNo;
 		this.vehicleNo = vehicleNo;
 		this.material = material;
@@ -49,7 +51,7 @@ public class Weight {
 		this.charges = charges;
 		this.remarks = remarks;
 		this.manual = manual;
-		this.profile = new Profile(profile);
+		this.profile = profile;
 	}
 
 	public int getSlipNo() {
@@ -157,10 +159,10 @@ public class Weight {
 	}
 
 	public String getManual() {
-		return manual;
+		return Boolean.toString(manual);
 	}
 
-	public void setManual(String manual) {
+	public void setManual(boolean manual) {
 		this.manual = manual;
 	}
 
@@ -172,11 +174,11 @@ public class Weight {
 		this.id = id;
 	}
 
-	public Profile getProfile() {
+	public String getProfile() {
 		return profile;
 	}
 
-	public void setProfile(Profile profile) {
+	public void setProfile(String profile) {
 		this.profile = profile;
 	}
 

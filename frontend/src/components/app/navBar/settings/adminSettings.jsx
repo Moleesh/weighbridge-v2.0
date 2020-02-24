@@ -60,7 +60,6 @@ const AdminSettings = props => {
                                         thisState.settings.manualEntryPasswordReference.current.focus()
                                     );
                             } else {
-                                thisState.weight.manual = "N";
                                 thisState.settings.manualEntry = false;
                                 thisState.setMyState(thisState);
                             }
@@ -112,11 +111,11 @@ const AdminSettings = props => {
                 <Col sm="9">
                     <Toggle
                         onClick={() => {
-                            thisState.settings.automation = !thisState.settings.automation;
+                            thisState.settings.value.automation = !thisState.settings.value.automation;
                             thisState.setMyState(thisState);
-                            if (thisState.settings.automation) {
+                            if (thisState.settings.value.automation) {
                                 // noinspection DuplicatedCode
-                                fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+                                fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
@@ -162,7 +161,7 @@ const AdminSettings = props => {
                                     });
                             } else {
                                 // noinspection DuplicatedCode
-                                fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+                                fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
@@ -212,7 +211,7 @@ const AdminSettings = props => {
                         off="OFF"
                         size="lg"
                         offstyle="danger"
-                        active={thisState.settings.automation}
+                        active={thisState.settings.value.automation}
                         recalculateOnResize={true}
                     />
                 </Col>

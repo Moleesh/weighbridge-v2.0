@@ -228,7 +228,7 @@ const Report = props => {
                                     block
                                     variant="primary"
                                     onClick={() => {
-                                        fetch(thisState.INITIAL_URL + "/getReport", {
+                                        fetch(thisState.INITIAL_URL + "/weight/getReport", {
                                             method: "POST",
                                             body: JSON.stringify({
                                                 startDate: moment(thisState.report.date.start).format(
@@ -238,7 +238,8 @@ const Report = props => {
                                                     "DD-MM-YYYY HH:mm:ss"
                                                 ),
                                                 inputLabel: thisState.report.inputLabel,
-                                                input: thisState.report.input
+                                                input: thisState.report.input,
+                                                profile: thisState.PROFILE
                                             }),
                                             headers: { "content-type": "application/json" }
                                         })
@@ -481,39 +482,61 @@ const Report = props => {
                                                 break;
                                             default:
                                         }
-                                        fetch(thisState.INITIAL_URL + "/getReportPDF", {
-                                            method: "POST",
-                                            body: JSON.stringify({
-                                                weights: thisState.report.list,
-                                                printerName: thisState.settings.value.printerName,
-                                                reportTitle: reportTitle,
-                                                weighbridgeName:
-                                                    thisState.settings.value.weighbridgeName,
-                                                weighbridgeAddress:
-                                                    thisState.settings.value.weighbridgeAddress,
-                                                totalRecords: thisState.report.totalRecords,
-                                                totalNettWeight: thisState.report.totalNettWeight,
-                                                totalTotalCharges: thisState.report.totalTotalCharges,
-                                                footer: thisState.settings.value.footer
-                                            }),
-                                            headers: { "content-type": "application/json" }
-                                        })
-                                            .then(response => {
+                                        if (thisState.settings.value.printerName === "get as .pdf File") {
+                                            fetch(thisState.INITIAL_URL + "/printer/getReportPDF", {
+                                                method: "POST",
+                                                body: JSON.stringify({
+                                                    weights: thisState.report.list,
+                                                    printerName: thisState.settings.value.printerName,
+                                                    reportTitle: reportTitle,
+                                                    weighbridgeName:
+                                                        thisState.settings.value.weighbridgeName,
+                                                    weighbridgeAddress:
+                                                        thisState.settings.value.weighbridgeAddress,
+                                                    totalRecords: thisState.report.totalRecords,
+                                                    totalNettWeight: thisState.report.totalNettWeight,
+                                                    totalTotalCharges: thisState.report.totalTotalCharges,
+                                                    footer: thisState.settings.value.footer
+                                                }),
+                                                headers: { "content-type": "application/json" }
+                                            }).then(response => {
                                                 if (response.status !== 200)
                                                     throw Error(response.statusText);
                                                 return response.blob();
-                                            })
-                                            .then(blob => {
+                                            }).then(blob => {
                                                 if (thisState.settings.value.printerName === "get as .pdf File") {
                                                     FileSaver.saveAs(blob, "report.pdf");
                                                 } else {
                                                     thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
                                                     thisState.setMyState(thisState);
                                                 }
-                                            })
-                                            .catch(error => {
+                                            }).catch(error => {
                                                 console.log(error);
                                             });
+                                        } else {
+                                            fetch(thisState.INITIAL_URL + "/printer/printReport", {
+                                                method: "POST",
+                                                body: JSON.stringify({
+                                                    weights: thisState.report.list,
+                                                    printerName: thisState.settings.value.printerName,
+                                                    reportTitle: reportTitle,
+                                                    weighbridgeName:
+                                                        thisState.settings.value.weighbridgeName,
+                                                    weighbridgeAddress:
+                                                        thisState.settings.value.weighbridgeAddress,
+                                                    totalRecords: thisState.report.totalRecords,
+                                                    totalNettWeight: thisState.report.totalNettWeight,
+                                                    totalTotalCharges: thisState.report.totalTotalCharges,
+                                                    footer: thisState.settings.value.footer
+                                                }),
+                                                headers: { "content-type": "application/json" }
+                                            }).then(response => {
+                                                if (response.status !== 200)
+                                                    throw Error(response.statusText);
+                                            }).catch(error => {
+                                                console.log(error);
+                                            });
+                                        }
                                     }}
                                 >
                                     <FontAwesomeIcon icon={faPrint} className="mr-3" />

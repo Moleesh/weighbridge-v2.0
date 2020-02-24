@@ -2,7 +2,6 @@ package com.babulens.weighbridge.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,17 +11,16 @@ public class Setting implements Serializable {
 	private String id;
 	private String key;
 	private String value;
-	@ManyToOne
-	private Profile profile;
+	private String profile;
 
 	public Setting() {
 	}
 
-	public Setting(String key, String value, Profile profile) {
+	public Setting(String key, Object value, String profile) {
 		this.key = key;
-		this.value = value;
+		this.value = value.toString();
 		this.profile = profile;
-		this.id = profile + "_" + key;
+				this.id = profile + "_" + key;
 	}
 
 	public String getId() {
@@ -45,19 +43,15 @@ public class Setting implements Serializable {
 		return value;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
-	}
-
 	public void setValue(Object value) {
 		this.value = value.toString();
 	}
 
-	public Profile getProfile() {
+	public String getProfile() {
 		return profile;
 	}
 
-	public void setProfile(Profile profile) {
+	public void setProfile(String profile) {
 		this.profile = profile;
 	}
 

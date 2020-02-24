@@ -1,7 +1,6 @@
 package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.model.entity.Material;
-import com.babulens.weighbridge.model.entity.Profile;
 import com.babulens.weighbridge.repository.MaterialDAO;
 import com.babulens.weighbridge.service.MaterialService;
 import com.google.common.collect.Lists;
@@ -24,7 +23,7 @@ public class MaterialServiceImpl implements MaterialService {
 	@Override
 	@Cacheable(cacheNames = "Materials")
 	public List<Material> getAllMaterialsByProfile(String profile) {
-		return Lists.newArrayList(materialDAO.findAllByProfile(new Profile(profile)));
+		return Lists.newArrayList(materialDAO.findAllByProfile(profile));
 	}
 
 	@Override

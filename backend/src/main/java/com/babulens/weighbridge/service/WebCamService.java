@@ -14,6 +14,8 @@ public interface WebCamService {
 
 	void settingUpWebCam(String name);
 
+	void updateWebCam(WebCamDetail webCamDetail);
+
 	byte[] getWebCamImage(String name);
 
 	void saveWebCamImageToDisk(String fileName, String name);

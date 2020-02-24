@@ -62,7 +62,7 @@ const ColumnOne = props => {
                   if (thisState.weighing.tareSelector) {
                     await fetch(
                       thisState.INITIAL_URL +
-                      "/getGrossWeight?vehicleNo=" +
+                      "/weight/getGrossWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
                       thisState.weight.vehicleNo
                     )
                       .then(response => {
@@ -85,7 +85,7 @@ const ColumnOne = props => {
                   } else {
                     await fetch(
                       thisState.INITIAL_URL +
-                      "/getTareWeight?vehicleNo=" +
+                      "/tareWeight/getTareWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
                       thisState.weight.vehicleNo
                     )
                       .then(response => {
@@ -149,7 +149,7 @@ const ColumnOne = props => {
                 </Menu>
               ) : null
             }
-            options={thisState.configuration.materials.list}
+            options={thisState.configuration.material.list}
             maxHeight={"200px"}
             selected={thisState.weighing.reference.materialReference.value}
             disabled={thisState.weighing.disable.materialDisabled}

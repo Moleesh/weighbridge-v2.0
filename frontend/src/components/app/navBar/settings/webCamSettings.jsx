@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSync} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faSync} from "@fortawesome/free-solid-svg-icons";
 
 const WebCamSettings = props => {
     // noinspection JSUnresolvedVariable
@@ -12,22 +12,22 @@ const WebCamSettings = props => {
         <Form>
             <Row className="pb-5">
                 <Col>
-                    <h4 className="text-center font-weight-bold">Camera Settings</h4>
+                    <h4 className="text-center font-weight-bold">WebCam Settings</h4>
                 </Col>
             </Row>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
-                    Camera Name
+                    WebCam Name
                 </Form.Label>
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.WEBCAM}
+                        value={thisState.webCam.details[0].name}
                         onChange={event => {
-                            thisState.WEBCAM = event.target.value;
+                            thisState.webCam.details[0].name = event.target.value;
                             if (event.target.value.includes("["))
-                                thisState.settings.value.cameraWidth = event.target.value.split("[")[1].split("=")[1].split(",")[0];
-                            thisState.settings.value.cameraHeight = event.target.value.split("[")[1].split("=")[2].split("]")[0];
+                                thisState.webCam.details[0].width = event.target.value.split("[")[1].split("=")[1].split(",")[0];
+                            thisState.webCam.details[0].height = event.target.value.split("[")[1].split("=")[2].split("]")[0];
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -41,28 +41,28 @@ const WebCamSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
-                    Camera X-Axis
+                    WebCam X-Axis
                 </Form.Label>
                 <Col sm="9">
                     <div className="input-number">
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraXAxis - 5 < 0) return;
-                                thisState.settings.value.cameraXAxis =
-                                    thisState.settings.value.cameraXAxis - 5;
+                                if (thisState.webCam.details[0].x_Axis - 5 < 0) return;
+                                thisState.webCam.details[0].x_Axis =
+                                    thisState.webCam.details[0].x_Axis - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.settings.value.cameraXAxis}</span>
+                        <span>{thisState.webCam.details[0].x_Axis}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraXAxis + 5 > 10000) return;
-                                thisState.settings.value.cameraXAxis =
-                                    thisState.settings.value.cameraXAxis - 1 + 6;
+                                if (thisState.webCam.details[0].x_Axis + 5 > 10000) return;
+                                thisState.webCam.details[0].x_Axis =
+                                    thisState.webCam.details[0].x_Axis - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -73,28 +73,28 @@ const WebCamSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
-                    Camera Y-Axis
+                    WebCam Y-Axis
                 </Form.Label>
                 <Col sm="9">
                     <div className="input-number">
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraYAxis - 5 < 0) return;
-                                thisState.settings.value.cameraYAxis =
-                                    thisState.settings.value.cameraYAxis - 5;
+                                if (thisState.webCam.details[0].y_Axis - 5 < 0) return;
+                                thisState.webCam.details[0].y_Axis =
+                                    thisState.webCam.details[0].y_Axis - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.settings.value.cameraYAxis}</span>
+                        <span>{thisState.webCam.details[0].y_Axis}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraYAxis + 5 > 10000) return;
-                                thisState.settings.value.cameraYAxis =
-                                    thisState.settings.value.cameraYAxis - 1 + 6;
+                                if (thisState.webCam.details[0].y_Axis + 5 > 10000) return;
+                                thisState.webCam.details[0].y_Axis =
+                                    thisState.webCam.details[0].y_Axis - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -105,28 +105,28 @@ const WebCamSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
-                    Camera Width
+                    WebCam Width
                 </Form.Label>
                 <Col sm="9">
                     <div className="input-number">
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraWidth - 5 <= 0) return;
-                                thisState.settings.value.cameraWidth =
-                                    thisState.settings.value.cameraWidth - 5;
+                                if (thisState.webCam.details[0].width - 5 <= 0) return;
+                                thisState.webCam.details[0].width =
+                                    thisState.webCam.details[0].width - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.settings.value.cameraWidth}</span>
+                        <span>{thisState.webCam.details[0].width}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraWidth + 5 > 10000) return;
-                                thisState.settings.value.cameraWidth =
-                                    thisState.settings.value.cameraWidth - 1 + 6;
+                                if (thisState.webCam.details[0].width + 5 > 10000) return;
+                                thisState.webCam.details[0].width =
+                                    thisState.webCam.details[0].width - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -137,28 +137,28 @@ const WebCamSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
-                    Camera Height
+                    WebCam Height
                 </Form.Label>
                 <Col sm="9">
                     <div className="input-number">
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraHeight - 5 <= 0) return;
-                                thisState.settings.value.cameraHeight =
-                                    thisState.settings.value.cameraHeight - 5;
+                                if (thisState.webCam.details[0].height - 5 <= 0) return;
+                                thisState.webCam.details[0].height =
+                                    thisState.webCam.details[0].height - 5;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.settings.value.cameraHeight}</span>
+                        <span>{thisState.webCam.details[0].height}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.cameraHeight + 5 > 10000) return;
-                                thisState.settings.value.cameraHeight =
-                                    thisState.settings.value.cameraHeight - 1 + 6;
+                                if (thisState.webCam.details[0].height + 5 > 10000) return;
+                                thisState.webCam.details[0].height =
+                                    thisState.webCam.details[0].height - 1 + 6;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -168,10 +168,42 @@ const WebCamSettings = props => {
                 </Col>
             </Form.Group>
             <Button
+                variant="warning"
+                size="lg"
+                className="mr-1"
+                onClick={() => {
+                    fetch(thisState.INITIAL_URL + "/webCam/updateWebCam", {
+                        method: "POST",
+                        body: JSON.stringify(thisState.webCam.details[0]),
+                        headers: { "content-type": "application/json" }
+                    }).then(response => {
+                        if (response.status === 200) {
+                            thisState.alerts.push({
+                                id: new Date().getTime(),
+                                type: "success",
+                                headline: "Indicator Settings Refreshed",
+                                message: "Indicator Settings Refreshed Successfully."
+                            });
+                            thisState.setMyState(thisState);
+                        } else throw Error(response.statusText);
+                    }).catch(() => {
+                        thisState.alerts.push({
+                            id: new Date().getTime(),
+                            type: "danger",
+                            headline: "Indicator Settings Refreshed",
+                            message: "Indicator Settings Refreshed Failed."
+                        });
+                    });
+                }}
+            >
+                <FontAwesomeIcon icon={faEdit} edclassName="mr-3" />
+                update WebCam SerialPort Settings
+            </Button>
+            <Button
                 variant="light"
                 size="lg"
                 onClick={() => {
-                    fetch(thisState.INITIAL_URL + "/settingUpCamera")
+                    fetch(thisState.INITIAL_URL + "/webCam/settingUpWebCam?webcam=" + thisState.webCam.details[0].name)
                         .then(response => {
                             if (response.status === 200) {
                                 thisState.alerts.push({
@@ -188,7 +220,7 @@ const WebCamSettings = props => {
                 }}
             >
                 <FontAwesomeIcon icon={faSync} spin className="mr-3" />
-                Refresh Camera Settings
+                Refresh WebCam Settings
             </Button>
         </Form>
     );

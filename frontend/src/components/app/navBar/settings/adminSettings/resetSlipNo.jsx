@@ -81,17 +81,17 @@ const ResetSlipNo = props => {
                     onClick={() => {
                         if (
                             thisState.settings.resetSlipNoPassword ===
-                            thisState.settings.value.RESET_SLIP_PASSWORD
+                            thisState.adminSettings.RESET_SLIP_PASSWORD
                         ) {
                             fetch(
                                 thisState.INITIAL_URL +
-                                "/resetWeight?slipNo=" +
+                                "/weight/resetWeightByProfile?profile=" + thisState.PROFILE + "&slipNo=" +
                                 thisState.settings.resetSlipNo
                             )
                                 .then(response => {
                                     if (response.status === 200) {
                                         // noinspection DuplicatedCode
-                                        fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+                                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
                                             .then(response => {
                                                 if (response.status === 200) {
                                                     return response.json();

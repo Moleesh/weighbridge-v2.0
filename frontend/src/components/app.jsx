@@ -5,14 +5,19 @@ import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
+import {css} from "@emotion/core";
+import PropagateLoader from "react-spinners/PropagateLoader";
+
+
 const INITIAL_URL = "http://localhost:9000";
 
 class App extends Component {
   state = {
+    loading: true,
     INITIAL_URL: INITIAL_URL,
     _WEIGHT: "",
     WEIGHT: "-1",
-    cameraImage: "",
+    primaryWebCamImage: "",
     weight: {
       slipNo: "-1",
       vehicleNo: "",
@@ -27,7 +32,7 @@ class App extends Component {
       nettTime: "",
       charges: "",
       remarks: "",
-      manual: "N",
+      manual: false,
       profile: "Standard"
     },
     adminSettings: {
@@ -114,11 +119,10 @@ class App extends Component {
       resetSlipNoPasswordReference: React.createRef(),
       resetSlipNoButtonReference: React.createRef(),
       manualEntry: false,
-      editEnable: false,
-      automation: false
+      editEnable: false
     },
     configuration: {
-      materials: {
+      material: {
         header: ["Material Id", "Material Name"],
         filterText: "",
         template: { materialId: "", material: "" },
@@ -126,7 +130,7 @@ class App extends Component {
         editable: true,
         unlock: false
       },
-      drivers: {
+      driver: {
         header: [
           "Customer Id",
           "Vehicle No",
@@ -144,7 +148,7 @@ class App extends Component {
         editable: true,
         unlock: false
       },
-      tareWeights: {
+      tareWeight: {
         header: ["Vehicle No", "Tare Weight", "Tare Time"],
         filterText: "",
         template: { vehicleNo: "", tareWeight: "", tareTime: "" },
@@ -154,7 +158,15 @@ class App extends Component {
       }
     },
     webCam: {
-      details: []
+      details: [
+        {
+          name: "dummy",
+          myPrimary: true,
+          x_Axis: 5,
+          y_Axis: 5,
+          width: 5,
+          height: 5
+        }]
     },
 
 
@@ -270,9 +282,6 @@ class App extends Component {
       totalTotalCharges: 0,
       edit: false
     },
-
-
-
     alerts: []
   };
 
@@ -294,38 +303,37 @@ class App extends Component {
         fetch(thisState.INITIAL_URL + "/profile/getAllProfiles").then(resp => resp.json()),
         fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
         fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormats").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/webCamDetail/getMyPrimaryWebCam").then(resp => resp.text()),
-        fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCamDetails").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/webCamDetail/getAllWebCams").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/serialPortDetail/getAllSerialPorts").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=indicator").then(resp => resp.json()),
-        fetch(thisState.INITIAL_URL + "/serialPortDetail/getSerialPortDetailByName?name=display").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/webCam/getAllWebCamDetails").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/webCam/getAllWebCams").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/serialPort/getAllSerialPorts").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=indicator").then(resp => resp.json()),
+        fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=display").then(resp => resp.json()),
       ]
-    ).then(([adminSettings, profile, profiles, printers, printFormats, webCam, webCamDetails, webCams, seialPorts, indicator, display]) => {
+    ).then(([adminSettings, profile, profiles, printers, printFormats,  webCamDetails, webCams, seialPorts, indicator, display]) => {
       thisState.adminSettings = adminSettings;
       thisState.PROFILE = profile;
       thisState.profiles = profiles;
       thisState.settings.array.availablePrinters = printers;
       thisState.settings.array.availablePrintFormats = printFormats;
       thisState.webCam.details = webCamDetails;
-      thisState.WEBCAM = webCam;
       thisState.settings.array.availableWebCams = webCams;
       thisState.settings.array.availableserialPorts = seialPorts;
       thisState.settings.indicator = indicator;
       thisState.settings.display = display;
       Promise.all(
         [
-          fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + profile).then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + profile).then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + profile).then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + profile).then(resp => resp.json()),
-          fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + profile).then(resp => resp.text())
+          fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+          fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
         ]
       ).then(([settings, materials, drivers, tareWeights, slipNo]) => {
+        settings.automation = settings.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
         thisState.settings.value = settings;
-        thisState.configuration.materials.list = materials;
-        thisState.configuration.drivers.list = drivers;
-        thisState.configuration.tareWeights.list = tareWeights;
+        thisState.configuration.material.list = materials;
+        thisState.configuration.driver.list = drivers;
+        thisState.configuration.tareWeight.list = tareWeights;
         thisState.weight.slipNo = slipNo;
         if (slipNo === -1) {
           thisState.weighing.disable.getWeightDisabled = true;
@@ -334,30 +342,38 @@ class App extends Component {
           thisState.settings.array.availablePrinters.push(thisState.settings.value.printerName);
         }
         thisState._WEIGHT = setInterval(() => {
-          fetch(thisState.INITIAL_URL + "/serialPortDetail/getNextWeight")
+          fetch(thisState.INITIAL_URL + "/serialPort/getNextWeight")
             .then(response => {
               if (response.status === 200) {
                 return response.json();
               } else {
-                return -1;
+                throw Error();
               }
             })
             .then(result => {
               thisState.setMyState({
                 WEIGHT: result
               });
+            }).catch(() => {
+              clearInterval(thisState._WEIGHT);
+              thisState.setMyState({
+                WEIGHT: -1
+              });
             })
-        }, thisState.settings.value.REFRESH_TIME_WEIGHT);
-        thisState.cameraImage = thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" + Math.random();
+        }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
+        thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
+        thisState.loading = false;
         thisState.setMyState(thisState)
       }).catch(() => {
         thisState.weight.slipNo = "-1";
         thisState.weighing.disable.getWeightDisabled = true;
+        thisState.loading = false;
         thisState.setMyState(thisState);
       })
     }).catch(() => {
       thisState.weight.slipNo = "-1";
       thisState.weighing.disable.getWeightDisabled = true;
+      thisState.loading = false;
       thisState.setMyState(thisState);
     })
   }
@@ -368,35 +384,62 @@ class App extends Component {
 
   render() {
     let thisState = { ...this.state, setMyState: this.setMyState };
-    return (
-      <Container fluid >
-        <AlertList
-          position={"top-right"}
-          alerts={thisState.alerts}
-          timeout={2000}
-          onDismiss={alert => {
-            thisState.alerts.splice(thisState.alerts.indexOf(alert), 1);
-            thisState.setMyState(thisState);
-          }}
-        />
-        <Row>
-          <Col>
-            <Header preState={thisState} />
-          </Col>
-        </Row>
-        <Row className="minheight">
-          <Col>
-            <NavTabs preState={thisState} />
-          </Col>
-        </Row>
-        <div className="footer-copyright text-center py-3 ">
-          <footer className="">
-            &copy; {new Date().getFullYear()} Copyright:
+    if (thisState.loading) {
+      return (
+        <Container >
+          <Row className="mt-5 pt-5" />
+          <Row className="mt-5 pt-5 justify-content-md-center">
+            <Col lg="auto" >
+              Software is Loading...
+            </Col>
+          </Row>
+          <Row className="mt-3 pr-4 justify-content-md-center">
+            <Col lg="auto">
+              <PropagateLoader
+                css={css`
+                    display: block;
+                    margin: 0 auto;
+                    border-color: red;
+                  `}
+                size={15}
+                color={"#123abc"}
+                loading={true}
+              />
+            </Col>
+          </Row>
+        </Container>
+      )
+    } else {
+      return (
+        <Container fluid >
+          <AlertList
+            position={"top-right"}
+            alerts={thisState.alerts}
+            timeout={2000}
+            onDismiss={alert => {
+              thisState.alerts.splice(thisState.alerts.indexOf(alert), 1);
+              thisState.setMyState(thisState);
+            }}
+          />
+          <Row>
+            <Col>
+              <Header preState={thisState} />
+            </Col>
+          </Row>
+          <Row className="minheight">
+            <Col>
+              <NavTabs preState={thisState} />
+            </Col>
+          </Row>
+          <div className="footer-copyright text-center py-3 ">
+            <footer className="">
+              &copy; {new Date().getFullYear()} Copyright:
             <a href="https://www.Babulens.com"> Babulens.com </a>
-          </footer>
-        </div>
-      </Container>
-    );
+            </footer>
+          </div>
+        </Container>
+      )
+    }
   }
 }
 

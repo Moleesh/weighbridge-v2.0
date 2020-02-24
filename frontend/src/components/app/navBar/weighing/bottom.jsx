@@ -87,7 +87,9 @@ const Bottom = props => {
                     onClick={() => {
                         if (!preventSave) {
                             preventSave = true;
-                            fetch(thisState.INITIAL_URL + "/saveWeight", {
+                            thisState.weight.manual = thisState.settings.manualEntry;
+                            thisState.weight.profile = thisState.PROFILE
+                            fetch(thisState.INITIAL_URL + "/weight/saveWeight", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),
                                 headers: { "content-type": "application/json" }
@@ -157,7 +159,7 @@ const Bottom = props => {
                     block
                     onClick={() => {
                         if (thisState.settings.value.printerName === "get as .pdf File") {
-                            fetch(thisState.INITIAL_URL + "/getPrintWeightPDF", {
+                            fetch(thisState.INITIAL_URL + "/printer/getPrintWeightPDF", {
                                 method: "POST",
                                 body: JSON.stringify({
                                     weight: thisState.weight,
@@ -184,7 +186,7 @@ const Bottom = props => {
                                 });
                         } else {
                             // noinspection JSUnusedLocalSymbols
-                            fetch(thisState.INITIAL_URL + "/printWeight", {
+                            fetch(thisState.INITIAL_URL + "/printer/printWeight", {
                                 method: "POST",
                                 body: JSON.stringify({
                                     weight: thisState.weight,
@@ -205,7 +207,7 @@ const Bottom = props => {
                                 });
                         }
                         // noinspection DuplicatedCode
-                        fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
@@ -278,7 +280,7 @@ const Bottom = props => {
                     block
                     onClick={() => {
                         // noinspection DuplicatedCode
-                        fetch(thisState.INITIAL_URL + "/getNextSlipNo")
+                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();

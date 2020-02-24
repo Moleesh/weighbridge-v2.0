@@ -17,14 +17,14 @@ const Configuration = props => {
                         <h5 className="font-weight-bold pb-3">Configuration</h5>
                         <Nav.Item>
                             <Nav.Link eventKey="material" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/getAllMaterial")
+                                fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE)
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.configuration.materials.list = result;
+                                        thisState.configuration.material.list = result;
                                         thisState.setMyState(thisState);
                                     })
                                     .catch(() => {
@@ -34,14 +34,14 @@ const Configuration = props => {
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="drivers" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/getAllDrivers")
+                                fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE)
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.configuration.drivers.list = result;
+                                        thisState.configuration.driver.list = result;
                                         thisState.setMyState(thisState);
                                     })
                                     .catch(() => {
@@ -50,14 +50,14 @@ const Configuration = props => {
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="tareWeight" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/getAllTareWeight")
+                                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE)
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.configuration.tareWeights.list = result;
+                                        thisState.configuration.tareWeight.list = result;
                                         thisState.setMyState(thisState);
                                     })
                                     .catch(() => {

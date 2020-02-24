@@ -83,7 +83,7 @@
 								<copy file="RunMeForSchedulingInWindows.bat"
 									  tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
 								<copy file="babulensLogo.bmp" tofile="WeighBridge/babulensLogo.bmp"/>
-								<copy file="cameras.xml" tofile="WeighBridge/cameras.xml"/>
+								<copy file="webcam.xml" tofile="WeighBridge/webcam.xml"/>
 							</target>
 						</configuration>
 						<goals>

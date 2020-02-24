@@ -1,7 +1,6 @@
 package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.model.entity.Driver;
-import com.babulens.weighbridge.model.entity.Profile;
 import com.babulens.weighbridge.repository.DriverDAO;
 import com.babulens.weighbridge.service.DriverService;
 import com.google.common.collect.Lists;
@@ -26,18 +25,18 @@ public class DriversServiceImpl implements DriverService {
 	@Override
 	@Cacheable(cacheNames = "Drivers")
 	public List<Driver> getAllDriversByProfile(String profile) {
-		return Lists.newArrayList(driverDAO.findAllByProfile(new Profile(profile)));
+		return Lists.newArrayList(driverDAO.findAllByProfile(profile));
 	}
 
 	@Override
 	@CacheEvict(value = "Drivers", allEntries = true)
-	public Driver addUpdateDrivers(Driver driver) {
+	public Driver addUpdateDriver(Driver driver) {
 		return driverDAO.save(driver);
 	}
 
 	@Override
 	@CacheEvict(value = "Drivers", allEntries = true)
-	public void deleteDrivers(int id) {
+	public void deleteDriver(int id) {
 		driverDAO.deleteById(id);
 	}
 

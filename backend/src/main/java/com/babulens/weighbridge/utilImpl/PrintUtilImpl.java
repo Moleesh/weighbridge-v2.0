@@ -204,7 +204,7 @@ public class PrintUtilImpl implements PrintUtil {
 		for (Weight weight : printReport.getWeights()) {
 			lines.add(new Line(String.format(format,
 					StringUtils.center("" + weight.getSlipNo(), 5),
-					StringUtils.center(weight.getNettTime() != null ? weight.getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate() + " " + weight.getTareTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() : "", 19),
+					StringUtils.center(weight.getNettTime() != null ? weight.getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate() + " " + weight.getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() : "", 19),
 					StringUtils.center(weight.getVehicleNo(), 15),
 					StringUtils.center(weight.getMaterial(), 15),
 					StringUtils.leftPad("" + weight.getGrossWeight(), 8, " "),

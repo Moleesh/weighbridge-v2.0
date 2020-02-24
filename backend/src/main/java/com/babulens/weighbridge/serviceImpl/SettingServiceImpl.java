@@ -1,6 +1,5 @@
 package com.babulens.weighbridge.serviceImpl;
 
-import com.babulens.weighbridge.model.entity.Profile;
 import com.babulens.weighbridge.model.entity.Setting;
 import com.babulens.weighbridge.repository.SettingDAO;
 import com.babulens.weighbridge.service.SettingService;
@@ -28,8 +27,8 @@ public class SettingServiceImpl implements SettingService {
 	@Override
 	@Cacheable(cacheNames = "Settings")
 	public String getSettingByProfile(String key, String profile) {
-		if (settingDAO.findOneByKeyAndProfile(key, new Profile(profile)) != null) {
-			return settingDAO.findOneByKeyAndProfile(key, new Profile(profile)).getValue();
+		if (settingDAO.findOneByKeyAndProfile(key, profile) != null) {
+			return settingDAO.findOneByKeyAndProfile(key, profile).getValue();
 		} else {
 			return null;
 		}
@@ -55,7 +54,7 @@ public class SettingServiceImpl implements SettingService {
 		List<Setting> settingList = new ArrayList<>();
 		for (String key : settings.keySet()) {
 			if (!key.equals("slipNo")) {
-				settingList.add(new Setting(key, settings.get(key), new Profile(profile)));
+				settingList.add(new Setting(key, settings.get(key), profile));
 			}
 		}
 		settingDAO.saveAll(settingList);

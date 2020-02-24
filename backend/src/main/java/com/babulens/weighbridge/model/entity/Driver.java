@@ -1,6 +1,9 @@
 package com.babulens.weighbridge.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
@@ -12,8 +15,7 @@ public class Driver {
 	private String vehicleNo;
 	private String customerName;
 	private String transporterName;
-	@ManyToOne
-	private Profile profile;
+	private String profile;
 
 	public Driver() {
 	}
@@ -23,7 +25,7 @@ public class Driver {
 		this.vehicleNo = vehicleNo;
 		this.customerName = customerName;
 		this.transporterName = transporterName;
-		this.profile = new Profile(profile);
+		this.profile = profile;
 	}
 
 	public int getId() {
@@ -66,11 +68,11 @@ public class Driver {
 		this.transporterName = transporterName;
 	}
 
-	public Profile getProfile() {
+	public String getProfile() {
 		return profile;
 	}
 
-	public void setProfile(Profile profile) {
+	public void setProfile(String profile) {
 		this.profile = profile;
 	}
 

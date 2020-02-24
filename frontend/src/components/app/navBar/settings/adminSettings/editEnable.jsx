@@ -63,7 +63,7 @@ const EditEnable = props => {
                     onClick={() => {
                         if (
                             thisState.settings.editEnablePassword ===
-                            thisState.settings.value.EDIT_ENABLE_PASSWORD
+                            thisState.adminSettings.EDIT_ENABLE_PASSWORD
                         ) {
                             thisState.settings.editEnable = true;
                             thisState.weighing.disable.grossDetailsDisabled = false;

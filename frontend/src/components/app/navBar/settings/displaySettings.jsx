@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSync} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faSync} from "@fortawesome/free-solid-svg-icons";
 
 const DisplaySettings = props => {
     // noinspection JSUnresolvedVariable
@@ -141,10 +141,42 @@ const DisplaySettings = props => {
                 </Col>
             </Form.Group>
             <Button
+                variant="warning"
+                size="lg"
+                className="mr-1"
+                onClick={() => {
+                    fetch(thisState.INITIAL_URL + "/serialPort/updateSerialPort", {
+                        method: "POST",
+                        body: JSON.stringify(thisState.settings.indicator),
+                        headers: { "content-type": "application/json" }
+                    }).then(response => {
+                        if (response.status === 200) {
+                            thisState.alerts.push({
+                                id: new Date().getTime(),
+                                type: "success",
+                                headline: "Indicator Settings Refreshed",
+                                message: "Indicator Settings Refreshed Successfully."
+                            });
+                            thisState.setMyState(thisState);
+                        } else throw Error(response.statusText);
+                    }).catch(() => {
+                        thisState.alerts.push({
+                            id: new Date().getTime(),
+                            type: "danger",
+                            headline: "Indicator Settings Refreshed",
+                            message: "Indicator Settings Refreshed Failed."
+                        });
+                    });
+                }}
+            >
+                <FontAwesomeIcon icon={faEdit} edclassName="mr-3" />
+                update Display SerialPort Settings
+            </Button>
+            <Button
                 variant="light"
                 size="lg"
                 onClick={() => {
-                    fetch(thisState.INITIAL_URL + "/settingUpDisplay")
+                    fetch(thisState.INITIAL_URL + "/serialPort/settingUpSerialPort?serialPort=display&setDataListener=false")
                         .then(response => {
                             if (response.status === 200) {
                                 thisState.alerts.push({

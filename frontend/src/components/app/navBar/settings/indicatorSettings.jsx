@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSync} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faSync} from "@fortawesome/free-solid-svg-icons";
 
 const IndicatorSettings = props => {
     // noinspection JSUnresolvedVariable
@@ -185,9 +185,9 @@ const IndicatorSettings = props => {
                         type="text"
                         autoComplete="off"
                         className="text-left"
-                        value={thisState.settings.value.REFRESH_TIME_WEIGHT}
+                        value={thisState.adminSettings.REFRESH_TIME_WEIGHT}
                         onChange={event => {
-                            thisState.settings.value.REFRESH_TIME_WEIGHT =
+                            thisState.adminSettings.REFRESH_TIME_WEIGHT =
                                 (event.target.value.match("[0-9]+") || []).pop() || "";
                             thisState.setMyState(thisState);
                         }}
@@ -195,10 +195,42 @@ const IndicatorSettings = props => {
                 </Col>
             </Form.Group>
             <Button
+                variant="warning"
+                size="lg"
+                className="mr-1"
+                onClick={() => {
+                    fetch(thisState.INITIAL_URL + "/serialPort/updateSerialPort", {
+                        method: "POST",
+                        body: JSON.stringify(thisState.settings.indicator),
+                        headers: { "content-type": "application/json" }
+                    }).then(response => {
+                        if (response.status === 200) {
+                            thisState.alerts.push({
+                                id: new Date().getTime(),
+                                type: "success",
+                                headline: "Indicator Settings Refreshed",
+                                message: "Indicator Settings Refreshed Successfully."
+                            });
+                            thisState.setMyState(thisState);
+                        } else throw Error(response.statusText);
+                    }).catch(() => {
+                        thisState.alerts.push({
+                            id: new Date().getTime(),
+                            type: "danger",
+                            headline: "Indicator Settings Refreshed",
+                            message: "Indicator Settings Refreshed Failed."
+                        });
+                    });
+                }}
+            >
+                <FontAwesomeIcon icon={faEdit} edclassName="mr-3" />
+                update Indicator SerialPort Settings
+            </Button>
+            <Button
                 variant="light"
                 size="lg"
                 onClick={() => {
-                    fetch(thisState.INITIAL_URL + "/settingUpIndicator")
+                    fetch(thisState.INITIAL_URL + "/serialPort/settingUpSerialPort?serialPort=indicator&setDataListener=true")
                         .then(response => {
                             if (response.status === 200) {
                                 thisState.alerts.push({
@@ -217,6 +249,7 @@ const IndicatorSettings = props => {
                 <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                 Refresh Indicator SerialPort Settings
             </Button>
+
         </Form>
     );
 };

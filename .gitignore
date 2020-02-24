@@ -13,16 +13,17 @@ node_modules
 build
 dist
 target
-CameraOutput
 WeighBridge
+WebCamOutput
+.settings
+backend/.settings
+frontend/.settings
+logs
 
 ###Project Specific Files ###
 
-logs
 test.java
 weighdata.mv.db
 weighdata.trace.db
 pom.xml.versionsBackup
-/.settings/
-/backend/.settings/
-/frontend/.settings/
+

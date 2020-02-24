@@ -83,21 +83,21 @@ const Weighing = props => {
                 </Col>
                 <Col sm="5">
                     <Image
-                        src={thisState.cameraImage}
+                        src={thisState.primaryWebCamImage}
                         style={{ height: 200 }}
                         className="rounded mx-auto d-block"
                         alt=""
                         onLoad={() => {
                             thisState.setMyState({
-                                cameraImage:
-                                    thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" + Math.random()
+                                primaryWebCamImage:
+                                    thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random()
                             });
                         }}
                         onError={async () => {
                             setTimeout(function () {
                                 thisState.setMyState({
-                                    cameraImage:
-                                        thisState.INITIAL_URL + "/webCamDetail/getWebCamImage?webcam=" + thisState.WEBCAM + "&rnd=" + Math.random()
+                                    primaryWebCamImage:
+                                        thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random()
                                 });
                             }, 5000);
                         }}

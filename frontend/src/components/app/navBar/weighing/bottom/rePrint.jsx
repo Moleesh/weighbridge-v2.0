@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 
 const RePrint = props => {
     // noinspection JSUnresolvedVariable
@@ -56,7 +56,7 @@ const RePrint = props => {
                             // noinspection DuplicatedCode
                             fetch(
                                 thisState.INITIAL_URL +
-                                "/getWeight?slipNo=" +
+                                "/weight/getWeightBySlipNoAndProfile?profile=" + thisState.PROFILE + "&slipNo=" +
                                 thisState.weighing.reprintSlipNo
                             )
                                 .then(response => {
