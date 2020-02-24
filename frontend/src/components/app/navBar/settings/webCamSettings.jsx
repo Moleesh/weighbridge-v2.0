@@ -26,7 +26,7 @@ const WebCamSettings = props => {
                             thisState.webCam.details[0].name = event.target.value.split(" [")[0];
                             if (event.target.value.includes("[")) {
                                 thisState.webCam.details[0].width = event.target.value.split("[")[1].split("*")[0];
-                                thisState.webCam.details[0].height = event.target.value.split("[")[1].split("*")[1].split("]");
+                                thisState.webCam.details[0].height = event.target.value.split("[")[1].split("*")[1].split("]")[0];
                                 thisState.setMyState(thisState);
                             }
                         }}
