@@ -78,7 +78,7 @@ public class WebCamServiceImpl implements WebCamService {
 		for (Webcam webcam : Webcam.getWebcams()) {
 			try {
 				Dimension dimension = getBestDimensions(webcam);
-				webcams.add(webcam.getName() + " [" + dimension.getWidth() + "*" + dimension.getHeight() + "]");
+				webcams.add(webcam.getName() + " [" + (int) dimension.getWidth() + "*" + (int) dimension.getHeight() + "]");
 			} catch (WebcamException ex) {
 				webcams.add(webcam.getName() + " " + "[0*0]");
 			}

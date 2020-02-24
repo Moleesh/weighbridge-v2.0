@@ -207,8 +207,8 @@ const IndicatorSettings = props => {
                             thisState.alerts.push({
                                 id: new Date().getTime(),
                                 type: "success",
-                                headline: "Indicator Settings Refreshed",
-                                message: "Indicator Settings Refreshed Successfully."
+                                headline: "Indicator Settings Update",
+                                message: "Indicator Settings Successfully Updated."
                             });
                             thisState.setMyState(thisState);
                         } else throw Error(response.statusText);
@@ -216,13 +216,13 @@ const IndicatorSettings = props => {
                         thisState.alerts.push({
                             id: new Date().getTime(),
                             type: "danger",
-                            headline: "Indicator Settings Refreshed",
-                            message: "Indicator Settings Refreshed Failed."
+                            headline: "Indicator Settings Update",
+                            message: "Indicator Settings Update Failed."
                         });
                     });
                 }}
             >
-                <FontAwesomeIcon icon={faEdit} edclassName="mr-3"/>
+                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
                 update Indicator SerialPort Settings
             </Button>
             <Button

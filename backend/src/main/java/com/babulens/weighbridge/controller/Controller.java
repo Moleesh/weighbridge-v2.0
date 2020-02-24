@@ -157,11 +157,6 @@ class Controller {
 		tareWeightService.deleteTareWeight(id);
 	}
 
-	@RequestMapping(value = "/webCam/getMyPrimaryWebCam", method = {RequestMethod.GET})
-	public String getMyPrimaryWebCam() {
-		return webCamService.getMyPrimaryWebCam();
-	}
-
 	@RequestMapping(value = "/webCam/getAllWebCamDetails", method = {RequestMethod.GET})
 	public List<WebCamDetail> getAllWebCamDetails() {
 		return webCamService.getAllWebCamDetails();
@@ -184,7 +179,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/webCam/updateWebCam", method = {RequestMethod.POST})
-	public void updateWebCam(@RequestParam("webcam") WebCamDetail webCamDetail) {
+	public void updateWebCam(@RequestBody WebCamDetail webCamDetail) {
 		webCamService.updateWebCam(webCamDetail);
 	}
 

@@ -42,7 +42,6 @@ class App extends Component {
             EDIT_ENABLE_PASSWORD: ""
         },
         PROFILE: "Standard",
-        WEBCAM: "dummy",
         profiles: [
             "Standard"
         ],
@@ -94,26 +93,27 @@ class App extends Component {
                     19200,
                     38400,
                     57600,
-                    115200,
-                    230400,
-                    460800,
-                    921600
+                  115200,
+                  230400,
+                  460800,
+                  921600
                 ],
-                availableDataBits: [5, 6, 7, 8],
-                availableParity: [0],
-                availableStopBits: [1, 1.5, 2],
-                availableFlowControl: [0]
+              availableDataBits: [5, 6, 7, 8],
+              availableParity: [0],
+              availableStopBits: [1, 1.5, 2],
+              availableFlowControl: [0]
             },
-            resetSlipNoDialog: false,
-            manualEntryDialog: false,
-            manualEntryPassword: "",
-            editEnableDialog: false,
-            editEnablePassword: "",
-            resetSlipNo: 1,
-            resetSlipNoPassword: "",
-            manualEntryPasswordReference: React.createRef(),
-            manualEntryReference: React.createRef(),
-            editEnablePasswordReference: React.createRef(),
+          webCamSelect: "",
+          resetSlipNoDialog: false,
+          manualEntryDialog: false,
+          manualEntryPassword: "",
+          editEnableDialog: false,
+          editEnablePassword: "",
+          resetSlipNo: 1,
+          resetSlipNoPassword: "",
+          manualEntryPasswordReference: React.createRef(),
+          manualEntryReference: React.createRef(),
+          editEnablePasswordReference: React.createRef(),
             editEnableReference: React.createRef(),
             resetSlipNoReference: React.createRef(),
             resetSlipNoPasswordReference: React.createRef(),
@@ -123,12 +123,12 @@ class App extends Component {
         },
         configuration: {
             material: {
-                header: ["Material Id", "Material Name"],
-                filterText: "",
-                template: {materialId: "", material: ""},
-                list: [],
-                editable: true,
-                unlock: false
+              header: ["Material Id", "Material Name"],
+              filterText: "",
+              template: {materialId: "", material: ""},
+              list: [],
+              editable: true,
+              unlock: false
             },
             driver: {
                 header: [
@@ -149,12 +149,12 @@ class App extends Component {
                 unlock: false
             },
             tareWeight: {
-                header: ["Vehicle No", "Tare Weight", "Tare Time"],
-                filterText: "",
-                template: {vehicleNo: "", tareWeight: "", tareTime: ""},
-                list: [],
-                editable: false,
-                unlock: false
+              header: ["Vehicle No", "Tare Weight", "Tare Time"],
+              filterText: "",
+              template: {vehicleNo: "", tareWeight: "", tareTime: ""},
+              list: [],
+              editable: false,
+              unlock: false
             }
         },
         webCam: {
@@ -189,9 +189,9 @@ class App extends Component {
             reference: {
                 vehicleNoReference: React.createRef(),
                 materialReference: {
-                    reference: React.createRef(),
-                    value: [{material: ""}],
-                    open: undefined
+                  reference: React.createRef(),
+                  value: [{material: ""}],
+                  open: undefined
                 },
                 customersNameReference: React.createRef(),
                 transporterNameReference: React.createRef(),
@@ -295,7 +295,7 @@ class App extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        let thisState = {...this.state, setMyState: this.setMyState};
+      let thisState = {...this.state, setMyState: this.setMyState};
         Promise.all(
             [
                 fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
@@ -310,23 +310,25 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=display").then(resp => resp.json()),
             ]
         ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCams, seialPorts, indicator, display]) => {
-            thisState.adminSettings = adminSettings;
-            thisState.PROFILE = profile;
-            thisState.profiles = profiles;
-            thisState.settings.array.availablePrinters = printers;
-            thisState.settings.array.availablePrintFormats = printFormats;
-            thisState.webCam.details = webCamDetails;
-            thisState.settings.array.availableWebCams = webCams;
-            thisState.settings.array.availableserialPorts = seialPorts;
-            thisState.settings.indicator = indicator;
-            thisState.settings.display = display;
-            Promise.all(
-                [
-                    fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                    fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                    fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                    fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
+          thisState.adminSettings = adminSettings;
+          thisState.PROFILE = profile;
+          thisState.profiles = profiles;
+          thisState.settings.array.availablePrinters = printers;
+          thisState.settings.array.availablePrintFormats = printFormats;
+          thisState.webCam.details = webCamDetails;
+          thisState.settings.array.availableWebCams = webCams;
+          let webCamSelect = webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
+          thisState.settings.webCamSelect = webCamSelect.length === 0 ? webCams[0].name : webCamSelect[0];
+          thisState.settings.array.availableserialPorts = seialPorts;
+          thisState.settings.indicator = indicator;
+          thisState.settings.display = display;
+          Promise.all(
+              [
+                fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
                 ]
             ).then(([settings, materials, drivers, tareWeights, slipNo]) => {
                 settings.automation = settings.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
@@ -355,10 +357,10 @@ class App extends Component {
                                 WEIGHT: result
                             });
                         }).catch(() => {
-                        clearInterval(thisState._WEIGHT);
-                        thisState.setMyState({
-                            WEIGHT: -1
-                        });
+                      clearInterval(thisState._WEIGHT);
+                      thisState.setMyState({
+                        WEIGHT: -1
+                      });
                     })
                 }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
                 thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
@@ -383,16 +385,16 @@ class App extends Component {
     }
 
     render() {
-        let thisState = {...this.state, setMyState: this.setMyState};
+      let thisState = {...this.state, setMyState: this.setMyState};
         if (thisState.loading) {
             return (
                 <Container>
-                    <Row className="mt-5 pt-5"/>
-                    <Row className="mt-5 pt-5 justify-content-md-center">
-                        <Col lg="auto">
-                            Software is Loading...
-                        </Col>
-                    </Row>
+                  <Row className="mt-5 pt-5"/>
+                  <Row className="mt-5 pt-5 justify-content-md-center">
+                    <Col lg="auto">
+                      Software is Loading...
+                    </Col>
+                  </Row>
                     <Row className="mt-3 pr-4 justify-content-md-center">
                         <Col lg="auto">
                             <PropagateLoader
@@ -423,12 +425,12 @@ class App extends Component {
                     />
                     <Row>
                         <Col>
-                            <Header preState={thisState}/>
+                          <Header preState={thisState}/>
                         </Col>
                     </Row>
                     <Row className="minheight">
                         <Col>
-                            <NavTabs preState={thisState}/>
+                          <NavTabs preState={thisState}/>
                         </Col>
                     </Row>
                     <div className="footer-copyright text-center py-3 ">

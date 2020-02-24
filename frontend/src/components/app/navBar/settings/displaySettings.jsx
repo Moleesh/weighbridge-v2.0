@@ -153,8 +153,8 @@ const DisplaySettings = props => {
                             thisState.alerts.push({
                                 id: new Date().getTime(),
                                 type: "success",
-                                headline: "Indicator Settings Refreshed",
-                                message: "Indicator Settings Refreshed Successfully."
+                                headline: "Display Settings Update",
+                                message: "Display Settings Successfully Updated."
                             });
                             thisState.setMyState(thisState);
                         } else throw Error(response.statusText);
@@ -162,13 +162,13 @@ const DisplaySettings = props => {
                         thisState.alerts.push({
                             id: new Date().getTime(),
                             type: "danger",
-                            headline: "Indicator Settings Refreshed",
-                            message: "Indicator Settings Refreshed Failed."
+                            headline: "Display Settings Update",
+                            message: "Display Settings Update Failed."
                         });
                     });
                 }}
             >
-                <FontAwesomeIcon icon={faEdit} edclassName="mr-3"/>
+                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
                 update Display SerialPort Settings
             </Button>
             <Button
@@ -182,7 +182,7 @@ const DisplaySettings = props => {
                                     id: new Date().getTime(),
                                     type: "success",
                                     headline: "Display Settings Refreshed",
-                                    message: "Display Settings Refreshed Successfully."
+                                    message: "Display Settings Successfully Refreshed."
                                 });
                                 thisState.setMyState(thisState);
                             } else throw Error(response.statusText);

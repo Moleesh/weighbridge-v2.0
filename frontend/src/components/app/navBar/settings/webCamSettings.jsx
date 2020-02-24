@@ -20,13 +20,15 @@ const WebCamSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         as="select"
-                        value={thisState.webCam.details[0].name}
+                        value={thisState.settings.webCamSelect}
                         onChange={event => {
-                            thisState.webCam.details[0].name = event.target.value;
-                            if (event.target.value.includes("["))
-                                thisState.webCam.details[0].width = event.target.value.split("[")[1].split("=")[1].split(",")[0];
-                            thisState.webCam.details[0].height = event.target.value.split("[")[1].split("=")[2].split("]")[0];
-                            thisState.setMyState(thisState);
+                            thisState.settings.webCamSelect = event.target.value;
+                            thisState.webCam.details[0].name = event.target.value.split(" [")[0];
+                            if (event.target.value.includes("[")) {
+                                thisState.webCam.details[0].width = event.target.value.split("[")[1].split("*")[0];
+                                thisState.webCam.details[0].height = event.target.value.split("[")[1].split("*")[1].split("]");
+                                thisState.setMyState(thisState);
+                            }
                         }}
                     >
                         {thisState.settings.array.availableWebCams.map(item => (
@@ -179,8 +181,8 @@ const WebCamSettings = props => {
                             thisState.alerts.push({
                                 id: new Date().getTime(),
                                 type: "success",
-                                headline: "Indicator Settings Refreshed",
-                                message: "Indicator Settings Refreshed Successfully."
+                                headline: "WebCam Settings Update",
+                                message: "WebCam Settings Successfully Updated."
                             });
                             thisState.setMyState(thisState);
                         } else throw Error(response.statusText);
@@ -188,14 +190,14 @@ const WebCamSettings = props => {
                         thisState.alerts.push({
                             id: new Date().getTime(),
                             type: "danger",
-                            headline: "Indicator Settings Refreshed",
-                            message: "Indicator Settings Refreshed Failed."
+                            headline: "WebCam Settings Update",
+                            message: "WebCam Settings Update Failed."
                         });
                     });
                 }}
             >
-                <FontAwesomeIcon icon={faEdit} edclassName="mr-3"/>
-                update WebCam SerialPort Settings
+                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
+                update WebCam Settings
             </Button>
             <Button
                 variant="light"
