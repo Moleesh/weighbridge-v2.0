@@ -114,7 +114,7 @@ const Settings = props => {
                                     } else throw Error(response.statusText);
                                 })
                                 .then(result => {
-                                    result.automation = result.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
+                                    result.automation = result.automation.toLowerCase().indexOf("true") !== -1;
                                     thisState.settings.value = result;
                                     thisState.alerts.push({
                                         id: new Date().getTime(),
