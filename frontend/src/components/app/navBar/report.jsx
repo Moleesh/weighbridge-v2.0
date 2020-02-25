@@ -15,7 +15,7 @@ const Report = props => {
     return (
         <React.Fragment>
             <iframe src={thisState.report.pdfURL}
-                    disabled
+                    disabled={true}
                     name="Report Print"
                     type="application/pdf"
                     onLoad={() => {

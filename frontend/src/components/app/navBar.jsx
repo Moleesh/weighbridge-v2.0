@@ -19,15 +19,15 @@ const NavBar = props => {
                 className="mt-1 h5 py-2 pb-1"
             >
                 <Tab eventKey="weighing" title="Weighing"
-                    onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
-                    <Weighing preState={thisState} />
+                     onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
+                    <Weighing preState={thisState}/>
                 </Tab>
                 <Tab eventKey="webcam" title="WebCam">
-                    <WebCam preState={thisState} />
+                    <WebCam preState={thisState}/>
                 </Tab>
                 <Tab eventKey="report" title="Report" onEntered={() => {
                 }}>
-                    <Report preState={thisState} />
+                    <Report preState={thisState}/>
                 </Tab>
                 <Tab
                     eventKey="configuration"
@@ -71,7 +71,7 @@ const NavBar = props => {
                             });
                     }}
                 >
-                    <Configuration preState={thisState} />
+                    <Configuration preState={thisState}/>
                 </Tab>
                 <Tab
                     eventKey="settings"
@@ -84,7 +84,7 @@ const NavBar = props => {
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                result.automation = result.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
+                                result.automation = result.automation.toLowerCase().indexOf("true") !== -1;
                                 thisState.settings.value = result;
                                 thisState.setMyState(thisState);
                             })
@@ -92,7 +92,7 @@ const NavBar = props => {
                             });
                     }}
                 >
-                    <Settings preState={thisState} />
+                    <Settings preState={thisState}/>
                 </Tab>
             </Tabs>
         </Tab.Container>

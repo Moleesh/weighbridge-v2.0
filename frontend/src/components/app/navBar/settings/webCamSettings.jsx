@@ -175,7 +175,7 @@ const WebCamSettings = props => {
                     fetch(thisState.INITIAL_URL + "/webCam/updateWebCam", {
                         method: "POST",
                         body: JSON.stringify(thisState.webCam.details[0]),
-                        headers: { "content-type": "application/json" }
+                        headers: {"content-type": "application/json"}
                     }).then(response => {
                         if (response.status === 200) {
                             thisState.alerts.push({
@@ -197,7 +197,7 @@ const WebCamSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faEdit} className="mr-3" />
+                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
                 update WebCam Settings
             </Button>
             <Button
@@ -221,7 +221,7 @@ const WebCamSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
+                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
                 Refresh WebCam Settings
             </Button>
         </Form>

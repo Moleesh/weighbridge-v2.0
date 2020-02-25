@@ -31,8 +31,8 @@ const ColumnOne = props => {
                 <Form.Label column sm="6">
                     Date & Time
                 </Form.Label>
-                <Col sm="6" style={{ textAlign: "center" }}>
-                    <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true} />
+                <Col sm="6" style={{textAlign: "center"}}>
+                    <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true}/>
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -50,7 +50,7 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if (event.keyCode === 9 && event.shiftKey);
+                            if (event.keyCode === 9 && event.shiftKey) ;
                             else {
                                 if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.weight.vehicleNo = thisState.weight.vehicleNo
@@ -117,7 +117,7 @@ const ColumnOne = props => {
                         }}
                         autoFocus={true}
                     />
-                    <PreviousWeight preState={thisState} weight={weight} value={value} />
+                    <PreviousWeight preState={thisState} weight={weight} value={value}/>
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>

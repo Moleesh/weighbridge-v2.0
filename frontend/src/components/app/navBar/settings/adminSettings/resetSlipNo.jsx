@@ -41,7 +41,7 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey);
+                                if (event.keyCode === 9 && event.shiftKey) ;
                                 else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.settings.resetSlipNoPasswordReference.current.focus();
                             }}
@@ -64,7 +64,7 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey);
+                                if (event.keyCode === 9 && event.shiftKey) ;
                                 else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.settings.resetSlipNoButtonReference.current.focus();
                             }}
@@ -121,7 +121,7 @@ const ResetSlipNo = props => {
                                                 thisState.weight.transporterName = "";
                                                 thisState.weight.material = "";
                                                 thisState.weighing.reference.materialReference.value = [
-                                                    { material: "" }
+                                                    {material: ""}
                                                 ];
                                                 thisState.weight.grossWeight = "";
                                                 thisState.weight.grossTime = "";

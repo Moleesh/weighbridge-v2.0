@@ -90,7 +90,7 @@ const Bottom = props => {
                             fetch(thisState.INITIAL_URL + "/weight/saveWeight", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),
-                                headers: { "content-type": "application/json" }
+                                headers: {"content-type": "application/json"}
                             })
                                 .then(response => {
                                     if (response.status === 200) {
@@ -104,9 +104,9 @@ const Bottom = props => {
                                     thisState
                                         .setMyState(thisState)
                                         .then(() => {
-                                            thisState.weighing.reference.printReference.current.focus();
-                                            preventSave = false;
-                                        }
+                                                thisState.weighing.reference.printReference.current.focus();
+                                                preventSave = false;
+                                            }
                                         );
                                 })
                                 .catch(() => {
@@ -148,7 +148,7 @@ const Bottom = props => {
                 >
                     Re Print
                 </Button>
-                <RePrint preState={thisState} />
+                <RePrint preState={thisState}/>
             </Col>
             <Col sm="4">
                 <Button
@@ -166,10 +166,10 @@ const Bottom = props => {
                                     printFormat: thisState.settings.value.printFormat,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                        thisState.settings.value.weighbridgeAddress,
+                                    thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
-                                headers: { "content-type": "application/json" }
+                                headers: {"content-type": "application/json"}
                             })
                                 .then(response => {
                                     if (response.status !== 200) throw Error(response.statusText);
@@ -192,10 +192,10 @@ const Bottom = props => {
                                     printFormat: thisState.settings.value.printFormat,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                        thisState.settings.value.weighbridgeAddress,
+                                    thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
-                                headers: { "content-type": "application/json" }
+                                headers: {"content-type": "application/json"}
                             })
                                 .then(response => {
                                     if (response.status !== 200) throw Error(response.statusText);
@@ -237,7 +237,7 @@ const Bottom = props => {
                                 thisState.weight.transporterName = "";
                                 thisState.weight.material = "";
                                 thisState.weighing.reference.materialReference.value = [
-                                    { material: "" }
+                                    {material: ""}
                                 ];
                                 thisState.weight.grossWeight = "";
                                 thisState.weight.grossTime = "";
@@ -313,7 +313,7 @@ const Bottom = props => {
                                 thisState.weight.transporterName = "";
                                 thisState.weight.material = "";
                                 thisState.weighing.reference.materialReference.value = [
-                                    { material: "" }
+                                    {material: ""}
                                 ];
                                 thisState.weight.grossWeight = "";
                                 thisState.weight.grossTime = "";
@@ -340,7 +340,7 @@ const Bottom = props => {
                     Clear
                 </Button>
             </Col>
-            <Col sm="6" />
+            <Col sm="6"/>
         </Row>
     );
 };

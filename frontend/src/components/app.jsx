@@ -83,7 +83,7 @@ class App extends Component {
                 availablePrinters: [],
                 availablePrintFormats: [],
                 availableWebCams: [],
-                availableserialPorts: [],
+                availableSerialPorts: [],
                 availableBaudRate: [
                     110,
                     300,
@@ -309,7 +309,7 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/driver/getAllDrivers").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(resp => resp.json())
             ]
-        ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCams, seialPorts, indicator, display, materials, drivers, tareWeights]) => {
+        ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, drivers, tareWeights]) => {
             thisState.adminSettings = adminSettings;
             thisState.PROFILE = profile;
             thisState.profiles = profiles;
@@ -319,7 +319,7 @@ class App extends Component {
             thisState.settings.array.availableWebCams = webCams;
             let webCamSelect = webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
             thisState.settings.webCamSelect = webCamSelect.length === 0 ? webCams[0].name : webCamSelect[0];
-            thisState.settings.array.availableserialPorts = seialPorts;
+            thisState.settings.array.availableSerialPorts = serialPorts;
             thisState.settings.indicator = indicator;
             thisState.settings.display = display;
             thisState.configuration.material.list = materials;
@@ -331,7 +331,7 @@ class App extends Component {
                     fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
                 ]
             ).then(([settings, slipNo]) => {
-                settings.automation = settings.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
+                settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                 thisState.settings.value = settings;
                 thisState.weight.slipNo = slipNo;
                 if (slipNo === -1) {
@@ -395,7 +395,7 @@ class App extends Component {
                     <Row className="mt-5 pt-5 justify-content-md-center">
                         <Col lg="auto">
                             Software is Loading...
-                    </Col>
+                        </Col>
                     </Row>
                     <Row className="mt-3 pr-4 justify-content-md-center">
                         <Col lg="auto">
@@ -427,12 +427,12 @@ class App extends Component {
                     />
                     <Row>
                         <Col>
-                            <Header preState={thisState} />
+                            <Header preState={thisState}/>
                         </Col>
                     </Row>
-                    <Row className="minheight">
+                    <Row className="min-height">
                         <Col>
-                            <NavTabs preState={thisState} />
+                            <NavTabs preState={thisState}/>
                         </Col>
                     </Row>
                     <div className="footer-copyright text-center py-3 ">

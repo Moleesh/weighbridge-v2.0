@@ -112,7 +112,7 @@ public class WebCamServiceImpl implements WebCamService {
 	@Override
 	@CacheEvict(value = "WebCams", allEntries = true)
 	public void updateWebCam(WebCamDetail webCamDetail) {
-		if(webCamDetail.isMyPrimary()) {
+		if (webCamDetail.isMyPrimary()) {
 			webCamDetailDAO.findAllByMyPrimaryIsTrue().forEach(_webCamDetail -> {
 				_webCamDetail.setMyPrimary(false);
 				webCamDetailDAO.save(_webCamDetail);

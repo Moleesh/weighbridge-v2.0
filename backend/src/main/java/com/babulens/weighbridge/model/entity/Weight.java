@@ -185,7 +185,7 @@ public class Weight {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Weight weight = (Weight) o;
-		return id == weight.id;
+		return Objects.equals(id, weight.id);
 	}
 
 	@Override

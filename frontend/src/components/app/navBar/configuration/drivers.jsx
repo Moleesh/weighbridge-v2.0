@@ -8,7 +8,7 @@ const Drivers = props => {
     return (
         <Form className="justify-content-center ">
             <Row className="pb-2">
-                <Col sm="2" />
+                <Col sm="2"/>
                 <Col sm="8" className="pl-3">
                     <h4 className="text-center font-weight-bold">Driver Details</h4>
                 </Col>
@@ -81,7 +81,7 @@ const Drivers = props => {
                                                 profile: thisState.PROFILE
                                             }
                                         ),
-                                        headers: { "content-type": "application/json" }
+                                        headers: {"content-type": "application/json"}
                                     })
                                         .then(response => {
                                             if (response.status === 200) {
@@ -118,128 +118,128 @@ const Drivers = props => {
                     </Col>
                 </Form.Row>
             ) : (
-                    ""
-                )}
+                ""
+            )}
             <Table hover size="sm">
                 <thead>
-                    <tr>
-                        {thisState.configuration.driver.header.map(item => (
-                            <th key={item} className="centre">
-                                {item}
-                            </th>
-                        ))}
-                        {thisState.configuration.driver.unlock ? <th /> : null}
-                    </tr>
+                <tr>
+                    {thisState.configuration.driver.header.map(item => (
+                        <th key={item} className="centre">
+                            {item}
+                        </th>
+                    ))}
+                    {thisState.configuration.driver.unlock ? <th/> : null}
+                </tr>
                 </thead>
                 <tbody>
-                    {thisState.configuration.driver.list.map((item, index) => (
-                        <tr key={index} className="eachRow">
-                            {Object.values(item)
-                                .toString()
-                                .replace(",", ".")
-                                .indexOf(thisState.configuration.driver.filterText) ===
-                                -1 ? null : (
-                                    <React.Fragment>
-                                        {Object.keys(item)
-                                            .filter(key => key !== "id" && key !== "profile")
-                                            .map(key => (
-                                                <td key={key + "_" + item["id"]}>
-                                                    <Col>
-                                                        <Form.Control
-                                                            autoComplete="off"
-                                                            className="text-center form-control reportInputs"
-                                                            disabled={
-                                                                !(
-                                                                    thisState.configuration.driver.unlock &&
-                                                                    thisState.configuration.driver.editable
-                                                                )
-                                                            }
-                                                            type="text"
-                                                            name={key}
-                                                            value={item[key] !== null ? item[key] : ""}
-                                                            onChange={event => {
-                                                                thisState.configuration.driver.list[index][key] =
-                                                                    event.target.value;
-                                                                thisState.setMyState(thisState);
-                                                            }}
-                                                        />
-                                                    </Col>
-                                                </td>
-                                            ))}
-                                        {thisState.configuration.driver.unlock ? (
-                                            <td>
-                                                <Row>
-                                                    {thisState.configuration.driver.editable ? (
-                                                        <Col>
-                                                            <Button
-                                                                block
-                                                                variant="warning"
-                                                                onClick={() => {
-                                                                    fetch(
-                                                                        thisState.INITIAL_URL + "/driver/addUpdateDriver",
-                                                                        {
-                                                                            method: "PUT",
-                                                                            body: JSON.stringify(
-                                                                                thisState.configuration.driver.list[index]
-                                                                            ),
-                                                                            headers: {
-                                                                                "content-type": "application/json"
-                                                                            }
-                                                                        }
-                                                                    )
-                                                                        .then(response => {
-                                                                            if (response.status === 200) {
-                                                                                return response.json();
-                                                                            } else throw Error(response.statusText);
-                                                                        })
-                                                                        .then(() => {
-                                                                        })
-                                                                        .catch(() => {
-                                                                        });
-                                                                }}
-                                                            >
-                                                                Update
-                                                    </Button>
-                                                        </Col>
-                                                    ) : (
-                                                            ""
-                                                        )}
-                                                    <Col>
-                                                        <Button
-                                                            block
-                                                            variant="danger"
-                                                            onClick={() => {
-                                                                fetch(
-                                                                    thisState.INITIAL_URL +
-                                                                    "/driver/deleteDriver?id=" +
-                                                                    thisState.configuration.driver.list[index].id,
-                                                                    {
-                                                                        method: "DELETE"
+                {thisState.configuration.driver.list.map((item, index) => (
+                    <tr key={index} className="eachRow">
+                        {Object.values(item)
+                            .toString()
+                            .replace(",", ".")
+                            .indexOf(thisState.configuration.driver.filterText) ===
+                        -1 ? null : (
+                            <React.Fragment>
+                                {Object.keys(item)
+                                    .filter(key => key !== "id" && key !== "profile")
+                                    .map(key => (
+                                        <td key={key + "_" + item["id"]}>
+                                            <Col>
+                                                <Form.Control
+                                                    autoComplete="off"
+                                                    className="text-center form-control reportInputs"
+                                                    disabled={
+                                                        !(
+                                                            thisState.configuration.driver.unlock &&
+                                                            thisState.configuration.driver.editable
+                                                        )
+                                                    }
+                                                    type="text"
+                                                    name={key}
+                                                    value={item[key] !== null ? item[key] : ""}
+                                                    onChange={event => {
+                                                        thisState.configuration.driver.list[index][key] =
+                                                            event.target.value;
+                                                        thisState.setMyState(thisState);
+                                                    }}
+                                                />
+                                            </Col>
+                                        </td>
+                                    ))}
+                                {thisState.configuration.driver.unlock ? (
+                                    <td>
+                                        <Row>
+                                            {thisState.configuration.driver.editable ? (
+                                                <Col>
+                                                    <Button
+                                                        block
+                                                        variant="warning"
+                                                        onClick={() => {
+                                                            fetch(
+                                                                thisState.INITIAL_URL + "/driver/addUpdateDriver",
+                                                                {
+                                                                    method: "PUT",
+                                                                    body: JSON.stringify(
+                                                                        thisState.configuration.driver.list[index]
+                                                                    ),
+                                                                    headers: {
+                                                                        "content-type": "application/json"
                                                                     }
-                                                                )
-                                                                    .then(response => {
-                                                                        if (response.status === 200) {
-                                                                            thisState.configuration.driver.list.splice(
-                                                                                index,
-                                                                                1
-                                                                            );
-                                                                            thisState.setMyState(thisState);
-                                                                        } else throw Error(response.statusText);
-                                                                    })
-                                                                    .catch(() => {
-                                                                    });
-                                                            }}
-                                                        >
-                                                            Remove
+                                                                }
+                                                            )
+                                                                .then(response => {
+                                                                    if (response.status === 200) {
+                                                                        return response.json();
+                                                                    } else throw Error(response.statusText);
+                                                                })
+                                                                .then(() => {
+                                                                })
+                                                                .catch(() => {
+                                                                });
+                                                        }}
+                                                    >
+                                                        Update
+                                                    </Button>
+                                                </Col>
+                                            ) : (
+                                                ""
+                                            )}
+                                            <Col>
+                                                <Button
+                                                    block
+                                                    variant="danger"
+                                                    onClick={() => {
+                                                        fetch(
+                                                            thisState.INITIAL_URL +
+                                                            "/driver/deleteDriver?id=" +
+                                                            thisState.configuration.driver.list[index].id,
+                                                            {
+                                                                method: "DELETE"
+                                                            }
+                                                        )
+                                                            .then(response => {
+                                                                if (response.status === 200) {
+                                                                    thisState.configuration.driver.list.splice(
+                                                                        index,
+                                                                        1
+                                                                    );
+                                                                    thisState.setMyState(thisState);
+                                                                } else throw Error(response.statusText);
+                                                            })
+                                                            .catch(() => {
+                                                            });
+                                                    }}
+                                                >
+                                                    Remove
                                                 </Button>
-                                                    </Col>
-                                                </Row>
-                                            </td>
-                                        ) : null}
-                                    </React.Fragment>
-                                )}
-                        </tr>
-                    ))}
+                                            </Col>
+                                        </Row>
+                                    </td>
+                                ) : null}
+                            </React.Fragment>
+                        )}
+                    </tr>
+                ))}
                 </tbody>
             </Table>
         </Form>

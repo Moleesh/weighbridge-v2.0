@@ -40,15 +40,18 @@
 	"scripts": {
 		"start": "react-scripts start fast-live-reload",
 		"build": "react-scripts build",
-		"move": "node buildme.sh",
-		"up": "npm --depth 9999 update"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": [
-		"last 5 Chrome versions"
-	],
-	"license": "UNLICENSED",
-	"typings": "./ambient.d.ts"
+      "move": "node buildme.sh",
+      "up": "npm --depth 9999 update"
+    },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    "last 5 Chrome versions"
+  ],
+  "license": "UNLICENSED",
+  "typings": "./ambient.d.ts",
+  "devDependencies": {
+    "@emotion/core": "^10.0.27"
+  }
 }

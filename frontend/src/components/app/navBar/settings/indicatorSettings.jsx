@@ -26,7 +26,7 @@ const IndicatorSettings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.settings.array.availableserialPorts.map(item => (
+                        {thisState.settings.array.availableSerialPorts.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>
