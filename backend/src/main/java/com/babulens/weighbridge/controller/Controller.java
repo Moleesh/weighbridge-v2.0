@@ -106,9 +106,9 @@ class Controller {
 		settingService.saveAllSettingsByProfile(settings, profile);
 	}
 
-	@RequestMapping(value = "/material/getAllMaterialsByProfile", method = {RequestMethod.GET})
-	public List<Material> getAllMaterialsByProfile(@RequestParam String profile) {
-		return materialService.getAllMaterialsByProfile(profile);
+	@RequestMapping(value = "/material/getAllMaterials", method = {RequestMethod.GET})
+	public List<Material> getAllMaterials() {
+		return materialService.getAllMaterials();
 	}
 
 	@RequestMapping(value = "/material/addUpdateMaterial", method = {RequestMethod.POST, RequestMethod.PUT})
@@ -121,9 +121,9 @@ class Controller {
 		materialService.deleteMaterial(id);
 	}
 
-	@RequestMapping(value = "/driver/getAllDriversByProfile", method = {RequestMethod.GET})
-	public List<Driver> getAllDriversByProfile(@RequestParam String profile) {
-		return driverService.getAllDriversByProfile(profile);
+	@RequestMapping(value = "/driver/getAllDrivers", method = {RequestMethod.GET})
+	public List<Driver> getAllDrivers() {
+		return driverService.getAllDrivers();
 	}
 
 	@RequestMapping(value = "/driver/addUpdateDriver", method = {RequestMethod.POST, RequestMethod.PUT})
@@ -136,15 +136,14 @@ class Controller {
 		driverService.deleteDriver(id);
 	}
 
-	@RequestMapping(value = "/tareWeight/getAllTareWeightsByProfile", method = {RequestMethod.GET})
-	public List<TareWeight> getAllTareWeightsByProfile(@RequestParam String profile) {
-		return tareWeightService.getAllTareWeightsByProfile(profile);
+	@RequestMapping(value = "/tareWeight/getAllTareWeights", method = {RequestMethod.GET})
+	public List<TareWeight> getAllTareWeights() {
+		return tareWeightService.getAllTareWeights();
 	}
 
-	@RequestMapping(value = "/tareWeight/getTareWeightByVehicleNoAndProfile", method = {RequestMethod.GET})
-	public TareWeight getTareWeightByVehicleNoAndProfile(@RequestParam("vehicleNo") String vehicleNo,
-	                                                     @RequestParam("profile") String profile) {
-		return tareWeightService.getTareWeightByVehicleNoAndProfile(vehicleNo, profile);
+	@RequestMapping(value = "/tareWeight/getTareWeightByVehicleNo", method = {RequestMethod.GET})
+	public TareWeight getTareWeightByVehicleNo(@RequestParam("vehicleNo") String vehicleNo) {
+		return tareWeightService.getTareWeightByVehicleNo(vehicleNo);
 	}
 
 	@RequestMapping(value = "/tareWeight/addUpdateTareWeight", method = {RequestMethod.POST, RequestMethod.PUT})
@@ -153,8 +152,8 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/tareWeight/deleteTareWeight", method = {RequestMethod.DELETE})
-	public void deleteTareWeight(@RequestParam("id") int id) {
-		tareWeightService.deleteTareWeight(id);
+	public void deleteTareWeight(@RequestParam("vehicleNo") String vehicleNo) {
+		tareWeightService.deleteTareWeight(vehicleNo);
 	}
 
 	@RequestMapping(value = "/webCam/getAllWebCamDetails", method = {RequestMethod.GET})

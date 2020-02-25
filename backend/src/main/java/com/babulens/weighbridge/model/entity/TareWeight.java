@@ -3,8 +3,6 @@ package com.babulens.weighbridge.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
@@ -12,30 +10,18 @@ import java.util.Objects;
 @Entity
 public class TareWeight {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
 	private String vehicleNo;
 	private long tareWeight;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date tareTime;
-	private String profile;
 
 	public TareWeight() {
 	}
 
-	public TareWeight(String vehicleNo, long tareWeight, Date tareTime, String profile) {
+	public TareWeight(String vehicleNo, long tareWeight, Date tareTime) {
 		this.vehicleNo = vehicleNo;
 		this.tareWeight = tareWeight;
 		this.tareTime = tareTime;
-		this.profile = profile;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getVehicleNo() {
@@ -62,29 +48,16 @@ public class TareWeight {
 		this.tareTime = tareTime;
 	}
 
-	public String getProfile() {
-		return profile;
-	}
-
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
-
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof TareWeight)) {
-			return false;
-		}
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 		TareWeight that = (TareWeight) o;
-		return getId() == that.getId();
+		return vehicleNo.equals(that.vehicleNo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId());
+		return Objects.hash(vehicleNo);
 	}
-
 }

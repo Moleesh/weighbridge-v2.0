@@ -41,7 +41,7 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) ;
+                                if (event.keyCode === 9 && event.shiftKey);
                                 else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.settings.resetSlipNoPasswordReference.current.focus();
                             }}
@@ -64,7 +64,7 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) ;
+                                if (event.keyCode === 9 && event.shiftKey);
                                 else if (event.keyCode === 13 || event.keyCode === 9)
                                     thisState.settings.resetSlipNoButtonReference.current.focus();
                             }}
@@ -108,17 +108,20 @@ const ResetSlipNo = props => {
                                                 thisState.weighing.disable.materialDisabled = false;
                                                 thisState.weighing.disable.chargesDisabled = false;
                                                 thisState.weighing.disable.remarksDisabled = false;
-                                                thisState.weighing.disable.getWeightDisabled =
-                                                    result === -1;
+                                                thisState.weighing.disable.getWeightDisabled = false;
                                                 thisState.weighing.disable.saveDisabled = true;
                                                 thisState.weighing.disable.printDisabled = true;
                                                 thisState.weight.slipNo = result;
+                                                if (result === -1) {
+                                                    thisState.weighing.disable.getWeightDisabled = true;
+                                                    thisState.SETTING_DISABLED = true;
+                                                }
                                                 thisState.weight.vehicleNo = "";
                                                 thisState.weight.customersName = "";
                                                 thisState.weight.transporterName = "";
                                                 thisState.weight.material = "";
                                                 thisState.weighing.reference.materialReference.value = [
-                                                    {material: ""}
+                                                    { material: "" }
                                                 ];
                                                 thisState.weight.grossWeight = "";
                                                 thisState.weight.grossTime = "";

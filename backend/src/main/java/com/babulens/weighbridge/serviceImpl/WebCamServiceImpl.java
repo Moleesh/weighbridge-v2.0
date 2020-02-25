@@ -7,6 +7,7 @@ import com.babulens.weighbridge.service.WebCamService;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -68,7 +69,7 @@ public class WebCamServiceImpl implements WebCamService {
 
 	@Override
 	public List<WebCamDetail> getAllWebCamDetails() {
-		return (List<WebCamDetail>) webCamDetailDAO.findAll();
+		return webCamDetailDAO.findAllByOrderByMyPrimaryDesc();
 	}
 
 	@Override
@@ -109,7 +110,14 @@ public class WebCamServiceImpl implements WebCamService {
 	}
 
 	@Override
+	@CacheEvict(value = "WebCams", allEntries = true)
 	public void updateWebCam(WebCamDetail webCamDetail) {
+		if(webCamDetail.isMyPrimary()) {
+			webCamDetailDAO.findAllByMyPrimaryIsTrue().forEach(_webCamDetail -> {
+				_webCamDetail.setMyPrimary(false);
+				webCamDetailDAO.save(_webCamDetail);
+			});
+		}
 		webCamDetailDAO.save(webCamDetail);
 	}
 

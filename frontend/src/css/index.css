@@ -236,4 +236,6 @@ input {
     }
 }
 
-
+.btn:disabled , .nav-item[disabled] {
+    cursor: not-allowed!important;
+}

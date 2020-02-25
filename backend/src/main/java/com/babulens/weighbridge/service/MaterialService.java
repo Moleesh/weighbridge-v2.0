@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MaterialService {
 
-	List<Material> getAllMaterialsByProfile(String profile);
+	List<Material> getAllMaterials();
 
 	Material addUpdateMaterial(Material material);
 

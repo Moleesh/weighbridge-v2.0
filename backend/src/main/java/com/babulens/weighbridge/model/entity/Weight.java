@@ -3,8 +3,6 @@ package com.babulens.weighbridge.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
@@ -12,8 +10,7 @@ import java.util.Objects;
 @Entity
 public class Weight {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
+	private String id;
 	private int slipNo;
 	private String vehicleNo;
 	private String material;
@@ -52,6 +49,7 @@ public class Weight {
 		this.remarks = remarks;
 		this.manual = manual;
 		this.profile = profile;
+		this.id = profile + "_" + slipNo;
 	}
 
 	public int getSlipNo() {
@@ -166,11 +164,11 @@ public class Weight {
 		this.manual = manual;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

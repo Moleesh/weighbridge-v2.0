@@ -25,6 +25,7 @@ const Material = props => {
                             offstyle="danger"
                             active={thisState.configuration.material.unlock}
                             recalculateOnResize={true}
+                            disabled={thisState.SETTING_DISABLED}
                         />
                     </Row>
                 </Col>

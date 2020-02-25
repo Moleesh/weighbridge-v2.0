@@ -14,12 +14,13 @@ const INITIAL_URL = "http://localhost:9000";
 class App extends Component {
     state = {
         loading: true,
+        SETTING_DISABLED: true,
         INITIAL_URL: INITIAL_URL,
         _WEIGHT: "",
-        WEIGHT: "-1",
+        WEIGHT: -1,
         primaryWebCamImage: "",
         weight: {
-            slipNo: "-1",
+            slipNo: -1,
             vehicleNo: "",
             material: "",
             customersName: "",
@@ -93,27 +94,27 @@ class App extends Component {
                     19200,
                     38400,
                     57600,
-                  115200,
-                  230400,
-                  460800,
-                  921600
+                    115200,
+                    230400,
+                    460800,
+                    921600
                 ],
-              availableDataBits: [5, 6, 7, 8],
-              availableParity: [0],
-              availableStopBits: [1, 1.5, 2],
-              availableFlowControl: [0]
+                availableDataBits: [5, 6, 7, 8],
+                availableParity: [0],
+                availableStopBits: [1, 1.5, 2],
+                availableFlowControl: [0]
             },
-          webCamSelect: "",
-          resetSlipNoDialog: false,
-          manualEntryDialog: false,
-          manualEntryPassword: "",
-          editEnableDialog: false,
-          editEnablePassword: "",
-          resetSlipNo: 1,
-          resetSlipNoPassword: "",
-          manualEntryPasswordReference: React.createRef(),
-          manualEntryReference: React.createRef(),
-          editEnablePasswordReference: React.createRef(),
+            webCamSelect: "",
+            resetSlipNoDialog: false,
+            manualEntryDialog: false,
+            manualEntryPassword: "",
+            editEnableDialog: false,
+            editEnablePassword: "",
+            resetSlipNo: 1,
+            resetSlipNoPassword: "",
+            manualEntryPasswordReference: React.createRef(),
+            manualEntryReference: React.createRef(),
+            editEnablePasswordReference: React.createRef(),
             editEnableReference: React.createRef(),
             resetSlipNoReference: React.createRef(),
             resetSlipNoPasswordReference: React.createRef(),
@@ -123,12 +124,12 @@ class App extends Component {
         },
         configuration: {
             material: {
-              header: ["Material Id", "Material Name"],
-              filterText: "",
-              template: {materialId: "", material: ""},
-              list: [],
-              editable: true,
-              unlock: false
+                header: ["Material Id", "Material Name"],
+                filterText: "",
+                template: { materialId: "", material: "" },
+                list: [],
+                editable: true,
+                unlock: false
             },
             driver: {
                 header: [
@@ -149,12 +150,12 @@ class App extends Component {
                 unlock: false
             },
             tareWeight: {
-              header: ["Vehicle No", "Tare Weight", "Tare Time"],
-              filterText: "",
-              template: {vehicleNo: "", tareWeight: "", tareTime: ""},
-              list: [],
-              editable: false,
-              unlock: false
+                header: ["Vehicle No", "Tare Weight", "Tare Time"],
+                filterText: "",
+                template: { vehicleNo: "", tareWeight: "", tareTime: "" },
+                list: [],
+                editable: false,
+                unlock: false
             }
         },
         webCam: {
@@ -168,8 +169,6 @@ class App extends Component {
                     height: 5
                 }]
         },
-
-
         weighing: {
             previousWeightSelector: false,
             previousWeight: "",
@@ -189,9 +188,9 @@ class App extends Component {
             reference: {
                 vehicleNoReference: React.createRef(),
                 materialReference: {
-                  reference: React.createRef(),
-                  value: [{material: ""}],
-                  open: undefined
+                    reference: React.createRef(),
+                    value: [{ material: "" }],
+                    open: undefined
                 },
                 customersNameReference: React.createRef(),
                 transporterNameReference: React.createRef(),
@@ -227,8 +226,6 @@ class App extends Component {
                 materialIdDisabled: true
             }
         },
-
-
         report: {
             pdfURL: "",
             filterText: "",
@@ -295,7 +292,7 @@ class App extends Component {
     }
 
     UNSAFE_componentWillMount() {
-      let thisState = {...this.state, setMyState: this.setMyState};
+        let thisState = { ...this.state, setMyState: this.setMyState };
         Promise.all(
             [
                 fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
@@ -308,36 +305,37 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/serialPort/getAllSerialPorts").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=indicator").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=display").then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/material/getAllMaterials").then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/driver/getAllDrivers").then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(resp => resp.json())
             ]
-        ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCams, seialPorts, indicator, display]) => {
-          thisState.adminSettings = adminSettings;
-          thisState.PROFILE = profile;
-          thisState.profiles = profiles;
-          thisState.settings.array.availablePrinters = printers;
-          thisState.settings.array.availablePrintFormats = printFormats;
-          thisState.webCam.details = webCamDetails;
-          thisState.settings.array.availableWebCams = webCams;
-          let webCamSelect = webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
-          thisState.settings.webCamSelect = webCamSelect.length === 0 ? webCams[0].name : webCamSelect[0];
-          thisState.settings.array.availableserialPorts = seialPorts;
-          thisState.settings.indicator = indicator;
-          thisState.settings.display = display;
-          Promise.all(
-              [
-                fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
+        ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCams, seialPorts, indicator, display, materials, drivers, tareWeights]) => {
+            thisState.adminSettings = adminSettings;
+            thisState.PROFILE = profile;
+            thisState.profiles = profiles;
+            thisState.settings.array.availablePrinters = printers;
+            thisState.settings.array.availablePrintFormats = printFormats;
+            thisState.webCam.details = webCamDetails;
+            thisState.settings.array.availableWebCams = webCams;
+            let webCamSelect = webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
+            thisState.settings.webCamSelect = webCamSelect.length === 0 ? webCams[0].name : webCamSelect[0];
+            thisState.settings.array.availableserialPorts = seialPorts;
+            thisState.settings.indicator = indicator;
+            thisState.settings.display = display;
+            thisState.configuration.material.list = materials;
+            thisState.configuration.driver.list = drivers;
+            thisState.configuration.tareWeight.list = tareWeights;
+            Promise.all(
+                [
+                    fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
+                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
                 ]
-            ).then(([settings, materials, drivers, tareWeights, slipNo]) => {
+            ).then(([settings, slipNo]) => {
                 settings.automation = settings.automation.toLowerCase().indexOf(true) !== -1 ? true : false;
                 thisState.settings.value = settings;
-                thisState.configuration.material.list = materials;
-                thisState.configuration.driver.list = drivers;
-                thisState.configuration.tareWeight.list = tareWeights;
                 thisState.weight.slipNo = slipNo;
                 if (slipNo === -1) {
+                    thisState.SETTING_DISABLED = true;
                     thisState.weighing.disable.getWeightDisabled = true;
                 }
                 if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerName) === -1) {
@@ -354,26 +352,30 @@ class App extends Component {
                         })
                         .then(result => {
                             thisState.setMyState({
-                                WEIGHT: result
+                                WEIGHT: result,
+                                SETTING_DISABLED: false
                             });
                         }).catch(() => {
-                      clearInterval(thisState._WEIGHT);
-                      thisState.setMyState({
-                        WEIGHT: -1
-                      });
-                    })
+                            clearInterval(thisState._WEIGHT);
+                            thisState.setMyState({
+                                WEIGHT: -1,
+                                SETTING_DISABLED: true
+                            });
+                        })
                 }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
                 thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
                 thisState.loading = false;
                 thisState.setMyState(thisState)
             }).catch(() => {
-                thisState.weight.slipNo = "-1";
+                thisState.weight.slipNo = -1;
+                thisState.SETTING_DISABLED = true;
                 thisState.weighing.disable.getWeightDisabled = true;
                 thisState.loading = false;
                 thisState.setMyState(thisState);
             })
         }).catch(() => {
-            thisState.weight.slipNo = "-1";
+            thisState.weight.slipNo = -1;
+            thisState.SETTING_DISABLED = true;
             thisState.weighing.disable.getWeightDisabled = true;
             thisState.loading = false;
             thisState.setMyState(thisState);
@@ -385,16 +387,16 @@ class App extends Component {
     }
 
     render() {
-      let thisState = {...this.state, setMyState: this.setMyState};
+        let thisState = { ...this.state, setMyState: this.setMyState };
         if (thisState.loading) {
             return (
                 <Container>
-                  <Row className="mt-5 pt-5"/>
-                  <Row className="mt-5 pt-5 justify-content-md-center">
-                    <Col lg="auto">
-                      Software is Loading...
+                    <Row className="mt-5 pt-5" />
+                    <Row className="mt-5 pt-5 justify-content-md-center">
+                        <Col lg="auto">
+                            Software is Loading...
                     </Col>
-                  </Row>
+                    </Row>
                     <Row className="mt-3 pr-4 justify-content-md-center">
                         <Col lg="auto">
                             <PropagateLoader
@@ -425,12 +427,12 @@ class App extends Component {
                     />
                     <Row>
                         <Col>
-                          <Header preState={thisState}/>
+                            <Header preState={thisState} />
                         </Col>
                     </Row>
                     <Row className="minheight">
                         <Col>
-                          <NavTabs preState={thisState}/>
+                            <NavTabs preState={thisState} />
                         </Col>
                     </Row>
                     <div className="footer-copyright text-center py-3 ">

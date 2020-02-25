@@ -22,8 +22,8 @@ public class MaterialServiceImpl implements MaterialService {
 
 	@Override
 	@Cacheable(cacheNames = "Materials")
-	public List<Material> getAllMaterialsByProfile(String profile) {
-		return Lists.newArrayList(materialDAO.findAllByProfile(profile));
+	public List<Material> getAllMaterials() {
+		return Lists.newArrayList(materialDAO.findAll());
 	}
 
 	@Override

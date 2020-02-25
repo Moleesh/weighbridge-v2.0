@@ -24,8 +24,8 @@ public class DriversServiceImpl implements DriverService {
 
 	@Override
 	@Cacheable(cacheNames = "Drivers")
-	public List<Driver> getAllDriversByProfile(String profile) {
-		return Lists.newArrayList(driverDAO.findAllByProfile(profile));
+	public List<Driver> getAllDrivers() {
+		return Lists.newArrayList(driverDAO.findAll());
 	}
 
 	@Override

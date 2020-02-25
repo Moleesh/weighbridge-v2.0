@@ -147,7 +147,7 @@ const DisplaySettings = props => {
                     fetch(thisState.INITIAL_URL + "/serialPort/updateSerialPort", {
                         method: "POST",
                         body: JSON.stringify(thisState.settings.indicator),
-                        headers: {"content-type": "application/json"}
+                        headers: { "content-type": "application/json" }
                     }).then(response => {
                         if (response.status === 200) {
                             thisState.alerts.push({
@@ -167,8 +167,9 @@ const DisplaySettings = props => {
                         });
                     });
                 }}
+                disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
+                <FontAwesomeIcon icon={faEdit} className="mr-3" />
                 update Display SerialPort Settings
             </Button>
             <Button
@@ -190,8 +191,9 @@ const DisplaySettings = props => {
                         .catch(() => {
                         });
                 }}
+                disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
+                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                 Refresh Display SerialPort Settings
             </Button>
         </Form>

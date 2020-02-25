@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DriverService {
 
-	List<Driver> getAllDriversByProfile(String profile);
+	List<Driver> getAllDrivers();
 
 	Driver addUpdateDriver(Driver driver);
 

@@ -11,21 +11,19 @@ public class Driver {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	private int customerId;
+	private String customerId;
 	private String vehicleNo;
 	private String customerName;
 	private String transporterName;
-	private String profile;
 
 	public Driver() {
 	}
 
-	public Driver(int customerId, String vehicleNo, String customerName, String transporterName, String profile) {
+	public Driver(String customerId, String vehicleNo, String customerName, String transporterName) {
 		this.customerId = customerId;
 		this.vehicleNo = vehicleNo;
 		this.customerName = customerName;
 		this.transporterName = transporterName;
-		this.profile = profile;
 	}
 
 	public int getId() {
@@ -36,11 +34,11 @@ public class Driver {
 		this.id = id;
 	}
 
-	public int getCustomerId() {
+	public String getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 
@@ -66,14 +64,6 @@ public class Driver {
 
 	public void setTransporterName(String transporterName) {
 		this.transporterName = transporterName;
-	}
-
-	public String getProfile() {
-		return profile;
-	}
-
-	public void setProfile(String profile) {
-		this.profile = profile;
 	}
 
 	@Override

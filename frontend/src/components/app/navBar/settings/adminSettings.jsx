@@ -37,10 +37,10 @@ const AdminSettings = props => {
                                 );
                         }}
                     >
-                        <FontAwesomeIcon icon={faBackward} className="mr-3"/>
+                        <FontAwesomeIcon icon={faBackward} className="mr-3" />
                         Reset Slip No
                     </Button>
-                    <ResetSlipNo preState={thisState}/>
+                    <ResetSlipNo preState={thisState} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -70,7 +70,7 @@ const AdminSettings = props => {
                         active={thisState.settings.manualEntry}
                         recalculateOnResize={true}
                     />
-                    <ManualEntry preState={thisState}/>
+                    <ManualEntry preState={thisState} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -100,7 +100,7 @@ const AdminSettings = props => {
                         active={thisState.settings.editEnable}
                         recalculateOnResize={true}
                     />
-                    <EditEnable preState={thisState}/>
+                    <EditEnable preState={thisState} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -140,12 +140,16 @@ const AdminSettings = props => {
                                         thisState.weighing.disable.customersIdDisabled = false;
                                         thisState.weighing.disable.materialIdDisabled = false;
                                         thisState.weight.slipNo = result;
+                                        if (result === -1) {
+                                            thisState.weighing.disable.getWeightDisabled = true;
+                                            thisState.SETTING_DISABLED = true;
+                                        }
                                         thisState.weight.vehicleNo = "";
                                         thisState.weight.customersName = "";
                                         thisState.weight.transporterName = "";
                                         thisState.weight.material = "";
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.weight.grossWeight = "";
                                         thisState.weight.grossTime = "";
@@ -185,12 +189,16 @@ const AdminSettings = props => {
                                         thisState.weighing.disable.customersIdDisabled = true;
                                         thisState.weighing.disable.materialIdDisabled = true;
                                         thisState.weight.slipNo = result;
+                                        if (result === -1) {
+                                            thisState.weighing.disable.getWeightDisabled = true;
+                                            thisState.SETTING_DISABLED = true;
+                                        }
                                         thisState.weight.vehicleNo = "";
                                         thisState.weight.customersName = "";
                                         thisState.weight.transporterName = "";
                                         thisState.weight.material = "";
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.weight.grossWeight = "";
                                         thisState.weight.grossTime = "";

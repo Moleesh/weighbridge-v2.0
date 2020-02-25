@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Repository
-public interface WeightDAO extends CrudRepository<Weight, Integer> {
+public interface WeightDAO extends CrudRepository<Weight, String> {
 
 	List<Weight> findAllBySlipNoGreaterThanEqualAndNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(int slipNo, Date nettTime, Date nettTime2, String profile);
 
@@ -24,5 +24,7 @@ public interface WeightDAO extends CrudRepository<Weight, Integer> {
 	List<Weight> findAllByNettTimeGreaterThanEqualAndNettTimeLessThanEqualAndProfileOrderBySlipNoAsc(Date nettTime, Date nettTime2, String profile);
 
 	Weight findFirstByVehicleNoAndProfileOrderBySlipNoDesc(String vehicleNo, String profile);
+
+	Weight findFirstBySlipNoAndProfileOrderBySlipNoDesc(int slipNo, String profile);
 
 }

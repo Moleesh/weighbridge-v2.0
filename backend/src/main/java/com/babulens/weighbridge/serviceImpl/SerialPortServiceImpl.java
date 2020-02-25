@@ -37,7 +37,7 @@ public class SerialPortServiceImpl implements SerialPortService {
 
 	@Override
 	public SerialPortDetail getSerialPortDetailByName(String name) {
-		return serialPortSettingDAO.findById(name).orElseGet(() -> new SerialPortDetail(name));
+		return serialPortSettingDAO.findById(name).orElse(new SerialPortDetail(name));
 	}
 
 	@Override

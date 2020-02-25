@@ -19,21 +19,21 @@ const NavBar = props => {
                 className="mt-1 h5 py-2 pb-1"
             >
                 <Tab eventKey="weighing" title="Weighing"
-                     onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
-                    <Weighing preState={thisState}/>
+                    onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
+                    <Weighing preState={thisState} />
                 </Tab>
                 <Tab eventKey="webcam" title="WebCam">
-                    <WebCam preState={thisState}/>
+                    <WebCam preState={thisState} />
                 </Tab>
                 <Tab eventKey="report" title="Report" onEntered={() => {
                 }}>
-                    <Report preState={thisState}/>
+                    <Report preState={thisState} />
                 </Tab>
                 <Tab
                     eventKey="configuration"
                     title="Configuration"
                     onEntered={() => {
-                        fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE)
+                        fetch(thisState.INITIAL_URL + "/material/getAllMaterials")
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
@@ -45,7 +45,7 @@ const NavBar = props => {
                             })
                             .catch(() => {
                             });
-                        fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE)
+                        fetch(thisState.INITIAL_URL + "/driver/getAllDrivers")
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
@@ -57,7 +57,7 @@ const NavBar = props => {
                             })
                             .catch(() => {
                             });
-                        fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE)
+                        fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights")
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
@@ -71,7 +71,7 @@ const NavBar = props => {
                             });
                     }}
                 >
-                    <Configuration preState={thisState}/>
+                    <Configuration preState={thisState} />
                 </Tab>
                 <Tab
                     eventKey="settings"
@@ -92,7 +92,7 @@ const NavBar = props => {
                             });
                     }}
                 >
-                    <Settings preState={thisState}/>
+                    <Settings preState={thisState} />
                 </Tab>
             </Tabs>
         </Tab.Container>

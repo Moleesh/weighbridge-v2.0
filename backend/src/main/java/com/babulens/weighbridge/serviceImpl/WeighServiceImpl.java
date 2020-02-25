@@ -42,18 +42,11 @@ public class WeighServiceImpl implements WeighService {
 	public Weight saveWeight(Weight weight) {
 		if (weight.getSlipNo() != -1) {
 			if (!(weight.getTareTime() == null || weight.getTareTime().toString().trim().equals(""))) {
-				TareWeight tareWeight = tareWeightService.getTareWeightByVehicleNoAndProfile(weight.getVehicleNo(), weight.getProfile());
-				if (tareWeight == null) {
-					tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(),
-							weight.getTareWeight(), weight.getTareTime(), weight.getProfile()));
-				} else {
-					tareWeight.setTareTime(weight.getTareTime());
-					tareWeight.setTareWeight(weight.getTareWeight());
-					tareWeightService.addUpdateTareWeight(tareWeight);
-				}
+				tareWeightService.addUpdateTareWeight(new TareWeight(weight.getVehicleNo(), weight.getTareWeight(), weight.getTareTime()));
 			}
 			weight.setSlipNo(Integer.parseInt(settingService.getSettingByProfile("slipNo", weight.getProfile())));
 			new Thread(() -> webCamService.saveWebCamImageToDisk(weight.getProfile() + "_" + weight.getSlipNo() + ".jpeg", webCamService.getMyPrimaryWebCam())).start();
+			weight.setId(weight.getProfile() + "_" + weight.getSlipNo());
 			weightDAO.save(weight);
 			settingService.saveSetting(new Setting("slipNo", Integer.parseInt(settingService.getSettingByProfile(
 					"slipNo", weight.getProfile())) + 1, weight.getProfile()));
@@ -63,10 +56,7 @@ public class WeighServiceImpl implements WeighService {
 
 	@Override
 	public Weight getWeightBySlipNoAndProfile(int slipNo, String profile) {
-		if (weightDAO.findById(slipNo).isPresent()) {
-			return weightDAO.findById(slipNo).get();
-		}
-		return null;
+		return weightDAO.findFirstBySlipNoAndProfileOrderBySlipNoDesc(slipNo, profile);
 	}
 
 	@Override
@@ -109,7 +99,7 @@ public class WeighServiceImpl implements WeighService {
 		Weight weight = weightDAO.findFirstByVehicleNoAndProfileOrderBySlipNoDesc(vehicleNo, profile);
 		if (weight != null) {
 			if (weight.getGrossTime() != null && weight.getTareTime() == null) {
-				return new TareWeight(vehicleNo, weight.getGrossWeight(), weight.getGrossTime(), weight.getProfile());
+				return new TareWeight(vehicleNo, weight.getGrossWeight(), weight.getGrossTime());
 			}
 		}
 		return null;

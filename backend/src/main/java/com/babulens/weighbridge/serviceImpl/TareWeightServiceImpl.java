@@ -22,14 +22,14 @@ public class TareWeightServiceImpl implements TareWeightService {
 
 	@Override
 	@Cacheable(cacheNames = "TareWeights")
-	public TareWeight getTareWeightByVehicleNoAndProfile(String vehicleNo, String profile) {
-		return tareWeightDAO.findFirstByVehicleNoAndProfileOrderByTareTimeDesc(vehicleNo, profile);
+	public TareWeight getTareWeightByVehicleNo(String vehicleNo) {
+		return tareWeightDAO.findById(vehicleNo).orElse(null);
 	}
 
 	@Override
 	@Cacheable(cacheNames = "TareWeights")
-	public List<TareWeight> getAllTareWeightsByProfile(String profile) {
-		return Lists.newArrayList(tareWeightDAO.findAllByProfile(profile));
+	public List<TareWeight> getAllTareWeights() {
+		return Lists.newArrayList(tareWeightDAO.findAll());
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class TareWeightServiceImpl implements TareWeightService {
 
 	@Override
 	@CacheEvict(value = "TareWeights", allEntries = true)
-	public void deleteTareWeight(int id) {
-		tareWeightDAO.deleteById(id);
+	public void deleteTareWeight(String vehicleNo) {
+		tareWeightDAO.deleteById(vehicleNo);
 	}
 
 }

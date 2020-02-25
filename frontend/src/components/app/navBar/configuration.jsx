@@ -15,7 +15,7 @@ const Configuration = props => {
                         <h5 className="font-weight-bold pb-3">Configuration</h5>
                         <Nav.Item>
                             <Nav.Link eventKey="material" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/material/getAllMaterialsByProfile?profile=" + thisState.PROFILE)
+                                fetch(thisState.INITIAL_URL + "/material/getAllMaterials")
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
@@ -32,7 +32,7 @@ const Configuration = props => {
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="drivers" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/driver/getAllDriversByProfile?profile=" + thisState.PROFILE)
+                                fetch(thisState.INITIAL_URL + "/driver/getAllDrivers")
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
@@ -48,7 +48,7 @@ const Configuration = props => {
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="tareWeight" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeightsByProfile?profile=" + thisState.PROFILE)
+                                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights")
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
@@ -67,13 +67,13 @@ const Configuration = props => {
                 <Col sm="10" className="pt-2">
                     <Tab.Content>
                         <Tab.Pane eventKey="material">
-                            <Material preState={thisState} key="material"/>
+                            <Material preState={thisState} key="material" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="drivers">
-                            <Drivers preState={thisState} key="drivers"/>
+                            <Drivers preState={thisState} key="drivers" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="tareWeight">
-                            <TareWeight preState={thisState} key="tareWeight"/>
+                            <TareWeight preState={thisState} key="tareWeight" />
                         </Tab.Pane>
                     </Tab.Content>
                 </Col>

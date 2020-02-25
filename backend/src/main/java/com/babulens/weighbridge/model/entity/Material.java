@@ -13,15 +13,13 @@ public class Material {
 	private int id;
 	private String materialId;
 	private String material;
-	private String profile;
 
 	public Material() {
 	}
 
-	public Material(String materialId, String material, String profile) {
+	public Material(String materialId, String material) {
 		this.materialId = materialId;
 		this.material = material;
-		this.profile = profile;
 	}
 
 	public int getId() {
@@ -46,14 +44,6 @@ public class Material {
 
 	public void setMaterial(String material) {
 		this.material = material;
-	}
-
-	public String getProfile() {
-		return profile;
-	}
-
-	public void setProfile(String profile) {
-		this.profile = profile;
 	}
 
 	@Override
