@@ -106,7 +106,6 @@ public class WebCamServiceImpl implements WebCamService {
 			}
 		}
 		StaticVariable.setWebcam(name, webcam);
-
 	}
 
 	@Override
@@ -126,6 +125,9 @@ public class WebCamServiceImpl implements WebCamService {
 		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
 		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
 
+		if (webcam == null) {
+			settingUpWebCam(name);
+		}
 		if (webcam != null && webcam.isOpen()) {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			if (fullSize) {

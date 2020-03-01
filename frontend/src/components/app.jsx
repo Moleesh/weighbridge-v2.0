@@ -292,7 +292,7 @@ class App extends Component {
         this.setMyState = this.setMyState.bind(this);
     }
 
-    setMyState(myState) {
+    async setMyState(myState) {
         this.setState(myState);
     }
 

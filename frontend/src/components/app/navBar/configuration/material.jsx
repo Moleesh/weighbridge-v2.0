@@ -98,7 +98,6 @@ const Material = props => {
                                             );
                                             thisState.setMyState(thisState).then(() => {
                                                 thisState.configuration.material.list.push(result);
-
                                                 thisState.setMyState(thisState);
                                             });
                                         })

@@ -32,9 +32,9 @@ const WebCams = props => {
                     )
                 }
             </Form.Group>
-            {
-                thisState.webcams.map(webcam => (<WebCam webcam={webcam} INITIAL_URL={thisState.INITIAL_URL}/>))
-            }
+            <Row>
+                {thisState.webcams.map(webcam => (<WebCam webcam={webcam} INITIAL_URL={thisState.INITIAL_URL}/>))}
+            </Row>
         </Form>
 
     );
