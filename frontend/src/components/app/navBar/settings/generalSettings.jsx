@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faWrench} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faWrench } from "@fortawesome/free-solid-svg-icons";
 
 import AddNewProfile from "./generalSettings/addNewProfile"
 
@@ -85,7 +85,7 @@ const GeneralSettings = props => {
                                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                                 thisState.settings.value = settings;
                                 thisState.weight.slipNo = slipNo;
-                                if (slipNo === -1) {
+                                if (slipNo == -1) {
                                     thisState.SETTING_DISABLED = true;
                                     thisState.weighing.disable.getWeightDisabled = true;
                                 }
@@ -137,10 +137,10 @@ const GeneralSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
+                <FontAwesomeIcon icon={faEdit} className="mr-3" />
                 Add New Profile
             </Button>
-            <AddNewProfile preState={thisState}/>
+            <AddNewProfile preState={thisState} />
             <Button
                 variant="success"
                 size="lg"
@@ -170,7 +170,7 @@ const GeneralSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faWrench} className="mr-3"/>
+                <FontAwesomeIcon icon={faWrench} className="mr-3" />
                 Set Primary Profile
             </Button>
         </Form>
