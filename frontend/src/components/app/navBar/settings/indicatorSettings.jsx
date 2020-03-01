@@ -201,7 +201,7 @@ const IndicatorSettings = props => {
                     fetch(thisState.INITIAL_URL + "/serialPort/updateSerialPort", {
                         method: "POST",
                         body: JSON.stringify(thisState.settings.indicator),
-                        headers: { "content-type": "application/json" }
+                        headers: {"content-type": "application/json"}
                     }).then(response => {
                         if (response.status === 200) {
                             thisState.alerts.push({
@@ -224,7 +224,7 @@ const IndicatorSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faEdit} className="mr-3" />
+                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
                 update Indicator SerialPort Settings
             </Button>
             <Button
@@ -248,7 +248,7 @@ const IndicatorSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faSync} spin className="mr-3" />
+                <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
                 Refresh Indicator SerialPort Settings
             </Button>
         </Form>

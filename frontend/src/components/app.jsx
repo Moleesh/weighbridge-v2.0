@@ -131,7 +131,7 @@ class App extends Component {
             material: {
                 header: ["Material Id", "Material Name"],
                 filterText: "",
-                template: { materialId: "", material: "" },
+                template: {materialId: "", material: ""},
                 list: [],
                 editable: true,
                 unlock: false
@@ -157,7 +157,7 @@ class App extends Component {
             tareWeight: {
                 header: ["Vehicle No", "Tare Weight", "Tare Time"],
                 filterText: "",
-                template: { vehicleNo: "", tareWeight: "", tareTime: "" },
+                template: {vehicleNo: "", tareWeight: "", tareTime: ""},
                 list: [],
                 editable: false,
                 unlock: false
@@ -194,7 +194,7 @@ class App extends Component {
                 vehicleNoReference: React.createRef(),
                 materialReference: {
                     reference: React.createRef(),
-                    value: [{ material: "" }],
+                    value: [{material: ""}],
                     open: undefined
                 },
                 customersNameReference: React.createRef(),
@@ -292,12 +292,12 @@ class App extends Component {
         this.setMyState = this.setMyState.bind(this);
     }
 
-    async setMyState(myState) {
+    setMyState(myState) {
         this.setState(myState);
     }
 
     UNSAFE_componentWillMount() {
-        let thisState = { ...this.state, setMyState: this.setMyState };
+        let thisState = {...this.state, setMyState: this.setMyState};
         Promise.all(
             [
                 fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
@@ -392,11 +392,11 @@ class App extends Component {
     }
 
     render() {
-        let thisState = { ...this.state, setMyState: this.setMyState };
+        let thisState = {...this.state, setMyState: this.setMyState};
         if (thisState.loading) {
             return (
                 <Container>
-                    <Row className="mt-5 pt-5" />
+                    <Row className="mt-5 pt-5"/>
                     <Row className="mt-5 pt-5 justify-content-md-center">
                         <Col lg="auto">
                             Software is Loading...

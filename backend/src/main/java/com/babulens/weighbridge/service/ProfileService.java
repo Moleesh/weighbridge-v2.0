@@ -7,9 +7,9 @@ public interface ProfileService {
 
 	String getMyPrimaryProfile();
 
-	List<String> getAllProfiles();
-
 	void setMyPrimaryProfile(String profile);
+
+	List<String> getAllProfiles();
 
 	List<String> addUpdateProfile(String profile);
 

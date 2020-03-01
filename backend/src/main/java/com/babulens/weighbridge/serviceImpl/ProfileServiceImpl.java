@@ -34,14 +34,6 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "Profiles")
-	public List<String> getAllProfiles() {
-		List<String> profiles = new ArrayList<>();
-		profileDAO.findAll().forEach(profile -> profiles.add(profile.getProfileName()));
-		return profiles;
-	}
-
-	@Override
 	@CacheEvict(value = "MyPrimaryProfile", allEntries = true)
 	public void setMyPrimaryProfile(String profile) {
 		Profile _profile = profileDAO.findFirstByMyPrimaryIsTrue();
@@ -50,6 +42,14 @@ public class ProfileServiceImpl implements ProfileService {
 		_profile = profileDAO.findById(profile).orElse(new Profile(profile));
 		_profile.setMyPrimary(true);
 		profileDAO.save(_profile);
+	}
+
+	@Override
+	@Cacheable(cacheNames = "Profiles")
+	public List<String> getAllProfiles() {
+		List<String> profiles = new ArrayList<>();
+		profileDAO.findAll().forEach(profile -> profiles.add(profile.getProfileName()));
+		return profiles;
 	}
 
 	@Override

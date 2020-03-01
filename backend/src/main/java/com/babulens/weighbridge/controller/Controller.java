@@ -54,14 +54,14 @@ class Controller {
 		return profileService.getMyPrimaryProfile();
 	}
 
-	@RequestMapping(value = "/profile/getAllProfiles", method = {RequestMethod.GET})
-	public List<String> getAllProfiles() {
-		return profileService.getAllProfiles();
-	}
-
 	@RequestMapping(value = "/profile/setMyPrimaryProfile", method = {RequestMethod.PATCH})
 	public void setMyPrimaryProfile(@RequestParam("profile") String profile) {
 		profileService.setMyPrimaryProfile(profile);
+	}
+
+	@RequestMapping(value = "/profile/getAllProfiles", method = {RequestMethod.GET})
+	public List<String> getAllProfiles() {
+		return profileService.getAllProfiles();
 	}
 
 	@RequestMapping(value = "/profile/addUpdateProfile", method = {RequestMethod.PATCH})
