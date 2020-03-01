@@ -5,7 +5,7 @@ import Weighing from "./navBar/weighing";
 import Configuration from "./navBar/configuration";
 import Report from "./navBar/report";
 import Settings from "./navBar/settings";
-import WebCam from "./navBar/webCam";
+import WebCams from "./navBar/webCams";
 
 
 const NavBar = props => {
@@ -22,8 +22,8 @@ const NavBar = props => {
                      onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
                     <Weighing preState={thisState}/>
                 </Tab>
-                <Tab eventKey="webcam" title="WebCam">
-                    <WebCam preState={thisState}/>
+                <Tab eventKey="webcams" title="WebCams">
+                    <WebCams preState={thisState}/>
                 </Tab>
                 <Tab eventKey="report" title="Report" onEntered={() => {
                 }}>

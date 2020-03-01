@@ -36,6 +36,7 @@ class App extends Component {
             manual: false,
             profile: "Standard"
         },
+        webcams: [],
         adminSettings: {
             REFRESH_TIME_WEIGHT: "",
             RESET_SLIP_PASSWORD: "",
@@ -356,14 +357,14 @@ class App extends Component {
                                 SETTING_DISABLED: false
                             });
                         }).catch(() => {
-                            clearInterval(thisState._WEIGHT);
-                            thisState.setMyState({
-                                WEIGHT: -1,
-                                SETTING_DISABLED: true
-                            });
-                        })
+                        clearInterval(thisState._WEIGHT);
+                        thisState.setMyState({
+                            WEIGHT: -1,
+                            SETTING_DISABLED: true
+                        });
+                    })
                 }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
-                thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
+                thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?fullSize=false&webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
                 thisState.loading = false;
                 thisState.setMyState(thisState)
             }).catch(() => {

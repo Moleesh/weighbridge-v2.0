@@ -163,8 +163,8 @@ class Controller {
 
 	@RequestMapping(value = "/webCam/getWebCamImage", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody
-	byte[] getImage(@RequestParam("webcam") String webcam) {
-		return webCamService.getWebCamImage(webcam);
+	byte[] getImage(@RequestParam("webcam") String webcam, @RequestParam("fullSize") boolean fullSize) {
+		return webCamService.getWebCamImage(webcam, fullSize);
 	}
 
 	@RequestMapping(value = "/webCam/getAllWebCams", method = {RequestMethod.GET})

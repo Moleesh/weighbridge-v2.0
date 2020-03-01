@@ -122,28 +122,42 @@ public class WebCamServiceImpl implements WebCamService {
 	}
 
 	@Override
-	public byte[] getWebCamImage(String name) {
+	public byte[] getWebCamImage(String name, boolean fullSize) {
 		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
 		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
 
 		if (webcam != null && webcam.isOpen()) {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			try {
+			if (fullSize) {
 				try {
-					if (webCamDetail.getWidth() < 1 || webCamDetail.getHeight() < 1) {
-						ImageIO.write(webcam.getImage().getSubimage(0, 0, 1, 1),
-								"jpeg", outputStream);
-					} else {
-						ImageIO.write(webcam.getImage().getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), webCamDetail.getWidth(), webCamDetail.getHeight()),
-								"jpeg", outputStream);
+					try {
+						ImageIO.write(webcam.getImage(), "jpeg", outputStream);
+					} catch (NullPointerException | WebcamException ex1) {
+						Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
+						return null;
 					}
-				} catch (NullPointerException | WebcamException ex1) {
-					Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
+				} catch (IOException | IllegalArgumentException | RasterFormatException ex) {
+					Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 					return null;
 				}
-			} catch (IOException | IllegalArgumentException | RasterFormatException ex) {
-				Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-				return null;
+			} else {
+				try {
+					try {
+						if (webCamDetail.getWidth() < 1 || webCamDetail.getHeight() < 1) {
+							ImageIO.write(webcam.getImage().getSubimage(0, 0, 1, 1),
+									"jpeg", outputStream);
+						} else {
+							ImageIO.write(webcam.getImage().getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), webCamDetail.getWidth(), webCamDetail.getHeight()),
+									"jpeg", outputStream);
+						}
+					} catch (NullPointerException | WebcamException ex1) {
+						Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
+						return null;
+					}
+				} catch (IOException | IllegalArgumentException | RasterFormatException ex) {
+					Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+					return null;
+				}
 			}
 			return outputStream.toByteArray();
 		}

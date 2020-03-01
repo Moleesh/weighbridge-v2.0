@@ -89,14 +89,14 @@ const Weighing = props => {
                         onLoad={() => {
                             thisState.setMyState({
                                 primaryWebCamImage:
-                                    thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random()
+                                    thisState.INITIAL_URL + "/webCam/getWebCamImage?fullSize=false&webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random()
                             });
                         }}
                         onError={async () => {
                             setTimeout(function () {
                                 thisState.setMyState({
                                     primaryWebCamImage:
-                                        thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random()
+                                        thisState.INITIAL_URL + "/webCam/getWebCamImage?fullSize=false&webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random()
                                 });
                             }, 5000);
                         }}
