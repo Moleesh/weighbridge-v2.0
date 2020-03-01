@@ -112,7 +112,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/setting/saveAllSettingsByProfile", method = {RequestMethod.PUT})
-	public void saveAllSettingsByProfile(@RequestBody Map<String, String> settings, @RequestBody String profile) {
+	public void saveAllSettingsByProfile(@RequestBody Map<String, String> settings, @RequestParam String profile) {
 		settingService.saveAllSettingsByProfile(settings, profile, false);
 	}
 
