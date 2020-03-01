@@ -219,6 +219,7 @@ const IndicatorSettings = props => {
                             headline: "Indicator Settings Update",
                             message: "Indicator Settings Update Failed."
                         });
+                        thisState.setMyState(thisState);
                     });
                 }}
                 disabled={thisState.SETTING_DISABLED}
@@ -250,7 +251,6 @@ const IndicatorSettings = props => {
                 <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                 Refresh Indicator SerialPort Settings
             </Button>
-
         </Form>
     );
 };

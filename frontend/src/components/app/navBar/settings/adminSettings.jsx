@@ -28,12 +28,12 @@ const AdminSettings = props => {
                         size="lg"
                         onClick={() => {
                             thisState.settings.resetSlipNo = 1;
-                            thisState.settings.resetSlipNoPassword = "";
+                            thisState.settings.newProfile = "";
                             thisState.settings.resetSlipNoDialog = true;
                             thisState
                                 .setMyState(thisState)
                                 .then(() =>
-                                    thisState.settings.resetSlipNoReference.current.focus()
+                                    thisState.settings.newProfileReference.current.focus()
                                 );
                         }}
                     >

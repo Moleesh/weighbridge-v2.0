@@ -59,6 +59,16 @@ class Controller {
 		return profileService.getAllProfiles();
 	}
 
+	@RequestMapping(value = "/profile/setMyPrimaryProfile", method = {RequestMethod.PATCH})
+	public void setMyPrimaryProfile(@RequestParam("profile") String profile) {
+		profileService.setMyPrimaryProfile(profile);
+	}
+
+	@RequestMapping(value = "/profile/addUpdateProfile", method = {RequestMethod.PATCH})
+	public List<String> addUpdateProfile(@RequestParam("profile") String profile) {
+		return profileService.addUpdateProfile(profile);
+	}
+
 	@RequestMapping(value = "/printer/getAllPrinters", method = {RequestMethod.GET})
 	public List<String> getAllPrinters() {
 		return printerService.getAllPrinters();
@@ -103,7 +113,7 @@ class Controller {
 
 	@RequestMapping(value = "/setting/saveAllSettingsByProfile", method = {RequestMethod.PUT})
 	public void saveAllSettingsByProfile(@RequestBody Map<String, String> settings, @RequestBody String profile) {
-		settingService.saveAllSettingsByProfile(settings, profile);
+		settingService.saveAllSettingsByProfile(settings, profile, false);
 	}
 
 	@RequestMapping(value = "/material/getAllMaterials", method = {RequestMethod.GET})

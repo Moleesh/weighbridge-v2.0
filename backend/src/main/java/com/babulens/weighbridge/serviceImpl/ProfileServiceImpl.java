@@ -3,6 +3,7 @@ package com.babulens.weighbridge.serviceImpl;
 import com.babulens.weighbridge.model.entity.Profile;
 import com.babulens.weighbridge.repository.ProfileDAO;
 import com.babulens.weighbridge.service.ProfileService;
+import com.babulens.weighbridge.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,9 +18,13 @@ public class ProfileServiceImpl implements ProfileService {
 	final
 	ProfileDAO profileDAO;
 
+	final
+	SettingService settingService;
+
 	@Autowired
-	public ProfileServiceImpl(ProfileDAO profileDAO) {
+	public ProfileServiceImpl(ProfileDAO profileDAO, SettingService settingService) {
 		this.profileDAO = profileDAO;
+		this.settingService = settingService;
 	}
 
 	@Override
@@ -38,14 +43,20 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	@CacheEvict(value = "MyPrimaryProfile", allEntries = true)
-	public void changeMyPrimaryProfile(String profile) {
-		// TODO: 2/22/2020
+	public void setMyPrimaryProfile(String profile) {
+		Profile _profile = profileDAO.findFirstByMyPrimaryIsTrue();
+		_profile.setMyPrimary(false);
+		profileDAO.save(_profile);
+		_profile = profileDAO.findById(profile).orElse(new Profile(profile));
+		_profile.setMyPrimary(true);
+		profileDAO.save(_profile);
 	}
 
 	@Override
 	@CacheEvict(value = "Profiles", allEntries = true)
-	public void addUpdateProfile(String profile) {
+	public List<String> addUpdateProfile(String profile) {
 		profileDAO.save(new Profile(profile));
+		settingService.saveAllSettingsByProfile(settingService.getAllSettingsByProfile("Standard"), profile, true);
+		return getAllProfiles();
 	}
-
 }

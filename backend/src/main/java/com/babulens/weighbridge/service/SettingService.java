@@ -13,6 +13,6 @@ public interface SettingService {
 
 	void saveSetting(Setting setting);
 
-	void saveAllSettingsByProfile(Map<String, String> settings, String profile);
+	void saveAllSettingsByProfile(Map<String, String> settings, String profile, boolean resetSlipNo);
 
 }

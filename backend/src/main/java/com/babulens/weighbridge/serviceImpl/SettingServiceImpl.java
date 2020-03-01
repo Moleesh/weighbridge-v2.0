@@ -50,11 +50,13 @@ public class SettingServiceImpl implements SettingService {
 
 	@Override
 	@CacheEvict(value = "Settings", allEntries = true)
-	public void saveAllSettingsByProfile(Map<String, String> settings, String profile) {
+	public void saveAllSettingsByProfile(Map<String, String> settings, String profile, boolean resetSlipNo) {
 		List<Setting> settingList = new ArrayList<>();
 		for (String key : settings.keySet()) {
 			if (!key.equals("slipNo")) {
 				settingList.add(new Setting(key, settings.get(key), profile));
+			} else if (resetSlipNo) {
+				settingList.add(new Setting(key, 1, profile));
 			}
 		}
 		settingDAO.saveAll(settingList);

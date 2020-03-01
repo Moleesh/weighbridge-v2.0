@@ -193,6 +193,7 @@ const WebCamSettings = props => {
                             headline: "WebCam Settings Update",
                             message: "WebCam Settings Update Failed."
                         });
+                        thisState.setMyState(thisState);
                     });
                 }}
                 disabled={thisState.SETTING_DISABLED}
