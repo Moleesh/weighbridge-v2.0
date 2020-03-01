@@ -77,7 +77,7 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "PrintFormats")
+	@Cacheable(cacheNames = "printers")
 	public List<String> getAllPrinters() {
 		List<String> printers = new ArrayList<>();
 		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {

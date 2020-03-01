@@ -4,8 +4,6 @@ import com.babulens.weighbridge.model.entity.Setting;
 import com.babulens.weighbridge.repository.SettingDAO;
 import com.babulens.weighbridge.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,7 +32,6 @@ public class SettingServiceImpl implements SettingService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "Settings")
 	public Map<String, String> getAllSettingsByProfile(String profile) {
 		Map<String, String> settings = new HashMap<>();
 		settingDAO.findAll().forEach(setting -> settings.put(setting.getKey(), setting.getValue()));
@@ -42,13 +39,11 @@ public class SettingServiceImpl implements SettingService {
 	}
 
 	@Override
-	@CacheEvict(value = "Settings", allEntries = true)
 	public void saveSetting(Setting setting) {
 		settingDAO.save(setting);
 	}
 
 	@Override
-	@CacheEvict(value = "Settings", allEntries = true)
 	public void saveAllSettingsByProfile(Map<String, String> settings, String profile, boolean resetSlipNo) {
 		List<Setting> settingList = new ArrayList<>();
 		for (String key : settings.keySet()) {

@@ -8,7 +8,6 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortMessageListenerWithExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,6 @@ public class SerialPortServiceImpl implements SerialPortService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "SerialPorts")
 	public List<String> getAllSerialPort() {
 		List<String> serialPorts = new ArrayList<>();
 		serialPorts.add("dummy");
