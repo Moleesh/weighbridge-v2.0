@@ -25,7 +25,6 @@ public class SettingServiceImpl implements SettingService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "Settings")
 	public String getSettingByProfile(String key, String profile) {
 		if (settingDAO.findOneByKeyAndProfile(key, profile) != null) {
 			return settingDAO.findOneByKeyAndProfile(key, profile).getValue();
