@@ -34,7 +34,7 @@ public class SettingServiceImpl implements SettingService {
 	@Override
 	public Map<String, String> getAllSettingsByProfile(String profile) {
 		Map<String, String> settings = new HashMap<>();
-		settingDAO.findAll().forEach(setting -> settings.put(setting.getKey(), setting.getValue()));
+		settingDAO.findAllByProfile(profile).forEach(setting -> settings.put(setting.getKey(), setting.getValue()));
 		return settings;
 	}
 
