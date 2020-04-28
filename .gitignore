@@ -24,4 +24,4 @@ test.java
 weighdata.mv.db
 weighdata.trace.db
 pom.xml.versionsBackup
-
+report.*.json
