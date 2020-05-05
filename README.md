@@ -26,3 +26,4 @@ npm update --depth 9999
 git config filter.app_jsx.clean "sed 's/^const INITIAL_URL.*/const INITIAL_URL = "";/g'"
 
 git config filter.app_jsx.smudge cat
+
