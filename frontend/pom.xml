@@ -20,9 +20,9 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.8.0</version>
+                <version>1.9.0</version>
                 <configuration>
-                    <nodeVersion>v13.5.0</nodeVersion>
+                    <nodeVersion>v14.4.0</nodeVersion>
                 </configuration>
                 <executions>
                     <execution>

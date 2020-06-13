@@ -20,7 +20,7 @@ mvn versions:update-properties
 
 ## check for latest npm package 
 
-npm update --depth 9999
+npm update --max-old-space-size=8192 --depth 9999
 
 ## git Config
 git config filter.app_jsx.clean "sed 's/^const INITIAL_URL.*/const INITIAL_URL = "";/g'"
