@@ -1,6 +1,7 @@
 package com.babulens.weighbridge.service;
 
 import com.babulens.weighbridge.model.PrintInvoice;
+import com.babulens.weighbridge.model.PrintInvoiceReport;
 import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.model.PrintWeightReport;
 
@@ -25,4 +26,8 @@ public interface PrinterService {
 	byte[] getPrintInvoicePDF(PrintInvoice printInvoice);
 
 	byte[] getPrintWeightReportPDF(PrintWeightReport printWeightReport);
+
+	void printInvoiceReport(PrintInvoiceReport printInvoiceReport);
+
+	byte[] getInvoiceReportPDF(PrintInvoiceReport printInvoiceReport);
 }

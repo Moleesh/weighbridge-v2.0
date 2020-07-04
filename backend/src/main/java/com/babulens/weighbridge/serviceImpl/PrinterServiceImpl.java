@@ -1,6 +1,7 @@
 package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.model.PrintInvoice;
+import com.babulens.weighbridge.model.PrintInvoiceReport;
 import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.model.PrintWeightReport;
 import com.babulens.weighbridge.service.PrinterService;
@@ -124,7 +125,20 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	public void printInvoice(PrintInvoice printInvoice) {
-		// TODO: 6/29/2020 printInvoice
+		int noOfCopies = printInvoice.getNoOfCopies();
+		PrinterJob printerJob = PrinterJob.getPrinterJob();
+		switch (printInvoice.getPrintFormat()) {
+			case "Pre Print":
+				printerJob.setPageable(printUtil.printPrePrint(printInvoice));
+				break;
+		}
+		try {
+			printerJob.setPrintService(getPrinter(printInvoice.getPrinterName()));
+			while (0 < noOfCopies--) {
+				printerJob.print();
+			}
+		} catch (PrinterException ignored) {
+		}
 	}
 
 	@Override
@@ -145,16 +159,20 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	public byte[] getPrintInvoicePDF(PrintInvoice printInvoice) {
-		// TODO: 6/29/2020  getPrintInvoicePDF
-		return new byte[0];
+		Book book = new Book();
+		switch (printInvoice.getPrintFormat()) {
+			case "Pre Print":
+				book = printUtil.printPrePrint(printInvoice);
+				break;
+		}
+		return getBook(book);
 	}
 
 	@Override
 	public void printWeightReport(PrintWeightReport printWeightReport) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
-
 		try {
-			printerJob.setPageable(printUtil.printWeightReport(printWeightReport));
+			printerJob.setPageable(printUtil.printReport(printWeightReport));
 			printerJob.setPrintService(getPrinter(printWeightReport.getPrinterName()));
 			printerJob.print();
 		} catch (PrinterException ex) {
@@ -164,7 +182,26 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	public byte[] getPrintWeightReportPDF(PrintWeightReport printWeightReport) {
-		Book book = printUtil.printWeightReport(printWeightReport);
+		Book book = printUtil.printReport(printWeightReport);
+		return getBook(book);
+	}
+
+	@Override
+	public void printInvoiceReport(PrintInvoiceReport printInvoiceReport) {
+		PrinterJob printerJob = PrinterJob.getPrinterJob();
+		try {
+			printerJob.setPageable(printUtil.printReport(printInvoiceReport));
+			printerJob.setPrintService(getPrinter(printInvoiceReport.getPrinterName()));
+			printerJob.print();
+		} catch (PrinterException ex) {
+			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+		}
+
+	}
+
+	@Override
+	public byte[] getInvoiceReportPDF(PrintInvoiceReport printInvoiceReport) {
+		Book book = printUtil.printReport(printInvoiceReport);
 		return getBook(book);
 	}
 

@@ -1,5 +1,7 @@
 package com.babulens.weighbridge.util;
 
+import com.babulens.weighbridge.model.PrintInvoice;
+import com.babulens.weighbridge.model.PrintInvoiceReport;
 import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.model.PrintWeightReport;
 
@@ -10,5 +12,10 @@ public interface PrintUtil {
 
 	Book printWebCamPrint(PrintWeight printWeight);
 
-	Book printWeightReport(PrintWeightReport printWeightReport);
+	Book printReport(PrintWeightReport printWeightReport);
+
+	Book printReport(PrintInvoiceReport printInvoiceReport);
+
+	Book printPrePrint(PrintInvoice printInvoice);
+
 }

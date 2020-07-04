@@ -7,6 +7,7 @@ const Filter = props => {
         <Modal
             show={thisState.report.filterPopUp}
             onHide={() => {
+
                 thisState.report.filterPopUp = false;
                 thisState.setMyState(thisState)
             }}

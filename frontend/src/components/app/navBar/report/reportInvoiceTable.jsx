@@ -3,7 +3,7 @@ import ReactDataGrid from 'react-data-grid';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSave} from "@fortawesome/free-solid-svg-icons";
 
-const ReportTable = props => {
+const ReportInvoiceTable = props => {
 
     let thisState = props.preState;
 
@@ -12,6 +12,36 @@ const ReportTable = props => {
             enableRowSelect={null}
             rowScrollTimeout={null}
             columns={[
+                {
+                    key: "referenceSlipNo",
+                    name: "Reference Slip No",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.referenceSlipNo ? "" : 0.01
+                },
+                {
+                    key: "invoiceTime",
+                    name: "Invoice Time",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.invoiceTime ? "" : 0.01
+                },
+                {
+                    key: "customersName",
+                    name: "Customer Name",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.customersName ? "" : 0.01
+                },
+                {
+                    key: "address1",
+                    name: "Address Line 1",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.address1 ? "" : 0.01
+                },
+                {
+                    key: "address2",
+                    name: "Address Line 2",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.address2 ? "" : 0.01
+                },
                 {
                     key: "vehicleNo",
                     name: "Vehicle No",
@@ -24,69 +54,57 @@ const ReportTable = props => {
                     editable: thisState.report.edit,
                     width: thisState.report.filter.material ? "" : 0.01
                 },
+
                 {
-                    key: "customersName",
-                    name: "Customer Name",
+                    key: "unitPrice",
+                    name: "Unit Price",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.customersName ? "" : 0.01
+                    width: thisState.report.filter.unitPrice ? "" : 0.01
                 },
                 {
-                    key: "transporterName",
-                    name: "Transporter Name",
+                    key: "quantity",
+                    name: "Quantity",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.transporterName ? "" : 0.01
+                    width: thisState.report.filter.quantity ? "" : 0.01
                 },
                 {
-                    key: "grossWeight",
-                    name: "Gross Weight",
+                    key: "amount",
+                    name: "Amount",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.grossWeight ? "" : 0.01
+                    width: thisState.report.filter.amount ? "" : 0.01
                 },
                 {
-                    key: "grossTime",
-                    name: "Gross Time",
+                    key: "_cgst",
+                    name: "CGST %",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.grossTime ? 160 : 0.01
+                    width: thisState.report.filter._cgst ? "" : 0.01
                 },
                 {
-                    key: "tareWeight",
-                    name: "Tare Weight",
+                    key: "cgst",
+                    name: "CGST",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.tareWeight ? "" : 0.01
+                    width: thisState.report.filter.cgst ? "" : 0.01
                 },
                 {
-                    key: "tareTime",
-                    name: "Tare Time",
+                    key: "_sgst",
+                    name: "SGST %",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.tareTime ? 160 : 0.01
+                    width: thisState.report.filter._sgst ? "" : 0.01
                 },
                 {
-                    key: "nettWeight",
-                    name: "Nett Weight",
+                    key: "sgst",
+                    name: "SGST",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.nettWeight ? "" : 0.01
+                    width: thisState.report.filter.sgst ? "" : 0.01
                 },
                 {
-                    key: "nettTime",
-                    name: "Nett Time",
+                    key: "total",
+                    name: "Total",
                     editable: thisState.report.edit,
-                    width: thisState.report.filter.nettTime ? 160 : 0.01
+                    width: thisState.report.filter.total ? "" : 0.01
                 },
-                {
-                    key: "charges",
-                    name: "Charges",
-                    editable: thisState.report.edit,
-                    width: thisState.report.filter.charges ? 100 : 0.01
-                },
-                {
-                    key: "remarks",
-                    name: "Remarks",
-                    editable: thisState.report.edit,
-                    width: thisState.report.filter.remarks ? "" : 0.01
-                },
-                {key: "manual", name: "Manual", width: thisState.report.filter.manual ? "" : 0.01},
                 {key: "profile", name: "Profile", width: 0.01},
-                {key: "slipNo", name: "Slip No", width: 100}
+                {key: "invoiceNo", name: "Invoice No", width: 100}
             ]}
             rowGetter={row => thisState.report.list.filter((item) => Object.values(item)
                 .toString()
@@ -96,11 +114,11 @@ const ReportTable = props => {
             enableCellSelect={true}
             getCellActions={(column, row) => {
                 return thisState.report.edit ? {
-                    slipNo: [
+                    invoiceNo: [
                         {
                             icon: <FontAwesomeIcon icon={faSave} className="mt-2 hand"/>,
                             callback: () => {
-                                fetch(thisState.INITIAL_URL + "/weight/updateWeight", {
+                                fetch(thisState.INITIAL_URL + "/invoice/updateInvoice", {
                                     method: "POST",
                                     body: JSON.stringify(row),
                                     headers: {"content-type": "application/json"}
@@ -149,4 +167,4 @@ const ReportTable = props => {
     );
 };
 
-export default ReportTable;
+export default ReportInvoiceTable;

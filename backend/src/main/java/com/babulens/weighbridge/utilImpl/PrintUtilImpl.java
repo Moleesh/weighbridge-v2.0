@@ -2,6 +2,8 @@ package com.babulens.weighbridge.utilImpl;
 
 import com.babulens.weighbridge.model.Coordinate;
 import com.babulens.weighbridge.model.Line;
+import com.babulens.weighbridge.model.PrintInvoice;
+import com.babulens.weighbridge.model.PrintInvoiceReport;
 import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.model.PrintWeightReport;
 import com.babulens.weighbridge.model.entity.WebCamDetail;
@@ -173,7 +175,7 @@ public class PrintUtilImpl implements PrintUtil {
 	}
 
 	@Override
-	public Book printWeightReport(PrintWeightReport printWeightReport) {
+	public Book printReport(PrintWeightReport printWeightReport) {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
 
@@ -221,7 +223,7 @@ public class PrintUtilImpl implements PrintUtil {
 				new Font("Courier New", Font.ITALIC, 10)));
 		lines.add(new Line("\tTotal Nett Weight : " + printWeightReport.getTotalWeight() + " Kg",
 				new Font("Courier New", Font.ITALIC, 10)));
-		lines.add(new Line("\tTotal Charge      : Rs." + printWeightReport.getTotalTotalCharges(),
+		lines.add(new Line("\tTotal Charge      : Rs." + printWeightReport.getTotalCharge(),
 				new Font("Courier New", Font.ITALIC, 10)));
 		lines.add(new Line("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tSignature", new Font("Courier New", Font.BOLD, 10)));
 		lines.add(new Line(printWeightReport.getFooter(), new Font("Courier New", Font.ITALIC, 10)));
@@ -243,5 +245,17 @@ public class PrintUtilImpl implements PrintUtil {
 			}
 		}, pageFormat, lines.size() / LIMIT + 1);
 		return book;
+	}
+
+	@Override
+	public Book printReport(PrintInvoiceReport printInvoiceReport) {
+		// TODO: 7/5/2020
+		return null;
+	}
+
+	@Override
+	public Book printPrePrint(PrintInvoice printInvoice) {
+		// TODO: 7/5/2020
+		return null;
 	}
 }

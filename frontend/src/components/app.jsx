@@ -299,7 +299,9 @@ class App extends Component {
             }
         },
         report: {
-            type: "Weighing",
+            type: "weight",
+            isType: "weight",
+            currentHeader: "weight",
             pdfURL: "",
             filterText: "",
             headers: {
@@ -318,7 +320,23 @@ class App extends Component {
                     remarks: "Remarks",
                     manual: "Manual"
                 },
-                invoice: {}
+                invoice: {
+                    referenceSlipNo: "Reference Slip No",
+                    invoiceTime: "Invoice Time",
+                    customersName: "Customers Name",
+                    address1: "Address Line 1",
+                    address2: "Address Line 2",
+                    vehicleNo: "Vehicle No",
+                    material: "Material",
+                    unitPrice: "Unit Price",
+                    quantity: "Quantity",
+                    amount: "Amount",
+                    _cgst: "CGST %",
+                    cgst: "CGST",
+                    _sgst: "SGST %",
+                    sgst: "SGST",
+                    total: "Total"
+                }
             },
             header: {
                 vehicleNo: "Vehicle No",
@@ -352,7 +370,23 @@ class App extends Component {
                     remarks: false,
                     manual: false
                 },
-                invoice: {}
+                invoice: {
+                    referenceSlipNo: true,
+                    invoiceTime: true,
+                    customersName: true,
+                    address1: false,
+                    address2: false,
+                    vehicleNo: false,
+                    material: true,
+                    unitPrice: true,
+                    quantity: true,
+                    amount: false,
+                    _cgst: false,
+                    cgst: false,
+                    _sgst: false,
+                    sgst: false,
+                    total: true
+                }
             },
             filter: {
                 vehicleNo: true,
@@ -385,7 +419,7 @@ class App extends Component {
             list: [],
             totalRecords: 0,
             totalWeight: 0,
-            totalTotalCharges: 0,
+            totalCharge: 0,
             edit: false
         },
         alerts: []

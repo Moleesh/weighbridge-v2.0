@@ -137,10 +137,21 @@ class Controller {
 		printerService.printWeightReport(printWeightReport);
 	}
 
-	@RequestMapping(value = "/printer/getReportPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
+	@RequestMapping(value = "/printer/printInvoiceReport", method = {RequestMethod.POST})
+	public void printInvoiceReport(@RequestBody PrintInvoiceReport printInvoiceReport) {
+		printerService.printInvoiceReport(printInvoiceReport);
+	}
+
+	@RequestMapping(value = "/printer/getWeightReportPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody
-	byte[] getReportPDF(@RequestBody PrintWeightReport printWeightReport) {
+	byte[] getWeightReportPDF(@RequestBody PrintWeightReport printWeightReport) {
 		return printerService.getPrintWeightReportPDF(printWeightReport);
+	}
+
+	@RequestMapping(value = "/printer/getInvoiceReportPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
+	public @ResponseBody
+	byte[] getInvoiceReportPDF(@RequestBody PrintInvoiceReport printInvoiceReport) {
+		return printerService.getInvoiceReportPDF(printInvoiceReport);
 	}
 
 	@RequestMapping(value = "/setting/getAllSettingsByProfile", method = {RequestMethod.GET})

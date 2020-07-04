@@ -62,7 +62,7 @@ public class WeighServiceImpl implements WeighService {
 	                                                  String input, String profile) {
 		PrintWeightReport printWeightReport = new PrintWeightReport();
 		int totalWeight = 0;
-		int totalTotalCharges = 0;
+		int totalCharge = 0;
 		switch (inputLabel) {
 			case "Slip No":
 				printWeightReport.setWeights(weightDAO
@@ -97,11 +97,11 @@ public class WeighServiceImpl implements WeighService {
 		}
 		for (Weight weight : printWeightReport.getWeights()) {
 			totalWeight += weight.getNettWeight();
-			totalTotalCharges += weight.getCharges();
+			totalCharge += weight.getCharges();
 		}
 		printWeightReport.setTotalRecords(printWeightReport.getWeights().size());
 		printWeightReport.setTotalWeight(totalWeight);
-		printWeightReport.setTotalTotalCharges(totalTotalCharges);
+		printWeightReport.setTotalCharge(totalCharge);
 		return printWeightReport;
 	}
 
