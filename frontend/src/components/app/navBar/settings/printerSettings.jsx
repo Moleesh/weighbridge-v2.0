@@ -14,12 +14,28 @@ const PrinterSettings = props => {
                 <Form.Label column sm="3">
                     Printer Name
                 </Form.Label>
-                <Col sm="9">
+                <Col sm="4">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.printerName}
+                        value={thisState.settings.value.printerNameForWeighing}
                         onChange={event => {
-                            thisState.settings.value.printerName = event.target.value;
+                            thisState.settings.value.printerNameForWeighing = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    >
+                        {thisState.settings.array.availablePrinters.map(item => (
+                            <option value={item} key={item}>
+                                {item}
+                            </option>
+                        ))}
+                    </Form.Control>
+                </Col>
+                <Col sm="4">
+                    <Form.Control
+                        as="select"
+                        value={thisState.settings.value.printerNameForInvoice}
+                        onChange={event => {
+                            thisState.settings.value.printerNameForInvoice = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -35,26 +51,53 @@ const PrinterSettings = props => {
                 <Form.Label column sm="3">
                     No Of Copies
                 </Form.Label>
-                <Col sm="9">
+                <Col sm="4">
                     <div className="input-number">
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.noOfCopies - 1 < 0) return;
-                                thisState.settings.value.noOfCopies =
-                                    thisState.settings.value.noOfCopies - 1;
+                                if (thisState.settings.value.noOfCopiesForWeighing - 1 < 0) return;
+                                thisState.settings.value.noOfCopiesForWeighing =
+                                    thisState.settings.value.noOfCopiesForWeighing - 1;
                                 thisState.setMyState(thisState);
                             }}
                         >
                             -
                         </button>
-                        <span>{thisState.settings.value.noOfCopies}</span>
+                        <span>{thisState.settings.value.noOfCopiesForWeighing}</span>
                         <button
                             type="button"
                             onClick={() => {
-                                if (thisState.settings.value.noOfCopies + 1 > 100) return;
-                                thisState.settings.value.noOfCopies =
-                                    thisState.settings.value.noOfCopies - 1 + 2;
+                                if (thisState.settings.value.noOfCopiesForWeighing + 1 > 100) return;
+                                thisState.settings.value.noOfCopiesForWeighing =
+                                    thisState.settings.value.noOfCopiesForWeighing - 1 + 2;
+                                thisState.setMyState(thisState);
+                            }}
+                        >
+                            +
+                        </button>
+                    </div>
+                </Col>
+                <Col sm="4">
+                    <div className="input-number">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (thisState.settings.value.noOfCopiesForInvoice - 1 < 0) return;
+                                thisState.settings.value.noOfCopiesForInvoice =
+                                    thisState.settings.value.noOfCopiesForInvoice - 1;
+                                thisState.setMyState(thisState);
+                            }}
+                        >
+                            -
+                        </button>
+                        <span>{thisState.settings.value.noOfCopiesForInvoice}</span>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (thisState.settings.value.noOfCopiesForInvoice + 1 > 100) return;
+                                thisState.settings.value.noOfCopiesForInvoice =
+                                    thisState.settings.value.noOfCopiesForInvoice - 1 + 2;
                                 thisState.setMyState(thisState);
                             }}
                         >
@@ -67,16 +110,32 @@ const PrinterSettings = props => {
                 <Form.Label column sm="3">
                     Print Format
                 </Form.Label>
-                <Col sm="9">
+                <Col sm="4">
                     <Form.Control
                         as="select"
-                        value={thisState.settings.value.printFormat}
+                        value={thisState.settings.value.printFormatForWeighing}
                         onChange={event => {
-                            thisState.settings.value.printFormat = event.target.value;
+                            thisState.settings.value.printFormatForWeighing = event.target.value;
                             thisState.setMyState(thisState);
                         }}
                     >
-                        {thisState.settings.array.availablePrintFormats.map(item => (
+                        {thisState.settings.array.availableWeightPrintFormats.map(item => (
+                            <option value={item} key={item}>
+                                {item}
+                            </option>
+                        ))}
+                    </Form.Control>
+                </Col>
+                <Col sm="4">
+                    <Form.Control
+                        as="select"
+                        value={thisState.settings.value.printFormatForInvoice}
+                        onChange={event => {
+                            thisState.settings.value.printFormatForInvoice = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    >
+                        {thisState.settings.array.availableInvoicetPrintFormats.map(item => (
                             <option value={item} key={item}>
                                 {item}
                             </option>

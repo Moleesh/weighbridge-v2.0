@@ -9,7 +9,7 @@ import {css} from "@emotion/core";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 
-const INITIAL_URL = "";
+const INITIAL_URL = "http://localhost:9000/";
 
 class App extends Component {
     state = {
@@ -36,6 +36,25 @@ class App extends Component {
             manual: false,
             profile: "Standard"
         },
+        invoice: {
+            invoiceNo: -1,
+            referenceSlipNo: "",
+            invoiceTime: "",
+            customersName: "",
+            address1: "",
+            address2: "",
+            vehicleNo: "",
+            material: "",
+            unitPrice: 0,
+            quantity: 0,
+            amount: 0,
+            _cgst: 0,
+            _sgst: 0,
+            cgst: 0,
+            sgst: 0,
+            total: 0,
+            profile: "Standard"
+        },
         webcams: [],
         adminSettings: {
             REFRESH_TIME_WEIGHT: "",
@@ -53,9 +72,14 @@ class App extends Component {
                 weighbridgeName: "",
                 weighbridgeAddress: "",
                 footer: "",
-                printerName: "",
-                noOfCopies: "",
-                printFormat: "",
+                printerNameForWeighing: "",
+                noOfCopiesForWeighing: "",
+                printFormatForWeighing: "",
+                printerNameForInvoice: "",
+                noOfCopiesForInvoice: "",
+                printFormatForInvoice: "",
+                cgst: 0,
+                sgst: 0,
                 automation: false
             },
             indicator: {
@@ -82,7 +106,8 @@ class App extends Component {
             },
             array: {
                 availablePrinters: [],
-                availablePrintFormats: [],
+                availableWeightPrintFormats: [],
+                availableInvoicetPrintFormats: [],
                 availableWebCams: [],
                 availableSerialPorts: [],
                 availableBaudRate: [
@@ -129,9 +154,9 @@ class App extends Component {
         },
         configuration: {
             material: {
-                header: ["Material Id", "Material Name"],
+                header: ["Material Id", "Material Name", "Unit Price"],
                 filterText: "",
-                template: {materialId: "", material: ""},
+                template: {materialId: "", material: "", unitPrice: ""},
                 list: [],
                 editable: true,
                 unlock: false
@@ -141,14 +166,18 @@ class App extends Component {
                     "Customer Id",
                     "Vehicle No",
                     "Customer's Name",
-                    "Transporter's Name"
+                    "Transporter's Name",
+                    "Adreess line 1",
+                    "Adreess line 2"
                 ],
                 filterText: "",
                 template: {
                     customerId: "",
                     vehicleNo: "",
                     customerName: "",
-                    transporterName: ""
+                    transporterName: "",
+                    address1: "",
+                    address2: ""
                 },
                 list: [],
                 editable: true,
@@ -205,7 +234,6 @@ class App extends Component {
                 getWeightReference: React.createRef(),
                 saveReference: React.createRef(),
                 printReference: React.createRef(),
-                rePrintReference: React.createRef(),
                 tareDetailsWeightReference: React.createRef(),
                 grossDetailsWeightReference: React.createRef(),
                 rePrintFieldReference: React.createRef(),
@@ -231,9 +259,67 @@ class App extends Component {
                 materialIdDisabled: true
             }
         },
+        invoices: {
+            disablecalculation: false,
+            previousWeightSelector: false,
+            preventVehicleNoFocus: false,
+            previousWeightResult: {},
+            reprint: false,
+            reprintInvoiceNo: "",
+            reference: {
+                referenceSlipNoReference: React.createRef(),
+                customersNameReference: React.createRef(),
+                vehicleNoReference: React.createRef(),
+                materialReference: {
+                    reference: React.createRef(),
+                    value: [{material: ""}],
+                    open: undefined
+                },
+                unitPriceReference: React.createRef(),
+                quantityReference: React.createRef(),
+                address1Reference: React.createRef(),
+                address2Reference: React.createRef(),
+                saveReference: React.createRef(),
+                printReference: React.createRef(),
+                previousWeightReference: React.createRef(),
+                rePrintFieldReference: React.createRef(),
+                rePrintButtonReference: React.createRef()
+            },
+            disable: {
+                referenceSlipNoDisabled: false,
+                customersNameDisabled: false,
+                vehicleNoDisabled: false,
+                materialDisabled: false,
+                unitPriceDisabled: false,
+                quantityDisabled: false,
+                address1Disabled: false,
+                address2Disabled: false,
+                saveDisabled: false,
+                printDisabled: true
+            }
+        },
         report: {
+            type: "Weighing",
             pdfURL: "",
             filterText: "",
+            headers: {
+                weight: {
+                    vehicleNo: "Vehicle No",
+                    material: "Material",
+                    customersName: "Customer Name",
+                    transporterName: "Transporter Name",
+                    grossWeight: "Gross Weight",
+                    grossTime: "Gross Time",
+                    tareWeight: "Tare Weight",
+                    tareTime: "Tare Time",
+                    nettWeight: "Nett Weight",
+                    nettTime: "Nett Time",
+                    charges: "Charges",
+                    remarks: "Remarks",
+                    manual: "Manual"
+                },
+                invoice: {}
+            },
             header: {
                 vehicleNo: "Vehicle No",
                 material: "Material",
@@ -250,6 +336,24 @@ class App extends Component {
                 manual: "Manual"
             },
             filterPopUp: false,
+            filters: {
+                weight: {
+                    vehicleNo: true,
+                    material: true,
+                    customersName: false,
+                    transporterName: false,
+                    grossWeight: true,
+                    grossTime: false,
+                    tareWeight: true,
+                    tareTime: false,
+                    nettWeight: true,
+                    nettTime: true,
+                    charges: true,
+                    remarks: false,
+                    manual: false
+                },
+                invoice: {}
+            },
             filter: {
                 vehicleNo: true,
                 material: true,
@@ -265,7 +369,7 @@ class App extends Component {
                 remarks: false,
                 manual: false
             },
-            reportSelect: "Daily Report",
+            reportSelect: "Weighing - Daily Report",
             date: {
                 start: moment()
                     .startOf("day")
@@ -280,7 +384,7 @@ class App extends Component {
             inputDisabled: true,
             list: [],
             totalRecords: 0,
-            totalNettWeight: 0,
+            totalWeight: 0,
             totalTotalCharges: 0,
             edit: false
         },
@@ -296,7 +400,17 @@ class App extends Component {
         this.setState(myState);
     }
 
-    UNSAFE_componentWillMount() {
+    calculateInvoiceAmount(thisState) {
+        if (thisState.invoice.quantity > 0 && thisState.invoice.unitPrice > 0 && !thisState.invoices.disablecalculation) {
+            thisState.invoice.amount = (thisState.invoice.quantity * thisState.invoice.unitPrice).toFixed(2) * 1;
+            thisState.invoice.cgst = (thisState.invoice.amount * thisState.invoice._cgst / 100).toFixed(2) * 1;
+            thisState.invoice.sgst = (thisState.invoice.amount * thisState.invoice._sgst / 100).toFixed(2) * 1;
+            thisState.invoice.total = (thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst).toFixed(2) * 1;
+            thisState.setMyState(thisState);
+        }
+    }
+
+    componentDidMount() {
         let thisState = {...this.state, setMyState: this.setMyState};
         Promise.all(
             [
@@ -304,7 +418,8 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/profile/getMyPrimaryProfile").then(resp => resp.text()),
                 fetch(thisState.INITIAL_URL + "/profile/getAllProfiles").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/printer/getAllPrinters").then(resp => resp.json()),
-                fetch(thisState.INITIAL_URL + "/printer/getAllPrintFormats").then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/printer/getAllWeightPrintFormats").then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/printer/getAllInvoicePrintFormats").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/webCam/getAllWebCamDetails").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/webCam/getAllWebCams").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/serialPort/getAllSerialPorts").then(resp => resp.json()),
@@ -314,12 +429,13 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/driver/getAllDrivers").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(resp => resp.json())
             ]
-        ).then(([adminSettings, profile, profiles, printers, printFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, drivers, tareWeights]) => {
+        ).then(([adminSettings, profile, profiles, printers, weightPrintFormats, invoicePrintFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, drivers, tareWeights]) => {
             thisState.adminSettings = adminSettings;
             thisState.PROFILE = profile;
             thisState.profiles = profiles;
             thisState.settings.array.availablePrinters = printers;
-            thisState.settings.array.availablePrintFormats = printFormats;
+            thisState.settings.array.availableWeightPrintFormats = weightPrintFormats;
+            thisState.settings.array.availableInvoicetPrintFormats = invoicePrintFormats;
             thisState.webCam.details = webCamDetails;
             thisState.settings.array.availableWebCams = webCams;
             let webCamSelect = webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
@@ -333,18 +449,29 @@ class App extends Component {
             Promise.all(
                 [
                     fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
+                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text()),
+                    fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
                 ]
-            ).then(([settings, slipNo]) => {
+            ).then(([settings, slipNo, invoiceNo]) => {
                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                 thisState.settings.value = settings;
                 thisState.weight.slipNo = slipNo;
-                if (slipNo == -1) {
+                thisState.invoice.invoiceNo = invoiceNo;
+                thisState.invoice._sgst = settings.sgst;
+                thisState.invoice._cgst = settings.cgst;
+                if (slipNo === -1) {
                     thisState.SETTING_DISABLED = true;
                     thisState.weighing.disable.getWeightDisabled = true;
                 }
-                if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerName) === -1) {
-                    thisState.settings.array.availablePrinters.push(thisState.settings.value.printerName);
+                if (invoiceNo === -1) {
+                    thisState.SETTING_DISABLED = true;
+                    thisState.weighing.disable.saveDisabled = true;
+                }
+                if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerNameForWeighing) === -1) {
+                    thisState.settings.array.availablePrinters.push(thisState.settings.value.printerNameForWeighing);
+                }
+                if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerNameForInvoice) === -1) {
+                    thisState.settings.array.availablePrinters.push(thisState.settings.value.printerNameForInvoice);
                 }
                 thisState._WEIGHT = setInterval(() => {
                     fetch(thisState.INITIAL_URL + "/serialPort/getNextWeight")
@@ -387,12 +514,12 @@ class App extends Component {
         })
     }
 
-    componentWillUnmount() {
-        clearInterval(this.state.WEIGHT);
-    }
-
     render() {
-        let thisState = {...this.state, setMyState: this.setMyState};
+        let thisState = {
+            ...this.state,
+            setMyState: this.setMyState,
+            calculateInvoiceAmount: this.calculateInvoiceAmount
+        };
         if (thisState.loading) {
             return (
                 <Container>

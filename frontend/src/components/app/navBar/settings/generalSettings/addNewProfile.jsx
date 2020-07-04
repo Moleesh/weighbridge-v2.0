@@ -29,7 +29,7 @@ const AddNewProfile = props => {
                     <Col sm="6">
                         <Form.Control
                             type="text"
-                            autoComplete="off"
+                            autoComplete="none"
                             className="text-centre"
                             value={thisState.settings.newProfile}
                             onChange={event => {

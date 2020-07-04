@@ -45,8 +45,9 @@ public class TransactionFilter implements Filter {
 				}
 			} else if (TransactionFilter.list.contains(clientIp)) {
 				chain.doFilter(request, response);
-			} else if (httpServletRequest.getRequestURI().contains("getNextSlipNoByProfile")) {
-				((HttpServletResponse) response).sendRedirect("/error/getDefaultSlipNo");
+			} else if (httpServletRequest.getRequestURI().contains("getNextSlipNoByProfile") ||
+					           httpServletRequest.getRequestURI().contains("getNextInvoiceNoByProfile")) {
+				((HttpServletResponse) response).sendRedirect("/error/getDefault");
 			} else if (!TransactionFilter.list.contains(httpServletRequest.getSession().getId())) {
 				((HttpServletResponse) response).sendRedirect("/error");
 			} else {

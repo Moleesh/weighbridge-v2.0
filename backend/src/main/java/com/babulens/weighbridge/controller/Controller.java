@@ -1,13 +1,37 @@
 package com.babulens.weighbridge.controller;
 
 import com.babulens.weighbridge.model.GetReport;
-import com.babulens.weighbridge.model.PrintReport;
+import com.babulens.weighbridge.model.PrintInvoice;
+import com.babulens.weighbridge.model.PrintInvoiceReport;
 import com.babulens.weighbridge.model.PrintWeight;
-import com.babulens.weighbridge.model.entity.*;
-import com.babulens.weighbridge.service.*;
+import com.babulens.weighbridge.model.PrintWeightReport;
+import com.babulens.weighbridge.model.entity.Driver;
+import com.babulens.weighbridge.model.entity.Invoice;
+import com.babulens.weighbridge.model.entity.Material;
+import com.babulens.weighbridge.model.entity.SerialPortDetail;
+import com.babulens.weighbridge.model.entity.TareWeight;
+import com.babulens.weighbridge.model.entity.WebCamDetail;
+import com.babulens.weighbridge.model.entity.Weight;
+import com.babulens.weighbridge.service.AdminSettingService;
+import com.babulens.weighbridge.service.DriverService;
+import com.babulens.weighbridge.service.InvoiceService;
+import com.babulens.weighbridge.service.MaterialService;
+import com.babulens.weighbridge.service.PrinterService;
+import com.babulens.weighbridge.service.ProfileService;
+import com.babulens.weighbridge.service.SerialPortService;
+import com.babulens.weighbridge.service.SettingService;
+import com.babulens.weighbridge.service.TareWeightService;
+import com.babulens.weighbridge.service.WebCamService;
+import com.babulens.weighbridge.service.WeighService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -16,8 +40,9 @@ import java.util.Map;
 @RestController
 class Controller {
 
-	final AdminSettingService adminSettingService;
+	private final AdminSettingService adminSettingService;
 	private final WeighService weighService;
+	private final InvoiceService invoiceService;
 	private final MaterialService materialService;
 	private final DriverService driverService;
 	private final TareWeightService tareWeightService;
@@ -28,12 +53,13 @@ class Controller {
 	private final ProfileService profileService;
 
 	@Autowired
-	public Controller(WeighService weighService, MaterialService materialService, DriverService driverService,
+	public Controller(WeighService weighService, InvoiceService invoiceService, MaterialService materialService, DriverService driverService,
 	                  TareWeightService tareWeightService, SettingService settingService, PrinterService printerService,
 	                  SerialPortService serialPortService, WebCamService webCamService, ProfileService profileService,
 	                  AdminSettingService adminSettingService) {
 		this.weighService = weighService;
 		this.materialService = materialService;
+		this.invoiceService = invoiceService;
 		this.driverService = driverService;
 		this.tareWeightService = tareWeightService;
 		this.settingService = settingService;
@@ -74,14 +100,24 @@ class Controller {
 		return printerService.getAllPrinters();
 	}
 
-	@RequestMapping(value = "/printer/getAllPrintFormats", method = {RequestMethod.GET})
-	public List<String> getAllPrintFormats() {
-		return printerService.getAllPrintFormats();
+	@RequestMapping(value = "/printer/getAllWeightPrintFormats", method = {RequestMethod.GET})
+	public List<String> getAllWeightPrintFormats() {
+		return printerService.getAllWeightPrintFormats();
+	}
+
+	@RequestMapping(value = "/printer/getAllInvoicePrintFormats", method = {RequestMethod.GET})
+	public List<String> getAllInvoicePrintFormats() {
+		return printerService.getAllInvoicePrintFormats();
 	}
 
 	@RequestMapping(value = "/printer/printWeight", method = {RequestMethod.POST})
 	public void printWeight(@RequestBody PrintWeight printWeight) {
 		printerService.printWeight(printWeight);
+	}
+
+	@RequestMapping(value = "/printer/printInvoice", method = {RequestMethod.POST})
+	public void printInvoice(@RequestBody PrintInvoice printInvoice) {
+		printerService.printInvoice(printInvoice);
 	}
 
 	@RequestMapping(value = "/printer/getPrintWeightPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
@@ -90,15 +126,21 @@ class Controller {
 		return printerService.getPrintWeightPDF(printWeight);
 	}
 
-	@RequestMapping(value = "/printer/printReport", method = {RequestMethod.POST})
-	public void printReport(@RequestBody PrintReport printReport) {
-		printerService.printReport(printReport);
+	@RequestMapping(value = "/printer/getPrintInvoicePDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
+	public @ResponseBody
+	byte[] getPrintInvoicePDF(@RequestBody PrintInvoice printInvoice) {
+		return printerService.getPrintInvoicePDF(printInvoice);
+	}
+
+	@RequestMapping(value = "/printer/printWeightReport", method = {RequestMethod.POST})
+	public void printWeightReport(@RequestBody PrintWeightReport printWeightReport) {
+		printerService.printWeightReport(printWeightReport);
 	}
 
 	@RequestMapping(value = "/printer/getReportPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody
-	byte[] getReportPDF(@RequestBody PrintReport printReport) {
-		return printerService.getPrintReportPDF(printReport);
+	byte[] getReportPDF(@RequestBody PrintWeightReport printWeightReport) {
+		return printerService.getPrintWeightReportPDF(printWeightReport);
 	}
 
 	@RequestMapping(value = "/setting/getAllSettingsByProfile", method = {RequestMethod.GET})
@@ -109,6 +151,11 @@ class Controller {
 	@RequestMapping(value = "/setting/getNextSlipNoByProfile", method = {RequestMethod.GET})
 	public int getNextSlipNoByProfile(@RequestParam("profile") String profile) {
 		return Integer.parseInt(settingService.getSettingByProfile("slipNo", profile));
+	}
+
+	@RequestMapping(value = "/setting/getNextInvoiceNoByProfile", method = {RequestMethod.GET})
+	public int getNextInvoiceNoByProfile(@RequestParam("profile") String profile) {
+		return Integer.parseInt(settingService.getSettingByProfile("invoiceNo", profile));
 	}
 
 	@RequestMapping(value = "/setting/saveAllSettingsByProfile", method = {RequestMethod.PUT})
@@ -244,9 +291,9 @@ class Controller {
 		return weighService.getWeightBySlipNoAndProfile(slipNo, profile);
 	}
 
-	@RequestMapping(value = "/weight/getReport", method = {RequestMethod.POST})
-	public PrintReport getReport(@RequestBody GetReport getReport) {
-		return weighService.getReportByProfile(getReport.getStartDate(), getReport.getEndDate(),
+	@RequestMapping(value = "/weight/getWeightReportByProfile", method = {RequestMethod.POST})
+	public PrintWeightReport getWeightReportByProfile(@RequestBody GetReport getReport) {
+		return weighService.getWeightReportByProfile(getReport.getStartDate(), getReport.getEndDate(),
 				getReport.getInputLabel(), getReport.getInput(), getReport.getProfile());
 	}
 
@@ -255,7 +302,33 @@ class Controller {
 		weighService.resetWeightByProfile(slipNo, profile);
 	}
 
-	@RequestMapping(value = "/error/getDefaultSlipNo", method = {RequestMethod.GET})
+	@RequestMapping(value = "/invoice/saveInvoice", method = {RequestMethod.POST})
+	public Invoice saveInvoice(@RequestBody Invoice invoice) {
+		return invoiceService.saveInvoice(invoice);
+	}
+
+	@RequestMapping(value = "/invoice/updateInvoice", method = {RequestMethod.POST})
+	public Invoice updateInvoice(@RequestBody Invoice invoice) {
+		return invoiceService.updateInvoice(invoice);
+	}
+
+	@RequestMapping(value = "/invoice/getInvoiceByInvoiceNoAndProfile")
+	public Invoice getInvoiceByInvoiceNoAndProfile(@RequestParam("invoiceNo") int invoiceNo, @RequestParam String profile) {
+		return invoiceService.getInvoiceByInvoiceNoAndProfile(invoiceNo, profile);
+	}
+
+	@RequestMapping(value = "/invoice/getInvoiceReportByProfile", method = {RequestMethod.POST})
+	public PrintInvoiceReport getInvoiceReportByProfile(@RequestBody GetReport getReport) {
+		return invoiceService.getInvoiceReportByProfile(getReport.getStartDate(), getReport.getEndDate(),
+				getReport.getInputLabel(), getReport.getInput(), getReport.getProfile());
+	}
+
+	@RequestMapping(value = "/invoice/resetInvoiceByProfile", method = {RequestMethod.GET})
+	public void resetInvoiceByProfile(@RequestParam String invoiceNo, @RequestParam String profile) {
+		invoiceService.resetInvoiceByProfile(invoiceNo, profile);
+	}
+
+	@RequestMapping(value = "/error/getDefault", method = {RequestMethod.GET})
 	public int getDefaultSlipNo() {
 		return -1;
 	}

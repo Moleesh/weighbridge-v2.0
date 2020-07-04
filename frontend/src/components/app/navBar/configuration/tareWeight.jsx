@@ -51,7 +51,7 @@ const TareWeight = props => {
                                 className="text-center form-control"
                                 type="text"
                                 name={key}
-                                autoComplete="off"
+                                autoComplete="none"
                                 value={thisState.configuration.tareWeight.template[key]}
                                 onChange={event => {
                                     thisState.configuration.tareWeight.template[key] =
@@ -146,7 +146,7 @@ const TareWeight = props => {
                                         <td key={key + "_" + item["id"]}>
                                             <Col>
                                                 <Form.Control
-                                                    autoComplete="off"
+                                                    autoComplete="none"
                                                     className="text-center form-control reportInputs"
                                                     disabled={
                                                         !(
@@ -174,6 +174,7 @@ const TareWeight = props => {
                                                 <Col>
                                                     <Button
                                                         block
+                                                        className="btn-min-width"
                                                         variant="warning"
                                                         onClick={() => {
                                                             fetch(
@@ -211,6 +212,7 @@ const TareWeight = props => {
                                             <Col>
                                                 <Button
                                                     block
+                                                    className="btn-min-width"
                                                     variant="danger"
                                                     onClick={() => {
                                                         fetch(

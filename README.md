@@ -6,7 +6,7 @@ mvn clean
 
 mvn install
 
-mvn validate -DskipValidate=validate
+mvn validate -D =validate
 
 ## To Run
 java -jar target/WeighBridge.jar

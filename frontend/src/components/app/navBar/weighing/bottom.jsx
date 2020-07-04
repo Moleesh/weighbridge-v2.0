@@ -144,7 +144,6 @@ const Bottom = props => {
                             ? (prevent = true)
                             : thisState.weighing.reference.printReference.current.focus();
                     }}
-                    ref={thisState.weighing.reference.rePrintReference}
                 >
                     Re Print
                 </Button>
@@ -156,14 +155,14 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        if (thisState.settings.value.printerName === "get as .pdf File") {
+                        if (thisState.settings.value.printerNameForWeighing === "get as .pdf File") {
                             fetch(thisState.INITIAL_URL + "/printer/getPrintWeightPDF", {
                                 method: "POST",
                                 body: JSON.stringify({
                                     weight: thisState.weight,
-                                    printerName: thisState.settings.value.printerName,
-                                    noOfCopies: thisState.settings.value.noOfCopies,
-                                    printFormat: thisState.settings.value.printFormat,
+                                    printerName: thisState.settings.value.printerNameForWeighing,
+                                    noOfCopies: thisState.settings.value.noOfCopiesForWeighing,
+                                    printFormat: thisState.settings.value.printFormatForWeighing,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
                                     thisState.settings.value.weighbridgeAddress,
@@ -187,9 +186,9 @@ const Bottom = props => {
                                 method: "POST",
                                 body: JSON.stringify({
                                     weight: thisState.weight,
-                                    printerName: thisState.settings.value.printerName,
-                                    noOfCopies: thisState.settings.value.noOfCopies,
-                                    printFormat: thisState.settings.value.printFormat,
+                                    printerName: thisState.settings.value.printerNameForWeighing,
+                                    noOfCopies: thisState.settings.value.noOfCopiesForWeighing,
+                                    printFormat: thisState.settings.value.printFormatForWeighing,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
                                     thisState.settings.value.weighbridgeAddress,

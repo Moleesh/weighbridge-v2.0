@@ -13,13 +13,15 @@ public class Material {
 	private int id;
 	private String materialId;
 	private String material;
+	private double unitPrice;
 
 	public Material() {
 	}
 
-	public Material(String materialId, String material) {
+	public Material(String materialId, String material, double unitPrice) {
 		this.materialId = materialId;
 		this.material = material;
+		this.unitPrice = unitPrice;
 	}
 
 	public int getId() {
@@ -44,6 +46,14 @@ public class Material {
 
 	public void setMaterial(String material) {
 		this.material = material;
+	}
+
+	public double getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(double unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 
 	@Override

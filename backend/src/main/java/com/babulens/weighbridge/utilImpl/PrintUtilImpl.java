@@ -2,8 +2,8 @@ package com.babulens.weighbridge.utilImpl;
 
 import com.babulens.weighbridge.model.Coordinate;
 import com.babulens.weighbridge.model.Line;
-import com.babulens.weighbridge.model.PrintReport;
 import com.babulens.weighbridge.model.PrintWeight;
+import com.babulens.weighbridge.model.PrintWeightReport;
 import com.babulens.weighbridge.model.entity.WebCamDetail;
 import com.babulens.weighbridge.model.entity.Weight;
 import com.babulens.weighbridge.repository.WebCamDetailDAO;
@@ -14,7 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 import java.awt.print.Book;
@@ -29,20 +30,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 @Service
 public class PrintUtilImpl implements PrintUtil {
-	final
-	SettingService settingService;
-	final
-	WebCamDetailDAO webCamDetailDAO;
+	final SettingService settingService;
+	final WebCamDetailDAO webCamDetailDAO;
 
 	@Autowired
 	public PrintUtilImpl(SettingService settingService, WebCamDetailDAO webCamDetailDAO) {
 		this.settingService = settingService;
 		this.webCamDetailDAO = webCamDetailDAO;
 	}
-
 
 	private static Coordinate drawString(Graphics g, String text, int x, int y) {
 		int length = 0;
@@ -53,9 +50,9 @@ public class PrintUtilImpl implements PrintUtil {
 		return new Coordinate(length, y + g.getFontMetrics().getHeight() - 1);
 	}
 
-
 	@SuppressWarnings("SameParameterValue")
-	private void setPaper(PageFormat pageFormat, Paper paper, double paperWidth, double paperHeight, double paperWidthMargin, double paperHeightMargin) {
+	private void setPaper(PageFormat pageFormat, Paper paper, double paperWidth, double paperHeight,
+	                      double paperWidthMargin, double paperHeightMargin) {
 		paper.setSize(paperWidth, paperHeight);
 		paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
 				paperHeight - (2 * paperHeightMargin));
@@ -109,14 +106,15 @@ public class PrintUtilImpl implements PrintUtil {
 			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
 
 			initString = String.format(format, "", "Sl.No") + printWeight.getWeight().getSlipNo() + "\n\n"
-					             + String.format(format, "", "Date") + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()
-					             + "\n\n" + String.format(format, "", "Time")
-					             + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() + "\n\n" + String.format(format, "", "Vehicle No")
-					             + printWeight.getWeight().getVehicleNo()
-					             + "\n\n" + String.format(format, "", "Material") + printWeight.getWeight().getMaterial()
-					             + "\n\n" + String.format(format, "", "Customer Name")
-					             + printWeight.getWeight().getCustomersName() + "\n\n" + String.format(format, "", "Charges")
-					             + "Rs. " + (int) printWeight.getWeight().getCharges() + "\n\n";
+					             + String.format(format, "", "Date")
+					             + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate() + "\n\n"
+					             + String.format(format, "", "Time")
+					             + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() + "\n\n"
+					             + String.format(format, "", "Vehicle No") + printWeight.getWeight().getVehicleNo() + "\n\n"
+					             + String.format(format, "", "Material") + printWeight.getWeight().getMaterial() + "\n\n"
+					             + String.format(format, "", "Customer Name") + printWeight.getWeight().getCustomersName() + "\n\n"
+					             + String.format(format, "", "Charges") + "Rs. " + (int) printWeight.getWeight().getCharges()
+					             + "\n\n";
 			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
 			coordinate = PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
 
@@ -149,26 +147,25 @@ public class PrintUtilImpl implements PrintUtil {
 			graphics.setFont(new Font("Courier New", Font.BOLD, 12));
 			coordinate = PrintUtilImpl.drawString(graphics, initString, coordinate.getX(), yTemp);
 
-			initString = "\n\n\n" + "     " + StringUtils.rightPad(printWeight.getFooter(), 70, " ")
-					             + "Signature";
+			initString = "\n\n\n" + "     " + StringUtils.rightPad(printWeight.getFooter(), 70, " ") + "Signature";
 			graphics.setFont(new Font("Courier New", Font.BOLD + Font.ITALIC, 10));
 			PrintUtilImpl.drawString(graphics, initString, 0, coordinate.getY());
 
 			try {
-				BufferedImage printImage = ImageIO
-						                           .read(new File("WebCamOutput" + File.separator + printWeight.getWeight().getProfile() + "_" + printWeight.getWeight().getSlipNo() +
-								                                          ".jpeg"));
+				BufferedImage printImage = ImageIO.read(new File("WebCamOutput" + File.separator
+						                                                 + printWeight.getWeight().getProfile() + "_" + printWeight.getWeight().getSlipNo() + ".jpeg"));
 				BufferedImage cropImage;
 				if (webCamDetail.getHeight() < 1 || webCamDetail.getWidth() < 1) {
 					cropImage = printImage.getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), 1, 1);
 				} else {
-					cropImage = printImage.getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(), webCamDetail.getWidth(), webCamDetail.getHeight());
+					cropImage = printImage.getSubimage(webCamDetail.getX_Axis(), webCamDetail.getY_Axis(),
+							webCamDetail.getWidth(), webCamDetail.getHeight());
 				}
 				graphics.drawImage(cropImage, 250, 125, 300,
 						(int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
 			} catch (IOException | NullPointerException | RasterFormatException ex) {
-				Logger.getLogger(getClass().getName()).log(Level.SEVERE, printWeight.getWeight().getSlipNo() +
-						                                                         ".jpeg Image not availabel");
+				Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+						printWeight.getWeight().getSlipNo() + ".jpeg Image not availabel");
 			}
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
@@ -176,7 +173,7 @@ public class PrintUtilImpl implements PrintUtil {
 	}
 
 	@Override
-	public Book printReport(PrintReport printReport) {
+	public Book printWeightReport(PrintWeightReport printWeightReport) {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
 
@@ -187,38 +184,47 @@ public class PrintUtilImpl implements PrintUtil {
 
 		List<Line> lines = new ArrayList<>();
 
-		lines.add(new Line(StringUtils.center(printReport.getWeighbridgeName(), 73), new Font("Courier New",
-				Font.BOLD, 12)));
-		lines.add(new Line(StringUtils.center(printReport.getWeighbridgeAddress(), 86), new Font("Courier New",
-				Font.ITALIC, 10)));
-		lines.add(new Line(StringUtils.center(printReport.getReportTitle(), 86), new Font("Courier New", Font.ITALIC,
-				10)));
+		lines.add(new Line(StringUtils.center(printWeightReport.getWeighbridgeName(), 73),
+				new Font("Courier New", Font.BOLD, 12)));
+		lines.add(new Line(StringUtils.center(printWeightReport.getWeighbridgeAddress(), 86),
+				new Font("Courier New", Font.ITALIC, 10)));
+		lines.add(new Line(StringUtils.center(printWeightReport.getReportTitle(), 86),
+				new Font("Courier New", Font.ITALIC, 10)));
 		lines.add(new Line("----------------------------------------------------------------------------------------",
 				new Font("Courier New", Font.PLAIN, 10)));
 		lines.add(new Line(String.format(format, StringUtils.center("Sl.no", 5), StringUtils.center("Date & Time", 19),
 				StringUtils.center("Vehicle No", 15), StringUtils.center("Material", 15),
-				StringUtils.center("Gross Wt", 8), StringUtils.center("Tare Wt", 8),
-				StringUtils.center("Net Wt", 8)), new Font("Courier New", Font.PLAIN, 10)));
+				StringUtils.center("Gross Wt", 8), StringUtils.center("Tare Wt", 8), StringUtils.center("Net Wt", 8)),
+				new Font("Courier New", Font.PLAIN, 10)));
 		lines.add(new Line("----------------------------------------------------------------------------------------",
 				new Font("Courier New", Font.PLAIN, 10)));
-		for (Weight weight : printReport.getWeights()) {
-			lines.add(new Line(String.format(format,
-					StringUtils.center("" + weight.getSlipNo(), 5),
-					StringUtils.center(weight.getNettTime() != null ? weight.getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate() + " " + weight.getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime() : "", 19),
-					StringUtils.center(weight.getVehicleNo(), 15),
-					StringUtils.center(weight.getMaterial(), 15),
-					StringUtils.leftPad("" + weight.getGrossWeight(), 8, " "),
-					StringUtils.leftPad("" + weight.getTareWeight(), 8, " "),
-					StringUtils.leftPad("" + weight.getNettWeight(), 8, " ")), new Font("Courier New", Font.PLAIN,
-					10)));
+		for (Weight weight : printWeightReport.getWeights()) {
+			lines.add(
+					new Line(
+							String.format(format, StringUtils.center("" + weight.getSlipNo(), 5),
+									StringUtils.center(weight.getNettTime() != null
+											                   ? weight.getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()
+													                     + " "
+													                     + weight.getNettTime().toInstant().atZone(ZoneId.of("UTC"))
+															                       .toLocalTime()
+											                   : "", 19),
+									StringUtils.center(weight.getVehicleNo(), 15),
+									StringUtils.center(weight.getMaterial(), 15),
+									StringUtils.leftPad("" + weight.getGrossWeight(), 8, " "),
+									StringUtils.leftPad("" + weight.getTareWeight(), 8, " "),
+									StringUtils.leftPad("" + weight.getNettWeight(), 8, " ")),
+							new Font("Courier New", Font.PLAIN, 10)));
 		}
 		lines.add(new Line("----------------------------------------------------------------------------------------",
 				new Font("Courier New", Font.PLAIN, 10)));
-		lines.add(new Line("\tTotal Records     : " + printReport.getTotalRecords(), new Font("Courier New", Font.ITALIC, 10)));
-		lines.add(new Line("\tTotal Nett Weight : " + printReport.getTotalNettWeight() + " Kg", new Font("Courier New", Font.ITALIC, 10)));
-		lines.add(new Line("\tTotal Charge      : Rs." + printReport.getTotalTotalCharges(), new Font("Courier New", Font.ITALIC, 10)));
+		lines.add(new Line("\tTotal Records     : " + printWeightReport.getTotalRecords(),
+				new Font("Courier New", Font.ITALIC, 10)));
+		lines.add(new Line("\tTotal Nett Weight : " + printWeightReport.getTotalWeight() + " Kg",
+				new Font("Courier New", Font.ITALIC, 10)));
+		lines.add(new Line("\tTotal Charge      : Rs." + printWeightReport.getTotalTotalCharges(),
+				new Font("Courier New", Font.ITALIC, 10)));
 		lines.add(new Line("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tSignature", new Font("Courier New", Font.BOLD, 10)));
-		lines.add(new Line(printReport.getFooter(), new Font("Courier New", Font.ITALIC, 10)));
+		lines.add(new Line(printWeightReport.getFooter(), new Font("Courier New", Font.ITALIC, 10)));
 
 		final int LIMIT = 35;
 		book.append((graphics, pageFormat1, pageIndex) -> {

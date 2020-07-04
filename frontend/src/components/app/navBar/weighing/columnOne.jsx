@@ -7,8 +7,6 @@ import PreviousWeight from './columnOne/previousWeight';
 
 const ColumnOne = props => {
     let thisState = props.preState;
-    let weight = "";
-    let value = {};
     return (
         <Col sm="4" className="mt-2">
             <Form.Group as={Row}>
@@ -117,7 +115,7 @@ const ColumnOne = props => {
                         }}
                         autoFocus={true}
                     />
-                    <PreviousWeight preState={thisState} weight={weight} value={value}/>
+                    <PreviousWeight preState={thisState}/>
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>

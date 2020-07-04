@@ -1,6 +1,6 @@
 package com.babulens.weighbridge.service;
 
-import com.babulens.weighbridge.model.PrintReport;
+import com.babulens.weighbridge.model.PrintWeightReport;
 import com.babulens.weighbridge.model.entity.TareWeight;
 import com.babulens.weighbridge.model.entity.Weight;
 
@@ -12,7 +12,7 @@ public interface WeighService {
 
 	Weight getWeightBySlipNoAndProfile(int slipNo, String profile);
 
-	PrintReport getReportByProfile(Date startDate, Date endDate, String inputLabel, String input, String profile);
+	PrintWeightReport getWeightReportByProfile(Date startDate, Date endDate, String inputLabel, String input, String profile);
 
 	TareWeight getGrossWeightByVehicleNoAndProfile(String vehicleNo, String profile);
 

@@ -239,3 +239,11 @@ input {
 .btn:disabled, .nav-item[disabled] {
     cursor: not-allowed !important;
 }
+
+.btn-min-width {
+    min-width: 75px;
+}
+
+a.nav-item.nav-link, button {
+    outline: none !important;
+}

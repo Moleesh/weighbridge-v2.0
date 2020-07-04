@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @Entity
 public class WebCamDetail implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String name;
 	private boolean myPrimary = false;
@@ -80,8 +81,10 @@ public class WebCamDetail implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 		WebCamDetail that = (WebCamDetail) o;
 		return Objects.equals(name, that.name);
 	}

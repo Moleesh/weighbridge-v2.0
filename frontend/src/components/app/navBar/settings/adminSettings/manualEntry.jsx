@@ -29,7 +29,7 @@ const ManualEntry = props => {
                     <Col sm="6">
                         <Form.Control
                             type="password"
-                            autoComplete="off"
+                            autoComplete="none"
                             className="text-centre"
                             value={thisState.settings.manualEntryPassword}
                             onChange={event => {

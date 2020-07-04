@@ -14,7 +14,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.image.RasterFormatException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -88,7 +88,7 @@ public class WebCamServiceImpl implements WebCamService {
 	}
 
 	@Override
-	public void settingUpWebCam(String name) {
+	public synchronized void settingUpWebCam(String name) {
 		WebCamDetail webCamDetail = webCamDetailDAO.findById(name).orElse(new WebCamDetail(name));
 		Webcam webcam = StaticVariable.getWebcam(webCamDetail.getName());
 
@@ -134,7 +134,7 @@ public class WebCamServiceImpl implements WebCamService {
 				try {
 					try {
 						ImageIO.write(webcam.getImage(), "jpeg", outputStream);
-					} catch (NullPointerException | WebcamException ex1) {
+					} catch (NullPointerException | WebcamException | IllegalArgumentException ex1) {
 						Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
 						return null;
 					}

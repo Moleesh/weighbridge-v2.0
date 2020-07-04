@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faWrench } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faWrench} from "@fortawesome/free-solid-svg-icons";
 
 import AddNewProfile from "./generalSettings/addNewProfile"
 
@@ -22,7 +22,7 @@ const GeneralSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         type="text"
-                        autoComplete="off"
+                        autoComplete="none"
                         className="text-left"
                         value={thisState.settings.value.weighbridgeName}
                         onChange={event => {
@@ -39,7 +39,7 @@ const GeneralSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         type="text"
-                        autoComplete="off"
+                        autoComplete="none"
                         className="text-left"
                         value={thisState.settings.value.weighbridgeAddress}
                         onChange={event => {
@@ -56,11 +56,61 @@ const GeneralSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         type="text"
-                        autoComplete="off"
+                        autoComplete="none"
                         className="text-left"
                         value={thisState.settings.value.footer}
                         onChange={event => {
                             thisState.settings.value.footer = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    CGST %
+                </Form.Label>
+                <Col sm="9">
+                    <Form.Control
+                        type="text"
+                        autoComplete="none"
+                        className="text-left"
+                        value={
+                            thisState.settings.value.cgst === ""
+                                ? 0
+                                : thisState.settings.value.cgst
+                        }
+                        onChange={event => {
+                            thisState.settings.value.cgst = (event.target.value.match("[0-9.]+") || []).pop() || "";
+                            thisState.settings.value.cgst = thisState.settings.value.cgst.split(".").slice(0, 2).join(".");
+                            if (!thisState.invoices.disablecalculation) {
+                                thisState.invoice._cgst = thisState.settings.value.cgst;
+                            }
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    SGST %
+                </Form.Label>
+                <Col sm="9">
+                    <Form.Control
+                        type="text"
+                        autoComplete="none"
+                        className="text-left"
+                        value={
+                            thisState.settings.value.sgst === ""
+                                ? 0
+                                : thisState.settings.value.sgst
+                        }
+                        onChange={event => {
+                            thisState.settings.value.sgst = (event.target.value.match("[0-9.]+") || []).pop() || "";
+                            thisState.settings.value.sgst = thisState.settings.value.sgst.split(".").slice(0, 2).join(".");
+                            if (!thisState.invoices.disablecalculation) {
+                                thisState.invoice._sgst = thisState.settings.value.sgst;
+                            }
                             thisState.setMyState(thisState);
                         }}
                     />
@@ -85,12 +135,15 @@ const GeneralSettings = props => {
                                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                                 thisState.settings.value = settings;
                                 thisState.weight.slipNo = slipNo;
-                                if (slipNo == -1) {
+                                if (slipNo === -1) {
                                     thisState.SETTING_DISABLED = true;
                                     thisState.weighing.disable.getWeightDisabled = true;
                                 }
-                                if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerName) === -1) {
-                                    thisState.settings.array.availablePrinters.push(thisState.settings.value.printerName);
+                                if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerNameForWeighing) === -1) {
+                                    thisState.settings.array.availablePrinters.push(thisState.settings.value.printerNameForWeighing);
+                                }
+                                if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerNameForInvoice) === -1) {
+                                    thisState.settings.array.availablePrinters.push(thisState.settings.value.printerNameForInvoice);
                                 }
                                 thisState.alerts.push({
                                     id: new Date().getTime(),

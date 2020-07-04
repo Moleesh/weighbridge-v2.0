@@ -146,7 +146,7 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         type="text"
-                        autoComplete="off"
+                        autoComplete="none"
                         className="text-left"
                         value={thisState.settings.indicator.delimiter}
                         onChange={event => {
@@ -164,7 +164,7 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         type="text"
-                        autoComplete="off"
+                        autoComplete="none"
                         className="text-left"
                         value={thisState.settings.indicator.lastCharacter}
                         onChange={event => {
@@ -182,7 +182,7 @@ const IndicatorSettings = props => {
                 <Col sm="9">
                     <Form.Control
                         type="text"
-                        autoComplete="off"
+                        autoComplete="none"
                         className="text-left"
                         value={thisState.adminSettings.REFRESH_TIME_WEIGHT}
                         onChange={event => {

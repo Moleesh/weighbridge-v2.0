@@ -15,15 +15,19 @@ public class Driver {
 	private String vehicleNo;
 	private String customerName;
 	private String transporterName;
+	private String address1;
+	private String address2;
 
 	public Driver() {
 	}
 
-	public Driver(String customerId, String vehicleNo, String customerName, String transporterName) {
+	public Driver(String customerId, String vehicleNo, String customerName, String transporterName, String address1, String address2) {
 		this.customerId = customerId;
 		this.vehicleNo = vehicleNo;
 		this.customerName = customerName;
 		this.transporterName = transporterName;
+		this.address1 = address1;
+		this.address2 = address2;
 	}
 
 	public int getId() {
@@ -64,6 +68,22 @@ public class Driver {
 
 	public void setTransporterName(String transporterName) {
 		this.transporterName = transporterName;
+	}
+
+	public String getAddress1() {
+		return address1;
+	}
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 
 	@Override

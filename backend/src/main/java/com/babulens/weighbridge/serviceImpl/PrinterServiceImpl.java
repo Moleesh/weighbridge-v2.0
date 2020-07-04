@@ -1,7 +1,8 @@
 package com.babulens.weighbridge.serviceImpl;
 
-import com.babulens.weighbridge.model.PrintReport;
+import com.babulens.weighbridge.model.PrintInvoice;
 import com.babulens.weighbridge.model.PrintWeight;
+import com.babulens.weighbridge.model.PrintWeightReport;
 import com.babulens.weighbridge.service.PrinterService;
 import com.babulens.weighbridge.util.PrintUtil;
 import com.babulens.weighbridge.utilImpl.PdfFontMapperImpl;
@@ -89,8 +90,13 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	@Cacheable(cacheNames = "PrintFormats")
-	public List<String> getAllPrintFormats() {
+	public List<String> getAllWeightPrintFormats() {
 		return Arrays.asList("Normal Print", "Pre Print", "WebCam Print");
+	}
+
+	@Override
+	public List<String> getAllInvoicePrintFormats() {
+		return Arrays.asList("Pre Print");
 	}
 
 	@Override
@@ -117,6 +123,11 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
+	public void printInvoice(PrintInvoice printInvoice) {
+		// TODO: 6/29/2020 printInvoice
+	}
+
+	@Override
 	public byte[] getPrintWeightPDF(PrintWeight printWeight) {
 		Book book = new Book();
 		switch (printWeight.getPrintFormat()) {
@@ -133,12 +144,18 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
-	public void printReport(PrintReport printReport) {
+	public byte[] getPrintInvoicePDF(PrintInvoice printInvoice) {
+		// TODO: 6/29/2020  getPrintInvoicePDF
+		return new byte[0];
+	}
+
+	@Override
+	public void printWeightReport(PrintWeightReport printWeightReport) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 
 		try {
-			printerJob.setPageable(printUtil.printReport(printReport));
-			printerJob.setPrintService(getPrinter(printReport.getPrinterName()));
+			printerJob.setPageable(printUtil.printWeightReport(printWeightReport));
+			printerJob.setPrintService(getPrinter(printWeightReport.getPrinterName()));
 			printerJob.print();
 		} catch (PrinterException ex) {
 			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -146,8 +163,8 @@ public class PrinterServiceImpl implements PrinterService {
 	}
 
 	@Override
-	public byte[] getPrintReportPDF(PrintReport printReport) {
-		Book book = printUtil.printReport(printReport);
+	public byte[] getPrintWeightReportPDF(PrintWeightReport printWeightReport) {
+		Book book = printUtil.printWeightReport(printWeightReport);
 		return getBook(book);
 	}
 

@@ -25,6 +25,10 @@ SELECT 'Standard_slipNo', 'slipNo', 'Standard', 1
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'slipNo' AND PROFILE like 'Standard');
 INSERT INTO SETTING
+SELECT 'Standard_invoiceNo', 'invoiceNo', 'Standard', 1
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'invoiceNo' AND PROFILE like 'Standard');
+INSERT INTO SETTING
 SELECT 'Standard_weighbridgeName', 'weighbridgeName', 'Standard', 'Babulens Enterprises'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'weighbridgeName' AND PROFILE like 'Standard');
@@ -37,17 +41,37 @@ SELECT 'Standard_footer', 'footer', 'Standard', ''
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'footer' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_printerName', 'printerName', 'Standard', 'get as .pdf File'
+SELECT 'Standard_cgst', 'cgst', 'Standard', 4.5
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printerName' AND PROFILE like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'cgst' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_noOfCopies', 'noOfCopies', 'Standard', 1
+SELECT 'Standard_sgst', 'sgst', 'Standard', 4.5
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'noOfCopies' AND PROFILE like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'sgst' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_printFormat', 'printFormat', 'Standard', 'WebCam Print'
+SELECT 'Standard_printerNameForWeighing', 'printerNameForWeighing', 'Standard', 'get as .pdf File'
 FROM DUAL
-WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormat' AND PROFILE like 'Standard');
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printerNameForWeighing' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_noOfCopiesForWeighing', 'noOfCopiesForWeighing', 'Standard', 1
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'noOfCopiesForWeighing' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_printFormatForWeighing', 'printFormatForWeighing', 'Standard', 'WebCam Print'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormatForWeighing' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_printerNameForInvoice', 'printerNameForInvoice', 'Standard', 'get as .pdf File'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printerNameForInvoice' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_noOfCopiesForInvoice', 'noOfCopiesForInvoice', 'Standard', 1
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'noOfCopiesForInvoice' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_printFormatForInvoice', 'printFormatForInvoice', 'Standard', 'Pre Print'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormatForInvoice' AND PROFILE like 'Standard');
 INSERT INTO SETTING
 SELECT 'Standard_automation', 'automation', 'Standard', false
 FROM DUAL

@@ -56,7 +56,7 @@ const ResetSlipNo = props => {
                     <Col sm="6">
                         <Form.Control
                             type="password"
-                            autoComplete="off"
+                            autoComplete="none"
                             className="text-centre"
                             value={thisState.settings.resetSlipNoPassword}
                             onChange={event => {

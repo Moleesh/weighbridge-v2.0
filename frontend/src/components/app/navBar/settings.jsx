@@ -37,7 +37,7 @@ const Settings = props => {
                             <Nav.Link eventKey="displaySettings">Display Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item disabled={thisState.SETTING_DISABLED}>
-                            <Nav.Link eventKey="adminSettings" disabled={thisState.SETTING_DISABLED}>Admin
+                            <Nav.Link eventKey="adminSettings">Admin
                                 Settings</Nav.Link>
                         </Nav.Item>
                     </Nav>

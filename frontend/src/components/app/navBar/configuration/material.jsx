@@ -51,7 +51,7 @@ const Material = props => {
                                 className="text-center form-control"
                                 type="text"
                                 name={key}
-                                autoComplete="off"
+                                autoComplete="none"
                                 value={thisState.configuration.material.template[key]}
                                 onChange={event => {
                                     thisState.configuration.material.template[key] =
@@ -148,7 +148,7 @@ const Material = props => {
                                         <td key={key + "_" + item["id"]}>
                                             <Col>
                                                 <Form.Control
-                                                    autoComplete="off"
+                                                    autoComplete="none"
                                                     className="text-center form-control reportInputs"
                                                     disabled={
                                                         !(
@@ -176,6 +176,7 @@ const Material = props => {
                                                 <Col>
                                                     <Button
                                                         block
+                                                        className="btn-min-width"
                                                         variant="warning"
                                                         onClick={() => {
                                                             fetch(
@@ -210,6 +211,7 @@ const Material = props => {
                                             <Col>
                                                 <Button
                                                     block
+                                                    className="btn-min-width"
                                                     variant="danger"
                                                     onClick={() => {
                                                         fetch(
