@@ -37,8 +37,6 @@ const Weighing = props => {
                                 thisState.weighing.reference.vehicleNoReference.current.focus()
                                 thisState.setMyState(thisState);
                             }}
-                            onChange={() => {
-                            }}
                             disabled={thisState.weighing.disable.grossSelectorDisabled}
                         />
                     </Form.Group>
@@ -59,8 +57,6 @@ const Weighing = props => {
                                 thisState.weighing.disable.materialDisabled = true;
                                 thisState.weighing.reference.vehicleNoReference.current.focus()
                                 thisState.setMyState(thisState);
-                            }}
-                            onChange={() => {
                             }}
                             disabled={thisState.weighing.disable.tareSelectorDisabled}
                         />

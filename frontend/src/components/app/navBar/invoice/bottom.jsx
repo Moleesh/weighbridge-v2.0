@@ -34,6 +34,7 @@ const Bottom = props => {
                                 })
                                 .then(result => {
                                     thisState.invoice = result;
+                                    thisState.invoices.disable.igstSelector = true;
                                     thisState.invoices.disable.referenceSlipNoDisabled = true;
                                     thisState.invoices.disable.customersNameDisabled = true;
                                     thisState.invoices.disable.vehicleNoDisabled = true;
@@ -168,6 +169,7 @@ const Bottom = props => {
                                 return -1;
                             })
                             .then(result => {
+                                thisState.invoices.disable.igstSelector = false;
                                 thisState.invoices.disable.referenceSlipNoDisabled = false;
                                 thisState.invoices.disable.customersNameDisabled = false;
                                 thisState.invoices.disable.vehicleNoDisabled = false;
@@ -203,6 +205,7 @@ const Bottom = props => {
                                 thisState.invoice.sgst = 0;
                                 thisState.invoice.igst = 0;
                                 thisState.invoice.total = 0;
+                                thisState.invoices.igstSelector = true;
                                 thisState.invoices.disablecalculation = false;
                                 thisState
                                     .setMyState(thisState)
@@ -245,6 +248,7 @@ const Bottom = props => {
                                 return -1;
                             })
                             .then(result => {
+                                thisState.invoices.disable.igstSelector = false;
                                 thisState.invoices.disable.referenceSlipNoDisabled = false;
                                 thisState.invoices.disable.customersNameDisabled = false;
                                 thisState.invoices.disable.vehicleNoDisabled = false;
@@ -280,6 +284,7 @@ const Bottom = props => {
                                 thisState.invoice.sgst = 0;
                                 thisState.invoice.igst = 0;
                                 thisState.invoice.total = 0;
+                                thisState.invoices.igstSelector = true;
                                 thisState.invoices.disablecalculation = false;
                                 thisState
                                     .setMyState(thisState)

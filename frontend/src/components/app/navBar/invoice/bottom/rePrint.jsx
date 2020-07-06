@@ -63,6 +63,7 @@ const RePrint = props => {
                                 })
                                 .then(result => {
                                     thisState.invoices.reprint = false;
+                                    thisState.invoices.disable.igstSelector = true;
                                     thisState.invoices.disable.referenceSlipNoDisabled = true;
                                     thisState.invoices.disable.customersNameDisabled = true;
                                     thisState.invoices.disable.vehicleNoDisabled = true;

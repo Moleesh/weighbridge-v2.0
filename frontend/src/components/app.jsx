@@ -266,6 +266,7 @@ class App extends Component {
             disablecalculation: false,
             previousWeightSelector: false,
             preventVehicleNoFocus: false,
+            igstSelector: false,
             previousWeightResult: {},
             reprint: false,
             reprintInvoiceNo: "",
@@ -289,6 +290,7 @@ class App extends Component {
                 rePrintButtonReference: React.createRef()
             },
             disable: {
+                igstSelector: false,
                 referenceSlipNoDisabled: false,
                 customersNameDisabled: false,
                 vehicleNoDisabled: false,
@@ -444,9 +446,16 @@ class App extends Component {
     calculateInvoiceAmount(thisState) {
         if (thisState.invoice.quantity > 0 && thisState.invoice.unitPrice > 0 && !thisState.invoices.disablecalculation) {
             thisState.invoice.amount = (thisState.invoice.quantity * thisState.invoice.unitPrice).toFixed(2) * 1;
-            thisState.invoice.cgst = (thisState.invoice.amount * thisState.invoice._cgst / 100).toFixed(2) * 1;
-            thisState.invoice.sgst = (thisState.invoice.amount * thisState.invoice._sgst / 100).toFixed(2) * 1;
-            thisState.invoice.total = (thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst).toFixed(2) * 1;
+            if (thisState.invoices.disable.igstSelector) {
+                thisState.invoice.cgst = 0;
+                thisState.invoice.sgst = 0;
+                thisState.invoice.igst = (thisState.invoice.amount * thisState.invoice._igst / 100).toFixed(2) * 1;
+            } else {
+                thisState.invoice.cgst = (thisState.invoice.amount * thisState.invoice._cgst / 100).toFixed(2) * 1;
+                thisState.invoice.sgst = (thisState.invoice.amount * thisState.invoice._sgst / 100).toFixed(2) * 1;
+                thisState.invoice.igst = 0;
+            }
+            thisState.invoice.total = (thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst + thisState.invoice.igst).toFixed(2) * 1;
             thisState.setMyState(thisState);
         }
     }

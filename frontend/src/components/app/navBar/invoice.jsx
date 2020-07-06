@@ -17,7 +17,39 @@ const Invoice = props => {
                 }
             }}
         >
-            <Row style={{height: 200}} className="justify-content-center">
+            <Row style={{height: 200}}>
+                <Col sm="2" className="mt-5">
+                    <Form.Group as={Row}>
+                        <Col sm="1"/>
+                        <Form.Check
+                            type="radio"
+                            name="GST-Selector"
+                            label="Gross"
+                            checked={!thisState.invoices.igstSelector}
+                            onClick={() => {
+                                thisState.invoices.igstSelector = false;
+                                thisState.invoices.reference.referenceSlipNoReference.current.focus();
+                                thisState.setMyState(thisState);
+                            }}
+                            disabled={thisState.invoices.disable.igstSelector}
+                        />
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-0">
+                        <Col sm="1"/>
+                        <Form.Check
+                            type="radio"
+                            name="GST-Selector"
+                            label="Tare"
+                            checked={thisState.invoices.igstSelector}
+                            onClick={() => {
+                                thisState.invoices.igstSelector = true;
+                                thisState.invoices.reference.referenceSlipNoReference.current.focus();
+                                thisState.setMyState(thisState);
+                            }}
+                            disabled={thisState.invoices.disable.igstSelector}
+                        />
+                    </Form.Group>
+                </Col>
                 <Col sm="5">
                     <Row className="justify-content-center bold mt-3">
                         <Card

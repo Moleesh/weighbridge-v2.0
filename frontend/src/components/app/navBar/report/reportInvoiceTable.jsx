@@ -98,6 +98,18 @@ const ReportInvoiceTable = props => {
                     width: thisState.report.filter.sgst ? "" : 0.01
                 },
                 {
+                    key: "_igst",
+                    name: "IGST %",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter._igst ? "" : 0.01
+                },
+                {
+                    key: "igst",
+                    name: "IGST",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.igst ? "" : 0.01
+                },
+                {
                     key: "total",
                     name: "Total",
                     editable: thisState.report.edit,
