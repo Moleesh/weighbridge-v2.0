@@ -118,6 +118,31 @@ const GeneralSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
+                    IGST %
+                </Form.Label>
+                <Col sm="9">
+                    <Form.Control
+                        type="text"
+                        autoComplete="none"
+                        className="text-left"
+                        value={
+                            thisState.settings.value.igst === ""
+                                ? 0
+                                : thisState.settings.value.igst
+                        }
+                        onChange={event => {
+                            thisState.settings.value.igst = (event.target.value.match("[0-9.]+") || []).pop() || "";
+                            thisState.settings.value.igst = thisState.settings.value.igst.split(".").slice(0, 2).join(".");
+                            if (!thisState.invoices.disablecalculation) {
+                                thisState.invoice._igst = thisState.settings.value.igst;
+                            }
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
                     Profile
                 </Form.Label>
                 <Col sm="9">
