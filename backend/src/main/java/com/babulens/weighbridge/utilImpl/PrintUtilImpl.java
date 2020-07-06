@@ -249,13 +249,37 @@ public class PrintUtilImpl implements PrintUtil {
 
 	@Override
 	public Book printReport(PrintInvoiceReport printInvoiceReport) {
-		// TODO: 7/5/2020
-		return null;
+
+		PageFormat pageFormat = new PageFormat();
+		Paper paper = pageFormat.getPaper();
+
+		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
+		Book book = new Book();
+
+		book.append((graphics, pageFormat1, pageIndex) -> {
+
+			return Printable.PAGE_EXISTS;
+		}, pageFormat);
+		return book;
 	}
 
 	@Override
 	public Book printPrePrint(PrintInvoice printInvoice) {
-		// TODO: 7/5/2020
-		return null;
+		PageFormat pageFormat = new PageFormat();
+		Paper paper = pageFormat.getPaper();
+
+		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
+		Book book = new Book();
+
+		book.append((graphics, pageFormat1, pageIndex) -> {
+
+			graphics.drawLine(25, 25, 25, 410);
+			graphics.drawLine(25, 25, 550, 25);
+			graphics.drawLine(550, 25, 550, 410);
+			graphics.drawLine(25, 410, 550, 410);
+
+			return Printable.PAGE_EXISTS;
+		}, pageFormat);
+		return book;
 	}
 }

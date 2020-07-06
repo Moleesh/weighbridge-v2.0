@@ -127,17 +127,20 @@ public class PrinterServiceImpl implements PrinterService {
 	public void printInvoice(PrintInvoice printInvoice) {
 		int noOfCopies = printInvoice.getNoOfCopies();
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
-		switch (printInvoice.getPrintFormat()) {
-			case "Pre Print":
-				printerJob.setPageable(printUtil.printPrePrint(printInvoice));
-				break;
-		}
-		try {
-			printerJob.setPrintService(getPrinter(printInvoice.getPrinterName()));
-			while (0 < noOfCopies--) {
-				printerJob.print();
+
+		while (0 < noOfCopies--) {
+			switch (printInvoice.getPrintFormat()) {
+				case "Pre Print":
+					printerJob.setPageable(printUtil.printPrePrint(printInvoice));
+					break;
 			}
-		} catch (PrinterException ignored) {
+			try {
+				printerJob.setPrintService(getPrinter(printInvoice.getPrinterName()));
+				//			while (0 < noOfCopies--) {
+				printerJob.print();
+				//		}
+			} catch (PrinterException ignored) {
+			}
 		}
 	}
 

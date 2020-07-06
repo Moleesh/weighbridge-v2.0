@@ -24,12 +24,14 @@ const Invoice = props => {
                         <Form.Check
                             type="radio"
                             name="GST-Selector"
-                            label="Gross"
+                            label="CGST/SGST"
                             checked={!thisState.invoices.igstSelector}
                             onClick={() => {
                                 thisState.invoices.igstSelector = false;
                                 thisState.invoices.reference.referenceSlipNoReference.current.focus();
                                 thisState.setMyState(thisState);
+                            }}
+                            onChange={() => {
                             }}
                             disabled={thisState.invoices.disable.igstSelector}
                         />
@@ -39,12 +41,14 @@ const Invoice = props => {
                         <Form.Check
                             type="radio"
                             name="GST-Selector"
-                            label="Tare"
+                            label="IGST"
                             checked={thisState.invoices.igstSelector}
                             onClick={() => {
                                 thisState.invoices.igstSelector = true;
                                 thisState.invoices.reference.referenceSlipNoReference.current.focus();
                                 thisState.setMyState(thisState);
+                            }}
+                            onChange={() => {
                             }}
                             disabled={thisState.invoices.disable.igstSelector}
                         />

@@ -205,7 +205,7 @@ const Bottom = props => {
                                 thisState.invoice.sgst = 0;
                                 thisState.invoice.igst = 0;
                                 thisState.invoice.total = 0;
-                                thisState.invoices.igstSelector = true;
+                                thisState.invoices.igstSelector = false;
                                 thisState.invoices.disablecalculation = false;
                                 thisState
                                     .setMyState(thisState)
@@ -284,7 +284,7 @@ const Bottom = props => {
                                 thisState.invoice.sgst = 0;
                                 thisState.invoice.igst = 0;
                                 thisState.invoice.total = 0;
-                                thisState.invoices.igstSelector = true;
+                                thisState.invoices.igstSelector = false;
                                 thisState.invoices.disablecalculation = false;
                                 thisState
                                     .setMyState(thisState)
