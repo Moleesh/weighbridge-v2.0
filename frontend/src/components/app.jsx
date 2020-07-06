@@ -50,8 +50,10 @@ class App extends Component {
             amount: 0,
             _cgst: 0,
             _sgst: 0,
+            _igst: 0,
             cgst: 0,
             sgst: 0,
+            igst: 0,
             total: 0,
             profile: "Standard"
         },
@@ -80,6 +82,7 @@ class App extends Component {
                 printFormatForInvoice: "",
                 cgst: 0,
                 sgst: 0,
+                igst: 0,
                 automation: false
             },
             indicator: {
@@ -335,6 +338,8 @@ class App extends Component {
                     cgst: "CGST",
                     _sgst: "SGST %",
                     sgst: "SGST",
+                    _igst: "IGST %",
+                    igst: "IGST",
                     total: "Total"
                 }
             },
@@ -371,7 +376,7 @@ class App extends Component {
                     manual: false
                 },
                 invoice: {
-                    referenceSlipNo: true,
+                    referenceSlipNo: false,
                     invoiceTime: true,
                     customersName: true,
                     address1: false,
@@ -380,11 +385,13 @@ class App extends Component {
                     material: true,
                     unitPrice: true,
                     quantity: true,
-                    amount: false,
+                    amount: true,
                     _cgst: false,
-                    cgst: false,
+                    cgst: true,
                     _sgst: false,
-                    sgst: false,
+                    sgst: true,
+                    _igst: false,
+                    igst: true,
                     total: true
                 }
             },
@@ -493,6 +500,7 @@ class App extends Component {
                 thisState.invoice.invoiceNo = invoiceNo;
                 thisState.invoice._sgst = settings.sgst;
                 thisState.invoice._cgst = settings.cgst;
+                thisState.invoice._igst = settings.igst;
                 if (slipNo === -1) {
                     thisState.SETTING_DISABLED = true;
                     thisState.weighing.disable.getWeightDisabled = true;

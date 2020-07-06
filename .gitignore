@@ -13,7 +13,7 @@ node_modules
 build
 dist
 target
-WeighBridge
+/WeighBridge/
 WebCamOutput
 .settings
 logs

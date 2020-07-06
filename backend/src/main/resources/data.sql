@@ -49,6 +49,10 @@ SELECT 'Standard_sgst', 'sgst', 'Standard', 4.5
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'sgst' AND PROFILE like 'Standard');
 INSERT INTO SETTING
+SELECT 'Standard_igst', 'igst', 'Standard', 4.5
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'igst' AND PROFILE like 'Standard');
+INSERT INTO SETTING
 SELECT 'Standard_printerNameForWeighing', 'printerNameForWeighing', 'Standard', 'get as .pdf File'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printerNameForWeighing' AND PROFILE like 'Standard');

@@ -198,8 +198,10 @@ const Bottom = props => {
                                 thisState.invoice.amount = 0;
                                 thisState.invoice._cgst = thisState.settings.value.cgst;
                                 thisState.invoice._sgst = thisState.settings.value.sgst;
+                                thisState.invoice._igst = thisState.settings.value.igst;
                                 thisState.invoice.cgst = 0;
                                 thisState.invoice.sgst = 0;
+                                thisState.invoice.igst = 0;
                                 thisState.invoice.total = 0;
                                 thisState.invoices.disablecalculation = false;
                                 thisState
@@ -273,8 +275,10 @@ const Bottom = props => {
                                 thisState.invoice.amount = 0;
                                 thisState.invoice._cgst = thisState.settings.value.cgst;
                                 thisState.invoice._sgst = thisState.settings.value.sgst;
+                                thisState.invoice._igst = thisState.settings.value.igst;
                                 thisState.invoice.cgst = 0;
                                 thisState.invoice.sgst = 0;
+                                thisState.invoice.igst = 0;
                                 thisState.invoice.total = 0;
                                 thisState.invoices.disablecalculation = false;
                                 thisState

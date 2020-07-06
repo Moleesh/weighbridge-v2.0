@@ -88,6 +88,26 @@ const ColumnThree = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="6">
+                    IGST {thisState.invoice._igst} %
+                </Form.Label>
+                <Col sm="6">
+                    <Form.Control
+                        className="text-right"
+                        disabled
+                        value={
+                            thisState.invoice.igst === ""
+                                ? 0
+                                : thisState.invoice.igst
+                        }
+                        onChange={event => {
+                            thisState.invoice.igst = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="6">
                     Total
                 </Form.Label>
                 <Col sm="6">
