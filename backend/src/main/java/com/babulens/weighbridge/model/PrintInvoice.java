@@ -11,11 +11,11 @@ public class PrintInvoice {
 	private String weighbridgeAddress;
 	private String footer;
 
-	public Invoice getWeight() {
+	public Invoice getInvoice() {
 		return invoice;
 	}
 
-	public void setWeight(Invoice invoice) {
+	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
 	}
 

@@ -455,7 +455,7 @@ class App extends Component {
                 thisState.invoice.sgst = (thisState.invoice.amount * thisState.invoice._sgst / 100).toFixed(2) * 1;
                 thisState.invoice.igst = 0;
             }
-            thisState.invoice.total = (thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst + thisState.invoice.igst).toFixed(2) * 1;
+            thisState.invoice.total = (thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst + thisState.invoice.igst).toFixed(0).toFixed(2) * 1;
             thisState.setMyState(thisState);
         }
     }

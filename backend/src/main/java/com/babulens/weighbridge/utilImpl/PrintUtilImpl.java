@@ -10,8 +10,10 @@ import com.babulens.weighbridge.model.entity.WebCamDetail;
 import com.babulens.weighbridge.model.entity.Weight;
 import com.babulens.weighbridge.repository.WebCamDetailDAO;
 import com.babulens.weighbridge.service.SettingService;
+import com.babulens.weighbridge.util.NumToWordUtil;
 import com.babulens.weighbridge.util.PrintUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +40,13 @@ import java.util.logging.Logger;
 public class PrintUtilImpl implements PrintUtil {
 	final SettingService settingService;
 	final WebCamDetailDAO webCamDetailDAO;
+	final NumToWordUtil numToWordUtil;
 
 	@Autowired
-	public PrintUtilImpl(SettingService settingService, WebCamDetailDAO webCamDetailDAO) {
+	public PrintUtilImpl(SettingService settingService, WebCamDetailDAO webCamDetailDAO, NumToWordUtil numToWordUtil) {
 		this.settingService = settingService;
 		this.webCamDetailDAO = webCamDetailDAO;
+		this.numToWordUtil = numToWordUtil;
 	}
 
 	private static Coordinate drawString(Graphics g, String text, int x, int y) {
@@ -273,10 +279,70 @@ public class PrintUtilImpl implements PrintUtil {
 
 		book.append((graphics, pageFormat1, pageIndex) -> {
 
-			graphics.drawLine(25, 25, 25, 410);
-			graphics.drawLine(25, 25, 550, 25);
-			graphics.drawLine(550, 25, 550, 410);
-			graphics.drawLine(25, 410, 550, 410);
+			graphics.setFont(new Font("Courier New", Font.BOLD, 20));
+			drawString(graphics, StringUtils.center(printInvoice.getWeighbridgeName(), 41), 40, 25);
+
+			String[] temp = WordUtils.wrap(printInvoice.getWeighbridgeAddress().trim(), 54).split("\n");
+
+			graphics.setFont(new Font("Courier New", Font.ITALIC, 15));
+			if (temp.length == 2) {
+				drawString(graphics, StringUtils.center(temp[0].trim(), 54), 40, 55);
+				drawString(graphics, StringUtils.center(temp[1].trim(), 54), 40, 75);
+			} else {
+				drawString(graphics, StringUtils.center(temp[0].trim(), 54), 40, 60);
+			}
+
+			graphics.setFont(new Font("Courier New", Font.ITALIC, 12));
+			drawString(graphics, "Invoice No : " + printInvoice.getInvoice().getInvoiceNo(), 40, 110);
+
+			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 15));
+			drawString(graphics, StringUtils.center("GST Invoice", 54), 40, 105);
+
+			graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
+			drawString(graphics, "----------------------------------------------------------------------", 40, 120);
+
+			graphics.setFont(new Font("Courier New", Font.ITALIC, 12));
+			drawString(graphics, "Date : " + new SimpleDateFormat("dd/MM/yyyy").format(printInvoice.getInvoice().getInvoiceTime()), 410, 130);
+
+			graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
+			drawString(graphics, "Party Name : " + printInvoice.getInvoice().getCustomersName(), 50, 150);
+			drawString(graphics, "Address    : " + printInvoice.getInvoice().getAddress1(), 50, 170);
+			drawString(graphics, "             " + printInvoice.getInvoice().getAddress2(), 50, 190);
+			drawString(graphics, "----------------------------------------------------------------------", 40, 200);
+			drawString(graphics, "----------------------------------------------------------------------", 40, 225);
+			drawString(graphics, "----------------------------------------------------------------------", 40, 260);
+			drawString(graphics, "                                               -----------------------", 40, 310);
+			drawString(graphics, "----------------------------------------------------------------------", 40, 335);
+			drawString(graphics, "----------------------------------------------------------------------", 40, 400);
+
+			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 10));
+
+			drawString(graphics, StringUtils.center("Sl. No", 8) + StringUtils.center("Material", 38) + StringUtils.center("Quantity", 12) + StringUtils.leftPad("Unit Price", 12) + StringUtils.leftPad("Amount", 12), 41, 215);
+
+			graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
+
+			drawString(graphics, StringUtils.center("1.", 8) + StringUtils.center(printInvoice.getInvoice().getMaterial(), 38) + StringUtils.center(String.valueOf(printInvoice.getInvoice().getQuantity()), 12) + StringUtils.leftPad(new DecimalFormat("##,##,##,##0.00").format(printInvoice.getInvoice().getUnitPrice()), 12) + StringUtils.leftPad(new DecimalFormat("##,##,##,##0.00").format(printInvoice.getInvoice().getAmount()), 12), 41, 245);
+
+			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 10));
+
+			if (printInvoice.getInvoice().getIgst() == 0) {
+				drawString(graphics, StringUtils.leftPad("", 58) + StringUtils.rightPad("CGST " + printInvoice.getInvoice().get_cgst() + "%", 12) + StringUtils.leftPad(new DecimalFormat("##,##,##,##0.00").format(printInvoice.getInvoice().getCgst()), 12), 41, 280);
+				drawString(graphics, StringUtils.leftPad("", 58) + StringUtils.rightPad("SGST " + printInvoice.getInvoice().get_sgst() + "%", 12) + StringUtils.leftPad(new DecimalFormat("##,##,##,##0.00").format(printInvoice.getInvoice().getSgst()), 12), 41, 300);
+
+			} else {
+				drawString(graphics, StringUtils.leftPad("", 58) + StringUtils.rightPad("IGST " + printInvoice.getInvoice().get_igst() + "%", 12) + StringUtils.leftPad(new DecimalFormat("##,##,##,##0.00").format(printInvoice.getInvoice().getIgst()), 12), 41, 290);
+			}
+
+			drawString(graphics, StringUtils.leftPad("", 58) + StringUtils.rightPad("Total", 12) + StringUtils.leftPad(new DecimalFormat("##,##,##,##0.00").format(printInvoice.getInvoice().getTotal()), 12), 41, 325);
+
+			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 10));
+			temp = WordUtils.wrap(" (Rs. " + numToWordUtil.convertNumber((long) printInvoice.getInvoice().getTotal()) + " Only)", 52).split("\n");
+			for (int i = temp.length; i > 0; i--) {
+				drawString(graphics, temp[i - 1], 42, 330 - ((temp.length - i) * 15));
+			}
+
+			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 12));
+			drawString(graphics, StringUtils.center("Party's Signature", 20) + StringUtils.leftPad("", 29) + StringUtils.center("Authorized Signatory", 20), 41, 395);
 
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
