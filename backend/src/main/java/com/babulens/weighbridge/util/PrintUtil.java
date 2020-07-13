@@ -18,4 +18,6 @@ public interface PrintUtil {
 
 	Book printPrePrint(PrintInvoice printInvoice);
 
+	Book printStandard(PrintInvoice printInvoice);
+
 }

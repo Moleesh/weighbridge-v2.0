@@ -30,6 +30,7 @@ const Invoice = props => {
                                 thisState.invoices.igstSelector = false;
                                 thisState.invoices.reference.referenceSlipNoReference.current.focus();
                                 thisState.setMyState(thisState);
+                                thisState.calculateInvoiceAmount(thisState);
                             }}
                             onChange={() => {
                             }}
@@ -47,6 +48,7 @@ const Invoice = props => {
                                 thisState.invoices.igstSelector = true;
                                 thisState.invoices.reference.referenceSlipNoReference.current.focus();
                                 thisState.setMyState(thisState);
+                                thisState.calculateInvoiceAmount(thisState);
                             }}
                             onChange={() => {
                             }}

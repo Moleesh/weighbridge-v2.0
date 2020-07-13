@@ -446,7 +446,7 @@ class App extends Component {
     calculateInvoiceAmount(thisState) {
         if (thisState.invoice.quantity > 0 && thisState.invoice.unitPrice > 0 && !thisState.invoices.disablecalculation) {
             thisState.invoice.amount = (thisState.invoice.quantity * thisState.invoice.unitPrice).toFixed(2) * 1;
-            if (thisState.invoices.disable.igstSelector) {
+            if (thisState.invoices.igstSelector) {
                 thisState.invoice.cgst = 0;
                 thisState.invoice.sgst = 0;
                 thisState.invoice.igst = (thisState.invoice.amount * thisState.invoice._igst / 100).toFixed(2) * 1;
@@ -455,7 +455,7 @@ class App extends Component {
                 thisState.invoice.sgst = (thisState.invoice.amount * thisState.invoice._sgst / 100).toFixed(2) * 1;
                 thisState.invoice.igst = 0;
             }
-            thisState.invoice.total = (thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst + thisState.invoice.igst).toFixed(0).toFixed(2) * 1;
+            thisState.invoice.total = ((thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst + thisState.invoice.igst).toFixed(0) * 1).toFixed(2);
             thisState.setMyState(thisState);
         }
     }

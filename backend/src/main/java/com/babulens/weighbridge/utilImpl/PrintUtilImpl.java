@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 import java.awt.print.Book;
@@ -49,13 +50,13 @@ public class PrintUtilImpl implements PrintUtil {
 		this.numToWordUtil = numToWordUtil;
 	}
 
-	private static Coordinate drawString(Graphics g, String text, int x, int y) {
+	private static Coordinate drawString(Graphics graphics, String text, int x, int y) {
 		int length = 0;
 		for (String line : text.split("\n")) {
-			g.drawString(line, x + 10, y += g.getFontMetrics().getHeight() - 1);
-			length = g.getFontMetrics().stringWidth(line);
+			graphics.drawString(line, x + 10, y += graphics.getFontMetrics().getHeight() - 1);
+			length = graphics.getFontMetrics().stringWidth(line);
 		}
-		return new Coordinate(length, y + g.getFontMetrics().getHeight() - 1);
+		return new Coordinate(length, y + graphics.getFontMetrics().getHeight() - 1);
 	}
 
 	@SuppressWarnings("SameParameterValue")
@@ -75,7 +76,7 @@ public class PrintUtilImpl implements PrintUtil {
 		setPaper(pageFormat, paper, 8d * 72d, 11.5d * 72d, 0d * 72d, 0d * 72d);
 		Book book = new Book();
 
-		book.append((graphics, pageFormat1, pageIndex) -> {
+		book.append((graphics, _pageFormat, pageIndex) -> {
 			// TODO: 29-07-2019 Pre Print
 			final String initString = "";
 			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
@@ -98,7 +99,7 @@ public class PrintUtilImpl implements PrintUtil {
 		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
 		Book book = new Book();
 
-		book.append((graphics, pageFormat1, pageIndex) -> {
+		book.append((graphics, _pageFormat, pageIndex) -> {
 			final String format = "%1$-5s%2$-20s: ";
 
 			String initString = "\n\n" + StringUtils.center(printWeight.getWeighbridgeName(), 62);
@@ -235,7 +236,7 @@ public class PrintUtilImpl implements PrintUtil {
 		lines.add(new Line(printWeightReport.getFooter(), new Font("Courier New", Font.ITALIC, 10)));
 
 		final int LIMIT = 35;
-		book.append((graphics, pageFormat1, pageIndex) -> {
+		book.append((graphics, _pageFormat, pageIndex) -> {
 			Coordinate coordinate = new Coordinate(25, 0);
 			graphics.setFont(new Font("Courier New", Font.BOLD, 20));
 			coordinate = PrintUtilImpl.drawString(graphics, "\n\n\n", 25, coordinate.getY());
@@ -262,7 +263,7 @@ public class PrintUtilImpl implements PrintUtil {
 		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
 		Book book = new Book();
 
-		book.append((graphics, pageFormat1, pageIndex) -> {
+		book.append((graphics, _pageFormat, pageIndex) -> {
 
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
@@ -274,10 +275,32 @@ public class PrintUtilImpl implements PrintUtil {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
 
+		setPaper(pageFormat, paper, 8.25d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
+		Book book = new Book();
+
+		book.append((graphics, _pageFormat, pageIndex) -> {
+			AffineTransform affineTransform = new AffineTransform();
+			affineTransform.setToQuadrantRotation(3);
+			graphics.setFont(new Font("Courier New", Font.BOLD + Font.ITALIC, 10).deriveFont(affineTransform));
+
+			graphics.drawLine(25, 25, 25, 410);
+			graphics.drawLine(25, 25, 550, 25);
+			graphics.drawLine(550, 25, 550, 410);
+			graphics.drawLine(25, 410, 550, 410);
+			return Printable.PAGE_EXISTS;
+		}, pageFormat);
+		return book;
+	}
+
+	@Override
+	public Book printStandard(PrintInvoice printInvoice) {
+		PageFormat pageFormat = new PageFormat();
+		Paper paper = pageFormat.getPaper();
+
 		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
 		Book book = new Book();
 
-		book.append((graphics, pageFormat1, pageIndex) -> {
+		book.append((graphics, _pageFormat, pageIndex) -> {
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 20));
 			drawString(graphics, StringUtils.center(printInvoice.getWeighbridgeName(), 41), 40, 25);

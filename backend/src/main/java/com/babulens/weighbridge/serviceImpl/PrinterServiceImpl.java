@@ -133,6 +133,9 @@ public class PrinterServiceImpl implements PrinterService {
 				case "Pre Print":
 					printerJob.setPageable(printUtil.printPrePrint(printInvoice));
 					break;
+				case "Standard":
+					printerJob.setPageable(printUtil.printPrePrint(printInvoice));
+					break;
 			}
 			try {
 				printerJob.setPrintService(getPrinter(printInvoice.getPrinterName()));
