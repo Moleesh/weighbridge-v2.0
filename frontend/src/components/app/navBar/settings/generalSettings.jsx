@@ -51,6 +51,40 @@ const GeneralSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
+                    Contacts
+                </Form.Label>
+                <Col sm="9">
+                    <Form.Control
+                        type="text"
+                        autoComplete="none"
+                        className="text-left"
+                        value={thisState.settings.value.contacts}
+                        onChange={event => {
+                            thisState.settings.value.contacts = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    Phone
+                </Form.Label>
+                <Col sm="9">
+                    <Form.Control
+                        type="text"
+                        autoComplete="none"
+                        className="text-left"
+                        value={thisState.settings.value.phone}
+                        onChange={event => {
+                            thisState.settings.value.phone = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
                     Footer
                 </Form.Label>
                 <Col sm="9">
@@ -61,81 +95,6 @@ const GeneralSettings = props => {
                         value={thisState.settings.value.footer}
                         onChange={event => {
                             thisState.settings.value.footer = event.target.value;
-                            thisState.setMyState(thisState);
-                        }}
-                    />
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-                <Form.Label column sm="3">
-                    CGST %
-                </Form.Label>
-                <Col sm="9">
-                    <Form.Control
-                        type="text"
-                        autoComplete="none"
-                        className="text-left"
-                        value={
-                            thisState.settings.value.cgst === ""
-                                ? 0
-                                : thisState.settings.value.cgst
-                        }
-                        onChange={event => {
-                            thisState.settings.value.cgst = (event.target.value.match("[0-9.]+") || []).pop() || "";
-                            thisState.settings.value.cgst = thisState.settings.value.cgst.split(".").slice(0, 2).join(".");
-                            if (!thisState.invoices.disablecalculation) {
-                                thisState.invoice._cgst = thisState.settings.value.cgst;
-                            }
-                            thisState.setMyState(thisState);
-                        }}
-                    />
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-                <Form.Label column sm="3">
-                    SGST %
-                </Form.Label>
-                <Col sm="9">
-                    <Form.Control
-                        type="text"
-                        autoComplete="none"
-                        className="text-left"
-                        value={
-                            thisState.settings.value.sgst === ""
-                                ? 0
-                                : thisState.settings.value.sgst
-                        }
-                        onChange={event => {
-                            thisState.settings.value.sgst = (event.target.value.match("[0-9.]+") || []).pop() || "";
-                            thisState.settings.value.sgst = thisState.settings.value.sgst.split(".").slice(0, 2).join(".");
-                            if (!thisState.invoices.disablecalculation) {
-                                thisState.invoice._sgst = thisState.settings.value.sgst;
-                            }
-                            thisState.setMyState(thisState);
-                        }}
-                    />
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-                <Form.Label column sm="3">
-                    IGST %
-                </Form.Label>
-                <Col sm="9">
-                    <Form.Control
-                        type="text"
-                        autoComplete="none"
-                        className="text-left"
-                        value={
-                            thisState.settings.value.igst === ""
-                                ? 0
-                                : thisState.settings.value.igst
-                        }
-                        onChange={event => {
-                            thisState.settings.value.igst = (event.target.value.match("[0-9.]+") || []).pop() || "";
-                            thisState.settings.value.igst = thisState.settings.value.igst.split(".").slice(0, 2).join(".");
-                            if (!thisState.invoices.disablecalculation) {
-                                thisState.invoice._igst = thisState.settings.value.igst;
-                            }
                             thisState.setMyState(thisState);
                         }}
                     />

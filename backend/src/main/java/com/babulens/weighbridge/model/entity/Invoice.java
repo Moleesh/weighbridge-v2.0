@@ -20,6 +20,7 @@ public class Invoice {
 	private String address2;
 	private String vehicleNo;
 	private String material;
+	private String timeOfArrival;
 	private double unitPrice;
 	private long quantity;
 	private double amount;
@@ -29,13 +30,13 @@ public class Invoice {
 	private double cgst;
 	private double sgst;
 	private double igst;
-	private double total;
+	private long total;
 	private String profile;
 
 	public Invoice() {
 	}
 
-	public Invoice(int invoiceNo, String referenceSlipNo, Date invoiceTime, String customersName, String address1, String address2, String vehicleNo, String material, double unitPrice, long quantity, double amount, double _cgst, double _sgst, double _igst, double cgst, double sgst, double igst, double total, String profile) {
+	public Invoice(int invoiceNo, String referenceSlipNo, Date invoiceTime, String customersName, String address1, String address2, String vehicleNo, String material, String timeOfArrival, double unitPrice, long quantity, double amount, double _cgst, double _sgst, double _igst, double cgst, double sgst, double igst, long total, String profile) {
 		this.invoiceNo = invoiceNo;
 		this.referenceSlipNo = referenceSlipNo;
 		this.invoiceTime = invoiceTime;
@@ -44,6 +45,7 @@ public class Invoice {
 		this.address2 = address2;
 		this.vehicleNo = vehicleNo;
 		this.material = material;
+		this.timeOfArrival = timeOfArrival;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
 		this.amount = amount;
@@ -129,6 +131,14 @@ public class Invoice {
 		this.material = material;
 	}
 
+	public String getTimeOfArrival() {
+		return timeOfArrival;
+	}
+
+	public void setTimeOfArrival(String timeOfArrival) {
+		this.timeOfArrival = timeOfArrival;
+	}
+
 	public double getUnitPrice() {
 		return unitPrice;
 	}
@@ -169,6 +179,14 @@ public class Invoice {
 		this._sgst = _sgst;
 	}
 
+	public double get_igst() {
+		return _igst;
+	}
+
+	public void set_igst(double _igst) {
+		this._igst = _igst;
+	}
+
 	public double getCgst() {
 		return cgst;
 	}
@@ -185,11 +203,19 @@ public class Invoice {
 		this.sgst = sgst;
 	}
 
-	public double getTotal() {
+	public double getIgst() {
+		return igst;
+	}
+
+	public void setIgst(double igst) {
+		this.igst = igst;
+	}
+
+	public long getTotal() {
 		return total;
 	}
 
-	public void setTotal(double total) {
+	public void setTotal(long total) {
 		this.total = total;
 	}
 
@@ -199,22 +225,6 @@ public class Invoice {
 
 	public void setProfile(String profile) {
 		this.profile = profile;
-	}
-
-	public double get_igst() {
-		return _igst;
-	}
-
-	public void set_igst(double _igst) {
-		this._igst = _igst;
-	}
-
-	public double getIgst() {
-		return igst;
-	}
-
-	public void setIgst(double igst) {
-		this.igst = igst;
 	}
 
 	@Override

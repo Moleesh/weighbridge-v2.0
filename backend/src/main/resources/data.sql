@@ -37,9 +37,37 @@ SELECT 'Standard_weighbridgeAddress', 'weighbridgeAddress', 'Standard', 'Nagerco
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'weighbridgeAddress' AND PROFILE like 'Standard');
 INSERT INTO SETTING
+SELECT 'Standard_contacts', 'contacts', 'Standard', 'babulens@yahoo.com'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'phone' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_phone', 'phone', 'Standard', '9789597007'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'phone' AND PROFILE like 'Standard');
+INSERT INTO SETTING
 SELECT 'Standard_footer', 'footer', 'Standard', ''
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'footer' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_invoiceHeader', 'invoiceHeader', 'Standard', 'Welcome'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'invoiceHeader' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_invoiceIdentifier', 'invoiceIdentifier', 'Standard', 'BE - 19/20'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'invoiceIdentifier' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_gstin', 'gstin', 'Standard', '123456789123456789'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'gstin' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_invoiceFooter', 'invoiceFooter', 'Standard', 'Thank You Visit Again'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'invoiceFooter' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_additionalInformation', 'additionalInformation', 'Standard', 'Terms & Conditions'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'additionalInformation' AND PROFILE like 'Standard');
 INSERT INTO SETTING
 SELECT 'Standard_cgst', 'cgst', 'Standard', 4.5
 FROM DUAL

@@ -72,6 +72,7 @@ const RePrint = props => {
                                     thisState.invoices.disable.quantityDisabled = true;
                                     thisState.invoices.disable.address1Disabled = true;
                                     thisState.invoices.disable.address2Disabled = true;
+                                    thisState.invoices.disable.timeOfArrivalDisabled = true;
                                     thisState.invoices.disable.saveDisabled = true;
                                     thisState.invoices.disable.printDisabled = false;
                                     thisState.invoice = result;

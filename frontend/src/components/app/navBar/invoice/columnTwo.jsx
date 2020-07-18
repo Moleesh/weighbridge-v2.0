@@ -192,13 +192,40 @@ const ColumnTwo = props => {
                                 thisState.invoice.address2 = thisState.invoice.address2
                                     .toUpperCase();
                                 thisState.setMyState(thisState);
+                                thisState.invoices.reference.timeOfArrivalReference.current.focus();
+                            }
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="6">
+                    Time Of Arrival (Approximate)
+                </Form.Label>
+                <Col sm="6">
+                    <Form.Control
+                        className="text-center"
+                        disabled={thisState.invoices.disable.timeOfArrivalDisabled}
+                        autoComplete="none"
+                        ref={thisState.invoices.reference.timeOfArrivalReference}
+                        value={thisState.invoice.timeOfArrival}
+                        onChange={event => {
+                            thisState.invoice.timeOfArrival = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                        onKeyDown={event => {
+                            if (event.keyCode === 9 && event.shiftKey)
+                                thisState.invoices.reference.address2Reference.current.focus();
+                            else if ((event.keyCode === 13) || (event.keyCode === 9)) {
+                                thisState.invoice.timeOfArrival = thisState.invoice.timeOfArrival
+                                    .toUpperCase();
+                                thisState.setMyState(thisState);
                                 thisState.invoices.reference.saveReference.current.focus();
                             }
                         }}
                     />
                 </Col>
             </Form.Group>
-
         </Col>
     );
 };

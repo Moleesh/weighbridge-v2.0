@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faRetweet, faSync, faWrench} from "@fortawesome/free-solid-svg-icons";
 
 import GeneralSettings from "./settings/generalSettings";
+import InvoiceSettings from "./settings/invoiceSettings";
 import WebCamSettings from "./settings/webCamSettings";
 import PrinterSettings from "./settings/printerSettings";
 import IndicatorSettings from "./settings/indicatorSettings";
@@ -23,15 +24,16 @@ const Settings = props => {
                             <Nav.Link eventKey="generalSettings">General Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
+                            <Nav.Link eventKey="invoiceSettings">Invoice Settings</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
                             <Nav.Link eventKey="webCamSettings">WebCam Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="printerSettings">Printer Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="indicatorSettings">
-                                Indicator Settings
-                            </Nav.Link>
+                            <Nav.Link eventKey="indicatorSettings">Indicator Settings</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="displaySettings">Display Settings</Nav.Link>
@@ -46,6 +48,9 @@ const Settings = props => {
                     <Tab.Content>
                         <Tab.Pane eventKey="generalSettings">
                             <GeneralSettings preState={thisState} key="generalSettings"/>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="invoiceSettings">
+                            <InvoiceSettings preState={thisState} key="invoiceSettings"/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="webCamSettings">
                             <WebCamSettings preState={thisState} key="webCamSettings"/>

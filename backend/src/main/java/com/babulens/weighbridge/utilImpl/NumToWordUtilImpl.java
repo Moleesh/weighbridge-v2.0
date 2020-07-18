@@ -45,7 +45,7 @@ public class NumToWordUtilImpl implements NumToWordUtil {
 			"",
 			" Thousand",
 			" Lakh",
-			" Crore"
+			" Crore",
 	};
 
 	@Override

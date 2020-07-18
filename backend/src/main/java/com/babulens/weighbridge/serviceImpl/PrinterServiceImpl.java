@@ -38,6 +38,15 @@ public class PrinterServiceImpl implements PrinterService {
 		this.printUtil = printUtil;
 	}
 
+	public static PrintService getPrinter(String printer) {
+		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
+			if (printer.equals(printerPrintService.getName())) {
+				return printerPrintService;
+			}
+		}
+		return null;
+	}
+
 	private byte[] getBook(Book book) {
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -69,15 +78,6 @@ public class PrinterServiceImpl implements PrinterService {
 		return null;
 	}
 
-	public PrintService getPrinter(String printer) {
-		for (PrintService printerPrintService : PrintServiceLookup.lookupPrintServices(null, null)) {
-			if (printer.equals(printerPrintService.getName())) {
-				return printerPrintService;
-			}
-		}
-		return null;
-	}
-
 	@Override
 	@Cacheable(cacheNames = "printers")
 	public List<String> getAllPrinters() {
@@ -97,7 +97,7 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	public List<String> getAllInvoicePrintFormats() {
-		return Arrays.asList("Pre Print");
+		return Arrays.asList("Pre Print", "Standard");
 	}
 
 	@Override
@@ -128,22 +128,20 @@ public class PrinterServiceImpl implements PrinterService {
 		int noOfCopies = printInvoice.getNoOfCopies();
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 
-		while (0 < noOfCopies--) {
-			switch (printInvoice.getPrintFormat()) {
-				case "Pre Print":
-					printerJob.setPageable(printUtil.printPrePrint(printInvoice));
-					break;
-				case "Standard":
-					printerJob.setPageable(printUtil.printPrePrint(printInvoice));
-					break;
-			}
-			try {
-				printerJob.setPrintService(getPrinter(printInvoice.getPrinterName()));
-				//			while (0 < noOfCopies--) {
+		switch (printInvoice.getPrintFormat()) {
+			case "Pre Print":
+				printerJob.setPageable(printUtil.printPrePrint(printInvoice));
+				break;
+			case "Standard":
+				printerJob.setPageable(printUtil.printPrePrint(printInvoice));
+				break;
+		}
+		try {
+			printerJob.setPrintService(getPrinter(printInvoice.getPrinterName()));
+			while (0 < noOfCopies--) {
 				printerJob.print();
-				//		}
-			} catch (PrinterException ignored) {
 			}
+		} catch (PrinterException ignored) {
 		}
 	}
 

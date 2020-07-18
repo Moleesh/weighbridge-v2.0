@@ -9,7 +9,14 @@ public class PrintInvoice {
 	private String printFormat;
 	private String weighbridgeName;
 	private String weighbridgeAddress;
+	private String contacts;
+	private String phone;
 	private String footer;
+	private String invoiceHeader;
+	private String invoiceIdentifier;
+	private String invoiceFooter;
+	private String gstin;
+	private String additionalInformation;
 
 	public Invoice getInvoice() {
 		return invoice;
@@ -59,11 +66,67 @@ public class PrintInvoice {
 		this.weighbridgeAddress = weighbridgeAddress;
 	}
 
+	public String getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(String contacts) {
+		this.contacts = contacts;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getFooter() {
 		return footer;
 	}
 
 	public void setFooter(String footer) {
 		this.footer = footer;
+	}
+
+	public String getInvoiceHeader() {
+		return invoiceHeader;
+	}
+
+	public void setInvoiceHeader(String invoiceHeader) {
+		this.invoiceHeader = invoiceHeader;
+	}
+
+	public String getInvoiceIdentifier() {
+		return invoiceIdentifier;
+	}
+
+	public void setInvoiceIdentifier(String invoiceIdentifier) {
+		this.invoiceIdentifier = invoiceIdentifier;
+	}
+
+	public String getInvoiceFooter() {
+		return invoiceFooter;
+	}
+
+	public void setInvoiceFooter(String invoiceFooter) {
+		this.invoiceFooter = invoiceFooter;
+	}
+
+	public String getGstin() {
+		return gstin;
+	}
+
+	public void setGstin(String gstin) {
+		this.gstin = gstin;
+	}
+
+	public String getAdditionalInformation() {
+		return additionalInformation;
+	}
+
+	public void setAdditionalInformation(String additionalInformation) {
+		this.additionalInformation = additionalInformation;
 	}
 }

@@ -1,6 +1,6 @@
 package com.babulens.weighbridge.model;
 
-import java.awt.*;
+import java.awt.Font;
 
 public class Line {
 	private String line;

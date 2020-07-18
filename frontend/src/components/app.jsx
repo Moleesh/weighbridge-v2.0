@@ -43,6 +43,7 @@ class App extends Component {
             customersName: "",
             address1: "",
             address2: "",
+            timeOfArrival: "",
             vehicleNo: "",
             material: "",
             unitPrice: 0,
@@ -73,6 +74,8 @@ class App extends Component {
                 slipNo: -1,
                 weighbridgeName: "",
                 weighbridgeAddress: "",
+                contacts: "",
+                phone: "",
                 footer: "",
                 printerNameForWeighing: "",
                 noOfCopiesForWeighing: "",
@@ -80,6 +83,11 @@ class App extends Component {
                 printerNameForInvoice: "",
                 noOfCopiesForInvoice: "",
                 printFormatForInvoice: "",
+                invoiceHeader: "",
+                invoiceIdentifier: "",
+                invoiceFooter: "",
+                gstin: "",
+                additionalInformation: "",
                 cgst: 0,
                 sgst: 0,
                 igst: 0,
@@ -283,6 +291,7 @@ class App extends Component {
                 quantityReference: React.createRef(),
                 address1Reference: React.createRef(),
                 address2Reference: React.createRef(),
+                timeOfArrivalReference: React.createRef(),
                 saveReference: React.createRef(),
                 printReference: React.createRef(),
                 previousWeightReference: React.createRef(),
@@ -299,6 +308,7 @@ class App extends Component {
                 quantityDisabled: false,
                 address1Disabled: false,
                 address2Disabled: false,
+                timeOfArrivalDisabled: false,
                 saveDisabled: false,
                 printDisabled: true
             }
@@ -331,6 +341,7 @@ class App extends Component {
                     customersName: "Customers Name",
                     address1: "Address Line 1",
                     address2: "Address Line 2",
+                    timeOfArrival: "Time Of Arrival",
                     vehicleNo: "Vehicle No",
                     material: "Material",
                     unitPrice: "Unit Price",
@@ -383,6 +394,7 @@ class App extends Component {
                     customersName: true,
                     address1: false,
                     address2: false,
+                    timeOfArrival: false,
                     vehicleNo: false,
                     material: true,
                     unitPrice: true,
@@ -455,7 +467,7 @@ class App extends Component {
                 thisState.invoice.sgst = (thisState.invoice.amount * thisState.invoice._sgst / 100).toFixed(2) * 1;
                 thisState.invoice.igst = 0;
             }
-            thisState.invoice.total = ((thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst + thisState.invoice.igst).toFixed(0) * 1).toFixed(2);
+            thisState.invoice.total = (thisState.invoice.amount + thisState.invoice.cgst + thisState.invoice.sgst + thisState.invoice.igst).toFixed(0) * 1;
             thisState.setMyState(thisState);
         }
     }

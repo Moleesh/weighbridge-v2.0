@@ -43,6 +43,7 @@ const Bottom = props => {
                                     thisState.invoices.disable.quantityDisabled = true;
                                     thisState.invoices.disable.address1Disabled = true;
                                     thisState.invoices.disable.address2Disabled = true;
+                                    thisState.invoices.disable.timeOfArrivalDisabled = true;
                                     thisState.invoices.disable.saveDisabled = true;
                                     thisState.invoices.disable.printDisabled = false;
                                     thisState
@@ -118,9 +119,15 @@ const Bottom = props => {
                                     noOfCopies: thisState.settings.value.noOfCopiesForInvoice,
                                     printFormat: thisState.settings.value.printFormatForInvoice,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
-                                    footer: thisState.settings.value.footer
+                                    weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
+                                    contacts: thisState.settings.value.contacts,
+                                    phone: thisState.settings.value.phone,
+                                    footer: thisState.settings.value.footer,
+                                    invoiceHeader: thisState.settings.value.invoiceHeader,
+                                    invoiceIdentifier: thisState.settings.value.invoiceIdentifier,
+                                    invoiceFooter: thisState.settings.value.invoiceFooter,
+                                    gstin: thisState.settings.value.gstin,
+                                    additionalInformation: thisState.settings.value.additionalInformation
                                 }),
                                 headers: {"content-type": "application/json"}
                             })
@@ -144,9 +151,16 @@ const Bottom = props => {
                                     noOfCopies: thisState.settings.value.noOfCopiesForInvoice,
                                     printFormat: thisState.settings.value.printFormatForInvoice,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
-                                    footer: thisState.settings.value.footer
+                                    weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
+                                    contacts: thisState.settings.value.contacts,
+                                    phone: thisState.settings.value.phone,
+                                    footer: thisState.settings.value.footer,
+                                    invoiceHeader: thisState.settings.value.invoiceHeader,
+                                    invoiceIdentifier: thisState.settings.value.invoiceIdentifier,
+                                    invoiceFooter: thisState.settings.value.invoiceFooter,
+                                    gstin: thisState.settings.value.gstin,
+                                    additionalInformation: thisState.settings.value.additionalInformation
+
                                 }),
                                 headers: {"content-type": "application/json"}
                             })
@@ -178,6 +192,8 @@ const Bottom = props => {
                                 thisState.invoices.disable.quantityDisabled = false;
                                 thisState.invoices.disable.address1Disabled = false;
                                 thisState.invoices.disable.address2Disabled = false;
+                                thisState.invoices.disable.timeOfArrivalDisabled = false;
+                                thisState.invoices.disable.timeOfArrivalDisabled = false;
                                 thisState.invoices.disable.saveDisabled = false;
                                 thisState.invoices.disable.printDisabled = true;
                                 thisState.invoice.invoiceNo = result;
@@ -257,6 +273,7 @@ const Bottom = props => {
                                 thisState.invoices.disable.quantityDisabled = false;
                                 thisState.invoices.disable.address1Disabled = false;
                                 thisState.invoices.disable.address2Disabled = false;
+                                thisState.invoices.disable.timeOfArrivalDisabled = false;
                                 thisState.invoices.disable.saveDisabled = false;
                                 thisState.invoices.disable.printDisabled = true;
                                 thisState.invoice.invoiceNo = result;
