@@ -7,7 +7,7 @@ mvn clean
 set NODE_SKIP_PLATFORM_CHECK=1
 mvn install 
 
-mvn validate -D =validate
+mvn validate -DskipValidate=validate
 
 ## To Run
 java -jar target/WeighBridge.jar
