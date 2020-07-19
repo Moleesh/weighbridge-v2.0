@@ -560,15 +560,288 @@ const Report = props => {
                                 </Button>
                             </Col>
                             <Col sm="5">
-                                <Button variant="secondary" block onClick={() => {
-                                }}
-                                        disabled
-                                        className="none">
+                                <Button
+                                    variant="secondary"
+                                    block
+                                    disabled={thisState.report.list.length === 0}
+                                    onClick={() => {
+                                        let reportTitle = "";
+                                        let header = [thisState.report.isType === "weight" ? "Slip No" : "Invoice No"];
+                                        Object.entries(thisState.report.filter)
+                                            .forEach((obj) => {
+                                                if (obj[1]) {
+                                                    header.push(thisState.report.header[obj[0]])
+                                                }
+                                            })
+                                        switch (thisState.report.isType) {
+                                            case "weight":
+                                                switch (thisState.report.reportSelect) {
+                                                    case "Weighing - Full Report":
+                                                        reportTitle = "Full Report";
+                                                        break;
+                                                    case "Weighing - Daily Report":
+                                                        reportTitle =
+                                                            "Daily Report : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY"
+                                                            );
+                                                        break;
+                                                    case "Weighing - Weekly Report":
+                                                        reportTitle =
+                                                            "Weekly Report : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format("DD-MM-YYYY");
+                                                        break;
+                                                    case "Weighing - Monthly Report":
+                                                        reportTitle =
+                                                            "Monthly Report : " +
+                                                            moment(thisState.report.date.start).format("MM-YYYY");
+                                                        break;
+                                                    case "Weighing - Custom Date Report":
+                                                        reportTitle =
+                                                            "Custom Report : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Weighing - Slip No Report":
+                                                        reportTitle =
+                                                            "Slip No Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Weighing - Customer Name Report":
+                                                        reportTitle =
+                                                            "Customer Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Weighing - Transporter Name Report":
+                                                        reportTitle =
+                                                            "Transporter Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Weighing - Vehicle No Report":
+                                                        reportTitle =
+                                                            "Vehicle No Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Weighing - Material Report":
+                                                        reportTitle =
+                                                            "Material Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    default:
+                                                }
+                                                fetch(thisState.INITIAL_URL + "/excel/getWeightAsExcel", {
+                                                    method: "POST",
+                                                    body: JSON.stringify({
+                                                        weights: thisState.report.list,
+                                                        headers: header,
+                                                        printerName: thisState.settings.value.printerNameForWeighing,
+                                                        reportTitle: reportTitle,
+                                                        weighbridgeName: thisState.settings.value.weighbridgeName,
+                                                        weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
+                                                        totalRecords: thisState.report.totalRecords,
+                                                        totalWeight: thisState.report.totalWeight,
+                                                        totalCharge: thisState.report.totalCharge,
+                                                        footer: thisState.settings.value.footer
+                                                    }),
+                                                    headers: {"content-type": "application/json"}
+                                                }).then(response => {
+                                                    if (response.status !== 200)
+                                                        throw Error(response.statusText);
+                                                    return response.blob();
+                                                }).then(blob => {
+                                                    FileSaver.saveAs(blob, "report.xlsx");
+                                                }).catch(error => {
+                                                    console.log(error);
+                                                });
+                                                break;
+                                            case "invoice":
+                                                switch (thisState.report.reportSelect) {
+                                                    case "Invoice - Full Report":
+                                                        reportTitle = "Full Report";
+                                                        break;
+                                                    case "Invoice - Daily Report":
+                                                        reportTitle =
+                                                            "Daily Report : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY"
+                                                            );
+                                                        break;
+                                                    case "Invoice - Weekly Report":
+                                                        reportTitle =
+                                                            "Weekly Report : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format("DD-MM-YYYY");
+                                                        break;
+                                                    case "Invoice - Monthly Report":
+                                                        reportTitle =
+                                                            "Monthly Report : " +
+                                                            moment(thisState.report.date.start).format("MM-YYYY");
+                                                        break;
+                                                    case "Invoice - Custom Date Report":
+                                                        reportTitle =
+                                                            "Custom Report : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Invoice - Invoice No Report":
+                                                        reportTitle =
+                                                            "Slip No Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Invoice - Reference Slip No Report":
+                                                        reportTitle =
+                                                            "Slip No Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Invoice - Customer Name Report":
+                                                        reportTitle =
+                                                            "Customer Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Invoice - Vehicle No Report":
+                                                        reportTitle =
+                                                            "Vehicle No Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    case "Invoice - Material Report":
+                                                        reportTitle =
+                                                            "Material Report (" +
+                                                            thisState.report.input +
+                                                            ") : " +
+                                                            moment(thisState.report.date.start).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            ) +
+                                                            " - " +
+                                                            moment(thisState.report.date.end).format(
+                                                                "DD-MM-YYYY HH:mm:ss"
+                                                            );
+                                                        break;
+                                                    default:
+                                                }
+                                                fetch(thisState.INITIAL_URL + "/excel/getInvoiceAsExcel", {
+                                                    method: "POST",
+                                                    body: JSON.stringify({
+                                                        invoices: thisState.report.list,
+                                                        headers: header,
+                                                        printerName: thisState.settings.value.printerNameForInvoice,
+                                                        reportTitle: reportTitle,
+                                                        weighbridgeName: thisState.settings.value.weighbridgeName,
+                                                        weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
+                                                        totalRecords: thisState.report.totalRecords,
+                                                        totalQuantity: thisState.report.totalWeight,
+                                                        totalAmount: thisState.report.totalCharge,
+                                                        footer: thisState.settings.value.footer
+                                                    }),
+                                                    headers: {"content-type": "application/json"}
+                                                }).then(response => {
+                                                    if (response.status !== 200)
+                                                        throw Error(response.statusText);
+                                                    return response.blob();
+                                                }).then(blob => {
+                                                    FileSaver.saveAs(blob, "report.xlsx");
+                                                }).catch(error => {
+                                                    console.log(error);
+                                                });
+                                                break;
+                                            default:
+                                        }
+                                    }}
+                                >
                                     <FontAwesomeIcon icon={faFileDownload} className="mr-3"/>Export to Excel</Button>
                             </Col>
                             <Col sm="3">
                                 <Button
                                     variant="success"
+                                    disabled={thisState.report.isType === "invoice" || thisState.report.list.length === 0}
                                     block
                                     onClick={() => {
                                         let reportTitle = "";
@@ -682,6 +955,7 @@ const Report = props => {
                                                         method: "POST",
                                                         body: JSON.stringify({
                                                             weights: thisState.report.list,
+                                                            headers: [],
                                                             printerName: thisState.settings.value.printerNameForWeighing,
                                                             reportTitle: reportTitle,
                                                             weighbridgeName:
@@ -713,6 +987,7 @@ const Report = props => {
                                                         method: "POST",
                                                         body: JSON.stringify({
                                                             weights: thisState.report.list,
+                                                            headers: [],
                                                             printerName: thisState.settings.value.printerNameForWeighing,
                                                             reportTitle: reportTitle,
                                                             weighbridgeName:
@@ -842,6 +1117,7 @@ const Report = props => {
                                                         method: "POST",
                                                         body: JSON.stringify({
                                                             invoices: thisState.report.list,
+                                                            headers: [],
                                                             printerName: thisState.settings.value.printerNameForInvoice,
                                                             reportTitle: reportTitle,
                                                             weighbridgeName:
@@ -873,6 +1149,7 @@ const Report = props => {
                                                         method: "POST",
                                                         body: JSON.stringify({
                                                             invoices: thisState.report.list,
+                                                            headers: [],
                                                             printerName: thisState.settings.value.printerNameForInvoice,
                                                             reportTitle: reportTitle,
                                                             weighbridgeName:

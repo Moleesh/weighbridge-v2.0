@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PrintWeightReport {
 	private List<Weight> weights;
+	private List<String> headers;
 	private String printerName;
 	private String reportTitle;
 	private String weighbridgeName;
@@ -21,6 +22,14 @@ public class PrintWeightReport {
 
 	public void setWeights(List<Weight> weights) {
 		this.weights = weights;
+	}
+
+	public List<String> getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(List<String> headers) {
+		this.headers = headers;
 	}
 
 	public String getPrinterName() {

@@ -23,6 +23,7 @@ import com.babulens.weighbridge.service.SettingService;
 import com.babulens.weighbridge.service.TareWeightService;
 import com.babulens.weighbridge.service.WebCamService;
 import com.babulens.weighbridge.service.WeighService;
+import com.babulens.weighbridge.util.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,12 +52,13 @@ class Controller {
 	private final SerialPortService serialPortService;
 	private final WebCamService webCamService;
 	private final ProfileService profileService;
+	private final ExcelUtil excelUtil;
 
 	@Autowired
 	public Controller(WeighService weighService, InvoiceService invoiceService, MaterialService materialService, DriverService driverService,
 	                  TareWeightService tareWeightService, SettingService settingService, PrinterService printerService,
 	                  SerialPortService serialPortService, WebCamService webCamService, ProfileService profileService,
-	                  AdminSettingService adminSettingService) {
+	                  AdminSettingService adminSettingService, ExcelUtil excelUtil) {
 		this.weighService = weighService;
 		this.materialService = materialService;
 		this.invoiceService = invoiceService;
@@ -68,6 +70,7 @@ class Controller {
 		this.webCamService = webCamService;
 		this.profileService = profileService;
 		this.adminSettingService = adminSettingService;
+		this.excelUtil = excelUtil;
 	}
 
 	@RequestMapping(value = "/adminSetting/getAllAdminSettings", method = {RequestMethod.GET})
@@ -337,6 +340,16 @@ class Controller {
 	@RequestMapping(value = "/invoice/resetInvoiceByProfile", method = {RequestMethod.GET})
 	public void resetInvoiceByProfile(@RequestParam String invoiceNo, @RequestParam String profile) {
 		invoiceService.resetInvoiceByProfile(invoiceNo, profile);
+	}
+
+	@RequestMapping(value = "/excel/getWeightAsExcel", method = {RequestMethod.POST}, produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public byte[] getWeightAsExcel(@RequestBody PrintWeightReport printWeightReport) {
+		return excelUtil.getWeightAsExcel(printWeightReport);
+	}
+
+	@RequestMapping(value = "/excel/getInvoiceAsExcel", method = {RequestMethod.POST}, produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public byte[] getInvoiceAsExcel(@RequestBody PrintInvoiceReport printInvoiceReport) {
+		return excelUtil.getInvoiceAsExcel(printInvoiceReport);
 	}
 
 	@RequestMapping(value = "/error/getDefault", method = {RequestMethod.GET})

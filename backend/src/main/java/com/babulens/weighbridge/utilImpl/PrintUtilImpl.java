@@ -58,10 +58,16 @@ public class PrintUtilImpl implements PrintUtil {
 	}
 
 	private int getPaddingForCentreAlign(Graphics graphics, String text, int space) {
+		if (text.trim().equals("")) {
+			text = "_";
+		}
 		return (int) ((space - graphics.getFontMetrics().getStringBounds(text.trim(), graphics).getWidth()) / 2);
 	}
 
 	private int getPaddingForRightAlign(Graphics graphics, String text, int space) {
+		if (text.equals("")) {
+			text = "_";
+		}
 		return (int) (space - graphics.getFontMetrics().getStringBounds(text, graphics).getWidth());
 	}
 
@@ -74,7 +80,6 @@ public class PrintUtilImpl implements PrintUtil {
 		return new Coordinate(length, y + graphics.getFontMetrics().getHeight() - 1);
 	}
 
-	@SuppressWarnings("SameParameterValue")
 	private void setPaper(PageFormat pageFormat, Paper paper, double paperWidth, double paperHeight,
 	                      double paperWidthMargin, double paperHeightMargin) {
 		paper.setSize(paperWidth, paperHeight);
@@ -296,124 +301,124 @@ public class PrintUtilImpl implements PrintUtil {
 		book.append((graphics, _pageFormat, pageIndex) -> {
 			AffineTransform affineTransform = new AffineTransform();
 			affineTransform.setToQuadrantRotation(3);
-			graphics.drawLine(30, 35, 30, 395);
-			graphics.drawLine(30, 35, 575, 35);
-			graphics.drawLine(575, 35, 575, 395);
-			graphics.drawLine(30, 395, 575, 395);
+			graphics.drawLine(30, 25, 30, 385);
+			graphics.drawLine(30, 25, 575, 25);
+			graphics.drawLine(575, 25, 575, 385);
+			graphics.drawLine(30, 385, 575, 385);
 
 			graphics.setFont(new Font("Nirmala UI", Font.BOLD | Font.ITALIC, 8).deriveFont(affineTransform));
-			graphics.drawString(printInvoice.getInvoiceHeader().trim(), 40, 392 - getPaddingForCentreAlign(graphics, printInvoice.getInvoiceHeader(), 354));
+			graphics.drawString(printInvoice.getInvoiceHeader().trim(), 40, 382 - getPaddingForCentreAlign(graphics, printInvoice.getInvoiceHeader(), 354));
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 15).deriveFont(affineTransform));
-			graphics.drawString(printInvoice.getWeighbridgeName().trim(), 55, 392 - getPaddingForCentreAlign(graphics, printInvoice.getWeighbridgeName(), 354));
+			graphics.drawString(printInvoice.getWeighbridgeName().trim(), 55, 382 - getPaddingForCentreAlign(graphics, printInvoice.getWeighbridgeName(), 354));
 
 			graphics.setFont(new Font("Courier New", Font.ITALIC | Font.BOLD, 10).deriveFont(affineTransform));
 			String[] temp = printInvoice.getWeighbridgeAddress().trim().split("\\|");
 
 			for (int i = 0; i < temp.length; i++) {
-				graphics.drawString(temp[i].trim(), 68 + i * 10 + (temp.length == 1 ? 5 : 0), 392 - getPaddingForCentreAlign(graphics, temp[i], 354));
+				graphics.drawString(temp[i].trim(), 68 + i * 10 + (temp.length == 1 ? 5 : 0), 382 - getPaddingForCentreAlign(graphics, temp[i], 354));
 			}
 
 			graphics.setFont(new Font("Courier New", Font.ITALIC, 10).deriveFont(affineTransform));
-			graphics.drawString(printInvoice.getContacts().trim(), 90, 392 - getPaddingForCentreAlign(graphics, printInvoice.getContacts(), 354));
+			graphics.drawString(printInvoice.getContacts().trim(), 90, 382 - getPaddingForCentreAlign(graphics, printInvoice.getContacts(), 354));
 
 			graphics.setFont(new Font("Courier New", Font.ITALIC, 10).deriveFont(affineTransform));
-			graphics.drawString(printInvoice.getPhone().trim(), 102, 392 - getPaddingForCentreAlign(graphics, printInvoice.getPhone(), 354));
+			graphics.drawString(printInvoice.getPhone().trim(), 102, 382 - getPaddingForCentreAlign(graphics, printInvoice.getPhone(), 354));
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 13).deriveFont(affineTransform));
-			graphics.drawString("GST INVOICE", 118, 392 - getPaddingForCentreAlign(graphics, "GST Invoice", 354));
+			graphics.drawString("GST INVOICE", 118, 382 - getPaddingForCentreAlign(graphics, "GST Invoice", 354));
 
 			AttributedString attributedString = new AttributedString("Invoice No");
 			Font font = new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform);
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-			graphics.drawString(attributedString.getIterator(), 112, 392);
+			graphics.drawString(attributedString.getIterator(), 112, 382);
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform));
-			graphics.drawString(printInvoice.getInvoiceIdentifier().trim() + printInvoice.getInvoice().getInvoiceNo(), 122, 392);
-			graphics.drawString("GSTIN: " + printInvoice.getGstin(), 122, 392 - getPaddingForRightAlign(graphics, "GSTIN: " + printInvoice.getGstin().trim(), 354));
+			graphics.drawString(printInvoice.getInvoiceIdentifier().trim() + printInvoice.getInvoice().getInvoiceNo(), 122, 382);
+			graphics.drawString("GSTIN: " + printInvoice.getGstin(), 122, 382 - getPaddingForRightAlign(graphics, "GSTIN: " + printInvoice.getGstin().trim(), 354));
 
-			graphics.drawLine(125, 35, 125, 395);
+			graphics.drawLine(125, 25, 125, 385);
 
 			attributedString = new AttributedString("Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()));
 			font = new Font("Courier New", Font.PLAIN, 8).deriveFont(affineTransform);
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 6, 19);
-			graphics.drawString(attributedString.getIterator(), 135, 390 - getPaddingForRightAlign(graphics, "Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
+			graphics.drawString(attributedString.getIterator(), 135, 380 - getPaddingForRightAlign(graphics, "Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
 
 			attributedString = new AttributedString("Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()));
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 6, 19);
-			graphics.drawString(attributedString.getIterator(), 150, 390 - getPaddingForRightAlign(graphics, "Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
+			graphics.drawString(attributedString.getIterator(), 150, 380 - getPaddingForRightAlign(graphics, "Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
 
-			graphics.drawLine(157, 35, 157, 137);
-			graphics.drawLine(125, 137, 157, 137);
+			graphics.drawLine(157, 25, 157, 127);
+			graphics.drawLine(125, 127, 157, 127);
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform));
-			graphics.drawString("To,", 135, 385);
+			graphics.drawString("To,", 135, 375);
 
 			attributedString = new AttributedString("Party Name : " + StringUtils.rightPad(printInvoice.getInvoice().getCustomersName(), 37));
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 150, 385);
+			graphics.drawString(attributedString.getIterator(), 150, 375);
 
 			attributedString = new AttributedString("Address    : " + StringUtils.rightPad(printInvoice.getInvoice().getAddress1(), 37));
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 164, 385);
+			graphics.drawString(attributedString.getIterator(), 164, 375);
 
 			attributedString = new AttributedString("             " + StringUtils.rightPad(printInvoice.getInvoice().getAddress2(), 37));
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 178, 385);
+			graphics.drawString(attributedString.getIterator(), 178, 375);
 
 			attributedString = new AttributedString("Vehicle No : " + StringUtils.rightPad(printInvoice.getInvoice().getVehicleNo(), 37));
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 192, 385);
+			graphics.drawString(attributedString.getIterator(), 192, 375);
 
 			attributedString = new AttributedString("Time Of Arrival(Approx) : " + StringUtils.rightPad(printInvoice.getInvoice().getTimeOfArrival(), 24));
 			attributedString.addAttribute(TextAttribute.FONT, font);
 			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 26, 50);
-			graphics.drawString(attributedString.getIterator(), 206, 385);
+			graphics.drawString(attributedString.getIterator(), 206, 375);
 
-			graphics.drawLine(212, 35, 212, 395);
+			graphics.drawLine(212, 25, 212, 385);
 
 			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 8).deriveFont(affineTransform));
-			graphics.drawString(StringUtils.center("Sl. No", 7) + StringUtils.center("Material", 24) + StringUtils.center("Quantity", 12) + StringUtils.leftPad("Unit Price", 12) + StringUtils.leftPad("Amount", 18), 225, 390);
+			graphics.drawString(StringUtils.center("Sl. No", 7) + StringUtils.center("Material", 24) + StringUtils.center("Quantity", 12) + StringUtils.leftPad("Unit Price", 12) + StringUtils.leftPad("Amount", 18), 225, 380);
 
-			graphics.drawLine(235, 35, 235, 395);
-			graphics.drawLine(212, 354, 300, 354);
-			graphics.drawLine(212, 240, 300, 240);
-			graphics.drawLine(212, 182, 300, 182);
-			graphics.drawLine(212, 122, 365, 122);
+			graphics.drawLine(235, 25, 235, 385);
+			graphics.drawLine(212, 344, 300, 344);
+			graphics.drawLine(212, 230, 300, 230);
+			graphics.drawLine(212, 172, 300, 172);
+			graphics.drawLine(212, 112, 365, 112);
 
 			graphics.setFont(new Font("Courier New", Font.ITALIC, 8).deriveFont(affineTransform));
-			graphics.drawString(StringUtils.center("1.", 7) + StringUtils.center(printInvoice.getInvoice().getMaterial(), 24) + StringUtils.center(String.valueOf(printInvoice.getInvoice().getQuantity()), 12) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getUnitPrice()), 12) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getAmount()), 18), 260, 392);
+			graphics.drawString(StringUtils.center("1.", 7) + StringUtils.center(printInvoice.getInvoice().getMaterial(), 24) + StringUtils.center(String.valueOf(printInvoice.getInvoice().getQuantity()), 12) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getUnitPrice()), 12) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getAmount()), 18), 260, 382);
 
-			graphics.drawLine(300, 35, 300, 395);
+			graphics.drawLine(300, 25, 300, 385);
 
 			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 8).deriveFont(affineTransform));
 			if (printInvoice.getInvoice().getIgst() == 0) {
-				graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("CGST @ " + printInvoice.getInvoice().get_cgst() + "%", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getCgst()), 18), 315, 392);
-				graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("SGST @ " + printInvoice.getInvoice().get_sgst() + "%", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getSgst()), 18), 330, 392);
+				graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("CGST @ " + printInvoice.getInvoice().get_cgst() + "%", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getCgst()), 18), 315, 382);
+				graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("SGST @ " + printInvoice.getInvoice().get_sgst() + "%", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getSgst()), 18), 330, 382);
 			} else {
-				graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("IGST @ " + printInvoice.getInvoice().get_igst() + "%", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getIgst()), 18), 322, 392);
+				graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("IGST @ " + printInvoice.getInvoice().get_igst() + "%", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getIgst()), 18), 322, 382);
 			}
 
-			graphics.drawLine(340, 35, 340, 200);
+			graphics.drawLine(340, 25, 340, 190);
 
-			graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("Total", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getTotal()), 18), 355, 392);
+			graphics.drawString(StringUtils.leftPad("", 42) + StringUtils.rightPad("Total", 13) + StringUtils.leftPad(indianCurrency(printInvoice.getInvoice().getTotal()), 18), 355, 382);
 
-			graphics.drawLine(365, 35, 365, 395);
+			graphics.drawLine(365, 25, 365, 385);
 
 			graphics.setFont(new Font("Courier New", Font.BOLD | Font.ITALIC, 10).deriveFont(affineTransform));
 			temp = WordUtils.wrap(" (Rs. " + numToWordUtil.convertNumber(printInvoice.getInvoice().getTotal()) + " Only)", 58).split("\n");
 			for (int i = 0; i < temp.length; i++) {
-				graphics.drawString(temp[i].trim(), 377 + i * 10 + (temp.length == 1 ? 6 : 0), 392 - getPaddingForCentreAlign(graphics, temp[i], 354));
+				graphics.drawString(temp[i].trim(), 377 + i * 10 + (temp.length == 1 ? 6 : 0), 382 - getPaddingForCentreAlign(graphics, temp[i], 354));
 			}
 
-			graphics.drawLine(395, 35, 395, 395);
+			graphics.drawLine(395, 25, 395, 385);
 
 			graphics.setFont(new Font("Courier New", Font.ITALIC, 8).deriveFont(affineTransform));
 
@@ -421,23 +426,23 @@ public class PrintUtilImpl implements PrintUtil {
 			for (int i = 0, z = 0; i < temp.length && z < 5; i++) {
 				String[] line = WordUtils.wrap(temp[i], 73).split("\n");
 				for (int j = 0; j < line.length && z < 5; j++, z++) {
-					graphics.drawString(line[j], 405 + z * 10, 392);
+					graphics.drawString(line[j], 405 + z * 10, 382);
 				}
 			}
 
-			graphics.drawLine(450, 35, 450, 395);
+			graphics.drawLine(450, 25, 450, 385);
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform));
-			graphics.drawString("For " + printInvoice.getWeighbridgeName().trim(), 465, 215 - getPaddingForCentreAlign(graphics, "For " + printInvoice.getWeighbridgeName(), 180));
+			graphics.drawString("For " + printInvoice.getWeighbridgeName().trim(), 465, 205 - getPaddingForCentreAlign(graphics, "For " + printInvoice.getWeighbridgeName(), 180));
 
-			graphics.drawString("(Party's Signature)", 550, 392 - getPaddingForCentreAlign(graphics, "(Party's Signature)", 180));
-			graphics.drawString("(Authorised Signature)", 550, 215 - getPaddingForCentreAlign(graphics, "(Authorised Signature)", 180));
+			graphics.drawString("(Party's Signature)", 550, 382 - getPaddingForCentreAlign(graphics, "(Party's Signature)", 180));
+			graphics.drawString("(Authorised Signature)", 550, 205 - getPaddingForCentreAlign(graphics, "(Authorised Signature)", 180));
 
-			graphics.drawLine(560, 35, 560, 395);
-			graphics.drawLine(450, 215, 560, 215);
+			graphics.drawLine(560, 25, 560, 385);
+			graphics.drawLine(450, 205, 560, 205);
 
 			graphics.setFont(new Font("Nirmala UI", Font.BOLD | Font.ITALIC, 10).deriveFont(affineTransform));
-			graphics.drawString(printInvoice.getFooter().trim(), 570, 392 - getPaddingForCentreAlign(graphics, printInvoice.getFooter(), 354));
+			graphics.drawString(printInvoice.getFooter().trim(), 570, 382 - getPaddingForCentreAlign(graphics, printInvoice.getFooter(), 354));
 
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);

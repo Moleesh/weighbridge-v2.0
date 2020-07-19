@@ -43,16 +43,16 @@ const ReportInvoiceTable = props => {
                     width: thisState.report.filter.address2 ? "" : 0.01
                 },
                 {
-                    key: "timeOfArrival",
-                    name: "Time Of Arrival",
-                    editable: thisState.report.edit,
-                    width: thisState.report.filter.timeOfArrival ? "" : 0.01
-                },
-                {
                     key: "vehicleNo",
                     name: "Vehicle No",
                     editable: thisState.report.edit,
                     width: thisState.report.filter.vehicleNo ? "" : 0.01
+                },
+                {
+                    key: "timeOfArrival",
+                    name: "Time Of Arrival",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.timeOfArrival ? "" : 0.01
                 },
                 {
                     key: "material",

@@ -280,7 +280,11 @@ class App extends Component {
             reprintInvoiceNo: "",
             reference: {
                 referenceSlipNoReference: React.createRef(),
-                customersNameReference: React.createRef(),
+                customersNameReference: {
+                    reference: React.createRef(),
+                    value: [{customerName: ""}],
+                    open: undefined
+                },
                 vehicleNoReference: React.createRef(),
                 materialReference: {
                     reference: React.createRef(),
@@ -341,8 +345,8 @@ class App extends Component {
                     customersName: "Customers Name",
                     address1: "Address Line 1",
                     address2: "Address Line 2",
-                    timeOfArrival: "Time Of Arrival",
                     vehicleNo: "Vehicle No",
+                    timeOfArrival: "Time Of Arrival",
                     material: "Material",
                     unitPrice: "Unit Price",
                     quantity: "Quantity",

@@ -133,7 +133,7 @@ public class PrinterServiceImpl implements PrinterService {
 				printerJob.setPageable(printUtil.printPrePrint(printInvoice));
 				break;
 			case "Standard":
-				printerJob.setPageable(printUtil.printPrePrint(printInvoice));
+				printerJob.setPageable(printUtil.printStandard(printInvoice));
 				break;
 		}
 		try {
@@ -167,6 +167,9 @@ public class PrinterServiceImpl implements PrinterService {
 		switch (printInvoice.getPrintFormat()) {
 			case "Pre Print":
 				book = printUtil.printPrePrint(printInvoice);
+				break;
+			case "Standard":
+				book = printUtil.printStandard(printInvoice);
 				break;
 		}
 		return getBook(book);

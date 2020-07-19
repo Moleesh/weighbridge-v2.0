@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PrintInvoiceReport {
 	private List<Invoice> invoices;
+	private List<String> headers;
 	private String printerName;
 	private String reportTitle;
 	private String weighbridgeName;
@@ -21,6 +22,14 @@ public class PrintInvoiceReport {
 
 	public void setInvoices(List<Invoice> invoices) {
 		this.invoices = invoices;
+	}
+
+	public List<String> getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(List<String> headers) {
+		this.headers = headers;
 	}
 
 	public String getPrinterName() {

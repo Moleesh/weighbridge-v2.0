@@ -1,6 +1,7 @@
 import React from "react";
 import {Col, Form, Row} from "react-bootstrap";
 import Clock from "react-live-clock";
+import {Menu, MenuItem, Typeahead} from "react-bootstrap-typeahead";
 
 import PreviousWeight from './columnOne/previousWeight';
 
@@ -73,7 +74,7 @@ const ColumnOne = props => {
                                         })
                                         .catch(() => {
                                             !thisState.invoices.disable.customersNameDisabled
-                                                ? thisState.invoices.reference.customersNameReference.current.focus()
+                                                ? thisState.invoices.reference.customersNameReference.reference.current.focus()
                                                 : thisState.invoices.reference.address1Reference.current.focus();
                                         });
                                 } else {
@@ -85,7 +86,7 @@ const ColumnOne = props => {
                             if (thisState.invoices.preventVehicleNoFocus) {
                                 thisState.invoices.preventVehicleNoFocus = false;
                                 thisState.setMyState(thisState);
-                                thisState.invoices.reference.customersNameReference.current.focus();
+                                thisState.invoices.reference.customersNameReference.reference.current.focus();
                             }
                         }}
                     />
@@ -105,21 +106,60 @@ const ColumnOne = props => {
                     Customer's Name
                 </Form.Label>
                 <Col sm="6">
-                    <Form.Control
-                        className="text-center"
+                    <Typeahead
+                        highlightOnlyResult
+                        id="customersName"
+                        selectHintOnEnter
+                        filterBy={["customerId", "customerName"]}
+                        labelKey={option => option.customerName}
+                        renderMenu={(results, menuProps) =>
+                            results.length !== 0 ? (
+                                <Menu {...menuProps} key="customersNameMenu">
+                                    {results.map((result, index) => (
+                                        <MenuItem
+                                            option={result}
+                                            position={index}
+                                            key={(result.id ? result.id : -1).toString()}
+                                        >
+                                            {result.customerName}
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            ) : null
+                        }
+                        options={thisState.configuration.driver.list}
+                        maxHeight={"200px"}
+                        selected={thisState.invoices.reference.customersNameReference.value}
                         disabled={thisState.invoices.disable.customersNameDisabled}
-                        ref={thisState.invoices.reference.customersNameReference}
-                        value={thisState.invoice.customersName}
+                        open={thisState.invoices.reference.customersNameReference.open}
                         onChange={event => {
-                            thisState.invoice.customersName = event.target.value;
+                            thisState.invoices.reference.customersNameReference.value =
+                                event.length === 0
+                                    ? [
+                                        {
+                                            customerName: thisState.invoices.reference.customersNameReference.reference.current
+                                                .getInstance()
+                                                .getInput().value
+                                        }
+                                    ]
+                                    : event;
+                            thisState.invoice.customersName = thisState.invoices.reference.customersNameReference.value[0].customerName;
+                            let temp = thisState.configuration.driver.list
+                                .filter((driver) => driver.customerName === thisState.invoice.customersName);
+                            if (temp.length === 1) {
+                                thisState.invoice.address1 = temp[0].address1;
+                                thisState.invoice.address2 = temp[0].address2;
+                            }
                             thisState.setMyState(thisState);
                         }}
+                        ref={thisState.invoices.reference.customersNameReference.reference}
                         onKeyDown={event => {
                             if (event.keyCode === 9 && event.shiftKey)
                                 thisState.invoices.reference.referenceSlipNoReference.current.focus();
-                            else if ((event.keyCode === 13) || (event.keyCode === 9)) {
-                                thisState.invoice.customersName = thisState.invoice.customersName
-                                    .toUpperCase();
+                            else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.invoices.reference.customersNameReference.open = false;
+                                thisState.invoices.reference.customersNameReference.value[0].customerName = thisState.invoices.reference.customersNameReference.value[0].customerName.toUpperCase()
+                                thisState.invoice.customersName = thisState.invoices.reference.customersNameReference.value[0].customerName;
                                 let temp = thisState.configuration.driver.list
                                     .filter((driver) => driver.customerName === thisState.invoice.customersName);
                                 if (temp.length === 1) {
@@ -135,6 +175,10 @@ const ColumnOne = props => {
                                     thisState.invoices.reference.address1Reference.current.focus();
                                 }
                             }
+                        }}
+                        onFocus={() => {
+                            thisState.invoices.reference.customersNameReference.open = undefined;
+                            thisState.setMyState(thisState);
                         }}
                     />
                 </Col>
@@ -155,7 +199,7 @@ const ColumnOne = props => {
                         }}
                         onKeyDown={async event => {
                             if (event.keyCode === 9 && event.shiftKey)
-                                thisState.invoices.reference.customersNameReference.current.focus();
+                                thisState.invoices.reference.customersNameReference.reference.current.focus();
                             else {
                                 if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.invoice.vehicleNo = thisState.invoice.vehicleNo
