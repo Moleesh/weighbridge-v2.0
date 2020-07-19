@@ -118,7 +118,7 @@ public class WeighServiceImpl implements WeighService {
 
 	@Override
 	public void resetWeightByProfile(String slipNo, String profile) {
-		weightDAO.deleteAll();
+		weightDAO.deleteByProfile(profile);
 		settingService.saveSetting(new Setting("slipNo", slipNo, profile));
 	}
 

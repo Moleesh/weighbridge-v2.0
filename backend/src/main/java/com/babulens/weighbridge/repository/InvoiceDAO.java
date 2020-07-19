@@ -23,4 +23,6 @@ public interface InvoiceDAO extends CrudRepository<Invoice, String> {
 	List<Invoice> findAllByMaterialContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(String material, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
 	List<Invoice> findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	Long deleteByProfile(String profile);
 }

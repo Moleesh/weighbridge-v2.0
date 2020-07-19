@@ -113,15 +113,20 @@ const GeneralSettings = props => {
                             Promise.all(
                                 [
                                     fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(resp => resp.json()),
-                                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
+                                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text()),
+                                    fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
                                 ]
-                            ).then(([settings, slipNo]) => {
+                            ).then(([settings, slipNo, invoiceNo]) => {
                                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                                 thisState.settings.value = settings;
                                 thisState.weight.slipNo = slipNo;
                                 if (slipNo === -1) {
                                     thisState.SETTING_DISABLED = true;
                                     thisState.weighing.disable.getWeightDisabled = true;
+                                }
+                                if (invoiceNo === -1) {
+                                    thisState.SETTING_DISABLED = true;
+                                    thisState.invoices.disable.saveDisabled = true;
                                 }
                                 if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerNameForWeighing) === -1) {
                                     thisState.settings.array.availablePrinters.push(thisState.settings.value.printerNameForWeighing);

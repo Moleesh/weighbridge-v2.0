@@ -2,8 +2,10 @@ package com.babulens.weighbridge.serviceImpl;
 
 import com.babulens.weighbridge.model.entity.Profile;
 import com.babulens.weighbridge.repository.ProfileDAO;
+import com.babulens.weighbridge.service.InvoiceService;
 import com.babulens.weighbridge.service.ProfileService;
 import com.babulens.weighbridge.service.SettingService;
+import com.babulens.weighbridge.service.WeighService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,16 +17,17 @@ import java.util.List;
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-	final
-	ProfileDAO profileDAO;
-
-	final
-	SettingService settingService;
+	private final ProfileDAO profileDAO;
+	private final SettingService settingService;
+	private final WeighService weighService;
+	private final InvoiceService invoiceService;
 
 	@Autowired
-	public ProfileServiceImpl(ProfileDAO profileDAO, SettingService settingService) {
+	public ProfileServiceImpl(ProfileDAO profileDAO, SettingService settingService, WeighService weighService, InvoiceService invoiceService) {
 		this.profileDAO = profileDAO;
 		this.settingService = settingService;
+		this.weighService = weighService;
+		this.invoiceService = invoiceService;
 	}
 
 	@Override
@@ -57,6 +60,8 @@ public class ProfileServiceImpl implements ProfileService {
 	public List<String> addUpdateProfile(String profile) {
 		profileDAO.save(new Profile(profile));
 		settingService.saveAllSettingsByProfile(settingService.getAllSettingsByProfile("Standard"), profile, true);
+		weighService.resetWeightByProfile("1", profile);
+		invoiceService.resetInvoiceByProfile("1", profile);
 		return getAllProfiles();
 	}
 }

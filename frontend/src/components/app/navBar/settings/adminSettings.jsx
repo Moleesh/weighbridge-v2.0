@@ -28,12 +28,11 @@ const AdminSettings = props => {
                         size="lg"
                         onClick={() => {
                             thisState.settings.resetSlipNo = 1;
-                            thisState.settings.newProfile = "";
                             thisState.settings.resetSlipNoDialog = true;
                             thisState
                                 .setMyState(thisState)
                                 .then(() =>
-                                    thisState.settings.newProfileReference.current.focus()
+                                    thisState.settings.resetSlipNoReference.current.focus()
                                 );
                         }}
                     >
@@ -41,6 +40,30 @@ const AdminSettings = props => {
                         Reset Slip No
                     </Button>
                     <ResetSlipNo preState={thisState}/>
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    Reset Invoice No
+                </Form.Label>
+                <Col sm="9">
+                    <Button
+                        variant="danger"
+                        size="lg"
+                        onClick={() => {
+                            thisState.settings.resetSlipNo = 1;
+                            thisState.settings.resetSlipNoDialog = true;
+                            thisState
+                                .setMyState(thisState)
+                                .then(() =>
+                                    thisState.settings.resetSlipNoReference.current.focus()
+                                );
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faBackward} className="mr-3"/>
+                        Reset Slip No
+                    </Button>
+                    {/* <ResetSlipNo preState={thisState}/> */}
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>

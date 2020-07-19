@@ -228,6 +228,10 @@ public class ExcelUtilImpl implements ExcelUtil {
 				cell.setCellValue(invoice.getInvoiceTime());
 				cell.setCellStyle(cellStyle);
 			}
+			if (printInvoiceReport.getHeaders().contains("Customer Name")) {
+				cell = row.createCell(col++);
+				cell.setCellValue(invoice.getCustomersName());
+			}
 			if (printInvoiceReport.getHeaders().contains("Address Line 1")) {
 				cell = row.createCell(col++);
 				cell.setCellValue(invoice.getAddress1());

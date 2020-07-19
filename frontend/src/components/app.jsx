@@ -9,7 +9,7 @@ import {css} from "@emotion/core";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 
-const INITIAL_URL = "";
+const INITIAL_URL = ;
 
 class App extends Component {
     state = {
@@ -61,6 +61,7 @@ class App extends Component {
         webcams: [],
         adminSettings: {
             REFRESH_TIME_WEIGHT: "",
+            RESET_INVOICE_PASSWORD: "",
             RESET_SLIP_PASSWORD: "",
             MANUAL_ENTRY_PASSWORD: "",
             EDIT_ENABLE_PASSWORD: ""
@@ -145,6 +146,9 @@ class App extends Component {
             resetSlipNoDialog: false,
             resetSlipNo: 1,
             resetSlipNoPassword: "",
+            resetInvoiceNoDialog: false,
+            resetInvoiceNo: 1,
+            resetInvoiceNoPassword: "",
             manualEntryDialog: false,
             manualEntryPassword: "",
             editEnableDialog: false,
@@ -160,6 +164,9 @@ class App extends Component {
             resetSlipNoReference: React.createRef(),
             resetSlipNoPasswordReference: React.createRef(),
             resetSlipNoButtonReference: React.createRef(),
+            resetInvoiceNoReference: React.createRef(),
+            resetInvoiceNoPasswordReference: React.createRef(),
+            resetInvoiceNoButtonReference: React.createRef(),
             manualEntry: false,
             editEnable: false
         },
@@ -342,7 +349,7 @@ class App extends Component {
                 invoice: {
                     referenceSlipNo: "Reference Slip No",
                     invoiceTime: "Invoice Time",
-                    customersName: "Customers Name",
+                    customersName: "Customer Name",
                     address1: "Address Line 1",
                     address2: "Address Line 2",
                     vehicleNo: "Vehicle No",
@@ -532,7 +539,7 @@ class App extends Component {
                 }
                 if (invoiceNo === -1) {
                     thisState.SETTING_DISABLED = true;
-                    thisState.weighing.disable.saveDisabled = true;
+                    thisState.invoices.disable.saveDisabled = true;
                 }
                 if (thisState.settings.array.availablePrinters.indexOf(thisState.settings.value.printerNameForWeighing) === -1) {
                     thisState.settings.array.availablePrinters.push(thisState.settings.value.printerNameForWeighing);

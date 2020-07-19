@@ -79,7 +79,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public void resetInvoiceByProfile(String invoiceNo, String profile) {
-		invoiceDAO.deleteAll();
+		invoiceDAO.deleteByProfile(profile);
 		settingService.saveSetting(new Setting("invoiceNo", invoiceNo, profile));
 	}
 
