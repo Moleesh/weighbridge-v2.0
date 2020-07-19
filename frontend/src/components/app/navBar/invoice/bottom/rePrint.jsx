@@ -77,7 +77,7 @@ const RePrint = props => {
                                     thisState.invoices.disable.printDisabled = false;
                                     thisState.invoice = result;
                                     thisState.invoices.reference.customersNameReference.value = [
-                                        {material: thisState.invoice.customersName}
+                                        {customerName: thisState.invoice.customersName}
                                     ];
                                     thisState.invoices.reference.materialReference.value = [
                                         {material: thisState.invoice.material}

@@ -98,7 +98,7 @@ const PreviousWeight = props => {
                     onClick={() => {
                         thisState.invoices.previousWeightSelector = false;
                         thisState.invoices.reference.customersNameReference.value = [
-                            {material: thisState.invoices.previousWeightResult.customersName}
+                            {customerName: thisState.invoices.previousWeightResult.customersName}
                         ];
                         thisState.invoice.vehicleNo = thisState.invoices.previousWeightResult.vehicleNo;
                         thisState.invoices.reference.materialReference.value = [
