@@ -4,7 +4,8 @@ WeighBridge V2.0
 ## To Build 
 mvn clean
 
-mvn install -DNODE_SKIP_PLATFORM_CHECK=1
+set NODE_SKIP_PLATFORM_CHECK=1
+mvn install 
 
 mvn validate -D =validate
 
