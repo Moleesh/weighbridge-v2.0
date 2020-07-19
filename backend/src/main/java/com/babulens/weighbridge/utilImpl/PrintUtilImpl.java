@@ -442,7 +442,7 @@ public class PrintUtilImpl implements PrintUtil {
 			graphics.drawLine(450, 205, 560, 205);
 
 			graphics.setFont(new Font("Nirmala UI", Font.BOLD | Font.ITALIC, 10).deriveFont(affineTransform));
-			graphics.drawString(printInvoice.getFooter().trim(), 570, 382 - getPaddingForCentreAlign(graphics, printInvoice.getFooter(), 354));
+			graphics.drawString(printInvoice.getInvoiceFooter().trim(), 570, 382 - getPaddingForCentreAlign(graphics, printInvoice.getInvoiceFooter(), 354));
 
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);

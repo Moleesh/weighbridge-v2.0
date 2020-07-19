@@ -204,6 +204,9 @@ const Bottom = props => {
                                 thisState.invoice.referenceSlipNo = "";
                                 thisState.invoice.invoiceTime = "";
                                 thisState.invoice.customersName = "";
+                                thisState.invoices.reference.customersNameReference.value = [
+                                    {customerName: ""}
+                                ];
                                 thisState.invoice.address1 = "";
                                 thisState.invoice.address2 = "";
                                 thisState.invoice.vehicleNo = "";
@@ -284,6 +287,9 @@ const Bottom = props => {
                                 thisState.invoice.referenceSlipNo = "";
                                 thisState.invoice.invoiceTime = "";
                                 thisState.invoice.customersName = "";
+                                thisState.invoices.reference.customersNameReference.value = [
+                                    {customerName: ""}
+                                ];
                                 thisState.invoice.address1 = "";
                                 thisState.invoice.address2 = "";
                                 thisState.invoice.vehicleNo = "";
