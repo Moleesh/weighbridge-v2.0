@@ -44,7 +44,7 @@ const Configuration = props => {
                                     })
                                     .catch(() => {
                                     });
-                            }}>Driver Details</Nav.Link>
+                            }}>Customer's Details</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="tareWeight" onSelect={() => {
