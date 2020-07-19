@@ -10,7 +10,7 @@ const Drivers = props => {
             <Row className="pb-2">
                 <Col sm="2"/>
                 <Col sm="8" className="pl-3">
-                    <h4 className="text-center font-weight-bold">Driver Details</h4>
+                    <h4 className="text-center font-weight-bold">Customer's Details</h4>
                 </Col>
                 <Col sm="2">
                     <Row className="justify-content-center">
