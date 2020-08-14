@@ -19,9 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import java.awt.BasicStroke;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.font.TextAttribute;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
@@ -31,7 +32,6 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
-import java.text.AttributedString;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -373,28 +373,19 @@ public class PrintUtilImpl implements PrintUtil {
 			graphics.setFont(new Font("Courier New", Font.BOLD, 13).deriveFont(affineTransform));
 			graphics.drawString("GST INVOICE", 118, 382 - getPaddingForCentreAlign(graphics, "GST Invoice", 354));
 
-			AttributedString attributedString = new AttributedString("Invoice No");
-			Font font = new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform);
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-			graphics.drawString(attributedString.getIterator(), 112, 382);
-
 			graphics.setFont(new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform));
+			graphics.drawString("Invoice No", 112, 382);
+
+			graphics.drawLine(115, 382, 115, 333);
+
 			graphics.drawString(printInvoice.getInvoiceIdentifier().trim() + printInvoice.getInvoice().getInvoiceNo(), 122, 382);
 			graphics.drawString("GSTIN: " + printInvoice.getGstin(), 122, 382 - getPaddingForRightAlign(graphics, "GSTIN: " + printInvoice.getGstin().trim(), 354));
 
 			graphics.drawLine(125, 25, 125, 385);
 
-			attributedString = new AttributedString("Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()));
-			font = new Font("Courier New", Font.PLAIN, 8).deriveFont(affineTransform);
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 6, 19);
-			graphics.drawString(attributedString.getIterator(), 135, 380 - getPaddingForRightAlign(graphics, "Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
-
-			attributedString = new AttributedString("Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()));
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 6, 19);
-			graphics.drawString(attributedString.getIterator(), 150, 380 - getPaddingForRightAlign(graphics, "Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
+			graphics.setFont(new Font("Courier New", Font.PLAIN, 8).deriveFont(affineTransform));
+			graphics.drawString("Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()), 135, 380 - getPaddingForRightAlign(graphics, "Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
+			graphics.drawString("Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()), 150, 380 - getPaddingForRightAlign(graphics, "Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()), 354));
 
 			graphics.drawLine(157, 25, 157, 127);
 			graphics.drawLine(125, 127, 157, 127);
@@ -402,30 +393,12 @@ public class PrintUtilImpl implements PrintUtil {
 			graphics.setFont(new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform));
 			graphics.drawString("To,", 135, 375);
 
-			attributedString = new AttributedString("Party Name : " + StringUtils.rightPad(printInvoice.getInvoice().getCustomersName(), 37));
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 150, 375);
-
-			attributedString = new AttributedString("Address    : " + StringUtils.rightPad(printInvoice.getInvoice().getAddress1(), 37));
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 164, 375);
-
-			attributedString = new AttributedString("             " + StringUtils.rightPad(printInvoice.getInvoice().getAddress2(), 37));
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 178, 375);
-
-			attributedString = new AttributedString("Vehicle No : " + StringUtils.rightPad(printInvoice.getInvoice().getVehicleNo(), 37));
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 13, 50);
-			graphics.drawString(attributedString.getIterator(), 192, 375);
-
-			attributedString = new AttributedString("Time Of Arrival(Approx) : " + StringUtils.rightPad(printInvoice.getInvoice().getTimeOfArrival(), 24));
-			attributedString.addAttribute(TextAttribute.FONT, font);
-			attributedString.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED, 26, 50);
-			graphics.drawString(attributedString.getIterator(), 206, 375);
+			graphics.setFont(new Font("Courier New", Font.PLAIN, 8).deriveFont(affineTransform));
+			graphics.drawString("Party Name : " + StringUtils.rightPad(printInvoice.getInvoice().getCustomersName(), 37), 150, 375);
+			graphics.drawString("Address    : " + StringUtils.rightPad(printInvoice.getInvoice().getAddress1(), 37), 164, 375);
+			graphics.drawString("             " + StringUtils.rightPad(printInvoice.getInvoice().getAddress2(), 37), 178, 375);
+			graphics.drawString("Vehicle No : " + StringUtils.rightPad(printInvoice.getInvoice().getVehicleNo(), 37), 192, 375);
+			graphics.drawString("Time Of Arrival(Approx) : " + StringUtils.rightPad(printInvoice.getInvoice().getTimeOfArrival(), 24), 206, 375);
 
 			graphics.drawLine(212, 25, 212, 385);
 
@@ -488,6 +461,17 @@ public class PrintUtilImpl implements PrintUtil {
 
 			graphics.setFont(new Font("Nirmala UI", Font.BOLD | Font.ITALIC, 10).deriveFont(affineTransform));
 			graphics.drawString(printInvoice.getInvoiceFooter().trim(), 570, 382 - getPaddingForCentreAlign(graphics, printInvoice.getInvoiceFooter(), 354));
+
+			((Graphics2D) graphics).setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{1, 2}, 0));
+
+			graphics.drawLine(138, 95, 138, 30);
+			graphics.drawLine(153, 95, 153, 30);
+
+			graphics.drawLine(153, 314, 153, 135);
+			graphics.drawLine(167, 314, 167, 135);
+			graphics.drawLine(181, 314, 181, 135);
+			graphics.drawLine(195, 314, 195, 135);
+			graphics.drawLine(209, 251, 209, 135);
 
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);

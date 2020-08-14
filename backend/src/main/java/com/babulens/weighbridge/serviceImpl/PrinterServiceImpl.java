@@ -157,6 +157,9 @@ public class PrinterServiceImpl implements PrinterService {
 			case "Pre Print":
 				book = printUtil.printPrePrint(printWeight);
 				break;
+			case "Plain Paper":
+				book = printUtil.printPlainPaper(printWeight);
+				break;
 			case "WebCam Print":
 				book = printUtil.printWebCamPrint(printWeight);
 				break;
