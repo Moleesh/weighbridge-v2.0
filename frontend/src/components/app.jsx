@@ -9,7 +9,7 @@ import {css} from "@emotion/core";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 
-const INITIAL_URL = ;
+const INITIAL_URL = "";
 
 class App extends Component {
     state = {
