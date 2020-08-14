@@ -92,7 +92,7 @@ public class PrinterServiceImpl implements PrinterService {
 	@Override
 	@Cacheable(cacheNames = "PrintFormats")
 	public List<String> getAllWeightPrintFormats() {
-		return Arrays.asList("Normal Print", "Pre Print", "WebCam Print");
+		return Arrays.asList("Normal Print", "Pre Print", "Plain Paper", "WebCam Print");
 	}
 
 	@Override
@@ -109,6 +109,9 @@ public class PrinterServiceImpl implements PrinterService {
 				break;
 			case "Pre Print":
 				printerJob.setPageable(printUtil.printPrePrint(printWeight));
+				break;
+			case "Plain Paper":
+				printerJob.setPageable(printUtil.printPlainPaper(printWeight));
 				break;
 			case "WebCam Print":
 				printerJob.setPageable(printUtil.printWebCamPrint(printWeight));

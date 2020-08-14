@@ -10,6 +10,8 @@ import java.awt.print.Book;
 public interface PrintUtil {
 	Book printPrePrint(PrintWeight printWeight);
 
+	Book printPlainPaper(PrintWeight printWeight);
+
 	Book printWebCamPrint(PrintWeight printWeight);
 
 	Book printReport(PrintWeightReport printWeightReport);

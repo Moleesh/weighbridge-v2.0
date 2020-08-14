@@ -9,7 +9,7 @@ import {css} from "@emotion/core";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 
-const INITIAL_URL = "";
+const INITIAL_URL = ;
 
 class App extends Component {
     state = {
@@ -511,7 +511,7 @@ class App extends Component {
             thisState.settings.array.availableInvoicetPrintFormats = invoicePrintFormats;
             thisState.webCam.details = webCamDetails;
             thisState.settings.array.availableWebCams = webCams;
-            let webCamSelect = webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
+            let webCamSelect = webCamDetails.length === 0 ? [] : webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
             thisState.settings.webCamSelect = webCamSelect.length === 0 ? webCams[0].name : webCamSelect[0];
             thisState.settings.array.availableSerialPorts = serialPorts;
             thisState.settings.indicator = indicator;
