@@ -27,8 +27,9 @@ import java.util.logging.Logger;
 @Service
 public class WebCamServiceImpl implements WebCamService {
 
-	final
-	WebCamDetailDAO webCamDetailDAO;
+	private final WebCamDetailDAO webCamDetailDAO;
+	private final boolean dontLog = false;
+
 
 	@Autowired
 	public WebCamServiceImpl(WebCamDetailDAO webCamDetailDAO) {
@@ -138,7 +139,9 @@ public class WebCamServiceImpl implements WebCamService {
 					try {
 						ImageIO.write(webcam.getImage(), "jpeg", outputStream);
 					} catch (NullPointerException | WebcamException | IllegalArgumentException ex1) {
-						Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
+						if (!dontLog) {
+							Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
+						}
 						return null;
 					}
 				} catch (IOException | IllegalArgumentException | RasterFormatException ex) {
@@ -156,7 +159,9 @@ public class WebCamServiceImpl implements WebCamService {
 									"jpeg", outputStream);
 						}
 					} catch (NullPointerException | WebcamException ex1) {
-						Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
+						if (!dontLog) {
+							Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
+						}
 						return null;
 					}
 				} catch (IOException | IllegalArgumentException | RasterFormatException ex) {
