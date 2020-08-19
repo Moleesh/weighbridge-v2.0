@@ -144,6 +144,15 @@ const ResetInvoiceNo = props => {
                                                 thisState.invoice.total = 0;
                                                 thisState.invoices.igstSelector = false;
                                                 thisState.invoices.disablecalculation = false;
+                                                thisState.alerts.push({
+                                                    id: new Date().getTime(),
+                                                    type: "success",
+                                                    headline: "Reset Invoice No",
+                                                    message: "Invoice No Reset Successfully."
+                                                });
+                                                thisState.settings.resetInvoiceNo = 1;
+                                                thisState.settings.resetInvoiceNoPassword = "";
+                                                thisState.settings.resetInvoiceNoDialog = false;
                                                 thisState.setMyState(thisState);
                                             });
                                     } else throw Error(response.statusText);

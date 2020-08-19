@@ -12,6 +12,7 @@ import com.babulens.weighbridge.service.WeighService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
@@ -117,8 +118,9 @@ public class WeighServiceImpl implements WeighService {
 	}
 
 	@Override
+	@Transactional
 	public void resetWeightByProfile(String slipNo, String profile) {
-		weightDAO.deleteAllByProfile(profile);
+		weightDAO.deleteByProfile(profile);
 		settingService.saveSetting(new Setting("slipNo", slipNo, profile));
 	}
 

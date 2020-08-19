@@ -52,12 +52,12 @@ const AdminSettings = props => {
                         variant="danger"
                         size="lg"
                         onClick={() => {
-                            thisState.settings.resetSlipNo = 1;
-                            thisState.settings.resetSlipNoDialog = true;
+                            thisState.settings.resetInvoiceNo = 1;
+                            thisState.settings.resetInvoiceNoDialog = true;
                             thisState
                                 .setMyState(thisState)
                                 .then(() =>
-                                    thisState.settings.resetSlipNoReference.current.focus()
+                                    thisState.settings.resetInvoiceNoReference.current.focus()
                                 );
                         }}
                     >
@@ -251,28 +251,24 @@ const AdminSettings = props => {
                 </Form.Label>
                 <Col sm="9">
                     <Button
-                        variant="info"
+                        variant="secondary"
                         onClick={() => {
-                            fetch(thisState.INITIAL_URL + "/invoice/getInvoiceReportByProfile", {
+                            fetch(thisState.INITIAL_URL + "/cache/clearCache", {
                                 method: "POST",
                                 headers: {"content-type": "application/json"}
                             })
                                 .then(response => {
                                     if (response.status === 200) {
-                                        return response.json();
+                                        return response;
                                     } else throw Error(response.statusText);
                                 })
-                                .then(result => {
-                                    thisState.report.isType = "invoice";
-                                    thisState.report.filter = thisState.report.filters[thisState.report.isType];
-                                    thisState.report.headers[thisState.report.currentHeader] = thisState.report.header;
-                                    thisState.report.header = thisState.report.headers[thisState.report.isType];
-                                    thisState.report.currentHeader = thisState.report.isType;
-                                    thisState.report.list = result.invoices;
-                                    thisState.report.totalRecords = result.totalRecords;
-                                    thisState.report.totalWeight = result.totalQuantity;
-                                    thisState.report.totalCharge = result.totalAmount;
-                                    thisState.report.invoiceSelect = false;
+                                .then(() => {
+                                    thisState.alerts.push({
+                                        id: new Date().getTime(),
+                                        type: "success",
+                                        headline: "Clear Cache",
+                                        message: "Cache Cleared."
+                                    });
                                     thisState.setMyState(thisState);
                                 })
                                 .catch(() => {
@@ -280,7 +276,7 @@ const AdminSettings = props => {
                         }}
 
                     >
-
+                        Clear Cache
                     </Button>
                 </Col>
             </Form.Group>

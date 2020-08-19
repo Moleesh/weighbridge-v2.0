@@ -27,6 +27,6 @@ public interface WeightDAO extends CrudRepository<Weight, String> {
 
 	Weight findFirstBySlipNoAndProfileOrderBySlipNoDesc(int slipNo, String profile);
 
-	Long deleteAllByProfile(String profile);
+	Long deleteByProfile(String profile);
 
 }
