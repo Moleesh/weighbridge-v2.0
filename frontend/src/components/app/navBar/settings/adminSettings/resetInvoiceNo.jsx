@@ -100,9 +100,11 @@ const ResetInvoiceNo = props => {
                                                 return -1;
                                             })
                                             .then(result => {
-                                                thisState.invoices.disable.igstSelector = false;
+                                                thisState.invoice.dummy = false;
+                                                thisState.invoices.disable.selector = false;
                                                 thisState.invoices.disable.referenceSlipNoDisabled = false;
                                                 thisState.invoices.disable.customersNameDisabled = false;
+                                                thisState.invoices.disable.gstinDisabled = false;
                                                 thisState.invoices.disable.vehicleNoDisabled = false;
                                                 thisState.invoices.disable.materialDisabled = false;
                                                 thisState.invoices.disable.unitPriceDisabled = false;

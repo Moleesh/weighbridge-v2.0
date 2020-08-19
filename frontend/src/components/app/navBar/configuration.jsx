@@ -2,7 +2,7 @@ import React from "react";
 import {Col, Nav, Row, Tab} from "react-bootstrap";
 
 import Material from "./configuration/material";
-import Drivers from "./configuration/drivers";
+import Customer from "./configuration/customer";
 import TareWeight from "./configuration/tareWeight";
 
 const Configuration = props => {
@@ -31,15 +31,15 @@ const Configuration = props => {
                             >Materials</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="drivers" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/driver/getAllDrivers")
+                            <Nav.Link eventKey="customers" onSelect={() => {
+                                fetch(thisState.INITIAL_URL + "/customer/getAllCustomers")
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
                                         } else throw Error(response.statusText);
                                     })
                                     .then(result => {
-                                        thisState.configuration.driver.list = result;
+                                        thisState.configuration.customer.list = result;
                                         thisState.setMyState(thisState);
                                     })
                                     .catch(() => {
@@ -69,8 +69,8 @@ const Configuration = props => {
                         <Tab.Pane eventKey="material">
                             <Material preState={thisState} key="material"/>
                         </Tab.Pane>
-                        <Tab.Pane eventKey="drivers">
-                            <Drivers preState={thisState} key="drivers"/>
+                        <Tab.Pane eventKey="customers">
+                            <Customer preState={thisState} key="customers"/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="tareWeight">
                             <TareWeight preState={thisState} key="tareWeight"/>

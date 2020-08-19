@@ -9,11 +9,13 @@ public interface InvoiceService {
 
 	Invoice saveInvoice(Invoice invoice);
 
-	Invoice getInvoiceByInvoiceNoAndProfile(int invoiceNo, String profile);
+	Invoice getInvoiceByInvoiceNoAndProfile(boolean dummy, int invoiceNo, String profile);
 
-	PrintInvoiceReport getInvoiceReportByProfile(Date startDate, Date endDate, String inputLabel, String input, String profile);
+	PrintInvoiceReport getInvoiceReportByProfile(Date startDate, Date endDate, String inputLabel, String input, String dummy, String profile);
 
 	void resetInvoiceByProfile(String invoiceNo, String profile);
 
 	Invoice updateInvoice(Invoice invoice);
+
+	boolean checkDummyByProfile(int invoiceNo, String profile);
 }

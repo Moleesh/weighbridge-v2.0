@@ -12,6 +12,7 @@ public class GetReport {
 	private Date endDate;
 	private String inputLabel;
 	private String input;
+	private String dummy;
 	private String profile;
 
 	public GetReport() {
@@ -22,6 +23,15 @@ public class GetReport {
 		this.endDate = endDate;
 		this.inputLabel = inputLabel;
 		this.input = input;
+		this.profile = profile;
+	}
+
+	public GetReport(Date startDate, Date endDate, String inputLabel, String input, String dummy, String profile) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.inputLabel = inputLabel;
+		this.input = input;
+		this.dummy = dummy;
 		this.profile = profile;
 	}
 
@@ -55,6 +65,14 @@ public class GetReport {
 
 	public void setInput(String input) {
 		this.input = input;
+	}
+
+	public String getDummy() {
+		return dummy;
+	}
+
+	public void setDummy(String dummy) {
+		this.dummy = dummy;
 	}
 
 	public String getProfile() {

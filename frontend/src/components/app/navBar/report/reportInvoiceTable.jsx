@@ -31,6 +31,12 @@ const ReportInvoiceTable = props => {
                     width: thisState.report.filter.customersName ? "" : 0.01
                 },
                 {
+                    key: "gstin",
+                    name: "GSTIN",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.gstin ? "" : 0.01
+                },
+                {
                     key: "address1",
                     name: "Address Line 1",
                     editable: thisState.report.edit,

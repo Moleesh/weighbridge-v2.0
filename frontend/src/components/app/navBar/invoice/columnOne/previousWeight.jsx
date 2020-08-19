@@ -8,7 +8,7 @@ const PreviousWeight = props => {
             show={thisState.invoices.previousWeightSelector}
             onHide={() => {
                 thisState.invoices.previousWeightSelector = false;
-                thisState.invoices.preventVehicleNoFocus = true;
+                thisState.invoices.preventFocus = true;
                 thisState.setMyState(thisState);
             }}
             size="lg"
@@ -39,6 +39,15 @@ const PreviousWeight = props => {
                         : <b>{thisState.invoices.previousWeightResult.customersName}</b>
                     </Col>
                 </Row>
+                {thisState.invoices.previousWeightResult.gstin ?
+                    <Row>
+                        <Col className="my-2  ml-5" sm="4">
+                            GSTIN
+                        </Col>
+                        <Col className="my-2">
+                            : <b>{thisState.invoices.previousWeightResult.gstin}</b>
+                        </Col>
+                    </Row> : ""}
                 {thisState.invoices.previousWeightResult.address1 ?
                     <Row>
                         <Col className="my-2  ml-5" sm="4">
@@ -105,13 +114,16 @@ const PreviousWeight = props => {
                             {material: thisState.invoices.previousWeightResult.material}
                         ];
                         thisState.invoice.quantity = thisState.invoices.previousWeightResult.nettWeight;
-                        thisState.invoices.preventVehicleNoFocus = true;
+                        thisState.invoices.preventFocus = true;
                         thisState.invoices.disable.vehicleNoDisabled = true;
                         thisState.invoices.disable.materialDisabled = true;
                         thisState.invoices.disable.quantityDisabled = true;
                         if (thisState.invoices.previousWeightResult.unitPrice) {
                             thisState.invoice.unitPrice = thisState.invoices.previousWeightResult.unitPrice;
                             thisState.invoices.disable.unitPriceDisabled = true;
+                        }
+                        if (thisState.invoices.previousWeightResult.gstin) {
+                            thisState.invoice.gstin = thisState.invoices.previousWeightResult.gstin;
                         }
                         if (thisState.invoices.previousWeightResult.address1) {
                             thisState.invoice.address1 = thisState.invoices.previousWeightResult.address1;

@@ -5,7 +5,7 @@ import com.babulens.weighbridge.model.PrintInvoice;
 import com.babulens.weighbridge.model.PrintInvoiceReport;
 import com.babulens.weighbridge.model.PrintWeight;
 import com.babulens.weighbridge.model.PrintWeightReport;
-import com.babulens.weighbridge.model.entity.Driver;
+import com.babulens.weighbridge.model.entity.Customer;
 import com.babulens.weighbridge.model.entity.Invoice;
 import com.babulens.weighbridge.model.entity.Material;
 import com.babulens.weighbridge.model.entity.SerialPortDetail;
@@ -13,7 +13,7 @@ import com.babulens.weighbridge.model.entity.TareWeight;
 import com.babulens.weighbridge.model.entity.WebCamDetail;
 import com.babulens.weighbridge.model.entity.Weight;
 import com.babulens.weighbridge.service.AdminSettingService;
-import com.babulens.weighbridge.service.DriverService;
+import com.babulens.weighbridge.service.CustomerService;
 import com.babulens.weighbridge.service.InvoiceService;
 import com.babulens.weighbridge.service.MaterialService;
 import com.babulens.weighbridge.service.PrinterService;
@@ -45,7 +45,7 @@ class Controller {
 	private final WeighService weighService;
 	private final InvoiceService invoiceService;
 	private final MaterialService materialService;
-	private final DriverService driverService;
+	private final CustomerService customerService;
 	private final TareWeightService tareWeightService;
 	private final SettingService settingService;
 	private final PrinterService printerService;
@@ -55,14 +55,14 @@ class Controller {
 	private final ExcelUtil excelUtil;
 
 	@Autowired
-	public Controller(WeighService weighService, InvoiceService invoiceService, MaterialService materialService, DriverService driverService,
+	public Controller(WeighService weighService, InvoiceService invoiceService, MaterialService materialService, CustomerService customerService,
 	                  TareWeightService tareWeightService, SettingService settingService, PrinterService printerService,
 	                  SerialPortService serialPortService, WebCamService webCamService, ProfileService profileService,
 	                  AdminSettingService adminSettingService, ExcelUtil excelUtil) {
 		this.weighService = weighService;
 		this.materialService = materialService;
 		this.invoiceService = invoiceService;
-		this.driverService = driverService;
+		this.customerService = customerService;
 		this.tareWeightService = tareWeightService;
 		this.settingService = settingService;
 		this.printerService = printerService;
@@ -84,7 +84,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/profile/setMyPrimaryProfile", method = {RequestMethod.PATCH})
-	public void setMyPrimaryProfile(@RequestParam("profile") String profile) {
+	public void setMyPrimaryProfile(@RequestParam String profile) {
 		profileService.setMyPrimaryProfile(profile);
 	}
 
@@ -94,7 +94,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/profile/addUpdateProfile", method = {RequestMethod.PATCH})
-	public List<String> addUpdateProfile(@RequestParam("profile") String profile) {
+	public List<String> addUpdateProfile(@RequestParam String profile) {
 		return profileService.addUpdateProfile(profile);
 	}
 
@@ -158,18 +158,23 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/setting/getAllSettingsByProfile", method = {RequestMethod.GET})
-	public Map<String, String> getAllSettingsByProfile(@RequestParam("profile") String profile) {
+	public Map<String, String> getAllSettingsByProfile(@RequestParam String profile) {
 		return settingService.getAllSettingsByProfile(profile);
 	}
 
 	@RequestMapping(value = "/setting/getNextSlipNoByProfile", method = {RequestMethod.GET})
-	public int getNextSlipNoByProfile(@RequestParam("profile") String profile) {
+	public int getNextSlipNoByProfile(@RequestParam String profile) {
 		return Integer.parseInt(settingService.getSettingByProfile("slipNo", profile));
 	}
 
 	@RequestMapping(value = "/setting/getNextInvoiceNoByProfile", method = {RequestMethod.GET})
-	public int getNextInvoiceNoByProfile(@RequestParam("profile") String profile) {
+	public int getNextInvoiceNoByProfile(@RequestParam String profile) {
 		return Integer.parseInt(settingService.getSettingByProfile("invoiceNo", profile));
+	}
+
+	@RequestMapping(value = "/setting/getNextDummyInvoiceNoByProfile", method = {RequestMethod.GET})
+	public int getNextDummyInvoiceNoByProfile(@RequestParam String profile) {
+		return Integer.parseInt(settingService.getSettingByProfile("dummyInvoiceNo", profile));
 	}
 
 	@RequestMapping(value = "/setting/saveAllSettingsByProfile", method = {RequestMethod.PUT})
@@ -188,23 +193,23 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/material/deleteMaterial", method = {RequestMethod.DELETE})
-	public void deleteMaterial(@RequestParam("id") int id) {
+	public void deleteMaterial(@RequestParam int id) {
 		materialService.deleteMaterial(id);
 	}
 
-	@RequestMapping(value = "/driver/getAllDrivers", method = {RequestMethod.GET})
-	public List<Driver> getAllDrivers() {
-		return driverService.getAllDrivers();
+	@RequestMapping(value = "/customer/getAllCustomers", method = {RequestMethod.GET})
+	public List<Customer> getAllCustomers() {
+		return customerService.getAllCustomers();
 	}
 
-	@RequestMapping(value = "/driver/addUpdateDriver", method = {RequestMethod.POST, RequestMethod.PUT})
-	public Driver addUpdateDriver(@RequestBody Driver driver) {
-		return driverService.addUpdateDriver(driver);
+	@RequestMapping(value = "/customer/addUpdateCustomer", method = {RequestMethod.POST, RequestMethod.PUT})
+	public Customer addUpdateCustomer(@RequestBody Customer customer) {
+		return customerService.addUpdateCustomer(customer);
 	}
 
-	@RequestMapping(value = "/driver/deleteDriver", method = {RequestMethod.DELETE})
-	public void deleteDriver(@RequestParam("id") int id) {
-		driverService.deleteDriver(id);
+	@RequestMapping(value = "/customer/deleteCustomer", method = {RequestMethod.DELETE})
+	public void deleteCustomer(@RequestParam int id) {
+		customerService.deleteCustomer(id);
 	}
 
 	@RequestMapping(value = "/tareWeight/getAllTareWeights", method = {RequestMethod.GET})
@@ -213,7 +218,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/tareWeight/getTareWeightByVehicleNo", method = {RequestMethod.GET})
-	public TareWeight getTareWeightByVehicleNo(@RequestParam("vehicleNo") String vehicleNo) {
+	public TareWeight getTareWeightByVehicleNo(@RequestParam String vehicleNo) {
 		return tareWeightService.getTareWeightByVehicleNo(vehicleNo);
 	}
 
@@ -223,7 +228,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/tareWeight/deleteTareWeight", method = {RequestMethod.DELETE})
-	public void deleteTareWeight(@RequestParam("vehicleNo") String vehicleNo) {
+	public void deleteTareWeight(@RequestParam String vehicleNo) {
 		tareWeightService.deleteTareWeight(vehicleNo);
 	}
 
@@ -234,7 +239,7 @@ class Controller {
 
 	@RequestMapping(value = "/webCam/getWebCamImage", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody
-	byte[] getImage(@RequestParam("webcam") String webcam, @RequestParam("fullSize") boolean fullSize) {
+	byte[] getImage(@RequestParam String webcam, @RequestParam boolean fullSize) {
 		return webCamService.getWebCamImage(webcam, fullSize);
 	}
 
@@ -244,7 +249,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/webCam/settingUpWebCam", method = {RequestMethod.GET})
-	public void settingUpWebCam(@RequestParam("webcam") String webcam) {
+	public void settingUpWebCam(@RequestParam String webcam) {
 		webCamService.settingUpWebCam(webcam);
 	}
 
@@ -269,8 +274,7 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/serialPort/settingUpSerialPort", method = {RequestMethod.GET})
-	public void settingUpSerialPort(@RequestParam("serialPort") String serialPort,
-	                                @RequestParam("setDataListener") Boolean setDataListener) {
+	public void settingUpSerialPort(@RequestParam String serialPort, @RequestParam Boolean setDataListener) {
 		serialPortService.settingUpSerialPort(serialPort, setDataListener);
 	}
 
@@ -295,13 +299,12 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/weight/getGrossWeightByVehicleNoAndProfile", method = {RequestMethod.GET})
-	public TareWeight getGrossWeightByVehicleNoAndProfile(@RequestParam("vehicleNo") String vehicleNo,
-	                                                      @RequestParam("profile") String profile) {
+	public TareWeight getGrossWeightByVehicleNoAndProfile(@RequestParam String vehicleNo, @RequestParam String profile) {
 		return weighService.getGrossWeightByVehicleNoAndProfile(vehicleNo, profile);
 	}
 
 	@RequestMapping(value = "/weight/getWeightBySlipNoAndProfile")
-	public Weight getWeightBySlipNoAndProfile(@RequestParam("slipNo") int slipNo, @RequestParam String profile) {
+	public Weight getWeightBySlipNoAndProfile(@RequestParam int slipNo, @RequestParam String profile) {
 		return weighService.getWeightBySlipNoAndProfile(slipNo, profile);
 	}
 
@@ -316,6 +319,11 @@ class Controller {
 		weighService.resetWeightByProfile(slipNo, profile);
 	}
 
+	@RequestMapping(value = "/invoice/checkDummyByProfile", method = {RequestMethod.GET})
+	public boolean checkDummyByProfile(@RequestParam int invoiceNo, @RequestParam String profile) {
+		return invoiceService.checkDummyByProfile(invoiceNo, profile);
+	}
+
 	@RequestMapping(value = "/invoice/saveInvoice", method = {RequestMethod.POST})
 	public Invoice saveInvoice(@RequestBody Invoice invoice) {
 		return invoiceService.saveInvoice(invoice);
@@ -327,14 +335,13 @@ class Controller {
 	}
 
 	@RequestMapping(value = "/invoice/getInvoiceByInvoiceNoAndProfile")
-	public Invoice getInvoiceByInvoiceNoAndProfile(@RequestParam("invoiceNo") int invoiceNo, @RequestParam String profile) {
-		return invoiceService.getInvoiceByInvoiceNoAndProfile(invoiceNo, profile);
+	public Invoice getInvoiceByInvoiceNoAndProfile(@RequestParam boolean dummy, @RequestParam int invoiceNo, @RequestParam String profile) {
+		return invoiceService.getInvoiceByInvoiceNoAndProfile(dummy, invoiceNo, profile);
 	}
 
 	@RequestMapping(value = "/invoice/getInvoiceReportByProfile", method = {RequestMethod.POST})
 	public PrintInvoiceReport getInvoiceReportByProfile(@RequestBody GetReport getReport) {
-		return invoiceService.getInvoiceReportByProfile(getReport.getStartDate(), getReport.getEndDate(),
-				getReport.getInputLabel(), getReport.getInput(), getReport.getProfile());
+		return invoiceService.getInvoiceReportByProfile(getReport.getStartDate(), getReport.getEndDate(), getReport.getInputLabel(), getReport.getInput(), getReport.getDummy(), getReport.getProfile());
 	}
 
 	@RequestMapping(value = "/invoice/resetInvoiceByProfile", method = {RequestMethod.GET})

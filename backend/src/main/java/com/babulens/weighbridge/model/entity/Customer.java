@@ -7,22 +7,24 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Driver {
+public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String customerId;
+	private String gstin;
 	private String vehicleNo;
 	private String customerName;
 	private String transporterName;
 	private String address1;
 	private String address2;
 
-	public Driver() {
+	public Customer() {
 	}
 
-	public Driver(String customerId, String vehicleNo, String customerName, String transporterName, String address1, String address2) {
+	public Customer(String customerId, String gstin, String vehicleNo, String customerName, String transporterName, String address1, String address2) {
 		this.customerId = customerId;
+		this.gstin = gstin;
 		this.vehicleNo = vehicleNo;
 		this.customerName = customerName;
 		this.transporterName = transporterName;
@@ -44,6 +46,14 @@ public class Driver {
 
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getGstin() {
+		return gstin;
+	}
+
+	public void setGstin(String gstin) {
+		this.gstin = gstin;
 	}
 
 	public String getVehicleNo() {
@@ -91,10 +101,10 @@ public class Driver {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof Driver)) {
+		if (!(o instanceof Customer)) {
 			return false;
 		}
-		Driver that = (Driver) o;
+		Customer that = (Customer) o;
 		return getId() == that.getId();
 	}
 

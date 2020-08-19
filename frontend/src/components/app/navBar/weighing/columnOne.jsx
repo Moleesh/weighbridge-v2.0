@@ -105,8 +105,8 @@ const ColumnOne = props => {
                             }
                         }}
                         onFocus={() => {
-                            if (thisState.weighing.preventVehicleNoFocus) {
-                                thisState.weighing.preventVehicleNoFocus = false;
+                            if (thisState.weighing.preventFocus) {
+                                thisState.weighing.preventFocus = false;
                                 thisState.setMyState(thisState);
                                 !thisState.weighing.disable.materialDisabled
                                     ? thisState.weighing.reference.materialReference.reference.current.focus()

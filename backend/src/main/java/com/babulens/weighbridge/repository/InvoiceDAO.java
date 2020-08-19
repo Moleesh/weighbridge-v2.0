@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface InvoiceDAO extends CrudRepository<Invoice, String> {
 
-	Invoice findFirstByInvoiceNoAndProfileOrderByInvoiceNoDesc(int invoiceNo, String profile);
+	Invoice findFirstByDummyAndInvoiceNoAndProfileOrderByInvoiceNoDesc(boolean dummy, int invoiceNo, String profile);
 
 	List<Invoice> findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(int invoiceNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
@@ -24,5 +24,33 @@ public interface InvoiceDAO extends CrudRepository<Invoice, String> {
 
 	List<Invoice> findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(Date startInvoiceTime, Date endInvoiceTime, String profile);
 
+	List<Invoice> findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyTrueAndProfileOrderByInvoiceNoAsc(int invoiceNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyTrueAndProfileOrderByInvoiceNoAsc(int referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyTrueAndProfileOrderByInvoiceNoAsc(String customersName, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByVehicleNoContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyTrueAndProfileOrderByInvoiceNoAsc(String vehicleNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByMaterialContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyTrueAndProfileOrderByInvoiceNoAsc(String material, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyTrueAndProfileOrderByInvoiceNoAsc(Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyFalseAndProfileOrderByInvoiceNoAsc(int invoiceNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyFalseAndProfileOrderByInvoiceNoAsc(int referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyFalseAndProfileOrderByInvoiceNoAsc(String customersName, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByVehicleNoContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyFalseAndProfileOrderByInvoiceNoAsc(String vehicleNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByMaterialContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyFalseAndProfileOrderByInvoiceNoAsc(String material, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyFalseAndProfileOrderByInvoiceNoAsc(Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+
 	Long deleteByProfile(String profile);
+
+	Invoice findFirstByInvoiceNoAndProfileAndDummyTrue(int invoiceNo, String profile);
+
 }

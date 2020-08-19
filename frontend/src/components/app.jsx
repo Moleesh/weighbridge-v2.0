@@ -41,6 +41,7 @@ class App extends Component {
             referenceSlipNo: "",
             invoiceTime: "",
             customersName: "",
+            gstin: "",
             address1: "",
             address2: "",
             timeOfArrival: "",
@@ -56,6 +57,7 @@ class App extends Component {
             sgst: 0,
             igst: 0,
             total: 0,
+            dummy: false,
             profile: "Standard"
         },
         webcams: [],
@@ -73,6 +75,8 @@ class App extends Component {
         settings: {
             value: {
                 slipNo: -1,
+                invoiceNo: 1,
+                dummyInvoiceNo: 1,
                 weighbridgeName: "",
                 weighbridgeAddress: "",
                 contacts: "",
@@ -179,9 +183,10 @@ class App extends Component {
                 editable: true,
                 unlock: false
             },
-            driver: {
+            customer: {
                 header: [
                     "Customer Id",
+                    "GSTIN",
                     "Vehicle No",
                     "Customer's Name",
                     "Transporter's Name",
@@ -191,6 +196,7 @@ class App extends Component {
                 filterText: "",
                 template: {
                     customerId: "",
+                    gstin: "",
                     vehicleNo: "",
                     customerName: "",
                     transporterName: "",
@@ -225,7 +231,7 @@ class App extends Component {
             previousWeightSelector: false,
             previousWeight: "",
             previousWeightResult: "",
-            preventVehicleNoFocus: false,
+            preventFocus: false,
             grossSelector: true,
             tareSelector: false,
             reprint: false,
@@ -278,10 +284,13 @@ class App extends Component {
             }
         },
         invoices: {
+            dummy: false,
             disablecalculation: false,
             previousWeightSelector: false,
-            preventVehicleNoFocus: false,
+            preventFocus: false,
             igstSelector: false,
+            dummySelectorDialog: false,
+            dummyInvoiceNo: "",
             previousWeightResult: {},
             reprint: false,
             reprintInvoiceNo: "",
@@ -292,12 +301,14 @@ class App extends Component {
                     value: [{customerName: ""}],
                     open: undefined
                 },
+                gstinReference: React.createRef(),
                 vehicleNoReference: React.createRef(),
                 materialReference: {
                     reference: React.createRef(),
                     value: [{material: ""}],
                     open: undefined
                 },
+                dummyInvoiceNoReference: React.createRef(),
                 unitPriceReference: React.createRef(),
                 quantityReference: React.createRef(),
                 address1Reference: React.createRef(),
@@ -310,9 +321,10 @@ class App extends Component {
                 rePrintButtonReference: React.createRef()
             },
             disable: {
-                igstSelector: false,
+                selector: false,
                 referenceSlipNoDisabled: false,
                 customersNameDisabled: false,
+                gstinDisabled: false,
                 vehicleNoDisabled: false,
                 materialDisabled: false,
                 unitPriceDisabled: false,
@@ -328,6 +340,7 @@ class App extends Component {
             type: "weight",
             isType: "weight",
             currentHeader: "weight",
+            reportTitle: "",
             pdfURL: "",
             filterText: "",
             headers: {
@@ -350,6 +363,7 @@ class App extends Component {
                     referenceSlipNo: "Reference Slip No",
                     invoiceTime: "Invoice Time",
                     customersName: "Customer Name",
+                    gstin: "GSTIN",
                     address1: "Address Line 1",
                     address2: "Address Line 2",
                     vehicleNo: "Vehicle No",
@@ -403,6 +417,7 @@ class App extends Component {
                     referenceSlipNo: false,
                     invoiceTime: true,
                     customersName: true,
+                    gstin: false,
                     address1: false,
                     address2: false,
                     timeOfArrival: false,
@@ -452,7 +467,10 @@ class App extends Component {
             totalRecords: 0,
             totalWeight: 0,
             totalCharge: 0,
-            edit: false
+            edit: false,
+            dummy: "all",
+            invoiceSelect: false,
+            getReport: React.createRef()
         },
         alerts: []
     };
@@ -499,10 +517,10 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=indicator").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=display").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/material/getAllMaterials").then(resp => resp.json()),
-                fetch(thisState.INITIAL_URL + "/driver/getAllDrivers").then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/customer/getAllCustomers").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(resp => resp.json())
             ]
-        ).then(([adminSettings, profile, profiles, printers, weightPrintFormats, invoicePrintFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, drivers, tareWeights]) => {
+        ).then(([adminSettings, profile, profiles, printers, weightPrintFormats, invoicePrintFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, customers, tareWeights]) => {
             thisState.adminSettings = adminSettings;
             thisState.PROFILE = profile;
             thisState.profiles = profiles;
@@ -517,7 +535,7 @@ class App extends Component {
             thisState.settings.indicator = indicator;
             thisState.settings.display = display;
             thisState.configuration.material.list = materials;
-            thisState.configuration.driver.list = drivers;
+            thisState.configuration.customer.list = customers;
             thisState.configuration.tareWeight.list = tareWeights;
             Promise.all(
                 [

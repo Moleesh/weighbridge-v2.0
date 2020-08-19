@@ -29,15 +29,15 @@ const ColumnThree = props => {
                                 }}
                                 onKeyDown={event => {
                                     if ((event.keyCode === 13) || (event.keyCode === 9)) {
-                                        let driver = thisState.configuration.driver.list.filter(
+                                        let customer = thisState.configuration.customer.list.filter(
                                             item =>
                                                 parseInt(item.customerId) ===
                                                 parseInt(thisState.weighing.customersId)
                                         )[0];
-                                        if (driver !== undefined) {
-                                            thisState.weight.transporterName = driver.transporterName;
-                                            thisState.weight.vehicleNo = driver.vehicleNo;
-                                            thisState.weight.customersName = driver.customerName;
+                                        if (customer !== undefined) {
+                                            thisState.weight.transporterName = customer.transporterName;
+                                            thisState.weight.vehicleNo = customer.vehicleNo;
+                                            thisState.weight.customersName = customer.customerName;
                                         } else {
                                             thisState.weight.transporterName = "";
                                             thisState.weight.vehicleNo = "";

@@ -47,14 +47,14 @@ const NavBar = props => {
                             })
                             .catch(() => {
                             });
-                        fetch(thisState.INITIAL_URL + "/driver/getAllDrivers")
+                        fetch(thisState.INITIAL_URL + "/customer/getAllCustomers")
                             .then(response => {
                                 if (response.status === 200) {
                                     return response.json();
                                 } else throw Error(response.statusText);
                             })
                             .then(result => {
-                                thisState.configuration.driver.list = result;
+                                thisState.configuration.customer.list = result;
                                 thisState.setMyState(thisState);
                             })
                             .catch(() => {

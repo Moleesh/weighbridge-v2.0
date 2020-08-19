@@ -16,6 +16,7 @@ public class Invoice {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date invoiceTime;
 	private String customersName;
+	private String gstin;
 	private String address1;
 	private String address2;
 	private String vehicleNo;
@@ -31,16 +32,18 @@ public class Invoice {
 	private double sgst;
 	private double igst;
 	private long total;
+	private boolean dummy;
 	private String profile;
 
 	public Invoice() {
 	}
 
-	public Invoice(int invoiceNo, String referenceSlipNo, Date invoiceTime, String customersName, String address1, String address2, String vehicleNo, String material, String timeOfArrival, double unitPrice, long quantity, double amount, double _cgst, double _sgst, double _igst, double cgst, double sgst, double igst, long total, String profile) {
+	public Invoice(int invoiceNo, String referenceSlipNo, Date invoiceTime, String customersName, String gstin, String address1, String address2, String vehicleNo, String material, String timeOfArrival, double unitPrice, long quantity, double amount, double _cgst, double _sgst, double _igst, double cgst, double sgst, double igst, long total, boolean dummy, String profile) {
 		this.invoiceNo = invoiceNo;
 		this.referenceSlipNo = referenceSlipNo;
 		this.invoiceTime = invoiceTime;
 		this.customersName = customersName;
+		this.gstin = gstin;
 		this.address1 = address1;
 		this.address2 = address2;
 		this.vehicleNo = vehicleNo;
@@ -56,6 +59,7 @@ public class Invoice {
 		this.sgst = sgst;
 		this.igst = igst;
 		this.total = total;
+		this.dummy = dummy;
 		this.profile = profile;
 	}
 
@@ -97,6 +101,14 @@ public class Invoice {
 
 	public void setCustomersName(String customersName) {
 		this.customersName = customersName;
+	}
+
+	public String getGstin() {
+		return gstin;
+	}
+
+	public void setGstin(String gstin) {
+		this.gstin = gstin;
 	}
 
 	public String getAddress1() {
@@ -217,6 +229,14 @@ public class Invoice {
 
 	public void setTotal(long total) {
 		this.total = total;
+	}
+
+	public boolean isDummy() {
+		return dummy;
+	}
+
+	public void setDummy(boolean dummy) {
+		this.dummy = dummy;
 	}
 
 	public String getProfile() {

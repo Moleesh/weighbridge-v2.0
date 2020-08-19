@@ -62,9 +62,10 @@ const ColumnOne = props => {
                                             if (temp.length === 1) {
                                                 result.unitPrice = temp[0].unitPrice;
                                             }
-                                            temp = thisState.configuration.driver.list
-                                                .filter((driver) => driver.customerName === result.customersName);
+                                            temp = thisState.configuration.customer.list
+                                                .filter((customer) => customer.customerName === result.customersName);
                                             if (temp.length === 1) {
+                                                result.gstin = temp[0].gstin;
                                                 result.address1 = temp[0].address1;
                                                 result.address2 = temp[0].address2;
                                             }
@@ -75,16 +76,18 @@ const ColumnOne = props => {
                                         .catch(() => {
                                             !thisState.invoices.disable.customersNameDisabled
                                                 ? thisState.invoices.reference.customersNameReference.reference.current.focus()
-                                                : thisState.invoices.reference.address1Reference.current.focus();
+                                                : thisState.invoices.reference.gstinReference.current.focus();
                                         });
                                 } else {
-                                    thisState.invoices.reference.previousWeightReference.current.focus();
+                                    !thisState.invoices.disable.customersNameDisabled
+                                        ? thisState.invoices.reference.customersNameReference.reference.current.focus()
+                                        : thisState.invoices.reference.gstinReference.current.focus();
                                 }
                             }
                         }}
                         onFocus={() => {
-                            if (thisState.invoices.preventVehicleNoFocus) {
-                                thisState.invoices.preventVehicleNoFocus = false;
+                            if (thisState.invoices.preventFocus) {
+                                thisState.invoices.preventFocus = false;
                                 thisState.setMyState(thisState);
                                 thisState.invoices.reference.customersNameReference.reference.current.focus();
                             }
@@ -127,7 +130,7 @@ const ColumnOne = props => {
                                 </Menu>
                             ) : null
                         }
-                        options={thisState.configuration.driver.list}
+                        options={thisState.configuration.customer.list}
                         maxHeight={"200px"}
                         selected={thisState.invoices.reference.customersNameReference.value}
                         disabled={thisState.invoices.disable.customersNameDisabled}
@@ -144,9 +147,10 @@ const ColumnOne = props => {
                                     ]
                                     : event;
                             thisState.invoice.customersName = thisState.invoices.reference.customersNameReference.value[0].customerName;
-                            let temp = thisState.configuration.driver.list
-                                .filter((driver) => driver.customerName === thisState.invoice.customersName);
+                            let temp = thisState.configuration.customer.list
+                                .filter((customer) => customer.customerName === thisState.invoice.customersName);
                             if (temp.length === 1) {
+                                thisState.invoice.gstin = temp[0].gstin;
                                 thisState.invoice.address1 = temp[0].address1;
                                 thisState.invoice.address2 = temp[0].address2;
                             }
@@ -160,25 +164,56 @@ const ColumnOne = props => {
                                 thisState.invoices.reference.customersNameReference.open = false;
                                 thisState.invoices.reference.customersNameReference.value[0].customerName = thisState.invoices.reference.customersNameReference.value[0].customerName.toUpperCase()
                                 thisState.invoice.customersName = thisState.invoices.reference.customersNameReference.value[0].customerName;
-                                let temp = thisState.configuration.driver.list
-                                    .filter((driver) => driver.customerName === thisState.invoice.customersName);
+                                let temp = thisState.configuration.customer.list
+                                    .filter((customer) => customer.customerName === thisState.invoice.customersName);
                                 if (temp.length === 1) {
+                                    thisState.invoice.gstin = temp[0].gstin;
                                     thisState.invoice.address1 = temp[0].address1;
                                     thisState.invoice.address2 = temp[0].address2;
                                 }
                                 thisState.setMyState(thisState);
-                                if (!thisState.invoices.disable.vehicleNoDisabled) {
-                                    thisState.invoices.reference.vehicleNoReference.current.focus();
-                                } else if (!thisState.invoices.disable.unitPriceDisabled) {
-                                    thisState.invoices.reference.unitPriceReference.current.focus();
-                                } else {
-                                    thisState.invoices.reference.address1Reference.current.focus();
-                                }
+                                thisState.invoices.reference.gstinReference.current.focus();
                             }
                         }}
                         onFocus={() => {
-                            thisState.invoices.reference.customersNameReference.open = undefined;
+                            // thisState.invoices.reference.customersNameReference.open = undefined;
                             thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="6">
+                    GSTIN
+                </Form.Label>
+                <Col sm="6">
+                    <Form.Control
+                        className="text-center"
+                        disabled={thisState.invoices.disable.gstinDisabled}
+                        value={thisState.invoice.gstin}
+                        ref={thisState.invoices.reference.gstinReference}
+                        onChange={event => {
+                            thisState.invoice.gstin = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                        onKeyDown={async event => {
+                            if (event.keyCode === 9 && event.shiftKey)
+                                thisState.invoices.reference.customersNameReference.reference.current.focus();
+                            else {
+                                if (event.keyCode === 13 || event.keyCode === 9) {
+                                    thisState.invoice.gstin = thisState.invoice.gstin
+                                        .toUpperCase()
+                                        .replace(" ", "");
+                                    thisState.setMyState(thisState);
+                                    if (!thisState.invoices.disable.vehicleNoDisabled) {
+                                        thisState.invoices.reference.vehicleNoReference.current.focus();
+                                    } else if (!thisState.invoices.disable.unitPriceDisabled) {
+                                        thisState.invoices.reference.unitPriceReference.current.focus();
+                                    } else {
+                                        thisState.invoices.reference.address1Reference.current.focus();
+                                    }
+                                }
+                            }
                         }}
                     />
                 </Col>
@@ -199,7 +234,7 @@ const ColumnOne = props => {
                         }}
                         onKeyDown={async event => {
                             if (event.keyCode === 9 && event.shiftKey)
-                                thisState.invoices.reference.customersNameReference.reference.current.focus();
+                                thisState.invoices.reference.gstinReference.current.focus();
                             else {
                                 if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.invoice.vehicleNo = thisState.invoice.vehicleNo

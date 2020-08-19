@@ -8,7 +8,7 @@ const PreviousWeight = props => {
             show={thisState.weighing.previousWeightSelector}
             onHide={() => {
                 thisState.weighing.previousWeightSelector = false;
-                thisState.weighing.preventVehicleNoFocus = true;
+                thisState.weighing.preventFocus = true;
                 thisState.setMyState(thisState);
             }}
             size="lg"
@@ -53,7 +53,7 @@ const PreviousWeight = props => {
                             thisState.weight.tareWeight = thisState.weighing.previousWeightResult.tareWeight;
                             thisState.weight.tareTime = thisState.weighing.previousWeightResult.tareTime;
                         }
-                        thisState.weighing.preventVehicleNoFocus = true;
+                        thisState.weighing.preventFocus = true;
                         thisState.setMyState(thisState);
                     }}
                     ref={thisState.weighing.reference.previousWeightReference}
@@ -64,7 +64,7 @@ const PreviousWeight = props => {
                     variant="secondary"
                     onClick={() => {
                         thisState.weighing.previousWeightSelector = false;
-                        thisState.weighing.preventVehicleNoFocus = true;
+                        thisState.weighing.preventFocus = true;
                         thisState.setMyState(thisState);
                     }}
                 >

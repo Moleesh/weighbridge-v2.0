@@ -33,6 +33,10 @@ SELECT 'Standard_invoiceNo', 'invoiceNo', 'Standard', 1
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'invoiceNo' AND PROFILE like 'Standard');
 INSERT INTO SETTING
+SELECT 'Standard_dummyInvoiceNo', 'dummyInvoiceNo', 'Standard', 1
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'dummyInvoiceNo' AND PROFILE like 'Standard');
+INSERT INTO SETTING
 SELECT 'Standard_weighbridgeName', 'weighbridgeName', 'Standard', 'Babulens Enterprises'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'weighbridgeName' AND PROFILE like 'Standard');

@@ -158,7 +158,7 @@ const ColumnTwo = props => {
                                 if (!thisState.invoices.disable.quantityDisabled) {
                                     thisState.invoices.reference.quantityReference.current.focus();
                                 } else {
-                                    thisState.invoices.reference.customersNameReference.reference.current.focus();
+                                    thisState.invoices.reference.gstinReference.current.focus();
                                 }
                             } else if ((event.keyCode === 13) || (event.keyCode === 9)) {
                                 thisState.invoice.address1 = thisState.invoice.address1

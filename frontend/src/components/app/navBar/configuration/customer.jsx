@@ -3,7 +3,7 @@ import {Button, Col, Form, Row, Table} from "react-bootstrap";
 
 import Toggle from "react-bootstrap-toggle";
 
-const Drivers = props => {
+const Customer = props => {
     let thisState = props.preState;
     return (
         <Form className="justify-content-center ">
@@ -16,14 +16,14 @@ const Drivers = props => {
                     <Row className="justify-content-center">
                         <Toggle
                             onClick={() => {
-                                thisState.configuration.driver.unlock = !thisState.configuration.driver.unlock;
+                                thisState.configuration.customer.unlock = !thisState.configuration.customer.unlock;
                                 thisState.setMyState(thisState);
                             }}
                             on="ON"
                             off="OFF"
                             size="lg"
                             offstyle="danger"
-                            active={thisState.configuration.driver.unlock}
+                            active={thisState.configuration.customer.unlock}
                             recalculateOnResize={true}
                             disabled={thisState.SETTING_DISABLED}
                         />
@@ -34,26 +34,26 @@ const Drivers = props => {
                 <Form.Control
                     className="text-center form-control"
                     type="text"
-                    placeholder="Search in driver list..."
-                    value={thisState.configuration.driver.filterText}
+                    placeholder="Search in customer list..."
+                    value={thisState.configuration.customer.filterText}
                     onChange={event => {
-                        thisState.configuration.driver.filterText = event.target.value;
+                        thisState.configuration.customer.filterText = event.target.value;
                         thisState.setMyState(thisState);
                     }}
                 />
             </Form.Group>
-            {thisState.configuration.driver.unlock ? (
+            {thisState.configuration.customer.unlock ? (
                 <Form.Row>
-                    {Object.keys(thisState.configuration.driver.template).map(key => (
+                    {Object.keys(thisState.configuration.customer.template).map(key => (
                         <Col className="pb-2" key={key}>
                             <Form.Control
                                 className="text-center form-control"
                                 type="text"
                                 name={key}
                                 autoComplete="none"
-                                value={thisState.configuration.driver.template[key]}
+                                value={thisState.configuration.customer.template[key]}
                                 onChange={event => {
-                                    thisState.configuration.driver.template[key] =
+                                    thisState.configuration.customer.template[key] =
                                         event.target.value;
                                     thisState.setMyState(thisState);
                                 }}
@@ -66,18 +66,18 @@ const Drivers = props => {
                             type="button"
                             onClick={() => {
                                 let send = true;
-                                Object.values(thisState.configuration.driver.template).map(
+                                Object.values(thisState.configuration.customer.template).map(
                                     value => {
                                         if (value === "") send = false;
                                         return null;
                                     }
                                 );
                                 if (send) {
-                                    fetch(thisState.INITIAL_URL + "/driver/addUpdateDriver", {
+                                    fetch(thisState.INITIAL_URL + "/customer/addUpdateCustomer", {
                                         method: "PUT",
                                         body: JSON.stringify(
                                             {
-                                                ...thisState.configuration.driver.template,
+                                                ...thisState.configuration.customer.template,
                                                 profile: thisState.PROFILE
                                             }
                                         ),
@@ -89,12 +89,12 @@ const Drivers = props => {
                                             } else throw Error(response.statusText);
                                         })
                                         .then(result => {
-                                            Object.keys(thisState.configuration.driver.template).map(
+                                            Object.keys(thisState.configuration.customer.template).map(
                                                 key =>
-                                                    (thisState.configuration.driver.template[key] = "")
+                                                    (thisState.configuration.customer.template[key] = "")
                                             );
                                             thisState.setMyState(thisState).then(() => {
-                                                thisState.configuration.driver.list.push(result);
+                                                thisState.configuration.customer.list.push(result);
 
                                                 thisState.setMyState(thisState);
                                             });
@@ -106,7 +106,7 @@ const Drivers = props => {
                                         id: new Date().getTime(),
                                         type: "danger",
                                         headline: "Empty fields",
-                                        message: "Found empty fields while adding driver details"
+                                        message: "Found empty fields while adding customer details"
                                     });
                                     thisState.setMyState(thisState);
                                 }
@@ -123,21 +123,21 @@ const Drivers = props => {
             <Table hover size="sm">
                 <thead>
                 <tr>
-                    {thisState.configuration.driver.header.map(item => (
+                    {thisState.configuration.customer.header.map(item => (
                         <th key={item} className="centre">
                             {item}
                         </th>
                     ))}
-                    {thisState.configuration.driver.unlock ? <th/> : null}
+                    {thisState.configuration.customer.unlock ? <th/> : null}
                 </tr>
                 </thead>
                 <tbody>
-                {thisState.configuration.driver.list.map((item, index) => (
+                {thisState.configuration.customer.list.map((item, index) => (
                     <tr key={index} className="eachRow">
                         {Object.values(item)
                             .toString()
                             .replace(",", ".")
-                            .indexOf(thisState.configuration.driver.filterText) ===
+                            .indexOf(thisState.configuration.customer.filterText) ===
                         -1 ? null : (
                             <React.Fragment>
                                 {Object.keys(item)
@@ -150,15 +150,15 @@ const Drivers = props => {
                                                     className="text-center form-control reportInputs"
                                                     disabled={
                                                         !(
-                                                            thisState.configuration.driver.unlock &&
-                                                            thisState.configuration.driver.editable
+                                                            thisState.configuration.customer.unlock &&
+                                                            thisState.configuration.customer.editable
                                                         )
                                                     }
                                                     type="text"
                                                     name={key}
                                                     value={item[key] !== null ? item[key] : ""}
                                                     onChange={event => {
-                                                        thisState.configuration.driver.list[index][key] =
+                                                        thisState.configuration.customer.list[index][key] =
                                                             event.target.value;
                                                         thisState.setMyState(thisState);
                                                     }}
@@ -166,10 +166,10 @@ const Drivers = props => {
                                             </Col>
                                         </td>
                                     ))}
-                                {thisState.configuration.driver.unlock ? (
+                                {thisState.configuration.customer.unlock ? (
                                     <td>
                                         <Row>
-                                            {thisState.configuration.driver.editable ? (
+                                            {thisState.configuration.customer.editable ? (
                                                 <Col>
                                                     <Button
                                                         block
@@ -177,11 +177,11 @@ const Drivers = props => {
                                                         variant="warning"
                                                         onClick={() => {
                                                             fetch(
-                                                                thisState.INITIAL_URL + "/driver/addUpdateDriver",
+                                                                thisState.INITIAL_URL + "/customer/addUpdateCustomer",
                                                                 {
                                                                     method: "PUT",
                                                                     body: JSON.stringify(
-                                                                        thisState.configuration.driver.list[index]
+                                                                        thisState.configuration.customer.list[index]
                                                                     ),
                                                                     headers: {
                                                                         "content-type": "application/json"
@@ -213,15 +213,15 @@ const Drivers = props => {
                                                     onClick={() => {
                                                         fetch(
                                                             thisState.INITIAL_URL +
-                                                            "/driver/deleteDriver?id=" +
-                                                            thisState.configuration.driver.list[index].id,
+                                                            "/customer/deleteCustomer?id=" +
+                                                            thisState.configuration.customer.list[index].id,
                                                             {
                                                                 method: "DELETE"
                                                             }
                                                         )
                                                             .then(response => {
                                                                 if (response.status === 200) {
-                                                                    thisState.configuration.driver.list.splice(
+                                                                    thisState.configuration.customer.list.splice(
                                                                         index,
                                                                         1
                                                                     );
@@ -248,4 +248,4 @@ const Drivers = props => {
     );
 };
 
-export default Drivers;
+export default Customer;

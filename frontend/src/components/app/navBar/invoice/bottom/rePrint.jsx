@@ -16,7 +16,7 @@ const RePrint = props => {
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Reprint </Modal.Title>
+                <Modal.Title id="contained-modal-title-vcenter">Reprint</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form.Group as={Row}>
@@ -45,6 +45,20 @@ const RePrint = props => {
                         />
                     </Col>
                 </Form.Group>
+                <Row>
+                    <Col sm="7"></Col>
+                    <Form.Group>
+                        <Form.Check
+                            type="checkbox"
+                            label="Dummy Invoice"
+                            value={thisState.invoices.dummy}
+                            onChange={event => {
+                                thisState.invoices.dummy = event.target.checked;
+                                thisState.setMyState(thisState);
+                            }}
+                        />
+                    </Form.Group>
+                </Row>
             </Modal.Body>
             <Modal.Footer>
                 <Button
@@ -53,7 +67,7 @@ const RePrint = props => {
                         if (thisState.invoices.reprintSlipNo !== "") {
                             fetch(
                                 thisState.INITIAL_URL +
-                                "/invoice/getInvoiceByInvoiceNoAndProfile?profile=" + thisState.PROFILE + "&invoiceNo=" +
+                                "/invoice/getInvoiceByInvoiceNoAndProfile?dummy=" + thisState.invoices.dummy + "&profile=" + thisState.PROFILE + "&invoiceNo=" +
                                 thisState.invoices.reprintSlipNo
                             )
                                 .then(response => {
@@ -63,7 +77,7 @@ const RePrint = props => {
                                 })
                                 .then(result => {
                                     thisState.invoices.reprint = false;
-                                    thisState.invoices.disable.igstSelector = true;
+                                    thisState.invoices.disable.selector = true;
                                     thisState.invoices.disable.referenceSlipNoDisabled = true;
                                     thisState.invoices.disable.customersNameDisabled = true;
                                     thisState.invoices.disable.vehicleNoDisabled = true;

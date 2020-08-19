@@ -34,9 +34,10 @@ const Bottom = props => {
                                 })
                                 .then(result => {
                                     thisState.invoice = result;
-                                    thisState.invoices.disable.igstSelector = true;
+                                    thisState.invoices.disable.selector = true;
                                     thisState.invoices.disable.referenceSlipNoDisabled = true;
                                     thisState.invoices.disable.customersNameDisabled = true;
+                                    thisState.invoices.disable.gstinDisabled = true;
                                     thisState.invoices.disable.vehicleNoDisabled = true;
                                     thisState.invoices.disable.materialDisabled = true;
                                     thisState.invoices.disable.unitPriceDisabled = true;
@@ -183,9 +184,11 @@ const Bottom = props => {
                                 return -1;
                             })
                             .then(result => {
-                                thisState.invoices.disable.igstSelector = false;
+                                thisState.invoice.dummy = false;
+                                thisState.invoices.disable.selector = false;
                                 thisState.invoices.disable.referenceSlipNoDisabled = false;
                                 thisState.invoices.disable.customersNameDisabled = false;
+                                thisState.invoices.disable.gstinDisabled = false;
                                 thisState.invoices.disable.vehicleNoDisabled = false;
                                 thisState.invoices.disable.materialDisabled = false;
                                 thisState.invoices.disable.unitPriceDisabled = false;
@@ -204,6 +207,7 @@ const Bottom = props => {
                                 thisState.invoice.referenceSlipNo = "";
                                 thisState.invoice.invoiceTime = "";
                                 thisState.invoice.customersName = "";
+                                thisState.invoice.gstin = "";
                                 thisState.invoices.reference.customersNameReference.value = [
                                     {customerName: ""}
                                 ];
@@ -267,9 +271,11 @@ const Bottom = props => {
                                 return -1;
                             })
                             .then(result => {
-                                thisState.invoices.disable.igstSelector = false;
+                                thisState.invoice.dummy = false;
+                                thisState.invoices.disable.selector = false;
                                 thisState.invoices.disable.referenceSlipNoDisabled = false;
                                 thisState.invoices.disable.customersNameDisabled = false;
+                                thisState.invoices.disable.gstinDisabled = false;
                                 thisState.invoices.disable.vehicleNoDisabled = false;
                                 thisState.invoices.disable.materialDisabled = false;
                                 thisState.invoices.disable.unitPriceDisabled = false;
@@ -287,6 +293,7 @@ const Bottom = props => {
                                 thisState.invoice.referenceSlipNo = "";
                                 thisState.invoice.invoiceTime = "";
                                 thisState.invoice.customersName = "";
+                                thisState.invoice.gstin = "";
                                 thisState.invoices.reference.customersNameReference.value = [
                                     {customerName: ""}
                                 ];
