@@ -419,7 +419,7 @@ const Report = props => {
                                                 break;
                                             case "invoice":
                                                 thisState.report.invoiceSelect = true;
-                                                thisState.report.dummy = "all";
+                                                thisState.report.dummy = "both";
                                                 thisState.setMyState(thisState);
                                                 break;
                                             default:

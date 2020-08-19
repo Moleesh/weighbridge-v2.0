@@ -235,6 +235,10 @@ public class Invoice {
 		return dummy;
 	}
 
+	public String getDummy() {
+		return Boolean.toString(dummy);
+	}
+
 	public void setDummy(boolean dummy) {
 		this.dummy = dummy;
 	}

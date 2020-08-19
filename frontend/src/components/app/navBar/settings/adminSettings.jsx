@@ -6,6 +6,7 @@ import {faBackward} from "@fortawesome/free-solid-svg-icons";
 import Toggle from "react-bootstrap-toggle";
 
 import ResetSlipNo from "./adminSettings/resetSlipNo";
+import ResetInvoiceNo from "./adminSettings/resetInvoiceNo";
 import ManualEntry from "./adminSettings/manualEntry"
 import EditEnable from "./adminSettings/editEnable"
 
@@ -61,9 +62,9 @@ const AdminSettings = props => {
                         }}
                     >
                         <FontAwesomeIcon icon={faBackward} className="mr-3"/>
-                        Reset Slip No
+                        Reset Invoice No
                     </Button>
-                    {/* <ResetSlipNo preState={thisState}/> */}
+                    <ResetInvoiceNo preState={thisState}/>
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -242,6 +243,45 @@ const AdminSettings = props => {
                         active={thisState.settings.value.automation}
                         recalculateOnResize={true}
                     />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
+                    Clear All Cache
+                </Form.Label>
+                <Col sm="9">
+                    <Button
+                        variant="info"
+                        onClick={() => {
+                            fetch(thisState.INITIAL_URL + "/invoice/getInvoiceReportByProfile", {
+                                method: "POST",
+                                headers: {"content-type": "application/json"}
+                            })
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        return response.json();
+                                    } else throw Error(response.statusText);
+                                })
+                                .then(result => {
+                                    thisState.report.isType = "invoice";
+                                    thisState.report.filter = thisState.report.filters[thisState.report.isType];
+                                    thisState.report.headers[thisState.report.currentHeader] = thisState.report.header;
+                                    thisState.report.header = thisState.report.headers[thisState.report.isType];
+                                    thisState.report.currentHeader = thisState.report.isType;
+                                    thisState.report.list = result.invoices;
+                                    thisState.report.totalRecords = result.totalRecords;
+                                    thisState.report.totalWeight = result.totalQuantity;
+                                    thisState.report.totalCharge = result.totalAmount;
+                                    thisState.report.invoiceSelect = false;
+                                    thisState.setMyState(thisState);
+                                })
+                                .catch(() => {
+                                });
+                        }}
+
+                    >
+
+                    </Button>
                 </Col>
             </Form.Group>
         </Form>

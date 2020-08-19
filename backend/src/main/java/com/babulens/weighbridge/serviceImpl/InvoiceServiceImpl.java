@@ -58,7 +58,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		int totalAmount = 0;
 		switch (inputLabel) {
 			case "invoice":
-				switch (inputLabel) {
+				switch (dummy) {
 					case "Invoice No":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyFalseAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input), startInvoiceTime, endInvoiceTime, profile));
 						break;

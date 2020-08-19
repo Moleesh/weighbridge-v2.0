@@ -84,6 +84,9 @@ public class WebCamServiceImpl implements WebCamService {
 				webcams.add(webcam.getName() + " " + "[0*0]");
 			}
 		}
+		if (webcams.size() == 0) {
+			webcams.add("dummy " + "[0*0]");
+		}
 		return webcams;
 	}
 

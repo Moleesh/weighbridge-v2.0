@@ -127,6 +127,7 @@ const ReportInvoiceTable = props => {
                     editable: thisState.report.edit,
                     width: thisState.report.filter.total ? "" : 0.01
                 },
+                {key: "dummy", name: "Dummy", width: thisState.report.filter.dummy ? "" : 0.01},
                 {key: "profile", name: "Profile", width: 0.01},
                 {key: "invoiceNo", name: "Invoice No", width: 100}
             ]}

@@ -161,10 +161,7 @@ const Settings = props => {
                                         });
                                     });
                             }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
-                            thisState.primaryWebCamImage =
-                                thisState.INITIAL_URL +
-                                "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" +
-                                Math.random();
+                            thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
                             thisState.alerts.push({
                                 id: new Date().getTime(),
                                 type: "success",

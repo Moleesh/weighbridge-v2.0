@@ -378,7 +378,8 @@ class App extends Component {
                     sgst: "SGST",
                     _igst: "IGST %",
                     igst: "IGST",
-                    total: "Total"
+                    total: "Total",
+                    dummy: "Dummy"
                 }
             },
             header: {
@@ -432,7 +433,8 @@ class App extends Component {
                     sgst: true,
                     _igst: false,
                     igst: true,
-                    total: true
+                    total: true,
+                    dummy: false
                 }
             },
             filter: {
@@ -528,6 +530,7 @@ class App extends Component {
             thisState.settings.array.availableWeightPrintFormats = weightPrintFormats;
             thisState.settings.array.availableInvoicetPrintFormats = invoicePrintFormats;
             thisState.webCam.details = webCamDetails;
+            webCams = webCams.length === 0 ? ["dummy [0*0]"] : webCams;
             thisState.settings.array.availableWebCams = webCams;
             let webCamSelect = webCamDetails.length === 0 ? [] : webCams.filter(webCam => webCam.startsWith(webCamDetails[0].name + " ["));
             thisState.settings.webCamSelect = webCamSelect.length === 0 ? webCams[0].name : webCamSelect[0];
