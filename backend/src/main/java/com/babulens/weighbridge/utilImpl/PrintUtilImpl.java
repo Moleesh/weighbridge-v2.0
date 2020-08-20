@@ -123,31 +123,32 @@ public class PrintUtilImpl implements PrintUtil {
 			final String format2 = " %1$-18s: %2$-30s\n";
 			final String format3 = "     %1$-9s: %2$s";
 			final String format4 = " %1$-13s: %2$-15s%3$-12s: %4$-20s\n";
-			int len = 53;
+			int len = 38;
+			int margin = 60;
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 20));
-			drawString(graphics, StringUtils.center(printWeight.getWeighbridgeName(), 39), 35, 38);
+			drawString(graphics, StringUtils.center(printWeight.getWeighbridgeName(), 39), margin, len);
 
 			graphics.setFont(new Font("Courier New", Font.ITALIC, 12));
-			drawString(graphics, StringUtils.center(printWeight.getWeighbridgeAddress(), 65), 35, len = len + 14);
+			drawString(graphics, StringUtils.center(printWeight.getWeighbridgeAddress(), 65), margin, len = len + 29);
 
 			graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-			drawString(graphics, "-----------------------------------------------------------------", 35, len = len + 14);
-			drawString(graphics, String.format(format4, "Sl.No", printWeight.getWeight().getSlipNo(), "Date & Time", DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a").format(printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")))), 35, len = len + 14);
-			drawString(graphics, String.format(format2, "Customer's Name", printWeight.getWeight().getCustomersName()), 35, len = len + 14);
+			drawString(graphics, "-----------------------------------------------------------------", margin, len = len + 14);
+			drawString(graphics, String.format(format4, "Sl.No", printWeight.getWeight().getSlipNo(), "Date & Time", DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a").format(printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")))), margin, len = len + 14);
+			drawString(graphics, String.format(format2, "Customer's Name", printWeight.getWeight().getCustomersName()), margin, len = len + 14);
 			if (!printWeight.getWeight().getTransporterName().trim().equals("")) {
-				drawString(graphics, String.format(format2, "Transpoter's Name", printWeight.getWeight().getTransporterName()), 35, len = len + 14);
+				drawString(graphics, String.format(format2, "Transpoter's Name", printWeight.getWeight().getTransporterName()), margin, len = len + 14);
 			}
-			drawString(graphics, String.format(format4, "Vehicle No", printWeight.getWeight().getVehicleNo(), "Material", printWeight.getWeight().getMaterial()), 35, len = len + 14);
-			drawString(graphics, "-----------------------------------------------------------------", 35, len = len + 14);
-			drawString(graphics, String.format(format1, "Gross Wt", StringUtils.leftPad(printWeight.getWeight().getGrossWeight() + "", 7, " "), printWeight.getWeight().getGrossTime() == null ? "" : DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a").format(printWeight.getWeight().getGrossTime().toInstant().atZone(ZoneId.of("UTC")))), 35, len = len + 14);
-			drawString(graphics, String.format(format1, "Tare Wt", StringUtils.leftPad(printWeight.getWeight().getTareWeight() + "", 7, " "), printWeight.getWeight().getTareTime() == null ? "" : DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a").format(printWeight.getWeight().getTareTime().toInstant().atZone(ZoneId.of("UTC")))), 35, len = len + 14);
-			drawString(graphics, String.format(format1, "Net Wt", StringUtils.leftPad(printWeight.getWeight().getNettWeight() + "", 7, " "), printWeight.getWeight().getCharges() == 0 ? "" : "Charges : Rs. " + (int) printWeight.getWeight().getCharges()), 35, len = len + 14);
-			drawString(graphics, String.format(format3, "Remarks", printWeight.getWeight().getRemarks()), 35, len = len + 14);
-			drawString(graphics, "-----------------------------------------------------------------", 35, len = len + 14);
+			drawString(graphics, String.format(format4, "Vehicle No", printWeight.getWeight().getVehicleNo(), "Material", printWeight.getWeight().getMaterial()), margin, len = len + 14);
+			drawString(graphics, "-----------------------------------------------------------------", margin, len = len + 14);
+			drawString(graphics, String.format(format1, "Gross Wt", StringUtils.leftPad(printWeight.getWeight().getGrossWeight() + "", 7, " "), printWeight.getWeight().getGrossTime() == null ? "" : DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a").format(printWeight.getWeight().getGrossTime().toInstant().atZone(ZoneId.of("UTC")))), margin, len = len + 14);
+			drawString(graphics, String.format(format1, "Tare Wt", StringUtils.leftPad(printWeight.getWeight().getTareWeight() + "", 7, " "), printWeight.getWeight().getTareTime() == null ? "" : DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a").format(printWeight.getWeight().getTareTime().toInstant().atZone(ZoneId.of("UTC")))), margin, len = len + 14);
+			drawString(graphics, String.format(format1, "Net Wt", StringUtils.leftPad(printWeight.getWeight().getNettWeight() + "", 7, " "), printWeight.getWeight().getCharges() == 0 ? "" : "Charges : Rs. " + (int) printWeight.getWeight().getCharges()), margin, len = len + 14);
+			drawString(graphics, String.format(format3, "Remarks", printWeight.getWeight().getRemarks()), margin, len = len + 14);
+			drawString(graphics, "-----------------------------------------------------------------", margin, len = len + 14);
 
 			graphics.setFont(new Font("Courier New", Font.ITALIC, 12));
-			drawString(graphics, StringUtils.rightPad(printWeight.getFooter(), 50, " ") + "Signature", 35, len + 14);
+			drawString(graphics, StringUtils.rightPad(printWeight.getFooter(), 50, " ") + "Signature", margin, len + 14);
 
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);

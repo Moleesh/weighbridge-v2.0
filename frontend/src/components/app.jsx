@@ -186,9 +186,9 @@ class App extends Component {
             customer: {
                 header: [
                     "Customer Id",
-                    "GSTIN",
                     "Vehicle No",
                     "Customer's Name",
+                    "GSTIN",
                     "Transporter's Name",
                     "Adreess line 1",
                     "Adreess line 2"
@@ -196,9 +196,9 @@ class App extends Component {
                 filterText: "",
                 template: {
                     customerId: "",
-                    gstin: "",
                     vehicleNo: "",
                     customerName: "",
+                    gstin: "",
                     transporterName: "",
                     address1: "",
                     address2: ""
