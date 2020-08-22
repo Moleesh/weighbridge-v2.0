@@ -31,7 +31,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public synchronized Invoice saveInvoice(Invoice invoice) {
 		if (invoice.getInvoiceNo() != -1) {
 			if (invoice.isDummy()) {
-				invoice.setInvoiceNo(Integer.parseInt(settingService.getSettingByProfile("invoiceNo", invoice.getProfile())));
 				invoice.setId(invoice.getProfile() + "_DUMMY_" + invoice.getInvoiceNo());
 				invoiceDAO.save(invoice);
 				if (Integer.parseInt(settingService.getSettingByProfile("dummyInvoiceNo", invoice.getProfile())) < invoice.getInvoiceNo()) {

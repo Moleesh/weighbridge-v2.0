@@ -176,7 +176,7 @@ const ColumnOne = props => {
                             }
                         }}
                         onFocus={() => {
-                            // thisState.invoices.reference.customersNameReference.open = undefined;
+                            thisState.invoices.reference.customersNameReference.open = undefined;
                             thisState.setMyState(thisState);
                         }}
                     />

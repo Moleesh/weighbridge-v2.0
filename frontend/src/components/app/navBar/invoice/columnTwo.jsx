@@ -103,7 +103,7 @@ const ColumnTwo = props => {
                             if (event.keyCode === 9 && event.shiftKey)
                                 thisState.invoices.reference.materialReference.reference.current.focus();
                             else if ((event.keyCode === 13) || (event.keyCode === 9)) {
-                                thisState.invoices.reference.quantityReference.current.focus();
+                                thisState.invoices.disable.quantityDisabled ? thisState.invoices.reference.address1Reference.current.focus() : thisState.invoices.reference.quantityReference.current.focus();
                             }
                         }}
                     />

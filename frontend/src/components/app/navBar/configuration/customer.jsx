@@ -140,10 +140,9 @@ const Customer = props => {
                             .indexOf(thisState.configuration.customer.filterText) ===
                         -1 ? null : (
                             <React.Fragment>
-                                {Object.keys(item)
-                                    .filter(key => key !== "id" && key !== "profile")
+                                {Object.keys(thisState.configuration.customer.template)
                                     .map(key => (
-                                        <td key={key + "_" + item["id"]}>
+                                        <td key={key + "_" + item[key]}>
                                             <Col>
                                                 <Form.Control
                                                     autoComplete="none"
