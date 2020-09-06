@@ -240,6 +240,7 @@ class App extends Component {
             grossSelector: true,
             tareSelector: false,
             reprint: false,
+            print: false,
             tareDetails: false,
             tareDetailsDate: moment().format("DD-MM-YYYY HH:mm:ss"),
             grossDetails: false,
@@ -268,7 +269,8 @@ class App extends Component {
                 rePrintFieldReference: React.createRef(),
                 rePrintButtonReference: React.createRef(),
                 customersIdReference: React.createRef(),
-                materialIdReference: React.createRef()
+                materialIdReference: React.createRef(),
+                printDialogReference: React.createRef()
             },
             disable: {
                 grossSelectorDisabled: false,
@@ -297,6 +299,7 @@ class App extends Component {
             dummySelectorDialog: false,
             dummyInvoiceNo: "",
             previousWeightResult: {},
+            print: false,
             reprint: false,
             reprintInvoiceNo: "",
             reference: {
@@ -323,7 +326,8 @@ class App extends Component {
                 printReference: React.createRef(),
                 previousWeightReference: React.createRef(),
                 rePrintFieldReference: React.createRef(),
-                rePrintButtonReference: React.createRef()
+                rePrintButtonReference: React.createRef(),
+                printDialogReference: React.createRef()
             },
             disable: {
                 selector: false,

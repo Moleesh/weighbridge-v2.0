@@ -1,9 +1,9 @@
 import React from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import moment from "moment";
-import FileSaver from "file-saver";
 
 import RePrint from "./bottom/rePrint";
+import Print from "./bottom/print";
 
 const Bottom = props => {
     let thisState = props.preState;
@@ -127,11 +127,9 @@ const Bottom = props => {
                     onClick={() => {
                         thisState.weighing.reprint = true;
                         thisState.weighing.reprintSlipNo = "";
-                        thisState
-                            .setMyState(thisState)
-                            .then(() =>
-                                thisState.weighing.reference.rePrintFieldReference.current.focus()
-                            );
+                        thisState.setMyState(thisState).then(() =>
+                            thisState.weighing.reference.rePrintFieldReference.current.focus()
+                        );
                     }}
                     onKeyPress={event => {
                         if (prevent) {
@@ -155,109 +153,10 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        if (thisState.settings.value.printerNameForWeighing === "get as .pdf File") {
-                            fetch(thisState.INITIAL_URL + "/printer/getPrintWeightPDF", {
-                                method: "POST",
-                                body: JSON.stringify({
-                                    weight: thisState.weight,
-                                    printerName: thisState.settings.value.printerNameForWeighing,
-                                    noOfCopies: thisState.settings.value.noOfCopiesForWeighing,
-                                    printFormat: thisState.settings.value.printFormatForWeighing,
-                                    weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
-                                    footer: thisState.settings.value.footer
-                                }),
-                                headers: {"content-type": "application/json"}
-                            })
-                                .then(response => {
-                                    if (response.status !== 200) throw Error(response.statusText);
-                                    return response.blob();
-                                })
-                                .then(blob => {
-                                    console.log(blob);
-                                    FileSaver.saveAs(blob, "weight.pdf");
-                                })
-                                .catch(error => {
-                                    console.log(error);
-                                });
-                        } else {
-                            fetch(thisState.INITIAL_URL + "/printer/printWeight", {
-                                method: "POST",
-                                body: JSON.stringify({
-                                    weight: thisState.weight,
-                                    printerName: thisState.settings.value.printerNameForWeighing,
-                                    noOfCopies: thisState.settings.value.noOfCopiesForWeighing,
-                                    printFormat: thisState.settings.value.printFormatForWeighing,
-                                    weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
-                                    footer: thisState.settings.value.footer
-                                }),
-                                headers: {"content-type": "application/json"}
-                            })
-                                .then(response => {
-                                    if (response.status !== 200) throw Error(response.statusText);
-                                })
-                                .catch(() => {
-                                });
-                        }
-                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                return result;
-                            })
-                            .catch(() => {
-                                return -1;
-                            })
-                            .then(result => {
-                                thisState.weighing.disable.grossSelectorDisabled = false;
-                                thisState.weighing.disable.tareSelectorDisabled = false;
-                                thisState.weighing.disable.vehicleNoDisabled = false;
-                                thisState.weighing.disable.customersNameDisabled = false;
-                                thisState.weighing.disable.transporterNameDisabled = false;
-                                thisState.weighing.disable.materialDisabled = false;
-                                thisState.weighing.disable.chargesDisabled = false;
-                                thisState.weighing.disable.remarksDisabled = false;
-                                thisState.weighing.disable.getWeightDisabled = false;
-                                thisState.weighing.disable.saveDisabled = true;
-                                thisState.weighing.disable.printDisabled = true;
-                                thisState.weight.slipNo = result;
-                                if (result === -1) {
-                                    thisState.weighing.disable.getWeightDisabled = true;
-                                    thisState.SETTING_DISABLED = true;
-                                }
-                                thisState.weight.vehicleNo = "";
-                                thisState.weight.customersName = "";
-                                thisState.weight.transporterName = "";
-                                thisState.weight.material = "";
-                                thisState.weighing.reference.materialReference.value = [
-                                    {material: ""}
-                                ];
-                                thisState.weight.grossWeight = "";
-                                thisState.weight.grossTime = "";
-                                thisState.weight.tareWeight = "";
-                                thisState.weight.tareTime = "";
-                                thisState.weight.nettWeight = "";
-                                thisState.weight.nettTime = "";
-                                thisState.weight.charges = "";
-                                thisState.weight.remarks = "";
-                                thisState.weighing.grossSelector = true;
-                                thisState.weighing.tareSelector = false;
-                                if (thisState.settings.manualEntry) {
-                                    thisState.weighing.disable.grossDetailsDisabled = false;
-                                    thisState.weighing.disable.tareDetailsWeightDisabled = false;
-                                }
-                                thisState
-                                    .setMyState(thisState)
-                                    .then(() =>
-                                        thisState.weighing.reference.vehicleNoReference.current.focus()
-                                    );
-                            });
+                        thisState.weighing.print = true;
+                        thisState.setMyState(thisState).then(() =>
+                            thisState.weighing.reference.printDialogReference.current.focus()
+                        );
                     }}
                     disabled={thisState.weighing.disable.printDisabled}
                     ref={thisState.weighing.reference.printReference}
@@ -268,11 +167,17 @@ const Bottom = props => {
                         }
                     }}
                     onFocus={() => {
-                        prevent = true;
+                        if (thisState.weighing.disable.vehicleNoDisabled)
+                            prevent = true;
+                        else {
+                            thisState.weighing.disable.printDisabled = true;
+                            thisState.weighing.reference.vehicleNoReference.current.focus();
+                        }
                     }}
                 >
                     Print
                 </Button>
+                <Print preState={thisState}/>
                 <Button
                     className="adam-button"
                     variant="primary"

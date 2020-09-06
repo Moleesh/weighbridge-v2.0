@@ -1,9 +1,9 @@
 import React from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import moment from "moment";
-import FileSaver from "file-saver";
 
 import RePrint from "./bottom/rePrint";
+import Print from "./bottom/print";
 
 const Bottom = props => {
     let thisState = props.preState;
@@ -111,131 +111,10 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        if (thisState.settings.value.printerNameForInvoice === "get as .pdf File") {
-                            fetch(thisState.INITIAL_URL + "/printer/getPrintInvoicePDF", {
-                                method: "POST",
-                                body: JSON.stringify({
-                                    invoice: thisState.invoice,
-                                    printerName: thisState.settings.value.printerNameForInvoice,
-                                    noOfCopies: thisState.settings.value.noOfCopiesForInvoice,
-                                    printFormat: thisState.settings.value.printFormatForInvoice,
-                                    weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
-                                    contacts: thisState.settings.value.contacts,
-                                    phone: thisState.settings.value.phone,
-                                    footer: thisState.settings.value.footer,
-                                    invoiceHeader: thisState.settings.value.invoiceHeader,
-                                    invoiceIdentifier: thisState.settings.value.invoiceIdentifier,
-                                    invoiceFooter: thisState.settings.value.invoiceFooter,
-                                    gstin: thisState.settings.value.gstin,
-                                    additionalInformation: thisState.settings.value.additionalInformation
-                                }),
-                                headers: {"content-type": "application/json"}
-                            })
-                                .then(response => {
-                                    if (response.status !== 200) throw Error(response.statusText);
-                                    return response.blob();
-                                })
-                                .then(blob => {
-                                    console.log(blob);
-                                    FileSaver.saveAs(blob, "invoice.pdf");
-                                })
-                                .catch(error => {
-                                    console.log(error);
-                                });
-                        } else {
-                            fetch(thisState.INITIAL_URL + "/printer/printInvoice", {
-                                method: "POST",
-                                body: JSON.stringify({
-                                    invoice: thisState.invoice,
-                                    printerName: thisState.settings.value.printerNameForInvoice,
-                                    noOfCopies: thisState.settings.value.noOfCopiesForInvoice,
-                                    printFormat: thisState.settings.value.printFormatForInvoice,
-                                    weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
-                                    contacts: thisState.settings.value.contacts,
-                                    phone: thisState.settings.value.phone,
-                                    footer: thisState.settings.value.footer,
-                                    invoiceHeader: thisState.settings.value.invoiceHeader,
-                                    invoiceIdentifier: thisState.settings.value.invoiceIdentifier,
-                                    invoiceFooter: thisState.settings.value.invoiceFooter,
-                                    gstin: thisState.settings.value.gstin,
-                                    additionalInformation: thisState.settings.value.additionalInformation
-
-                                }),
-                                headers: {"content-type": "application/json"}
-                            })
-                                .then(response => {
-                                    if (response.status !== 200) throw Error(response.statusText);
-                                })
-                                .catch(() => {
-                                });
-                        }
-                        fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE)
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                return result;
-                            })
-                            .catch(() => {
-                                return -1;
-                            })
-                            .then(result => {
-                                thisState.invoice.dummy = false;
-                                thisState.invoices.disable.selector = false;
-                                thisState.invoices.disable.referenceSlipNoDisabled = false;
-                                thisState.invoices.disable.customersNameDisabled = false;
-                                thisState.invoices.disable.gstinDisabled = false;
-                                thisState.invoices.disable.vehicleNoDisabled = false;
-                                thisState.invoices.disable.materialDisabled = false;
-                                thisState.invoices.disable.unitPriceDisabled = false;
-                                thisState.invoices.disable.quantityDisabled = false;
-                                thisState.invoices.disable.address1Disabled = false;
-                                thisState.invoices.disable.address2Disabled = false;
-                                thisState.invoices.disable.timeOfArrivalDisabled = false;
-                                thisState.invoices.disable.timeOfArrivalDisabled = false;
-                                thisState.invoices.disable.saveDisabled = false;
-                                thisState.invoices.disable.printDisabled = true;
-                                thisState.invoice.invoiceNo = result;
-                                if (result === -1) {
-                                    thisState.invoices.disable.saveDisabled = true;
-                                    thisState.SETTING_DISABLED = true;
-                                }
-                                thisState.invoice.referenceSlipNo = "";
-                                thisState.invoice.invoiceTime = "";
-                                thisState.invoice.customersName = "";
-                                thisState.invoice.gstin = "";
-                                thisState.invoices.reference.customersNameReference.value = [
-                                    {customerName: ""}
-                                ];
-                                thisState.invoice.address1 = "";
-                                thisState.invoice.address2 = "";
-                                thisState.invoice.vehicleNo = "";
-                                thisState.invoice.material = "";
-                                thisState.invoices.reference.materialReference.value = [
-                                    {material: ""}
-                                ];
-                                thisState.invoice.unitPrice = 0;
-                                thisState.invoice.quantity = 0;
-                                thisState.invoice.amount = 0;
-                                thisState.invoice._cgst = thisState.settings.value.cgst;
-                                thisState.invoice._sgst = thisState.settings.value.sgst;
-                                thisState.invoice._igst = thisState.settings.value.igst;
-                                thisState.invoice.cgst = 0;
-                                thisState.invoice.sgst = 0;
-                                thisState.invoice.igst = 0;
-                                thisState.invoice.total = 0;
-                                thisState.invoices.igstSelector = false;
-                                thisState.invoices.disablecalculation = false;
-                                thisState
-                                    .setMyState(thisState)
-                                    .then(() =>
-                                        thisState.invoices.reference.referenceSlipNoReference.current.focus()
-                                    );
-                            });
+                        thisState.invoices.print = true;
+                        thisState.setMyState(thisState).then(() =>
+                            thisState.invoices.reference.printDialogReference.current.focus()
+                        );
                     }}
                     disabled={thisState.invoices.disable.printDisabled}
                     ref={thisState.invoices.reference.printReference}
@@ -246,11 +125,17 @@ const Bottom = props => {
                         }
                     }}
                     onFocus={() => {
-                        prevent = true;
+                        if (thisState.invoices.disable.referenceSlipNoDisabled)
+                            prevent = true;
+                        else {
+                            thisState.invoices.disable.printDisabled = true;
+                            thisState.invoices.reference.referenceSlipNoReference.current.focus();
+                        }
                     }}
                 >
                     Print
                 </Button>
+                <Print preState={thisState}/>
             </Col>
             <Col sm="3">
                 <Button

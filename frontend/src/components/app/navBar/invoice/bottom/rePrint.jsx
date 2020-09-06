@@ -37,8 +37,8 @@ const RePrint = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-if ((event.keyCode === 13) || (event.keyCode === 9))
-    thisState.invoices.reference.rePrintButtonReference.current.focus();
+                                if ((event.keyCode === 13) || (event.keyCode === 9))
+                                    thisState.invoices.reference.rePrintButtonReference.current.focus();
                             }}
                             ref={thisState.invoices.reference.rePrintFieldReference}
                         />
