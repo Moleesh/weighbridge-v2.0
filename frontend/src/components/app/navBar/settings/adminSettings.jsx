@@ -129,6 +129,72 @@ const AdminSettings = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="3">
+                    Hide Fields
+                </Form.Label>
+                <Col sm="9">
+                    <Toggle
+                        onClick={() => {
+                            thisState.settings.hideFields = !thisState.settings.hideFields;
+                            fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        return response.json();
+                                    } else throw Error(response.statusText);
+                                })
+                                .then(result => {
+                                    return result;
+                                })
+                                .catch(() => {
+                                    return -1;
+                                })
+                                .then(result => {
+                                    thisState.weighing.disable.grossSelectorDisabled = false;
+                                    thisState.weighing.disable.tareSelectorDisabled = false;
+                                    thisState.weighing.disable.vehicleNoDisabled = false;
+                                    thisState.weighing.disable.customersNameDisabled = false;
+                                    thisState.weighing.disable.transporterNameDisabled = false;
+                                    thisState.weighing.disable.materialDisabled = false;
+                                    thisState.weighing.disable.chargesDisabled = false;
+                                    thisState.weighing.disable.remarksDisabled = false;
+                                    thisState.weighing.disable.getWeightDisabled = false;
+                                    thisState.weighing.disable.saveDisabled = true;
+                                    thisState.weighing.disable.printDisabled = true;
+                                    thisState.weighing.disable.customersIdDisabled = true;
+                                    thisState.weighing.disable.materialIdDisabled = true;
+                                    thisState.weight.slipNo = result;
+                                    if (result === -1) {
+                                        thisState.weighing.disable.getWeightDisabled = true;
+                                        thisState.SETTING_DISABLED = true;
+                                    }
+                                    thisState.weight.vehicleNo = "";
+                                    thisState.weight.customersName = "";
+                                    thisState.weight.transporterName = "";
+                                    thisState.weight.material = "";
+                                    thisState.weighing.reference.materialReference.value = [
+                                        {material: ""}
+                                    ];
+                                    thisState.weight.grossWeight = "";
+                                    thisState.weight.grossTime = "";
+                                    thisState.weight.tareWeight = "";
+                                    thisState.weight.tareTime = "";
+                                    thisState.weight.nettWeight = "";
+                                    thisState.weight.nettTime = "";
+                                    thisState.weight.charges = "";
+                                    thisState.weight.remarks = "";
+                                    thisState.setMyState(thisState)
+                                });
+                        }}
+                        on="ON"
+                        off="OFF"
+                        size="lg"
+                        offstyle="danger"
+                        active={thisState.settings.hideFields}
+                        recalculateOnResize={true}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                <Form.Label column sm="3">
                     Automation
                 </Form.Label>
                 <Col sm="9">

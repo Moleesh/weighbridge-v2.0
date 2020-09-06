@@ -48,8 +48,6 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if (event.keyCode === 9 && event.shiftKey) ;
-                            else {
                                 if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.weight.vehicleNo = thisState.weight.vehicleNo
                                         .toUpperCase()
@@ -75,7 +73,15 @@ const ColumnOne = props => {
                                             .catch(() => {
                                                 !thisState.weighing.disable.materialDisabled
                                                     ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                                    : thisState.weighing.reference.customersNameReference.current.focus();
+                                                    : !thisState.settings.value.hideCustomerName
+                                                    ? thisState.weighing.reference.customersNameReference.current.focus()
+                                                    : !thisState.settings.value.hideTransporterName
+                                                        ? thisState.weighing.reference.transporterNameReference.current.focus()
+                                                        : !thisState.settings.value.hideCharges
+                                                            ? thisState.weighing.reference.chargesReference.current.focus()
+                                                            : !thisState.settings.value.hideRemarks
+                                                                ? thisState.weighing.reference.remarksReference.current.focus()
+                                                                : thisState.weighing.reference.getWeightReference.current.focus();
                                             });
                                     } else {
                                         await fetch(
@@ -102,7 +108,6 @@ const ColumnOne = props => {
                                             });
                                     }
                                 }
-                            }
                         }}
                         onFocus={() => {
                             if (thisState.weighing.preventFocus) {
@@ -179,7 +184,15 @@ const ColumnOne = props => {
                                     thisState.weighing.grossSelector = false;
                                 }
                                 thisState.setMyState(thisState);
-                                thisState.weighing.reference.customersNameReference.current.focus();
+                                !thisState.settings.value.hideCustomerName
+                                    ? thisState.weighing.reference.customersNameReference.current.focus()
+                                    : !thisState.settings.value.hideTransporterName
+                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
+                                    : !thisState.settings.value.hideCharges
+                                        ? thisState.weighing.reference.chargesReference.current.focus()
+                                        : !thisState.settings.value.hideRemarks
+                                            ? thisState.weighing.reference.remarksReference.current.focus()
+                                            : thisState.weighing.reference.getWeightReference.current.focus();
                             }
                         }}
                         onFocus={() => {
@@ -190,13 +203,27 @@ const ColumnOne = props => {
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
-                <Form.Label column sm="6">
-                    Charges
-                </Form.Label>
+                {thisState.settings.hideFields ?
+                    <Col sm="6">
+                        <Form.Check
+                            type="checkbox"
+                            label="Charges"
+                            checked={thisState.settings.value.hideCharges}
+                            onChange={event => {
+                                thisState.settings.value.hideCharges = event.target.checked;
+                                thisState.setMyState(thisState);
+                            }}
+                        />
+                    </Col>
+                    :
+                    <Form.Label column sm="6" className={thisState.settings.value.hideCharges ? "hide" : ""}>
+                        Charges
+                    </Form.Label>
+                }
                 <Col sm="6">
                     <Form.Control
-                        className="text-center"
-                        disabled={thisState.weighing.disable.chargesDisabled}
+                        className={thisState.settings.value.hideCharges ? "hide" : "text-center"}
+                        disabled={thisState.weighing.disable.chargesDisabled || thisState.settings.value.hideCharges}
                         ref={thisState.weighing.reference.chargesReference}
                         value={thisState.weight.charges}
                         onChange={event => {
@@ -206,21 +233,43 @@ const ColumnOne = props => {
                         }}
                         onKeyDown={event => {
                             if (event.keyCode === 9 && event.shiftKey)
-                                thisState.weighing.reference.transporterNameReference.current.focus();
+                                !thisState.settings.value.hideTransporterName
+                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
+                                    : !thisState.settings.value.hideCustomerName
+                                    ? thisState.weighing.reference.customersNameReference.current.focus()
+                                    : !thisState.weighing.disable.materialDisabled
+                                        ? thisState.weighing.reference.materialReference.reference.current.focus()
+                                        : thisState.weighing.reference.vehicleNoReference.current.focus();
                             else if (event.keyCode === 13 || event.keyCode === 9)
-                                thisState.weighing.reference.remarksReference.current.focus();
+                                !thisState.settings.value.hideRemarks
+                                    ? thisState.weighing.reference.remarksReference.current.focus()
+                                    : thisState.weighing.reference.getWeightReference.current.focus();
                         }}
                     />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
-                <Form.Label column sm="6">
-                    Remarks
-                </Form.Label>
+                {thisState.settings.hideFields ?
+                    <Col sm="6">
+                        <Form.Check
+                            type="checkbox"
+                            label="Remarks"
+                            checked={thisState.settings.value.hideRemarks}
+                            onChange={event => {
+                                thisState.settings.value.hideRemarks = event.target.checked;
+                                thisState.setMyState(thisState);
+                            }}
+                        />
+                    </Col>
+                    :
+                    <Form.Label column sm="6" className={thisState.settings.value.hideRemarks ? "hide" : ""}>
+                        Remarks
+                    </Form.Label>
+                }
                 <Col sm="6">
                     <Form.Control
-                        className="text-center"
-                        disabled={thisState.weighing.disable.remarksDisabled}
+                        className={thisState.settings.value.hideRemarks ? "hide" : "text-center"}
+                        disabled={thisState.weighing.disable.remarksDisabled || thisState.settings.value.hideRemarks}
                         ref={thisState.weighing.reference.remarksReference}
                         value={thisState.weight.remarks}
                         onChange={event => {
@@ -229,7 +278,15 @@ const ColumnOne = props => {
                         }}
                         onKeyDown={event => {
                             if (event.keyCode === 9 && event.shiftKey)
-                                thisState.weighing.reference.chargesReference.current.focus();
+                                !thisState.settings.valuee.hideCharges
+                                    ? thisState.weighing.reference.chargesReference.current.focus()
+                                    : !thisState.settings.value.hideTransporterName
+                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
+                                    : !thisState.settings.value.hideCustomerName
+                                        ? thisState.weighing.reference.customersNameReference.current.focus()
+                                        : !thisState.weighing.disable.materialDisabled
+                                            ? thisState.weighing.reference.materialReference.reference.current.focus()
+                                            : thisState.weighing.reference.vehicleNoReference.current.focus();
                             else if (event.keyCode === 13 || event.keyCode === 9)
                                 thisState.weighing.reference.getWeightReference.current.focus();
                         }}

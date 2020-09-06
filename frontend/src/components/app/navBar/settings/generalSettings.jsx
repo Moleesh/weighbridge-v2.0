@@ -118,6 +118,10 @@ const GeneralSettings = props => {
                                 ]
                             ).then(([settings, slipNo, invoiceNo]) => {
                                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
+                                settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
+                                settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
+                                settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;
+                                settings.hideRemarks = settings.hideRemarks.toLowerCase().indexOf("true") !== -1;
                                 thisState.settings.value = settings;
                                 thisState.weight.slipNo = slipNo;
                                 if (slipNo === -1) {

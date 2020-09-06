@@ -28,7 +28,7 @@ const Header = props => {
                             {thisState.settings.value.weighbridgeName}
                         </Row>
                         <Row className="justify-content-center h5">
-                            {thisState.settings.value.weighbridgeAddress}
+                            {thisState.settings.value.weighbridgeAddress.replace("|", " ")}
                         </Row>
                     </Col>
                 </Row>

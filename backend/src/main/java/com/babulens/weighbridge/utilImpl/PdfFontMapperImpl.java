@@ -27,7 +27,7 @@ public class PdfFontMapperImpl implements FontMapper {
 				byteArrayOutputStream.write(bytes, 0, size);
 			}
 			bytes = byteArrayOutputStream.toByteArray();
-			return BaseFont.createFont(filename, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED, BaseFont.NOT_CACHED,
+			return BaseFont.createFont(filename, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, BaseFont.CACHED,
 					bytes, null);
 		} catch (DocumentException | IOException | NullPointerException ex) {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -38,15 +38,22 @@ public class PdfFontMapperImpl implements FontMapper {
 	@Override
 	public BaseFont awtToPdf(Font font) {
 		String directory = "Fonts" + File.separator;
-		if (font.isBold()) {
-			if (font.isItalic()) {
-				return getBaseFontFromFile(directory, "courbi.ttf");
+		if (font.getName().equals("Nirmala UI")) {
+			if (font.isBold()) {
+				return getBaseFontFromFile(directory, "NirmalaB.ttf");
+			} else {
+				return getBaseFontFromFile(directory, "Nirmala.ttf");
 			}
-			return getBaseFontFromFile(directory, "courbd.ttf");
-		} else if (font.isItalic()) {
-			return getBaseFontFromFile(directory, "couri.ttf");
 		} else {
-			return getBaseFontFromFile(directory, "cour.ttf");
+			if (font.isBold() && font.isItalic()) {
+				return getBaseFontFromFile(directory, "courbi.ttf");
+			} else if (font.isBold()) {
+				return getBaseFontFromFile(directory, "courbd.ttf");
+			} else if (font.isItalic()) {
+				return getBaseFontFromFile(directory, "couri.ttf");
+			} else {
+				return getBaseFontFromFile(directory, "cour.ttf");
+			}
 		}
 	}
 

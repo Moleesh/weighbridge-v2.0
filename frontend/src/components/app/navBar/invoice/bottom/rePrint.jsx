@@ -37,21 +37,20 @@ const RePrint = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) ;
-                                else if ((event.keyCode === 13) || (event.keyCode === 9))
-                                    thisState.invoices.reference.rePrintButtonReference.current.focus();
+if ((event.keyCode === 13) || (event.keyCode === 9))
+    thisState.invoices.reference.rePrintButtonReference.current.focus();
                             }}
                             ref={thisState.invoices.reference.rePrintFieldReference}
                         />
                     </Col>
                 </Form.Group>
                 <Row>
-                    <Col sm="7"></Col>
+                    <Col sm="7"/>
                     <Form.Group>
                         <Form.Check
                             type="checkbox"
                             label="Dummy Invoice"
-                            value={thisState.invoices.dummy}
+                            checked={thisState.invoices.dummy}
                             onChange={event => {
                                 thisState.invoices.dummy = event.target.checked;
                                 thisState.setMyState(thisState);

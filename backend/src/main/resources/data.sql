@@ -116,6 +116,22 @@ INSERT INTO SETTING
 SELECT 'Standard_automation', 'automation', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'automation' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideCharges', 'hideCharges', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideCharges' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideCustomerName', 'hideCustomerName', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideCustomerName' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideTransporterName', 'hideTransporterName', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideTransporterName' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideRemarks', 'hideRemarks', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideRemarks' AND PROFILE like 'Standard');
 
 INSERT INTO SERIAL_PORT_DETAIL
 SELECT 'indicator',

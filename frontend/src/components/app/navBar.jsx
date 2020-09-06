@@ -75,25 +75,7 @@ const NavBar = props => {
                 >
                     <Configuration preState={thisState}/>
                 </Tab>
-                <Tab
-                    eventKey="settings"
-                    title="Settings"
-                    onEntered={() => {
-                        fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE)
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                result.automation = result.automation.toLowerCase().indexOf("true") !== -1;
-                                thisState.settings.value = result;
-                                thisState.setMyState(thisState);
-                            })
-                            .catch(() => {
-                            });
-                    }}
-                >
+                <Tab eventKey="settings" title="Settings">
                     <Settings preState={thisState}/>
                 </Tab>
             </Tabs>

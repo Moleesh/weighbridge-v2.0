@@ -120,9 +120,13 @@ const Settings = props => {
                                         return response.json();
                                     } else throw Error(response.statusText);
                                 })
-                                .then(result => {
-                                    result.automation = result.automation.toLowerCase().indexOf("true") !== -1;
-                                    thisState.settings.value = result;
+                                .then(settings => {
+                                    settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideRemarks = settings.hideRemarks.toLowerCase().indexOf("true") !== -1;
+                                    thisState.settings.value = settings;
                                     thisState.alerts.push({
                                         id: new Date().getTime(),
                                         type: "success",

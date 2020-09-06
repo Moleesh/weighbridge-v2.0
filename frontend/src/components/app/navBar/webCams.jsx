@@ -25,8 +25,10 @@ const WebCams = props => {
                     thisState.settings.array.availableWebCams.map(webcam =>
                         (
                             <Col sm="2" key={webcam.split(" [")[0]}>
-                                <Form.Check type="checkbox" label={webcam.split(" [")[0]}
-                                            value={webcam.split(" [")[0]}/>
+                                <Form.Check
+                                    type="checkbox"
+                                    label={webcam.split(" [")[0]}
+                                />
                             </Col>
                         )
                     )

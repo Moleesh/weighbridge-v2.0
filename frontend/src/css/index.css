@@ -208,6 +208,22 @@ input {
     border: 1px solid rgb(226, 226, 226)
 }
 
+.hide {
+    color: #ced4da00 !important;
+    border: 1px solid #ced4da00 !important;
+    background-color: transparent !important;
+}
+
+.hide::-moz-selection {
+    color: #ced4da00 !important;
+    background-color: transparent !important;
+}
+
+.hide::selection {
+    color: #ced4da00 !important;
+    background-color: transparent !important;
+}
+
 .none:disabled {
     display: none !important;
 }

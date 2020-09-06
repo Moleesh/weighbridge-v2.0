@@ -116,11 +116,9 @@ const PreviousWeight = props => {
                         thisState.invoice.quantity = thisState.invoices.previousWeightResult.nettWeight;
                         thisState.invoices.preventFocus = true;
                         thisState.invoices.disable.vehicleNoDisabled = true;
-                        thisState.invoices.disable.materialDisabled = true;
                         thisState.invoices.disable.quantityDisabled = true;
                         if (thisState.invoices.previousWeightResult.unitPrice) {
                             thisState.invoice.unitPrice = thisState.invoices.previousWeightResult.unitPrice;
-                            thisState.invoices.disable.unitPriceDisabled = true;
                         }
                         if (thisState.invoices.previousWeightResult.gstin) {
                             thisState.invoice.gstin = thisState.invoices.previousWeightResult.gstin;
