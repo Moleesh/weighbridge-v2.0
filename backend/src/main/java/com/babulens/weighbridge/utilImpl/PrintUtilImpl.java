@@ -352,9 +352,9 @@ public class PrintUtilImpl implements PrintUtil {
 			graphics.drawLine(30, 385, 575, 385);
 
 			graphics.setFont(new Font("Courier New", Font.PLAIN, 7).deriveFont(affineTransform));
-			graphics.drawString("GSTIN: " + printInvoice.getGstin(), 36, 382);
+			graphics.drawString("GSTIN: " + printInvoice.getGstin(), 38, 382);
 
-			graphics.setFont(new Font("Nirmala UI", Font.PLAIN, 8).deriveFont(affineTransform));
+			graphics.setFont(new Font("Nirmala UI", Font.BOLD, 8).deriveFont(affineTransform));
 			graphics.drawString(printInvoice.getInvoiceHeader().trim(), 40, 382 - getPaddingForCentreAlign(graphics, printInvoice.getInvoiceHeader(), 354));
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 15).deriveFont(affineTransform));
@@ -395,9 +395,9 @@ public class PrintUtilImpl implements PrintUtil {
 
 			graphics.setFont(new Font("Courier New", Font.PLAIN, 8).deriveFont(affineTransform));
 			graphics.drawString("Party Name : " + StringUtils.rightPad(printInvoice.getInvoice().getCustomersName(), 37), 150, 375);
-			graphics.drawString("GSTIN      : " + StringUtils.rightPad(printInvoice.getInvoice().getGstin(), 37), 164, 375);
-			graphics.drawString("Address    : " + StringUtils.rightPad(printInvoice.getInvoice().getAddress1(), 37), 178, 375);
-			graphics.drawString("             " + StringUtils.rightPad(printInvoice.getInvoice().getAddress2(), 37), 192, 375);
+			graphics.drawString("Address    : " + StringUtils.rightPad(printInvoice.getInvoice().getAddress1(), 37), 164, 375);
+			graphics.drawString("             " + StringUtils.rightPad(printInvoice.getInvoice().getAddress2(), 37), 178, 375);
+			graphics.drawString("GSTIN      : " + StringUtils.rightPad(printInvoice.getInvoice().getGstin(), 37), 192, 375);
 			graphics.drawString("Vehicle No : " + StringUtils.rightPad(printInvoice.getInvoice().getVehicleNo(), 37), 206, 375);
 			graphics.drawString("Time Of Arrival(Approx) : " + StringUtils.rightPad(printInvoice.getInvoice().getTimeOfArrival(), 24), 220, 375);
 
@@ -457,7 +457,7 @@ public class PrintUtilImpl implements PrintUtil {
 			graphics.drawLine(560, 25, 560, 385);
 			graphics.drawLine(464, 205, 560, 205);
 
-			graphics.setFont(new Font("Nirmala UI", Font.PLAIN, 8).deriveFont(affineTransform));
+			graphics.setFont(new Font("Nirmala UI", Font.BOLD, 8).deriveFont(affineTransform));
 			graphics.drawString(printInvoice.getInvoiceFooter().trim(), 570, 382 - getPaddingForCentreAlign(graphics, printInvoice.getInvoiceFooter(), 354));
 
 			((Graphics2D) graphics).setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{1, 2}, 0));
