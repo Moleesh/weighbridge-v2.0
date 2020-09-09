@@ -148,7 +148,7 @@ const Settings = props => {
                         onClick={() => {
                             clearInterval(thisState._WEIGHT);
                             thisState._WEIGHT = setInterval(() => {
-                                fetch(thisState.INITIAL_URL + "/getNextWeight")
+                                fetch(thisState.INITIAL_URL + "/serialPort/getNextWeight")
                                     .then(response => {
                                         if (response.status === 200) {
                                             return response.json();
