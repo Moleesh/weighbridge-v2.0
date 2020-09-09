@@ -90,7 +90,7 @@ const ReportWeightTable = props => {
             ]}
             rowGetter={row => thisState.report.list.filter((item) => Object.values(item)
                 .toString()
-                .replace(",", ".")
+                .replaceAll(",", ".")
                 .indexOf(thisState.report.filterText) !== -1)[row]}
             rowsCount={thisState.report.list.length}
             enableCellSelect={true}
@@ -133,7 +133,7 @@ const ReportWeightTable = props => {
                 let key = Object.keys(updated)[0];
                 thisState.report.list.filter((item) => Object.values(item)
                     .toString()
-                    .replace(",", ".")
+                    .replaceAll(",", ".")
                     .indexOf(thisState.report.filterText) !== -1)[fromRow][key] = updated[key];
                 thisState.setMyState(thisState).then(() => {
                         thisState.report.edit = false;

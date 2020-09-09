@@ -136,7 +136,7 @@ const Customer = props => {
                     <tr key={index} className="eachRow">
                         {Object.values(item)
                             .toString()
-                            .replace(",", ".")
+                            .replaceAll(",", ".")
                             .indexOf(thisState.configuration.customer.filterText) ===
                         -1 ? null : (
                             <React.Fragment>

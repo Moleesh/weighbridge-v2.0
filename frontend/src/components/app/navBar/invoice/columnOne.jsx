@@ -42,8 +42,7 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if (event.keyCode === 9 && event.shiftKey) ;
-                            else if ((event.keyCode === 13) || (event.keyCode === 9)) {
+                            if ((event.keyCode === 13) || (event.keyCode === 9)) {
                                 if (thisState.invoice.referenceSlipNo) {
                                     await fetch(
                                         thisState.INITIAL_URL +
@@ -203,7 +202,7 @@ const ColumnOne = props => {
                                 if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.invoice.gstin = thisState.invoice.gstin
                                         .toUpperCase()
-                                        .replace(" ", "");
+                                        .replaceAll(" ", "");
                                     thisState.setMyState(thisState);
                                     if (!thisState.invoices.disable.vehicleNoDisabled) {
                                         thisState.invoices.reference.vehicleNoReference.current.focus();
@@ -239,7 +238,7 @@ const ColumnOne = props => {
                                 if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.invoice.vehicleNo = thisState.invoice.vehicleNo
                                         .toUpperCase()
-                                        .replace(" ", "");
+                                        .replaceAll(" ", "");
                                     thisState.setMyState(thisState);
                                     thisState.invoices.reference.materialReference.reference.current.focus();
                                 }

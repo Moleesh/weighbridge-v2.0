@@ -55,7 +55,7 @@ public class PrintUtilImpl implements PrintUtil {
 	}
 
 	private String indianCurrency(double num) {
-		return NumberFormat.getCurrencyInstance(new Locale("en", "IN")).format(num).replace("₹", "");
+		return NumberFormat.getCurrencyInstance(new Locale("en", "IN")).format(num).replaceAll("₹", "");
 	}
 
 	private int getPaddingForCentreAlign(Graphics graphics, String text, int space) {

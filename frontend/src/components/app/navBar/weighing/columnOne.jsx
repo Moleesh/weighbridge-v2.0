@@ -51,7 +51,7 @@ const ColumnOne = props => {
                                 if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.weight.vehicleNo = thisState.weight.vehicleNo
                                         .toUpperCase()
-                                        .replace(" ", "");
+                                        .replaceAll(" ", "");
                                     if (thisState.weighing.tareSelector) {
                                         await fetch(
                                             thisState.INITIAL_URL +
