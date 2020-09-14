@@ -28,6 +28,7 @@ const WebCams = props => {
                                 <Form.Check
                                     type="checkbox"
                                     label={webcam.split(" [")[0]}
+                                    value={webcam.split(" [")[0]}
                                 />
                             </Col>
                         )
