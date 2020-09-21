@@ -1,7 +1,7 @@
 WeighBridge V2.0
 ================
 
-## To Build 
+## To Build
 mvn clean
 
 set NODE_SKIP_PLATFORM_CHECK=1
@@ -19,11 +19,10 @@ mvn versions:use-latest-releases
 
 mvn versions:update-properties
 
-## check for latest npm package 
+## check for latest npm package
 npm update --max-old-space-size=8192 --depth 20
 
 ## git Config
 git config filter.app_jsx.clean "sed 's/^const INITIAL_URL.*/const INITIAL_URL = \"\";/g'"
 
 git config filter.app_jsx.smudge cat
-
