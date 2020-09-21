@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,13 +78,18 @@ public class WebCamServiceImpl implements WebCamService {
 	@Cacheable(cacheNames = "WebCams")
 	public List<String> getAllWebCams() {
 		List<String> webcams = new ArrayList<>();
-		for (Webcam webcam : Webcam.getWebcams()) {
-			try {
-				Dimension dimension = getBestDimensions(webcam);
-				webcams.add(webcam.getName() + " [" + (int) dimension.getWidth() + "*" + (int) dimension.getHeight() + "]");
-			} catch (WebcamException ex) {
-				webcams.add(webcam.getName() + " " + "[0*0]");
+		try {
+			for (Webcam webcam : Webcam.getWebcams(60, TimeUnit.SECONDS)) {
+				try {
+					Dimension dimension = getBestDimensions(webcam);
+					webcams.add(webcam.getName() + " [" + (int) dimension.getWidth() + "*" + (int) dimension.getHeight() + "]");
+				} catch (Exception ex) {
+					Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+					webcams.add(webcam.getName() + " " + "[0*0]");
+				}
 			}
+		} catch (Exception ex) {
+			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 		}
 		if (webcams.size() == 0) {
 			webcams.add("dummy " + "[0*0]");
