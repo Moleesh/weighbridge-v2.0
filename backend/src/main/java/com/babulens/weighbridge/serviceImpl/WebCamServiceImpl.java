@@ -79,12 +79,11 @@ public class WebCamServiceImpl implements WebCamService {
 	public List<String> getAllWebCams() {
 		List<String> webcams = new ArrayList<>();
 		try {
-			for (Webcam webcam : Webcam.getWebcams(60, TimeUnit.SECONDS)) {
+			for (Webcam webcam : Webcam.getWebcams(20, TimeUnit.SECONDS)) {
 				try {
 					Dimension dimension = getBestDimensions(webcam);
 					webcams.add(webcam.getName() + " [" + (int) dimension.getWidth() + "*" + (int) dimension.getHeight() + "]");
-				} catch (Exception ex) {
-					Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+				} catch (WebcamException ex) {
 					webcams.add(webcam.getName() + " " + "[0*0]");
 				}
 			}
