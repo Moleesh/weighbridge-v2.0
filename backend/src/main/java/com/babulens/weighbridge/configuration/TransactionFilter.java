@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Component
 @Order(1)
@@ -45,9 +46,7 @@ public class TransactionFilter implements Filter {
 				}
 			} else if (TransactionFilter.list.contains(clientIp)) {
 				chain.doFilter(request, response);
-			} else if (httpServletRequest.getRequestURI().contains("getNextSlipNoByProfile") ||
-					                                                                                                                                                                                                                                                                                                                 httpServletRequest.getRequestURI().contains("getNextInvoiceNoByProfile") ||
-					                                                                                                                                                                                                                                                                                                                 httpServletRequest.getRequestURI().contains("getNextDummyInvoiceNoByProfile")) {
+			} else if (Stream.of("getNextSlipNoByProfile", "getNextInvoiceNoByProfile", "getNextDummyInvoiceNoByProfile").anyMatch(value -> httpServletRequest.getRequestURI().contains(value))) {
 				((HttpServletResponse) response).sendRedirect("/error/getDefault");
 			} else if (!TransactionFilter.list.contains(httpServletRequest.getSession().getId())) {
 				((HttpServletResponse) response).sendRedirect("/loginForm");
