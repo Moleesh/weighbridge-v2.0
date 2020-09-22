@@ -9,8 +9,6 @@ import com.github.sarxos.webcam.WebcamException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -21,7 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,18 +30,12 @@ import java.util.logging.Logger;
 public class WebCamServiceImpl implements WebCamService {
 
 	private final WebCamDetailDAO webCamDetailDAO;
-	private final boolean dontLog = false;
+	private boolean dontLog = false;
 
 
 	@Autowired
 	public WebCamServiceImpl(WebCamDetailDAO webCamDetailDAO) {
 		this.webCamDetailDAO = webCamDetailDAO;
-	}
-
-	@EventListener(ContextRefreshedEvent.class)
-	public void init() {
-		getAllWebCams();
-		settingUpWebCam(getMyPrimaryWebCam());
 	}
 
 	public Webcam getWebCam(String WebCam) {
@@ -54,13 +49,20 @@ public class WebCamServiceImpl implements WebCamService {
 
 	@Cacheable(cacheNames = "BestDimensions")
 	public Dimension getBestDimensions(Webcam webcam) throws WebcamException {
-		if (webcam != null) {
-			Dimension[] dimensions = webcam.getViewSizes();
-			if (dimensions.length != 0) {
-				return dimensions[dimensions.length - 1];
+		CompletableFuture<Dimension> future = CompletableFuture.supplyAsync(() -> {
+			if (webcam != null) {
+				Dimension[] dimensions = webcam.getViewSizes();
+				if (dimensions.length != 0) {
+					return dimensions[dimensions.length - 1];
+				}
 			}
+			return new Dimension(0, 0);
+		});
+		try {
+			return future.get(10, TimeUnit.SECONDS);
+		} catch (InterruptedException | ExecutionException | TimeoutException e) {
+			return new Dimension(0, 0);
 		}
-		return new Dimension(0, 0);
 	}
 
 	@Override
@@ -145,6 +147,7 @@ public class WebCamServiceImpl implements WebCamService {
 						ImageIO.write(webcam.getImage(), "jpeg", outputStream);
 					} catch (NullPointerException | WebcamException | IllegalArgumentException ex1) {
 						if (!dontLog) {
+							dontLog = true;
 							Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
 						}
 						return null;
@@ -165,6 +168,7 @@ public class WebCamServiceImpl implements WebCamService {
 						}
 					} catch (NullPointerException | WebcamException ex1) {
 						if (!dontLog) {
+							dontLog = true;
 							Logger.getLogger(getClass().getName()).log(Level.WARNING, webcam.getName() + ": WebCam is NuLL");
 						}
 						return null;
