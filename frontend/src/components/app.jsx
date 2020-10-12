@@ -66,7 +66,8 @@ class App extends Component {
             RESET_INVOICE_PASSWORD: "",
             RESET_SLIP_PASSWORD: "",
             MANUAL_ENTRY_PASSWORD: "",
-            EDIT_ENABLE_PASSWORD: ""
+            EDIT_ENABLE_PASSWORD: "",
+            INVOICE_PASSWORD: ""
         },
         PROFILE: "Standard",
         profiles: [
@@ -97,6 +98,7 @@ class App extends Component {
                 sgst: 0,
                 igst: 0,
                 automation: false,
+                invoice: false,
                 hideCharges: false,
                 hideCustomerName: false,
                 hideTransporterName: false,
@@ -162,12 +164,16 @@ class App extends Component {
             manualEntryPassword: "",
             editEnableDialog: false,
             editEnablePassword: "",
+            invoiceDialog: false,
+            invoicePassword: "",
             addNewProfileDialog: false,
             newProfile: "",
             manualEntryPasswordReference: React.createRef(),
             manualEntryReference: React.createRef(),
             editEnablePasswordReference: React.createRef(),
             editEnableReference: React.createRef(),
+            invoicePasswordReference: React.createRef(),
+            invoiceReference: React.createRef(),
             newProfileReference: React.createRef(),
             addNewProfileReference: React.createRef(),
             resetSlipNoReference: React.createRef(),
@@ -177,7 +183,8 @@ class App extends Component {
             resetInvoiceNoPasswordReference: React.createRef(),
             resetInvoiceNoButtonReference: React.createRef(),
             manualEntry: false,
-            editEnable: false
+            editEnable: false,
+            settings: false
         },
         configuration: {
             material: {
@@ -557,6 +564,7 @@ class App extends Component {
                 ]
             ).then(([settings, slipNo, invoiceNo]) => {
                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
+                settings.invoice = settings.invoice.toLowerCase().indexOf("true") !== -1;
                 settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
                 settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
                 settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;

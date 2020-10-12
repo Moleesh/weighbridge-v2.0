@@ -21,11 +21,12 @@ const NavBar = props => {
                      onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
                     <Weighing preState={thisState}/>
                 </Tab>
-                <Tab eventKey="invoice" title="Invoice"
-                     onEntered={() => thisState.invoices.reference.referenceSlipNoReference.current.focus()}>
-                    <Invoice preState={thisState}/>
-                </Tab>
-                <Tab eventKey="webcams" title="WebCams">
+                {thisState.settings.value.invoice ?
+                    <Tab eventKey="invoice" title="Invoice"
+                         onEntered={() => thisState.invoices.reference.referenceSlipNoReference.current.focus()}>
+                        <Invoice preState={thisState}/>
+                    </Tab> : ""}
+                < Tab eventKey="webcams" title="WebCams">
                     <WebCams preState={thisState}/>
                 </Tab>
                 <Tab eventKey="report" title="Report">
