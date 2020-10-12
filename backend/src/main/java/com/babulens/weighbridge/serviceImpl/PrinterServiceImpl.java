@@ -92,7 +92,7 @@ public class PrinterServiceImpl implements PrinterService {
 	@Override
 	@Cacheable(cacheNames = "PrintFormats")
 	public List<String> getAllWeightPrintFormats() {
-		return Arrays.asList("Normal Print", "Pre Print", "Plain Paper", "WebCam Print");
+		return Arrays.asList("Pre Print", "Plain Paper", "WebCam Print");
 	}
 
 	@Override

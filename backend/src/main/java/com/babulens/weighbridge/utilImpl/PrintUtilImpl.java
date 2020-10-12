@@ -95,18 +95,25 @@ public class PrintUtilImpl implements PrintUtil {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
 
-		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 1.25d * 72d);
+		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0d * 72d);
 		Book book = new Book();
 
 		book.append((graphics, _pageFormat, pageIndex) -> {
-			// TODO: 29-07-2019 Pre Print
-			final String initString = "";
-			graphics.setFont(new Font("Courier New", Font.BOLD, 10));
-			drawString(graphics, initString, 10, 0);
-			graphics.drawLine(56, 129, 544, 129);
-
+			String format = "%1$-30s%1$-30s%1$-30s";
+			graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
+			drawString(graphics, String.format(format, printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()), 40, 60);
+			drawString(graphics, String.format(format, printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime()), 40, 90);
+			drawString(graphics, String.format(format, printWeight.getWeight().getSlipNo()), 40, 120);
+			drawString(graphics, String.format(format, printWeight.getWeight().getMaterial()), 40, 150);
+			drawString(graphics, String.format(format, printWeight.getWeight().getVehicleNo()), 40, 180);
+			drawString(graphics, String.format(format, printWeight.getWeight().getCharges() == 0 ? "" : (int) printWeight.getWeight().getCharges()), 40, 210);
+			graphics.setFont(new Font("Courier New", Font.BOLD, 12));
+			drawString(graphics, String.format(format, printWeight.getWeight().getGrossWeight() + " Kg"), 40, 240);
+			drawString(graphics, String.format(format, printWeight.getWeight().getTareWeight() + " Kg"), 40, 270);
+			drawString(graphics, String.format(format, printWeight.getWeight().getNettWeight() + " Kg"), 40, 300);
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
+
 		return book;
 	}
 
