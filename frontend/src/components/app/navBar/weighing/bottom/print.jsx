@@ -101,11 +101,9 @@ const Print = props => {
                                     return response.blob();
                                 })
                                 .then(blob => {
-                                    console.log(blob);
                                     FileSaver.saveAs(blob, "weight.pdf");
                                 })
                                 .catch(error => {
-                                    console.log(error);
                                 });
                         } else {
                             fetch(thisState.INITIAL_URL + "/printer/printWeight", {

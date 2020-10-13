@@ -116,11 +116,9 @@ const Print = props => {
                                     return response.blob();
                                 })
                                 .then(blob => {
-                                    console.log(blob);
                                     FileSaver.saveAs(blob, "invoice.pdf");
                                 })
                                 .catch(error => {
-                                    console.log(error);
                                 });
                         } else {
                             fetch(thisState.INITIAL_URL + "/printer/printInvoice", {

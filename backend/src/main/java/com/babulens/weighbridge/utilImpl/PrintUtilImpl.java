@@ -81,11 +81,15 @@ public class PrintUtilImpl implements PrintUtil {
 		return new Coordinate(length, y + graphics.getFontMetrics().getHeight() - 1);
 	}
 
-	private void setPaper(PageFormat pageFormat, Paper paper, double paperWidth, double paperHeight,
-	                      double paperWidthMargin, double paperHeightMargin) {
+	private void drawStringAsColumn(Graphics graphics, String text, int x, int y, int iterate, int width) {
+		while (0 < iterate--) {
+			drawString(graphics, text, x + iterate * width, y);
+		}
+	}
+
+	private void setPaper(PageFormat pageFormat, Paper paper, double paperWidth, double paperHeight, double paperWidthMargin, double paperHeightMargin) {
 		paper.setSize(paperWidth, paperHeight);
-		paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin),
-				paperHeight - (2 * paperHeightMargin));
+		paper.setImageableArea(paperWidthMargin, paperHeightMargin, paperWidth - (2 * paperWidthMargin), paperHeight - (2 * paperHeightMargin));
 		pageFormat.setPaper(paper);
 		pageFormat.setOrientation(PageFormat.PORTRAIT);
 	}
@@ -95,22 +99,27 @@ public class PrintUtilImpl implements PrintUtil {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
 
-		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0d * 72d);
+		setPaper(pageFormat, paper, 8d * 72d, 6.1d * 72d, 0d * 72d, 0d * 72d);
 		Book book = new Book();
 
 		book.append((graphics, _pageFormat, pageIndex) -> {
-			String format = "%1$-30s%1$-30s%1$-30s";
 			graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-			drawString(graphics, String.format(format, printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate()), 40, 60);
-			drawString(graphics, String.format(format, printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime()), 40, 90);
-			drawString(graphics, String.format(format, printWeight.getWeight().getSlipNo()), 40, 120);
-			drawString(graphics, String.format(format, printWeight.getWeight().getMaterial()), 40, 150);
-			drawString(graphics, String.format(format, printWeight.getWeight().getVehicleNo()), 40, 180);
-			drawString(graphics, String.format(format, printWeight.getWeight().getCharges() == 0 ? "" : (int) printWeight.getWeight().getCharges()), 40, 210);
-			graphics.setFont(new Font("Courier New", Font.BOLD, 12));
-			drawString(graphics, String.format(format, printWeight.getWeight().getGrossWeight() + " Kg"), 40, 240);
-			drawString(graphics, String.format(format, printWeight.getWeight().getTareWeight() + " Kg"), 40, 270);
-			drawString(graphics, String.format(format, printWeight.getWeight().getNettWeight() + " Kg"), 40, 300);
+			int space = 223;
+			int margin = 40;
+			int iterate = 3;
+			int len = 64;
+			int height = 24;
+			drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, "" + printWeight.getWeight().getSlipNo(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getMaterial(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getVehicleNo(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getCharges() == 0 ? "" : "" + (int) printWeight.getWeight().getCharges(), margin, len += height, iterate, space);
+			graphics.setFont(new Font("Courier New", Font.BOLD, 14));
+			drawStringAsColumn(graphics, printWeight.getWeight().getGrossWeight() + " Kg", margin, len += height - 2, iterate, space);
+			height = 33;
+			drawStringAsColumn(graphics, printWeight.getWeight().getTareWeight() + " Kg", margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len += height, iterate, space);
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
 
