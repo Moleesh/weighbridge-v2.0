@@ -4,7 +4,6 @@ import FileSaver from "file-saver";
 
 const Print = props => {
     let thisState = props.preState;
-    let prevent = false;
     return (
         <Modal
             show={thisState.weighing.print}
@@ -180,15 +179,6 @@ const Print = props => {
                             });
                     }}
                     ref={thisState.weighing.reference.printDialogReference}
-                    onKeyPress={event => {
-                        if (prevent) {
-                            prevent = false;
-                            event.preventDefault();
-                        }
-                    }}
-                    onFocus={() => {
-                        prevent = true;
-                    }}
                 >
                     Print
                 </Button>

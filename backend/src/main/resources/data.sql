@@ -101,7 +101,7 @@ SELECT 'Standard_noOfCopiesForWeighing', 'noOfCopiesForWeighing', 'Standard', 1
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'noOfCopiesForWeighing' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_printFormatForWeighing', 'printFormatForWeighing', 'Standard', 'WebCam Print'
+SELECT 'Standard_printFormatForWeighing', 'printFormatForWeighing', 'Standard', 'Pre Print 1'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormatForWeighing' AND PROFILE like 'Standard');
 INSERT INTO SETTING
