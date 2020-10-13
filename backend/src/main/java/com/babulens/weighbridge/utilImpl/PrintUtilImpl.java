@@ -95,7 +95,7 @@ public class PrintUtilImpl implements PrintUtil {
 	}
 
 	@Override
-	public Book printPrePrint(PrintWeight printWeight) {
+	public Book printPrePrint1(PrintWeight printWeight) {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
 
@@ -118,6 +118,37 @@ public class PrintUtilImpl implements PrintUtil {
 			graphics.setFont(new Font("Courier New", Font.BOLD, 14));
 			drawStringAsColumn(graphics, printWeight.getWeight().getGrossWeight() + " Kg", margin, len += height - 2, iterate, space);
 			height = 33;
+			drawStringAsColumn(graphics, printWeight.getWeight().getTareWeight() + " Kg", margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len += height, iterate, space);
+			return Printable.PAGE_EXISTS;
+		}, pageFormat);
+
+		return book;
+	}
+
+	@Override
+	public Book printPrePrint2(PrintWeight printWeight) {
+		PageFormat pageFormat = new PageFormat();
+		Paper paper = pageFormat.getPaper();
+
+		setPaper(pageFormat, paper, 8d * 72d, 6.1d * 72d, 0d * 72d, 0d * 72d);
+		Book book = new Book();
+
+		book.append((graphics, _pageFormat, pageIndex) -> {
+			graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
+			int space = 223;
+			int margin = 40;
+			int iterate = 3;
+			int len = 64;
+			int height = 24;
+			drawStringAsColumn(graphics, "" + printWeight.getWeight().getSlipNo(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getVehicleNo(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getMaterial(), margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getCharges() == 0 ? "" : "" + (int) printWeight.getWeight().getCharges(), margin, len += height, iterate, space);
+			graphics.setFont(new Font("Courier New", Font.BOLD, 14));
+			drawStringAsColumn(graphics, printWeight.getWeight().getGrossWeight() + " Kg", margin, len += height - 2, iterate, space);
 			drawStringAsColumn(graphics, printWeight.getWeight().getTareWeight() + " Kg", margin, len += height, iterate, space);
 			drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len += height, iterate, space);
 			return Printable.PAGE_EXISTS;
