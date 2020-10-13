@@ -28,7 +28,6 @@ public class StaticVariable {
 				try {
 					add(new IpCamDriver(new IpCamStorage("webcam.xml")));
 				} catch (NullPointerException | WebcamException ex) {
-					Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 					add(new IpCamDriver() {
 						{
 							try {

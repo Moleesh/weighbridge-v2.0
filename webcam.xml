@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <storage>
-    <ipcam name="dummy" url="http://www.babulens.com"/>
+    <!--<ipcam name="dummy" url="http://www.babulens.com"/>
     <ipcam name="webcam_1" url="http://192.168.1.64/ISAPI/Streaming/channels/1/picture" mode="pull">
         <auth user="admin" password="123456"/>
     </ipcam>
     <ipcam name="webcam_2" url="http://192.168.1.64/ISAPI/Streaming/channels/1/picture" mode="pull">
         <auth user="admin" password="123456"/>
-    </ipcam>
+    </ipcam>-->
 </storage>

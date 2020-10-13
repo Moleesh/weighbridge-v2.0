@@ -131,12 +131,12 @@ public class PrintUtilImpl implements PrintUtil {
 		PageFormat pageFormat = new PageFormat();
 		Paper paper = pageFormat.getPaper();
 
-		setPaper(pageFormat, paper, 8d * 72d, 6.2d * 72d, 0d * 72d, 0d * 72d);
+		setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0d * 72d);
 		Book book = new Book();
 
 		book.append((graphics, _pageFormat, pageIndex) -> {
 			graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-			int space = 119;
+			int space = 220;
 			int margin = 40;
 			int iterate = 3;
 			int len = 79;
