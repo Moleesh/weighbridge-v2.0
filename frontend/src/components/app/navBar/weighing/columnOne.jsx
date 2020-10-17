@@ -48,66 +48,66 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                                if (event.keyCode === 13 || event.keyCode === 9) {
-                                    thisState.weight.vehicleNo = thisState.weight.vehicleNo
-                                        .toUpperCase()
-                                        .replaceAll(" ", "");
-                                    if (thisState.weighing.tareSelector) {
-                                        await fetch(
-                                            thisState.INITIAL_URL +
-                                            "/weight/getGrossWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
-                                            thisState.weight.vehicleNo
-                                        )
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
-                                                thisState.weighing.previousWeightSelector = true;
-                                                thisState.weighing.previousWeight = "Gross";
-                                                thisState.weighing.previousWeightResult = result;
-                                                thisState.setMyState(thisState);
-                                                thisState.weighing.reference.previousWeightReference.current.focus();
-                                            })
-                                            .catch(() => {
-                                                !thisState.weighing.disable.materialDisabled
-                                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                                    : !thisState.settings.value.hideCustomerName
-                                                    ? thisState.weighing.reference.customersNameReference.current.focus()
-                                                    : !thisState.settings.value.hideTransporterName
-                                                        ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                                        : !thisState.settings.value.hideCharges
-                                                            ? thisState.weighing.reference.chargesReference.current.focus()
-                                                            : !thisState.settings.value.hideRemarks
-                                                                ? thisState.weighing.reference.remarksReference.current.focus()
-                                                                : thisState.weighing.reference.getWeightReference.current.focus();
-                                            });
-                                    } else {
-                                        await fetch(
-                                            thisState.INITIAL_URL +
-                                            "/tareWeight/getTareWeightByVehicleNo?vehicleNo=" +
-                                            thisState.weight.vehicleNo
-                                        )
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
-                                                thisState.weighing.previousWeightSelector = true;
-                                                thisState.weighing.previousWeight = "Tare";
-                                                thisState.weighing.previousWeightResult = result;
-                                                thisState.setMyState(thisState);
-                                                thisState.weighing.reference.previousWeightReference.current.focus();
-                                            })
-                                            .catch(() => {
-                                                !thisState.weighing.disable.materialDisabled
-                                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                                    : thisState.weighing.reference.customersNameReference.current.focus();
-                                            });
-                                    }
+                            if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.weight.vehicleNo = thisState.weight.vehicleNo
+                                    .toUpperCase()
+                                    .replaceAll(" ", "");
+                                if (thisState.weighing.tareSelector) {
+                                    await fetch(
+                                        thisState.INITIAL_URL +
+                                        "/weight/getGrossWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
+                                        thisState.weight.vehicleNo
+                                    )
+                                        .then(response => {
+                                            if (response.status === 200) {
+                                                return response.json();
+                                            } else throw Error(response.statusText);
+                                        })
+                                        .then(result => {
+                                            thisState.weighing.previousWeightSelector = true;
+                                            thisState.weighing.previousWeight = "Gross";
+                                            thisState.weighing.previousWeightResult = result;
+                                            thisState.setMyState(thisState);
+                                            thisState.weighing.reference.previousWeightReference.current.focus();
+                                        })
+                                        .catch(() => {
+                                            !thisState.weighing.disable.materialDisabled
+                                                ? thisState.weighing.reference.materialReference.reference.current.focus()
+                                                : !thisState.settings.value.hideCustomerName
+                                                ? thisState.weighing.reference.customersNameReference.current.focus()
+                                                : !thisState.settings.value.hideTransporterName
+                                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
+                                                    : !thisState.settings.value.hideCharges
+                                                        ? thisState.weighing.reference.chargesReference.current.focus()
+                                                        : !thisState.settings.value.hideRemarks
+                                                            ? thisState.weighing.reference.remarksReference.current.focus()
+                                                            : thisState.weighing.reference.getWeightReference.current.focus();
+                                        });
+                                } else {
+                                    await fetch(
+                                        thisState.INITIAL_URL +
+                                        "/tareWeight/getTareWeightByVehicleNo?vehicleNo=" +
+                                        thisState.weight.vehicleNo
+                                    )
+                                        .then(response => {
+                                            if (response.status === 200) {
+                                                return response.json();
+                                            } else throw Error(response.statusText);
+                                        })
+                                        .then(result => {
+                                            thisState.weighing.previousWeightSelector = true;
+                                            thisState.weighing.previousWeight = "Tare";
+                                            thisState.weighing.previousWeightResult = result;
+                                            thisState.setMyState(thisState);
+                                            thisState.weighing.reference.previousWeightReference.current.focus();
+                                        })
+                                        .catch(() => {
+                                            !thisState.weighing.disable.materialDisabled
+                                                ? thisState.weighing.reference.materialReference.reference.current.focus()
+                                                : thisState.weighing.reference.customersNameReference.current.focus();
+                                        });
                                 }
+                            }
                         }}
                         onFocus={() => {
                             if (thisState.weighing.preventFocus) {
@@ -115,7 +115,15 @@ const ColumnOne = props => {
                                 thisState.setMyState(thisState);
                                 !thisState.weighing.disable.materialDisabled
                                     ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                    : thisState.weighing.reference.customersNameReference.current.focus();
+                                    : !thisState.settings.value.hideCustomerName
+                                    ? thisState.weighing.reference.customersNameReference.current.focus()
+                                    : !thisState.settings.value.hideTransporterName
+                                        ? thisState.weighing.reference.transporterNameReference.current.focus()
+                                        : !thisState.settings.value.hideCharges
+                                            ? thisState.weighing.reference.chargesReference.current.focus()
+                                            : !thisState.settings.value.hideRemarks
+                                                ? thisState.weighing.reference.remarksReference.current.focus()
+                                                : thisState.weighing.reference.getWeightReference.current.focus();
                             }
                         }}
                         autoFocus={true}

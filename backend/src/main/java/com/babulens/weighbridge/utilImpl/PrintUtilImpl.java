@@ -38,6 +38,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -119,7 +120,7 @@ public class PrintUtilImpl implements PrintUtil {
 			drawStringAsColumn(graphics, printWeight.getWeight().getGrossWeight() + " Kg", margin, len += height - 2, iterate, space);
 			height = 33;
 			drawStringAsColumn(graphics, printWeight.getWeight().getTareWeight() + " Kg", margin, len += height, iterate, space);
-			drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len + height, iterate, space);
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
 
@@ -143,14 +144,18 @@ public class PrintUtilImpl implements PrintUtil {
 			int height = 24;
 			drawStringAsColumn(graphics, "" + printWeight.getWeight().getSlipNo(), margin, len += height, iterate, space);
 			drawStringAsColumn(graphics, printWeight.getWeight().getVehicleNo(), margin, len += height, iterate, space);
-			drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate(), margin, len += height, iterate, space);
-			drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime(), margin, len += height, iterate, space);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+			drawStringAsColumn(graphics, "" + simpleDateFormat.format(printWeight.getWeight().getNettTime()), margin, len += height, iterate, space);
+			simpleDateFormat = new SimpleDateFormat("HH:mm");
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+			drawStringAsColumn(graphics, "" + simpleDateFormat.format(printWeight.getWeight().getNettTime()), margin, len += height, iterate, space);
 			drawStringAsColumn(graphics, printWeight.getWeight().getMaterial(), margin, len += height, iterate, space);
 			drawStringAsColumn(graphics, printWeight.getWeight().getCharges() == 0 ? "" : "" + (int) printWeight.getWeight().getCharges(), margin, len += height, iterate, space);
 			graphics.setFont(new Font("Courier New", Font.BOLD, 14));
 			drawStringAsColumn(graphics, printWeight.getWeight().getGrossWeight() + " Kg", margin, len += height, iterate, space);
 			drawStringAsColumn(graphics, printWeight.getWeight().getTareWeight() + " Kg", margin, len += height, iterate, space);
-			drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len += height, iterate, space);
+			drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len + height, iterate, space);
 			return Printable.PAGE_EXISTS;
 		}, pageFormat);
 
