@@ -102,7 +102,8 @@ class App extends Component {
                 hideCharges: false,
                 hideCustomerName: false,
                 hideTransporterName: false,
-                hideRemarks: false
+                hideRemarks: false,
+                secondWeight: false
             },
             indicator: {
                 name: "indicator",
@@ -247,12 +248,14 @@ class App extends Component {
             grossSelector: true,
             tareSelector: false,
             reprint: false,
+            secondWeight: false,
             print: false,
             tareDetails: false,
             tareDetailsDate: moment().format("DD-MM-YYYY HH:mm:ss"),
             grossDetails: false,
             grossDetailsDate: moment().format("DD-MM-YYYY HH:mm:ss"),
             reprintSlipNo: "",
+            secondWeightSlipNo: "",
             tareDetailsWeight: "",
             customersId: "",
             materialId: "",
@@ -275,6 +278,8 @@ class App extends Component {
                 grossDetailsWeightReference: React.createRef(),
                 rePrintFieldReference: React.createRef(),
                 rePrintButtonReference: React.createRef(),
+                secondWeightFieldReference: React.createRef(),
+                secondWeightButtonReference: React.createRef(),
                 customersIdReference: React.createRef(),
                 materialIdReference: React.createRef(),
                 printDialogReference: React.createRef()
@@ -282,6 +287,7 @@ class App extends Component {
             disable: {
                 grossSelectorDisabled: false,
                 tareSelectorDisabled: false,
+                secondWeightDisabled: false,
                 vehicleNoDisabled: false,
                 materialDisabled: false,
                 customersNameDisabled: false,
@@ -565,6 +571,7 @@ class App extends Component {
             ).then(([settings, slipNo, invoiceNo]) => {
                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                 settings.invoice = settings.invoice.toLowerCase().indexOf("true") !== -1;
+                settings.secondWeight = settings.secondWeight.toLowerCase().indexOf("true") !== -1;
                 settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
                 settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
                 settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;

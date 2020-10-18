@@ -1,10 +1,11 @@
 import React from "react";
-import {Card, Col, Form, Image, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, Image, Row} from "react-bootstrap";
 
 import ColumnOne from "./weighing/columnOne";
 import ColumnTwo from "./weighing/columnTwo";
 import ColumnThree from "./weighing/columnThree";
 import Bottom from "./weighing/bottom";
+import SecondWeight from "./weighing/secondWeight";
 
 const Weighing = props => {
     let thisState = props.preState;
@@ -18,8 +19,8 @@ const Weighing = props => {
             }}
         >
             <Row style={{height: 200}}>
-                <Col sm="2" className="mt-5">
-                    <Form.Group as={Row}>
+                <Col sm="2" className="mt-3">
+                    <Form.Group as={Row} className="ml-3">
                         <Col sm="1"/>
                         <Form.Check
                             type="radio"
@@ -42,7 +43,7 @@ const Weighing = props => {
                             disabled={thisState.weighing.disable.grossSelectorDisabled}
                         />
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-0">
+                    <Form.Group as={Row} className="ml-3">
                         <Col sm="1"/>
                         <Form.Check
                             type="radio"
@@ -65,6 +66,39 @@ const Weighing = props => {
                             disabled={thisState.weighing.disable.tareSelectorDisabled}
                         />
                     </Form.Group>
+                    {thisState.settings.value.secondWeight ?
+                        <Button
+                            className="ml-3"
+                            variant="success"
+                            onClick={() => {
+                                thisState.weighing.secondWeight = true;
+                                thisState.weighing.secondWeightSlipNo = "";
+                                thisState.setMyState(thisState).then(() =>
+                                    thisState.weighing.reference.secondWeightFieldReference.current.focus()
+                                );
+                            }}
+
+                            onFocus={() => {
+                                !thisState.weighing.disable.vehicleNoDisabled
+                                    ? thisState.weighing.reference.vehicleNoReference.current.focus()
+                                    : !thisState.weighing.disable.materialDisabled
+                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
+                                    : !thisState.settings.value.hideCustomerName
+                                        ? thisState.weighing.reference.customersNameReference.current.focus()
+                                        : !thisState.settings.value.hideTransporterName
+                                            ? thisState.weighing.reference.transporterNameReference.current.focus()
+                                            : !thisState.settings.value.hideCharges
+                                                ? thisState.weighing.reference.chargesReference.current.focus()
+                                                : !thisState.settings.value.hideRemarks
+                                                    ? thisState.weighing.reference.remarksReference.current.focus()
+                                                    : thisState.weighing.reference.getWeightReference.current.focus();
+                            }}
+                            disabled={thisState.weighing.disable.secondWeightDisabled}
+                        >
+                            Second Weight
+                        </Button> : ""}
+                    <SecondWeight preState={thisState}/>
+
                 </Col>
 
                 <Col sm="5">

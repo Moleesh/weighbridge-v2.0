@@ -93,6 +93,26 @@ const AdminSettings = props => {
                         </Form.Group> : ""}
                     <Form.Group as={Row}>
                         <Form.Label column sm="3">
+                            Enable Second Weight
+                        </Form.Label>
+                        <Col sm="9">
+                            <Toggle
+                                onClick={() => {
+                                    thisState.settings.value.secondWeight = !thisState.settings.value.secondWeight;
+                                    thisState.setMyState(thisState);
+                                }}
+                                on="ON"
+                                off="OFF"
+                                size="lg"
+                                offstyle="danger"
+                                active={thisState.settings.value.secondWeight}
+                                recalculateOnResize={true}
+                            />
+                            <Invoice preState={thisState}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="3">
                             Manual Entry
                         </Form.Label>
                         <Col sm="9">

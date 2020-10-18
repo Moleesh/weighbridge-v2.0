@@ -19,4 +19,6 @@ public interface WeighService {
 	void resetWeightByProfile(String slipNo, String profile);
 
 	Weight updateWeight(Weight weight);
+
+	Weight secondWeight(int slipNo, String profile);
 }

@@ -9,6 +9,7 @@ const Bottom = props => {
     let thisState = props.preState;
     let prevent = false;
     let preventSave = false;
+
     return (
         <Row>
             <Col sm="4">
@@ -29,6 +30,7 @@ const Bottom = props => {
                         thisState.weighing.disable.tareDetailsWeightDisabled = true;
                         thisState.weighing.disable.getWeightDisabled = true;
                         thisState.weighing.disable.saveDisabled = false;
+                        thisState.weighing.disable.secondWeightDisabled = true;
 
                         let date = moment().format("DD-MM-YYYY HH:mm:ss");
 
@@ -229,6 +231,7 @@ const Bottom = props => {
                                 thisState.weight.remarks = "";
                                 thisState.weighing.grossSelector = true;
                                 thisState.weighing.tareSelector = false;
+                                thisState.weighing.disable.secondWeightDisabled = false;
                                 if (thisState.settings.manualEntry) {
                                     thisState.weighing.disable.grossDetailsDisabled = false;
                                     thisState.weighing.disable.tareDetailsWeightDisabled = false;

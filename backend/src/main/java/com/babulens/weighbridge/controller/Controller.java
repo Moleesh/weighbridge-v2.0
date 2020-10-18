@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -291,6 +292,11 @@ class Controller {
 		serialPortService.sendToDisplay(message);
 	}
 
+	@RequestMapping(value = "/weight/secondWeight", method = {RequestMethod.GET})
+	public Weight secondWeight(@RequestParam("slipNo") int slipNo, @RequestParam("profile") String profile) {
+		return weighService.secondWeight(slipNo, profile);
+	}
+
 	@RequestMapping(value = "/weight/saveWeight", method = {RequestMethod.POST})
 	public Weight saveWeight(@RequestBody Weight weight) {
 		return weighService.saveWeight(weight);
@@ -370,7 +376,7 @@ class Controller {
 	@RequestMapping(value = "/cache/clearCache")
 	public void clearCache() {
 		for (String name : cacheManager.getCacheNames()) {
-			cacheManager.getCache(name).clear();            // clear cache by name
+			Objects.requireNonNull(cacheManager.getCache(name)).clear();
 		}
 	}
 

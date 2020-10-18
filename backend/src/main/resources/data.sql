@@ -125,6 +125,10 @@ SELECT 'Standard_automation', 'automation', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'automation' AND PROFILE like 'Standard');
 INSERT INTO SETTING
+SELECT 'Standard_secondWeight', 'secondWeight', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'secondWeight' AND PROFILE like 'Standard');
+INSERT INTO SETTING
 SELECT 'Standard_hideCharges', 'hideCharges', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideCharges' AND PROFILE like 'Standard');

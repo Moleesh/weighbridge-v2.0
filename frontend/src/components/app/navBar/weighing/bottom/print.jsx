@@ -58,6 +58,7 @@ const Print = props => {
                             thisState.weighing.disable.tareDetailsWeightDisabled = false;
                         }
                         thisState.weighing.print = false;
+                        thisState.weighing.disable.secondWeightDisabled = false;
                         thisState.setMyState(thisState);
                     });
             }}
@@ -102,7 +103,7 @@ const Print = props => {
                                 .then(blob => {
                                     FileSaver.saveAs(blob, "weight.pdf");
                                 })
-                                .catch(error => {
+                                .catch(() => {
                                 });
                         } else {
                             fetch(thisState.INITIAL_URL + "/printer/printWeight", {
@@ -175,6 +176,7 @@ const Print = props => {
                                     thisState.weighing.disable.tareDetailsWeightDisabled = false;
                                 }
                                 thisState.weighing.print = false;
+                                thisState.weighing.disable.secondWeightDisabled = false;
                                 thisState.setMyState(thisState);
                             });
                     }}
