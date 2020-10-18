@@ -31,7 +31,9 @@ public class TransactionFilter implements Filter {
 			String sessionId = httpServletRequest.getSession().getId();
 			if (httpServletRequest.getRequestURI().contains("error")) {
 				chain.doFilter(request, response);
-			} else if (httpServletRequest.getRequestURI().contains("loginForm")) {
+            } else if ((httpServletRequest.getRequestURI().contains("console") || httpServletRequest.getRequestURI().contains("swagger")) && TransactionFilter.list.contains(clientIp)) {
+                chain.doFilter(request, response);
+            } else if (httpServletRequest.getRequestURI().contains("loginForm")) {
 				if (TransactionFilter.list.contains(sessionId) || TransactionFilter.list.contains(clientIp)) {
 					((HttpServletResponse) response).sendRedirect("/");
 				} else {

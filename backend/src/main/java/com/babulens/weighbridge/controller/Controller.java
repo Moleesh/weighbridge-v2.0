@@ -368,7 +368,7 @@ class Controller {
 		return excelUtil.getInvoiceAsExcel(printInvoiceReport);
 	}
 
-	@RequestMapping(value = "/error/getDefault", method = {RequestMethod.GET})
+	@RequestMapping(value = "/error/getDefault")
 	public int getDefaultSlipNo() {
 		return -1;
 	}
