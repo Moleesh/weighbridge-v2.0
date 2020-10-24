@@ -20,6 +20,7 @@ mvn versions:use-latest-releases
 mvn versions:update-properties
 
 ## check for latest npm package
+ncu -u
 npm update --max-old-space-size=8192 --depth 20
 
 ## git Config
