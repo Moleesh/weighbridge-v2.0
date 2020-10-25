@@ -15,7 +15,7 @@ const ColumnTwo = props => {
                     <Typeahead
                         highlightOnlyResult
                         id="material"
-                        selectHintOnEnter
+                        shouldSelect={true}
                         filterBy={["materialId", "material"]}
                         labelKey={option => option.material}
                         renderMenu={(results, menuProps) =>
@@ -43,14 +43,11 @@ const ColumnTwo = props => {
                                 event.length === 0
                                     ? [
                                         {
-                                            material: thisState.invoices.reference.materialReference.reference.current
-                                                .getInstance()
-                                                .getInput().value
+                                            material: thisState.invoices.reference.materialReference.reference.current.getInput().value
                                         }
                                     ]
                                     : event;
-                            thisState.invoice.material =
-                                thisState.invoices.reference.materialReference.value[0].material;
+                            thisState.invoice.material = thisState.invoices.reference.materialReference.value[0].material;
                             let temp = thisState.configuration.material.list
                                 .filter((material) => material.material === thisState.invoice.material);
                             if (temp.length === 1) {

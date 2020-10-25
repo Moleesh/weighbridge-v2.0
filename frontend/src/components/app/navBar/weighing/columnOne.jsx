@@ -163,7 +163,7 @@ const ColumnOne = props => {
                     <Typeahead
                         highlightOnlyResult
                         id="material"
-                        selectHintOnEnter
+                        shouldSelect={true}
                         filterBy={["materialId", "material"]}
                         labelKey={option => option.material}
                         renderMenu={(results, menuProps) =>
@@ -191,14 +191,11 @@ const ColumnOne = props => {
                                 event.length === 0
                                     ? [
                                         {
-                                            material: thisState.weighing.reference.materialReference.reference.current
-                                                .getInstance()
-                                                .getInput().value
+                                            material: thisState.weighing.reference.materialReference.reference.current.getInput().value
                                         }
                                     ]
                                     : event;
-                            thisState.weight.material =
-                                thisState.weighing.reference.materialReference.value[0].material;
+                            thisState.weight.material = thisState.weighing.reference.materialReference.value[0].material;
                             thisState.setMyState(thisState);
                         }}
                         ref={thisState.weighing.reference.materialReference.reference}

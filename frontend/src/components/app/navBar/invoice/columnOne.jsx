@@ -111,7 +111,7 @@ const ColumnOne = props => {
                     <Typeahead
                         highlightOnlyResult
                         id="customersName"
-                        selectHintOnEnter
+                        shouldSelect={true}
                         filterBy={["customerId", "customerName"]}
                         labelKey={option => option.customerName}
                         renderMenu={(results, menuProps) =>
@@ -139,9 +139,7 @@ const ColumnOne = props => {
                                 event.length === 0
                                     ? [
                                         {
-                                            customerName: thisState.invoices.reference.customersNameReference.reference.current
-                                                .getInstance()
-                                                .getInput().value
+                                            customerName: thisState.invoices.reference.customersNameReference.reference.current.getInput().value
                                         }
                                     ]
                                     : event;
