@@ -106,6 +106,8 @@ const SecondWeight = props => {
                                         thisState.weight.grossWeight = result.grossWeight;
                                         thisState.weight.grossTime = result.grossTime;
                                         thisState.weight.vehicleNo = result.vehicleNo;
+                                        thisState.weight.customersName = result.customersName;
+                                        thisState.weight.transporterName = result.transporterName;
                                         thisState.weighing.disable.secondWeightDisabled = true;
                                     } else if (!result.grossTime && !!result.tareTime) {
                                         thisState.weighing.disable.grossSelectorDisabled = true;
@@ -117,6 +119,8 @@ const SecondWeight = props => {
                                         thisState.weight.tareWeight = result.tareWeight;
                                         thisState.weight.tareTime = result.tareTime;
                                         thisState.weight.vehicleNo = result.vehicleNo;
+                                        thisState.weight.customersName = result.customersName;
+                                        thisState.weight.transporterName = result.transporterName;
                                         thisState.weighing.disable.secondWeightDisabled = true;
                                     }
                                     thisState.setMyState(thisState);
