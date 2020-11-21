@@ -41,9 +41,9 @@ const ResetInvoiceNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) {
+                                if (event.key === "Tab" && event.shiftKey) {
 
-                                } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                } else if (event.key === "Enter" || event.key === "Tab") {
                                     thisState.settings.resetInvoiceNoPasswordReference.current.focus();
                                 }
                             }}
@@ -66,9 +66,9 @@ const ResetInvoiceNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) {
+                                if (event.key === "Tab" && event.shiftKey) {
 
-                                } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                } else if (event.key === "Enter" || event.key === "Tab") {
                                     thisState.settings.resetInvoiceNoButtonReference.current.focus();
                                 }
                             }}

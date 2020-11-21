@@ -15,7 +15,7 @@ const Invoice = props => {
         <Form
             className="py-2"
             onKeyDown={event => {
-                if (event.keyCode === 9) {
+                if (event.key === "Tab") {
                     event.preventDefault();
                 }
             }}
@@ -49,7 +49,7 @@ const Invoice = props => {
                                                 thisState.invoices.dummySelectorDialog = true;
                                             }
                                             thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', 'dummyInvoiceNo', false));
-                                            });
+                                        });
                                     } else {
                                         fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE)
                                             .then(response => {

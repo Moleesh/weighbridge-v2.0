@@ -57,9 +57,9 @@ const ColumnTwo = props => {
                         }}
                         ref={thisState.invoices.reference.materialReference.reference}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'invoices', 'vehicleNo', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoices.reference.materialReference.open = false;
                                 thisState.invoices.reference.materialReference.value[0].material =
                                     thisState.invoices.reference.materialReference.value[0].material.toUpperCase()
@@ -97,9 +97,9 @@ const ColumnTwo = props => {
                             thisState.calculateInvoiceAmount(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'invoices', 'material', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.switchFocus(thisState, 'invoices', 'quantity', false);
                             }
                         }}
@@ -126,9 +126,9 @@ const ColumnTwo = props => {
                             thisState.calculateInvoiceAmount(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'invoices', 'unitPrice', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.switchFocus(thisState, 'invoices', 'address1', false);
                             }
                         }}
@@ -151,9 +151,9 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'invoices', 'quantity', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoice.address1 = thisState.invoice.address1.toUpperCase();
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'invoices', 'address2', false);
@@ -178,9 +178,9 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'invoices', 'address1', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoice.address2 = thisState.invoice.address2.toUpperCase();
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'invoices', 'timeOfArrival', false);
@@ -205,9 +205,9 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'invoices', 'address2', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoice.timeOfArrival = thisState.invoice.timeOfArrival
                                     .toUpperCase();
                                 thisState.setMyState(thisState);

@@ -48,9 +48,9 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
 
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.weight.vehicleNo = thisState.weight.vehicleNo.toUpperCase().replaceAll(" ", "");
                                 if (!thisState.settings.value.secondWeight) {
                                     if (thisState.weighing.tareSelector) {
@@ -149,9 +149,9 @@ const ColumnOne = props => {
                         }}
                         ref={thisState.weighing.reference.materialReference.reference}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'weighing', '', false);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.weighing.reference.materialReference.open = false;
                                 thisState.weighing.reference.materialReference.value[0].material = thisState.weighing.reference.materialReference.value[0].material
                                     .toUpperCase()
@@ -202,9 +202,9 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'weighing', 'transporterName', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.switchFocus(thisState, 'weighing', 'remarks', false);
                             }
                         }}
@@ -240,9 +240,9 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'weighing', 'charges', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.switchFocus(thisState, 'weighing', 'getWeight', false);
                             }
                         }}

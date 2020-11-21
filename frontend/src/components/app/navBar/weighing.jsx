@@ -13,7 +13,7 @@ const Weighing = props => {
         <Form
             className="py-2"
             onKeyDown={event => {
-                if (event.keyCode === 9) {
+                if (event.key === "Tab") {
                     event.preventDefault();
                 }
             }}

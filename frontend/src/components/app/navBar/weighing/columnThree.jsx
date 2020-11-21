@@ -28,9 +28,9 @@ const ColumnThree = props => {
                                     thisState.setMyState(thisState);
                                 }}
                                 onKeyDown={event => {
-                                    if (event.keyCode === 9 && event.shiftKey) {
+                                    if (event.key === "Tab" && event.shiftKey) {
 
-                                    } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                    } else if (event.key === "Enter" || event.key === "Tab") {
                                         let customer = thisState.configuration.customer.list.filter(
                                             item =>
                                                 parseInt(item.customerId) ===
@@ -67,9 +67,9 @@ const ColumnThree = props => {
                                     thisState.setMyState(thisState);
                                 }}
                                 onKeyDown={async event => {
-                                    if (event.keyCode === 9 && event.shiftKey) {
+                                    if (event.key === "Tab" && event.shiftKey) {
                                         thisState.switchFocus(thisState, 'weighing', 'customersId', false);
-                                    } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                    } else if (event.key === "Enter" || event.key === "Tab") {
                                         let material = thisState.configuration.material.list.filter(
                                             item =>
                                                 parseInt(item.materialId) ===

@@ -34,9 +34,9 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'weighing', 'material', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.weight.customersName = thisState.weight.customersName.toUpperCase();
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'weighing', 'transporterName', false);
@@ -74,9 +74,9 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey) {
+                            if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'weighing', 'customersName', true);
-                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                            } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.weight.transporterName = thisState.weight.transporterName.toUpperCase();
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'weighing', 'charges', false);
