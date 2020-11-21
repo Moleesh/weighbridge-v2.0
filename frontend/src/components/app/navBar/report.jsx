@@ -16,9 +16,7 @@ const Report = props => {
     return (
         <React.Fragment>
             <iframe src={thisState.report.pdfURL}
-                    disabled={true}
                     name="Report Print"
-                    type="application/pdf"
                     onLoad={() => {
                         if (thisState.report.pdfURL !== "") {
                             window.frames["Report Print"].print();
@@ -396,26 +394,22 @@ const Report = props => {
                                                         profile: thisState.PROFILE
                                                     }),
                                                     headers: {"content-type": "application/json"}
-                                                })
-                                                    .then(response => {
-                                                        if (response.status === 200) {
-                                                            return response.json();
-                                                        } else throw Error(response.statusText);
-                                                    })
-                                                    .then(result => {
-                                                        thisState.report.isType = "weight";
-                                                        thisState.report.filter = thisState.report.filters[thisState.report.isType];
-                                                        thisState.report.headers[thisState.report.currentHeader] = thisState.report.header;
-                                                        thisState.report.header = thisState.report.headers[thisState.report.isType];
-                                                        thisState.report.currentHeader = thisState.report.isType;
-                                                        thisState.report.list = result.weights;
-                                                        thisState.report.totalRecords = result.totalRecords;
-                                                        thisState.report.totalWeight = result.totalWeight;
-                                                        thisState.report.totalCharge = result.totalCharge;
-                                                        thisState.setMyState(thisState);
-                                                    })
-                                                    .catch(() => {
-                                                    });
+                                                }).then(response => {
+                                                    if (response.status === 200) {
+                                                        return response.json();
+                                                    } else throw Error(response.statusText);
+                                                }).then(result => {
+                                                    thisState.report.isType = "weight";
+                                                    thisState.report.filter = thisState.report.filters[thisState.report.isType];
+                                                    thisState.report.headers[thisState.report.currentHeader] = thisState.report.header;
+                                                    thisState.report.header = thisState.report.headers[thisState.report.isType];
+                                                    thisState.report.currentHeader = thisState.report.isType;
+                                                    thisState.report.list = result.weights;
+                                                    thisState.report.totalRecords = result.totalRecords;
+                                                    thisState.report.totalWeight = result.totalWeight;
+                                                    thisState.report.totalCharge = result.totalCharge;
+                                                    thisState.setMyState(thisState);
+                                                });
                                                 break;
                                             case "invoice":
                                                 thisState.report.invoiceSelect = true;
@@ -534,12 +528,11 @@ const Report = props => {
                                     disabled={thisState.report.list.length === 0}
                                     onClick={() => {
                                         let header = [thisState.report.isType === "weight" ? "Slip No" : "Invoice No"];
-                                        Object.entries(thisState.report.filter)
-                                            .forEach((obj) => {
-                                                if (obj[1]) {
-                                                    header.push(thisState.report.header[obj[0]])
-                                                }
-                                            })
+                                        Object.entries(thisState.report.filter).forEach((obj) => {
+                                            if (obj[1]) {
+                                                header.push(thisState.report.header[obj[0]])
+                                            }
+                                        });
                                         switch (thisState.report.isType) {
                                             case "weight":
                                                 fetch(thisState.INITIAL_URL + "/excel/getWeightAsExcel", {
@@ -558,8 +551,9 @@ const Report = props => {
                                                     }),
                                                     headers: {"content-type": "application/json"}
                                                 }).then(response => {
-                                                    if (response.status !== 200)
+                                                    if (response.status !== 200) {
                                                         throw Error(response.statusText);
+                                                    }
                                                     return response.blob();
                                                 }).then(blob => {
                                                     FileSaver.saveAs(blob, "report.xlsx");
@@ -584,8 +578,9 @@ const Report = props => {
                                                     }),
                                                     headers: {"content-type": "application/json"}
                                                 }).then(response => {
-                                                    if (response.status !== 200)
+                                                    if (response.status !== 200) {
                                                         throw Error(response.statusText);
+                                                    }
                                                     return response.blob();
                                                 }).then(blob => {
                                                     FileSaver.saveAs(blob, "report.xlsx");
@@ -624,8 +619,9 @@ const Report = props => {
                                                         }),
                                                         headers: {"content-type": "application/json"}
                                                     }).then(response => {
-                                                        if (response.status !== 200)
+                                                        if (response.status !== 200) {
                                                             throw Error(response.statusText);
+                                                        }
                                                         return response.blob();
                                                     }).then(blob => {
                                                         if (thisState.settings.value.printerNameForWeighing === "get as .pdf File") {
@@ -654,8 +650,9 @@ const Report = props => {
                                                         }),
                                                         headers: {"content-type": "application/json"}
                                                     }).then(response => {
-                                                        if (response.status !== 200)
+                                                        if (response.status !== 200) {
                                                             throw Error(response.statusText);
+                                                        }
                                                     }).catch(error => {
                                                         console.log(error);
                                                     });
@@ -679,8 +676,9 @@ const Report = props => {
                                                         }),
                                                         headers: {"content-type": "application/json"}
                                                     }).then(response => {
-                                                        if (response.status !== 200)
+                                                        if (response.status !== 200) {
                                                             throw Error(response.statusText);
+                                                        }
                                                         return response.blob();
                                                     }).then(blob => {
                                                         if (thisState.settings.value.printerNameForWeighing === "get as .pdf File") {
@@ -709,8 +707,9 @@ const Report = props => {
                                                         }),
                                                         headers: {"content-type": "application/json"}
                                                     }).then(response => {
-                                                        if (response.status !== 200)
+                                                        if (response.status !== 200) {
                                                             throw Error(response.statusText);
+                                                        }
                                                     }).catch(error => {
                                                         console.log(error);
                                                     });

@@ -82,25 +82,21 @@ const Customer = props => {
                                             }
                                         ),
                                         headers: {"content-type": "application/json"}
-                                    })
-                                        .then(response => {
-                                            if (response.status === 200) {
-                                                return response.json();
-                                            } else throw Error(response.statusText);
-                                        })
-                                        .then(result => {
-                                            Object.keys(thisState.configuration.customer.template).map(
-                                                key =>
-                                                    (thisState.configuration.customer.template[key] = "")
-                                            );
-                                            thisState.setMyState(thisState).then(() => {
-                                                thisState.configuration.customer.list.push(result);
+                                    }).then(response => {
+                                        if (response.status === 200) {
+                                            return response.json();
+                                        } else throw Error(response.statusText);
+                                    }).then(result => {
+                                        Object.keys(thisState.configuration.customer.template).map(
+                                            key =>
+                                                (thisState.configuration.customer.template[key] = "")
+                                        );
+                                        thisState.setMyState(thisState).then(() => {
+                                            thisState.configuration.customer.list.push(result);
 
-                                                thisState.setMyState(thisState);
-                                            });
-                                        })
-                                        .catch(() => {
+                                            thisState.setMyState(thisState);
                                         });
+                                    });
                                 } else {
                                     thisState.alerts.push({
                                         id: new Date().getTime(),
@@ -134,37 +130,33 @@ const Customer = props => {
                 <tbody>
                 {thisState.configuration.customer.list.map((item, index) => (
                     <tr key={index} className="eachRow">
-                        {Object.values(item)
-                            .toString()
-                            .replaceAll(",", ".")
-                            .indexOf(thisState.configuration.customer.filterText) ===
+                        {Object.values(item).toString().replaceAll(",", ".").indexOf(thisState.configuration.customer.filterText) ===
                         -1 ? null : (
                             <React.Fragment>
-                                {Object.keys(thisState.configuration.customer.template)
-                                    .map(key => (
-                                        <td key={key + "_" + item[key]}>
-                                            <Col>
-                                                <Form.Control
-                                                    autoComplete="none"
-                                                    className="text-center form-control reportInputs"
-                                                    disabled={
-                                                        !(
-                                                            thisState.configuration.customer.unlock &&
-                                                            thisState.configuration.customer.editable
-                                                        )
-                                                    }
-                                                    type="text"
-                                                    name={key}
-                                                    value={item[key] !== null ? item[key] : ""}
-                                                    onChange={event => {
-                                                        thisState.configuration.customer.list[index][key] =
-                                                            event.target.value;
-                                                        thisState.setMyState(thisState);
-                                                    }}
-                                                />
-                                            </Col>
-                                        </td>
-                                    ))}
+                                {Object.keys(thisState.configuration.customer.template).map(key => (
+                                    <td key={key + "_" + item[key]}>
+                                        <Col>
+                                            <Form.Control
+                                                autoComplete="none"
+                                                className="text-center form-control reportInputs"
+                                                disabled={
+                                                    !(
+                                                        thisState.configuration.customer.unlock &&
+                                                        thisState.configuration.customer.editable
+                                                    )
+                                                }
+                                                type="text"
+                                                name={key}
+                                                value={item[key] !== null ? item[key] : ""}
+                                                onChange={event => {
+                                                    thisState.configuration.customer.list[index][key] =
+                                                        event.target.value;
+                                                    thisState.setMyState(thisState);
+                                                }}
+                                            />
+                                        </Col>
+                                    </td>
+                                ))}
                                 {thisState.configuration.customer.unlock ? (
                                     <td>
                                         <Row>
@@ -186,16 +178,11 @@ const Customer = props => {
                                                                         "content-type": "application/json"
                                                                     }
                                                                 }
-                                                            )
-                                                                .then(response => {
-                                                                    if (response.status === 200) {
-                                                                        return response.json();
-                                                                    } else throw Error(response.statusText);
-                                                                })
-                                                                .then(() => {
-                                                                })
-                                                                .catch(() => {
-                                                                });
+                                                            ).then(response => {
+                                                                if (response.status === 200) {
+                                                                    return response.json();
+                                                                } else throw Error(response.statusText);
+                                                            });
                                                         }}
                                                     >
                                                         Update
@@ -217,18 +204,15 @@ const Customer = props => {
                                                             {
                                                                 method: "DELETE"
                                                             }
-                                                        )
-                                                            .then(response => {
-                                                                if (response.status === 200) {
-                                                                    thisState.configuration.customer.list.splice(
-                                                                        index,
-                                                                        1
-                                                                    );
-                                                                    thisState.setMyState(thisState);
-                                                                } else throw Error(response.statusText);
-                                                            })
-                                                            .catch(() => {
-                                                            });
+                                                        ).then(response => {
+                                                            if (response.status === 200) {
+                                                                thisState.configuration.customer.list.splice(
+                                                                    index,
+                                                                    1
+                                                                );
+                                                                thisState.setMyState(thisState);
+                                                            } else throw Error(response.statusText);
+                                                        });
                                                     }}
                                                 >
                                                     Remove

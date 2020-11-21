@@ -57,36 +57,33 @@ const RePrint = props => {
                                 thisState.INITIAL_URL +
                                 "/weight/getWeightBySlipNoAndProfile?profile=" + thisState.PROFILE + "&slipNo=" +
                                 thisState.weighing.reprintSlipNo
-                            )
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                })
-                                .then(result => {
-                                    thisState.weighing.reprint = false;
-                                    thisState.weighing.disable.grossSelectorDisabled = true;
-                                    thisState.weighing.disable.tareSelectorDisabled = true;
-                                    thisState.weighing.disable.vehicleNoDisabled = true;
-                                    thisState.weighing.disable.customersNameDisabled = true;
-                                    thisState.weighing.disable.transporterNameDisabled = true;
-                                    thisState.weighing.disable.materialDisabled = true;
-                                    thisState.weighing.disable.chargesDisabled = true;
-                                    thisState.weighing.disable.remarksDisabled = true;
-                                    thisState.weighing.disable.getWeightDisabled = true;
-                                    thisState.weighing.disable.saveDisabled = true;
-                                    thisState.weighing.disable.printDisabled = false;
-                                    thisState.weighing.disable.secondWeightDisabled = true;
-                                    thisState.weight = result;
-                                    thisState.weighing.reference.materialReference.value = [
-                                        {material: thisState.weight.material}
-                                    ];
-                                    thisState.setMyState(thisState);
-                                })
-                                .catch(() => {
-                                    thisState.weighing.reprint = false;
-                                    thisState.setMyState(thisState);
-                                });
+                            ).then(response => {
+                                if (response.status === 200) {
+                                    return response.json();
+                                } else throw Error(response.statusText);
+                            }).then(result => {
+                                thisState.weighing.reprint = false;
+                                thisState.weighing.disable.grossSelectorDisabled = true;
+                                thisState.weighing.disable.tareSelectorDisabled = true;
+                                thisState.weighing.disable.vehicleNoDisabled = true;
+                                thisState.weighing.disable.customersNameDisabled = true;
+                                thisState.weighing.disable.transporterNameDisabled = true;
+                                thisState.weighing.disable.materialDisabled = true;
+                                thisState.weighing.disable.chargesDisabled = true;
+                                thisState.weighing.disable.remarksDisabled = true;
+                                thisState.weighing.disable.getWeightDisabled = true;
+                                thisState.weighing.disable.saveDisabled = true;
+                                thisState.weighing.disable.printDisabled = false;
+                                thisState.weighing.disable.secondWeightDisabled = true;
+                                thisState.weight = result;
+                                thisState.weighing.reference.materialReference.value = [
+                                    {material: thisState.weight.material}
+                                ];
+                                thisState.setMyState(thisState);
+                            }).catch(() => {
+                                thisState.weighing.reprint = false;
+                                thisState.setMyState(thisState);
+                            });
                         } else {
                             thisState.weighing.reprint = false;
                             thisState.setMyState(thisState);

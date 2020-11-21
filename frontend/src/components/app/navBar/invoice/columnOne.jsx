@@ -46,30 +46,28 @@ const ColumnOne = props => {
 
                             } else if (event.key === "Enter" || event.key === "Tab") {
                                 if (thisState.invoice.referenceSlipNo) {
-                                    await fetch(thisState.INITIAL_URL + "/weight/getWeightBySlipNoAndProfile?profile=" + thisState.PROFILE + "&slipNo=" + thisState.invoice.referenceSlipNo)
-                                        .then(response => {
-                                            if (response.status === 200) {
-                                                return response.json();
-                                            } else throw Error(response.statusText);
-                                        })
-                                        .then(result => {
-                                            thisState.invoices.previousWeightSelector = true;
-                                            let temp = thisState.configuration.material.list
-                                                .filter((material) => material.material === result.material);
-                                            if (temp.length === 1) {
-                                                result.unitPrice = temp[0].unitPrice;
-                                            }
-                                            temp = thisState.configuration.customer.list
-                                                .filter((customer) => customer.customerName === result.customersName);
-                                            if (temp.length === 1) {
-                                                result.gstin = temp[0].gstin;
-                                                result.address1 = temp[0].address1;
-                                                result.address2 = temp[0].address2;
-                                            }
-                                            thisState.invoices.previousWeightResult = result;
-                                            thisState.setMyState(thisState);
-                                            thisState.switchFocus(thisState, 'invoices', 'previousWeight', false);
-                                        }).catch(() => thisState.switchFocus(thisState, 'invoices', 'customersName', false));
+                                    await fetch(thisState.INITIAL_URL + "/weight/getWeightBySlipNoAndProfile?profile=" + thisState.PROFILE + "&slipNo=" + thisState.invoice.referenceSlipNo).then(response => {
+                                        if (response.status === 200) {
+                                            return response.json();
+                                        } else throw Error(response.statusText);
+                                    }).then(result => {
+                                        thisState.invoices.previousWeightSelector = true;
+                                        let temp = thisState.configuration.material.list
+                                            .filter((material) => material.material === result.material);
+                                        if (temp.length === 1) {
+                                            result.unitPrice = temp[0].unitPrice;
+                                        }
+                                        temp = thisState.configuration.customer.list
+                                            .filter((customer) => customer.customerName === result.customersName);
+                                        if (temp.length === 1) {
+                                            result.gstin = temp[0].gstin;
+                                            result.address1 = temp[0].address1;
+                                            result.address2 = temp[0].address2;
+                                        }
+                                        thisState.invoices.previousWeightResult = result;
+                                        thisState.setMyState(thisState);
+                                        thisState.switchFocus(thisState, 'invoices', 'previousWeight', false);
+                                    }).catch(() => thisState.switchFocus(thisState, 'invoices', 'customersName', false));
                                 } else {
                                     thisState.switchFocus(thisState, 'invoices', 'customersName', false);
                                 }

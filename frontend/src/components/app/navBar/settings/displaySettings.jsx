@@ -176,20 +176,17 @@ const DisplaySettings = props => {
                 variant="light"
                 size="lg"
                 onClick={() => {
-                    fetch(thisState.INITIAL_URL + "/serialPort/settingUpSerialPort?serialPort=display&setDataListener=false")
-                        .then(response => {
-                            if (response.status === 200) {
-                                thisState.alerts.push({
-                                    id: new Date().getTime(),
-                                    type: "success",
-                                    headline: "Display Settings Refreshed",
-                                    message: "Display Settings Successfully Refreshed."
-                                });
-                                thisState.setMyState(thisState);
-                            } else throw Error(response.statusText);
-                        })
-                        .catch(() => {
-                        });
+                    fetch(thisState.INITIAL_URL + "/serialPort/settingUpSerialPort?serialPort=display&setDataListener=false").then(response => {
+                        if (response.status === 200) {
+                            thisState.alerts.push({
+                                id: new Date().getTime(),
+                                type: "success",
+                                headline: "Display Settings Refreshed",
+                                message: "Display Settings Successfully Refreshed."
+                            });
+                            thisState.setMyState(thisState);
+                        } else throw Error(response.statusText);
+                    });
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >

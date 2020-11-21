@@ -95,35 +95,27 @@ const ColumnThree = props => {
                                                 thisState.INITIAL_URL +
                                                 "/weight/getGrossWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
                                                 thisState.weight.vehicleNo
-                                            )
-                                                .then(response => {
-                                                    if (response.status === 200) {
-                                                        return response.json();
-                                                    } else throw Error(response.statusText);
-                                                })
-                                                .then(result => {
-                                                    thisState.weight.grossWeight = result.grossWeight;
-                                                    thisState.weight.grossTime = result.grossTime;
-                                                })
-                                                .catch(() => {
-                                                });
+                                            ).then(response => {
+                                                if (response.status === 200) {
+                                                    return response.json();
+                                                } else throw Error(response.statusText);
+                                            }).then(result => {
+                                                thisState.weight.grossWeight = result.grossWeight;
+                                                thisState.weight.grossTime = result.grossTime;
+                                            });
                                         } else {
                                             await fetch(
                                                 thisState.INITIAL_URL +
                                                 "/tareWeight/getTareWeightByVehicleNo?vehicleNo=" +
                                                 thisState.weight.vehicleNo
-                                            )
-                                                .then(response => {
-                                                    if (response.status === 200) {
-                                                        return response.json();
-                                                    } else throw Error(response.statusText);
-                                                })
-                                                .then(result => {
-                                                    thisState.weight.tareWeight = result.tareWeight;
-                                                    thisState.weight.tareTime = result.tareTime;
-                                                })
-                                                .catch(() => {
-                                                });
+                                            ).then(response => {
+                                                if (response.status === 200) {
+                                                    return response.json();
+                                                } else throw Error(response.statusText);
+                                            }).then(result => {
+                                                thisState.weight.tareWeight = result.tareWeight;
+                                                thisState.weight.tareTime = result.tareTime;
+                                            });
                                         }
                                         let date = moment().format("DD-MM-YYYY HH:mm:ss");
 
@@ -151,50 +143,43 @@ const ColumnThree = props => {
                                             method: "POST",
                                             body: JSON.stringify(thisState.weight),
                                             headers: {"content-type": "application/json"}
-                                        })
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
-                                                        .then(response => {
-                                                            if (response.status === 200) {
-                                                                return response.json();
-                                                            } else throw Error(response.statusText);
-                                                        })
-                                                        .then(result => {
-                                                            return result;
-                                                        })
-                                                        .catch(() => {
-                                                            return -1;
-                                                        })
-                                                        .then(result => {
-                                                            thisState.weight.slipNo = result;
-                                                            thisState.weight.vehicleNo = "";
-                                                            thisState.weight.customersName = "";
-                                                            thisState.weight.transporterName = "";
-                                                            thisState.weight.material = "";
-                                                            thisState.weighing.customersId = "";
-                                                            thisState.weighing.materialId = "";
-                                                            thisState.weighing.reference.materialReference.value = [
-                                                                {material: ""}
-                                                            ];
-                                                            thisState.weight.grossWeight = "";
-                                                            thisState.weight.grossTime = "";
-                                                            thisState.weight.tareWeight = "";
-                                                            thisState.weight.tareTime = "";
-                                                            thisState.weight.nettWeight = "";
-                                                            thisState.weight.nettTime = "";
-                                                            thisState.weight.charges = "";
-                                                            thisState.weight.remarks = "";
-                                                            thisState.weighing.grossSelector = true;
-                                                            thisState.weighing.tareSelector = false;
-                                                            thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'customersId', false));
-                                                        });
-
+                                        }).then(response => {
+                                            if (response.status === 200) {
+                                                fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(response => {
+                                                    if (response.status === 200) {
+                                                        return response.json();
+                                                    } else throw Error(response.statusText);
+                                                }).then(result => {
+                                                    return result;
+                                                }).catch(() => {
+                                                    return -1;
+                                                }).then(result => {
+                                                    thisState.weight.slipNo = result;
+                                                    thisState.weight.vehicleNo = "";
+                                                    thisState.weight.customersName = "";
+                                                    thisState.weight.transporterName = "";
+                                                    thisState.weight.material = "";
+                                                    thisState.weighing.customersId = "";
+                                                    thisState.weighing.materialId = "";
+                                                    thisState.weighing.reference.materialReference.value = [
+                                                        {material: ""}
+                                                    ];
+                                                    thisState.weight.grossWeight = "";
+                                                    thisState.weight.grossTime = "";
+                                                    thisState.weight.tareWeight = "";
+                                                    thisState.weight.tareTime = "";
+                                                    thisState.weight.nettWeight = "";
+                                                    thisState.weight.nettTime = "";
+                                                    thisState.weight.charges = "";
+                                                    thisState.weight.remarks = "";
+                                                    thisState.weighing.grossSelector = true;
+                                                    thisState.weighing.tareSelector = false;
                                                     thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'customersId', false));
-                                                } else throw Error(response.statusText);
-                                            })
-                                            .catch(() => {
-                                            });
+                                                });
+
+                                                thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'customersId', false));
+                                            } else throw Error(response.statusText);
+                                        });
                                         await thisState.setMyState(thisState);
                                     }
                                 }}

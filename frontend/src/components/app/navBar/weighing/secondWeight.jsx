@@ -59,51 +59,48 @@ const SecondWeight = props => {
                                 thisState.INITIAL_URL +
                                 "/weight/secondWeight?profile=" + thisState.PROFILE + "&slipNo=" +
                                 thisState.weighing.secondWeightSlipNo
-                            )
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                })
-                                .then(result => {
-                                    thisState.weighing.secondWeight = false;
-                                    if (!!result.grossTime && !result.tareTime) {
-                                        thisState.weighing.disable.grossSelectorDisabled = true;
-                                        thisState.weighing.disable.tareSelectorDisabled = true;
-                                        thisState.weighing.disable.vehicleNoDisabled = true;
-                                        thisState.weighing.tareSelector = true;
-                                        thisState.weighing.grossSelector = false;
-                                        thisState.weight.material = "Empty";
-                                        thisState.weighing.reference.materialReference.value = [
-                                            {material: "Empty"}
-                                        ];
-                                        thisState.weighing.disable.materialDisabled = true;
-                                        thisState.weight.grossWeight = result.grossWeight;
-                                        thisState.weight.grossTime = result.grossTime;
-                                        thisState.weight.vehicleNo = result.vehicleNo;
-                                        thisState.weight.customersName = result.customersName;
-                                        thisState.weight.transporterName = result.transporterName;
-                                        thisState.weighing.disable.secondWeightDisabled = true;
-                                    } else if (!result.grossTime && !!result.tareTime) {
-                                        thisState.weighing.disable.grossSelectorDisabled = true;
-                                        thisState.weighing.disable.tareSelectorDisabled = true;
-                                        thisState.weighing.disable.vehicleNoDisabled = true;
-                                        thisState.weighing.grossSelector = true;
-                                        thisState.weighing.tareSelector = false;
-                                        thisState.weighing.disable.materialDisabled = false;
-                                        thisState.weight.tareWeight = result.tareWeight;
-                                        thisState.weight.tareTime = result.tareTime;
-                                        thisState.weight.vehicleNo = result.vehicleNo;
-                                        thisState.weight.customersName = result.customersName;
-                                        thisState.weight.transporterName = result.transporterName;
-                                        thisState.weighing.disable.secondWeightDisabled = true;
-                                    }
-                                    thisState.setMyState(thisState);
-                                })
-                                .catch(() => {
-                                    thisState.weighing.secondWeight = false;
-                                    thisState.setMyState(thisState);
-                                });
+                            ).then(response => {
+                                if (response.status === 200) {
+                                    return response.json();
+                                } else throw Error(response.statusText);
+                            }).then(result => {
+                                thisState.weighing.secondWeight = false;
+                                if (!!result.grossTime && !result.tareTime) {
+                                    thisState.weighing.disable.grossSelectorDisabled = true;
+                                    thisState.weighing.disable.tareSelectorDisabled = true;
+                                    thisState.weighing.disable.vehicleNoDisabled = true;
+                                    thisState.weighing.tareSelector = true;
+                                    thisState.weighing.grossSelector = false;
+                                    thisState.weight.material = "Empty";
+                                    thisState.weighing.reference.materialReference.value = [
+                                        {material: "Empty"}
+                                    ];
+                                    thisState.weighing.disable.materialDisabled = true;
+                                    thisState.weight.grossWeight = result.grossWeight;
+                                    thisState.weight.grossTime = result.grossTime;
+                                    thisState.weight.vehicleNo = result.vehicleNo;
+                                    thisState.weight.customersName = result.customersName;
+                                    thisState.weight.transporterName = result.transporterName;
+                                    thisState.weighing.disable.secondWeightDisabled = true;
+                                } else if (!result.grossTime && !!result.tareTime) {
+                                    thisState.weighing.disable.grossSelectorDisabled = true;
+                                    thisState.weighing.disable.tareSelectorDisabled = true;
+                                    thisState.weighing.disable.vehicleNoDisabled = true;
+                                    thisState.weighing.grossSelector = true;
+                                    thisState.weighing.tareSelector = false;
+                                    thisState.weighing.disable.materialDisabled = false;
+                                    thisState.weight.tareWeight = result.tareWeight;
+                                    thisState.weight.tareTime = result.tareTime;
+                                    thisState.weight.vehicleNo = result.vehicleNo;
+                                    thisState.weight.customersName = result.customersName;
+                                    thisState.weight.transporterName = result.transporterName;
+                                    thisState.weighing.disable.secondWeightDisabled = true;
+                                }
+                                thisState.setMyState(thisState);
+                            }).catch(() => {
+                                thisState.weighing.secondWeight = false;
+                                thisState.setMyState(thisState);
+                            });
                         } else {
                             thisState.weighing.secondWeight = false;
                             thisState.setMyState(thisState);

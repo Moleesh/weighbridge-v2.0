@@ -205,20 +205,17 @@ const WebCamSettings = props => {
                 variant="light"
                 size="lg"
                 onClick={() => {
-                    fetch(thisState.INITIAL_URL + "/webCam/settingUpWebCam?webcam=" + thisState.webCam.details[0].name)
-                        .then(response => {
-                            if (response.status === 200) {
-                                thisState.alerts.push({
-                                    id: new Date().getTime(),
-                                    type: "success",
-                                    headline: "WebCam Settings Refreshed",
-                                    message: "WebCam Settings Refreshed Successfully."
-                                });
-                                thisState.setMyState(thisState);
-                            } else throw Error(response.statusText);
-                        })
-                        .catch(() => {
-                        });
+                    fetch(thisState.INITIAL_URL + "/webCam/settingUpWebCam?webcam=" + thisState.webCam.details[0].name).then(response => {
+                        if (response.status === 200) {
+                            thisState.alerts.push({
+                                id: new Date().getTime(),
+                                type: "success",
+                                headline: "WebCam Settings Refreshed",
+                                message: "WebCam Settings Refreshed Successfully."
+                            });
+                            thisState.setMyState(thisState);
+                        } else throw Error(response.statusText);
+                    });
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >

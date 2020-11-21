@@ -59,10 +59,9 @@ const Bottom = props => {
                         }
                         thisState.weight.nettTime = date;
                         thisState
-                            .setMyState(thisState)
-                            .then(() =>
-                                thisState.switchFocus(thisState, 'weighing', 'save', false)
-                            );
+                            .setMyState(thisState).then(() =>
+                            thisState.switchFocus(thisState, 'weighing', 'save', false)
+                        );
                     }}
                     disabled={thisState.weighing.disable.getWeightDisabled}
                     ref={thisState.weighing.reference.getWeightReference}
@@ -93,27 +92,23 @@ const Bottom = props => {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),
                                 headers: {"content-type": "application/json"}
-                            })
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                })
-                                .then(result => {
-                                    thisState.weight = result;
-                                    thisState.weighing.disable.saveDisabled = true;
-                                    thisState.weighing.disable.printDisabled = false;
-                                    thisState
-                                        .setMyState(thisState)
-                                        .then(() => {
-                                                thisState.switchFocus(thisState, 'weighing', 'print', false);
-                                                preventSave = false;
-                                            }
-                                        );
-                                })
-                                .catch(() => {
-                                    preventSave = false;
-                                });
+                            }).then(response => {
+                                if (response.status === 200) {
+                                    return response.json();
+                                } else throw Error(response.statusText);
+                            }).then(result => {
+                                thisState.weight = result;
+                                thisState.weighing.disable.saveDisabled = true;
+                                thisState.weighing.disable.printDisabled = false;
+                                thisState
+                                    .setMyState(thisState).then(() => {
+                                        thisState.switchFocus(thisState, 'weighing', 'print', false);
+                                        preventSave = false;
+                                    }
+                                );
+                            }).catch(() => {
+                                preventSave = false;
+                            });
                         }
                     }
                     }
@@ -183,59 +178,55 @@ const Bottom = props => {
                     variant="primary"
                     block
                     onClick={() => {
-                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                return result;
-                            })
-                            .catch(() => {
-                                return -1;
-                            })
-                            .then(result => {
-                                thisState.weighing.disable.grossSelectorDisabled = false;
-                                thisState.weighing.disable.tareSelectorDisabled = false;
-                                thisState.weighing.disable.vehicleNoDisabled = false;
-                                thisState.weighing.disable.customersNameDisabled = false;
-                                thisState.weighing.disable.transporterNameDisabled = false;
-                                thisState.weighing.disable.materialDisabled = false;
-                                thisState.weighing.disable.chargesDisabled = false;
-                                thisState.weighing.disable.remarksDisabled = false;
-                                thisState.weighing.disable.getWeightDisabled = false;
-                                thisState.weighing.disable.saveDisabled = true;
-                                thisState.weighing.disable.printDisabled = true;
-                                thisState.weight.slipNo = result;
-                                if (result === -1) {
-                                    thisState.weighing.disable.getWeightDisabled = true;
-                                    thisState.SETTING_DISABLED = true;
-                                }
-                                thisState.weight.vehicleNo = "";
-                                thisState.weight.customersName = "";
-                                thisState.weight.transporterName = "";
-                                thisState.weight.material = "";
-                                thisState.weighing.reference.materialReference.value = [
-                                    {material: ""}
-                                ];
-                                thisState.weight.grossWeight = "";
-                                thisState.weight.grossTime = "";
-                                thisState.weight.tareWeight = "";
-                                thisState.weight.tareTime = "";
-                                thisState.weight.nettWeight = "";
-                                thisState.weight.nettTime = "";
-                                thisState.weight.charges = "";
-                                thisState.weight.remarks = "";
-                                thisState.weighing.grossSelector = true;
-                                thisState.weighing.tareSelector = false;
-                                thisState.weighing.disable.secondWeightDisabled = false;
-                                if (thisState.settings.manualEntry) {
-                                    thisState.weighing.disable.grossDetailsDisabled = false;
-                                    thisState.weighing.disable.tareDetailsWeightDisabled = false;
-                                }
-                                thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'vehicleNo', false));
-                            });
+                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(response => {
+                            if (response.status === 200) {
+                                return response.json();
+                            } else throw Error(response.statusText);
+                        }).then(result => {
+                            return result;
+                        }).catch(() => {
+                            return -1;
+                        }).then(result => {
+                            thisState.weighing.disable.grossSelectorDisabled = false;
+                            thisState.weighing.disable.tareSelectorDisabled = false;
+                            thisState.weighing.disable.vehicleNoDisabled = false;
+                            thisState.weighing.disable.customersNameDisabled = false;
+                            thisState.weighing.disable.transporterNameDisabled = false;
+                            thisState.weighing.disable.materialDisabled = false;
+                            thisState.weighing.disable.chargesDisabled = false;
+                            thisState.weighing.disable.remarksDisabled = false;
+                            thisState.weighing.disable.getWeightDisabled = false;
+                            thisState.weighing.disable.saveDisabled = true;
+                            thisState.weighing.disable.printDisabled = true;
+                            thisState.weight.slipNo = result;
+                            if (result === -1) {
+                                thisState.weighing.disable.getWeightDisabled = true;
+                                thisState.SETTING_DISABLED = true;
+                            }
+                            thisState.weight.vehicleNo = "";
+                            thisState.weight.customersName = "";
+                            thisState.weight.transporterName = "";
+                            thisState.weight.material = "";
+                            thisState.weighing.reference.materialReference.value = [
+                                {material: ""}
+                            ];
+                            thisState.weight.grossWeight = "";
+                            thisState.weight.grossTime = "";
+                            thisState.weight.tareWeight = "";
+                            thisState.weight.tareTime = "";
+                            thisState.weight.nettWeight = "";
+                            thisState.weight.nettTime = "";
+                            thisState.weight.charges = "";
+                            thisState.weight.remarks = "";
+                            thisState.weighing.grossSelector = true;
+                            thisState.weighing.tareSelector = false;
+                            thisState.weighing.disable.secondWeightDisabled = false;
+                            if (thisState.settings.manualEntry) {
+                                thisState.weighing.disable.grossDetailsDisabled = false;
+                                thisState.weighing.disable.tareDetailsWeightDisabled = false;
+                            }
+                            thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'vehicleNo', false));
+                        });
                     }}
                 >
                     Clear

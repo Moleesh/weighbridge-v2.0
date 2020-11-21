@@ -78,27 +78,23 @@ const InvoiceSelect = props => {
                                 profile: thisState.PROFILE
                             }),
                             headers: {"content-type": "application/json"}
-                        })
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                thisState.report.isType = "invoice";
-                                thisState.report.filter = thisState.report.filters[thisState.report.isType];
-                                thisState.report.headers[thisState.report.currentHeader] = thisState.report.header;
-                                thisState.report.header = thisState.report.headers[thisState.report.isType];
-                                thisState.report.currentHeader = thisState.report.isType;
-                                thisState.report.list = result.invoices;
-                                thisState.report.totalRecords = result.totalRecords;
-                                thisState.report.totalWeight = result.totalQuantity;
-                                thisState.report.totalCharge = result.totalAmount;
-                                thisState.report.invoiceSelect = false;
-                                thisState.setMyState(thisState);
-                            })
-                            .catch(() => {
-                            });
+                        }).then(response => {
+                            if (response.status === 200) {
+                                return response.json();
+                            } else throw Error(response.statusText);
+                        }).then(result => {
+                            thisState.report.isType = "invoice";
+                            thisState.report.filter = thisState.report.filters[thisState.report.isType];
+                            thisState.report.headers[thisState.report.currentHeader] = thisState.report.header;
+                            thisState.report.header = thisState.report.headers[thisState.report.isType];
+                            thisState.report.currentHeader = thisState.report.isType;
+                            thisState.report.list = result.invoices;
+                            thisState.report.totalRecords = result.totalRecords;
+                            thisState.report.totalWeight = result.totalQuantity;
+                            thisState.report.totalCharge = result.totalAmount;
+                            thisState.report.invoiceSelect = false;
+                            thisState.setMyState(thisState);
+                        });
                     }}
                     onKeyPress={event => {
                         if (prevent) {

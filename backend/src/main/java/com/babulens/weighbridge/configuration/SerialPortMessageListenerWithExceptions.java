@@ -42,8 +42,7 @@ public final class SerialPortMessageListenerWithExceptions implements SerialPort
 	@Override
 	public void serialEvent(SerialPortEvent event) {
 		try {
-			StaticVariable.setWeight(
-					Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^0-9" + lastCharacter + "]", "").split(lastCharacter)[0]));
+			StaticVariable.setWeight(Integer.parseInt(0 + new String(event.getReceivedData()).replaceAll("[^0-9" + lastCharacter + "]", "").split(lastCharacter)[0]));
 		} catch (Exception ex) {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 		}

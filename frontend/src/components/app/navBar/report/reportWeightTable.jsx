@@ -104,26 +104,24 @@ const ReportWeightTable = props => {
                                     method: "POST",
                                     body: JSON.stringify(row),
                                     headers: {"content-type": "application/json"}
-                                })
-                                    .then(response => {
-                                        if (response.status === 200) {
-                                            thisState.alerts.push({
-                                                id: new Date().getTime(),
-                                                type: "success",
-                                                headline: "Record Update",
-                                                message: "Record Update Successful."
-                                            });
-                                        } else throw Error(response.statusText);
-                                    })
-                                    .catch(() => {
+                                }).then(response => {
+                                    if (response.status === 200) {
                                         thisState.alerts.push({
                                             id: new Date().getTime(),
-                                            type: "danger",
+                                            type: "success",
                                             headline: "Record Update",
-                                            message: "Record Update Failed."
+                                            message: "Record Update Successful."
                                         });
-                                        thisState.setMyState(thisState);
+                                    } else throw Error(response.statusText);
+                                }).catch(() => {
+                                    thisState.alerts.push({
+                                        id: new Date().getTime(),
+                                        type: "danger",
+                                        headline: "Record Update",
+                                        message: "Record Update Failed."
                                     });
+                                    thisState.setMyState(thisState);
+                                });
                             }
                         }
                     ]
@@ -131,10 +129,7 @@ const ReportWeightTable = props => {
             }}
             onGridRowsUpdated={({fromRow, updated}) => {
                 let key = Object.keys(updated)[0];
-                thisState.report.list.filter((item) => Object.values(item)
-                    .toString()
-                    .replaceAll(",", ".")
-                    .indexOf(thisState.report.filterText) !== -1)[fromRow][key] = updated[key];
+                thisState.report.list.filter((item) => Object.values(item).toString().replaceAll(",", ".").indexOf(thisState.report.filterText) !== -1)[fromRow][key] = updated[key];
                 thisState.setMyState(thisState).then(() => {
                         thisState.report.edit = false;
                         thisState.setMyState(thisState).then(() => {

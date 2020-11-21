@@ -82,27 +82,23 @@ const TareWeight = props => {
                                                 profile: thisState.PROFILE
                                             }),
                                         headers: {"content-type": "application/json"}
-                                    })
-                                        .then(response => {
-                                            if (response.status === 200) {
-                                                return response.json();
-                                            } else throw Error(response.statusText);
-                                        })
-                                        .then(result => {
-                                            Object.keys(
-                                                thisState.configuration.tareWeight.template
-                                            ).map(
-                                                key =>
-                                                    (thisState.configuration.tareWeight.template[key] =
-                                                        "")
-                                            );
-                                            thisState.setMyState(thisState).then(() => {
-                                                thisState.configuration.tareWeight.list.push(result);
-                                                thisState.setMyState(thisState);
-                                            });
-                                        })
-                                        .catch(() => {
+                                    }).then(response => {
+                                        if (response.status === 200) {
+                                            return response.json();
+                                        } else throw Error(response.statusText);
+                                    }).then(result => {
+                                        Object.keys(
+                                            thisState.configuration.tareWeight.template
+                                        ).map(
+                                            key =>
+                                                (thisState.configuration.tareWeight.template[key] =
+                                                    "")
+                                        );
+                                        thisState.setMyState(thisState).then(() => {
+                                            thisState.configuration.tareWeight.list.push(result);
+                                            thisState.setMyState(thisState);
                                         });
+                                    });
                                 } else {
                                     thisState.alerts.push({
                                         id: new Date().getTime(),
@@ -134,39 +130,34 @@ const TareWeight = props => {
                 <tbody>
                 {thisState.configuration.tareWeight.list.map((item, index) => (
                     <tr key={index} className="eachRow">
-                        {Object.values(item)
-                            .toString()
-                            .replaceAll(",", ".")
-                            .indexOf(thisState.configuration.tareWeight.filterText) ===
+                        {Object.values(item).toString().replaceAll(",", ".").indexOf(thisState.configuration.tareWeight.filterText) ===
                         -1 ? null : (
                             <React.Fragment>
-                                {Object.keys(item)
-                                    .filter(key => key !== "id" && key !== "profile")
-                                    .map(key => (
-                                        <td key={key + "_" + item["id"]}>
-                                            <Col>
-                                                <Form.Control
-                                                    autoComplete="none"
-                                                    className="text-center form-control reportInputs"
-                                                    disabled={
-                                                        !(
-                                                            thisState.configuration.tareWeight.unlock &&
-                                                            thisState.configuration.tareWeight.editable
-                                                        )
-                                                    }
-                                                    type="text"
-                                                    name={key}
-                                                    value={item[key] !== null ? item[key] : ""}
-                                                    onChange={event => {
-                                                        thisState.configuration.tareWeight.list[index][
-                                                            key
-                                                            ] = event.target.value;
-                                                        thisState.setMyState(thisState);
-                                                    }}
-                                                />
-                                            </Col>
-                                        </td>
-                                    ))}
+                                {Object.keys(item).filter(key => key !== "id" && key !== "profile").map(key => (
+                                    <td key={key + "_" + item["id"]}>
+                                        <Col>
+                                            <Form.Control
+                                                autoComplete="none"
+                                                className="text-center form-control reportInputs"
+                                                disabled={
+                                                    !(
+                                                        thisState.configuration.tareWeight.unlock &&
+                                                        thisState.configuration.tareWeight.editable
+                                                    )
+                                                }
+                                                type="text"
+                                                name={key}
+                                                value={item[key] !== null ? item[key] : ""}
+                                                onChange={event => {
+                                                    thisState.configuration.tareWeight.list[index][
+                                                        key
+                                                        ] = event.target.value;
+                                                    thisState.setMyState(thisState);
+                                                }}
+                                            />
+                                        </Col>
+                                    </td>
+                                ))}
                                 {thisState.configuration.tareWeight.unlock ? (
                                     <td>
                                         <Row>
@@ -191,16 +182,11 @@ const TareWeight = props => {
                                                                         "content-type": "application/json"
                                                                     }
                                                                 }
-                                                            )
-                                                                .then(response => {
-                                                                    if (response.status === 200) {
-                                                                        return response.json();
-                                                                    } else throw Error(response.statusText);
-                                                                })
-                                                                .then(() => {
-                                                                })
-                                                                .catch(() => {
-                                                                });
+                                                            ).then(response => {
+                                                                if (response.status === 200) {
+                                                                    return response.json();
+                                                                } else throw Error(response.statusText);
+                                                            });
                                                         }}
                                                     >
                                                         Update
@@ -223,18 +209,15 @@ const TareWeight = props => {
                                                             {
                                                                 method: "DELETE"
                                                             }
-                                                        )
-                                                            .then(response => {
-                                                                if (response.status === 200) {
-                                                                    thisState.configuration.tareWeight.list.splice(
-                                                                        index,
-                                                                        1
-                                                                    );
-                                                                    thisState.setMyState(thisState);
-                                                                } else throw Error(response.statusText);
-                                                            })
-                                                            .catch(() => {
-                                                            });
+                                                        ).then(response => {
+                                                            if (response.status === 200) {
+                                                                thisState.configuration.tareWeight.list.splice(
+                                                                    index,
+                                                                    1
+                                                                );
+                                                                thisState.setMyState(thisState);
+                                                            } else throw Error(response.statusText);
+                                                        });
                                                     }}
                                                 >
                                                     Remove

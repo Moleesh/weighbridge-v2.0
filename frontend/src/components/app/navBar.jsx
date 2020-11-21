@@ -36,42 +36,30 @@ const NavBar = props => {
                     eventKey="configuration"
                     title="Configuration"
                     onEntered={() => {
-                        fetch(thisState.INITIAL_URL + "/material/getAllMaterials")
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                thisState.configuration.material.list = result;
-                                thisState.setMyState(thisState);
-                            })
-                            .catch(() => {
-                            });
-                        fetch(thisState.INITIAL_URL + "/customer/getAllCustomers")
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                thisState.configuration.customer.list = result;
-                                thisState.setMyState(thisState);
-                            })
-                            .catch(() => {
-                            });
-                        fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights")
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                thisState.configuration.tareWeight.list = result;
-                                thisState.setMyState(thisState);
-                            })
-                            .catch(() => {
-                            });
+                        fetch(thisState.INITIAL_URL + "/material/getAllMaterials").then(response => {
+                            if (response.status === 200) {
+                                return response.json();
+                            } else throw Error(response.statusText);
+                        }).then(result => {
+                            thisState.configuration.material.list = result;
+                            thisState.setMyState(thisState);
+                        });
+                        fetch(thisState.INITIAL_URL + "/customer/getAllCustomers").then(response => {
+                            if (response.status === 200) {
+                                return response.json();
+                            } else throw Error(response.statusText);
+                        }).then(result => {
+                            thisState.configuration.customer.list = result;
+                            thisState.setMyState(thisState);
+                        });
+                        fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(response => {
+                            if (response.status === 200) {
+                                return response.json();
+                            } else throw Error(response.statusText);
+                        }).then(result => {
+                            thisState.configuration.tareWeight.list = result;
+                            thisState.setMyState(thisState);
+                        });
                     }}
                 >
                     <Configuration preState={thisState}/>

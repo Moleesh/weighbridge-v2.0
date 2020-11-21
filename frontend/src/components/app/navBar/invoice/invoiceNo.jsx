@@ -64,33 +64,29 @@ const InvoiceNo = props => {
                 <Button
                     variant="info"
                     onClick={() => {
-                        fetch(thisState.INITIAL_URL + "/invoice/checkDummyByProfile?invoiceNo=" + thisState.invoices.dummyInvoiceNo + "&profile=" + thisState.PROFILE)
-                            .then(response => {
-                                if (response.status === 200) {
-                                    return response.json();
-                                } else throw Error(response.statusText);
-                            })
-                            .then(result => {
-                                return result;
-                            })
-                            .catch(() => {
-                                return false;
-                            })
-                            .then(result => {
-                                if (result) {
-                                    thisState.invoice.dummy = true;
-                                    thisState.invoice.invoiceNo = thisState.invoices.dummyInvoiceNo;
-                                    thisState.invoices.dummySelectorDialog = false;
-                                } else {
-                                    thisState.alerts.push({
-                                        id: new Date().getTime(),
-                                        type: "danger",
-                                        headline: "Dummy Invoice No not available",
-                                        message: "Please try another Invoice No"
-                                    });
-                                }
-                                thisState.setMyState(thisState)
-                            });
+                        fetch(thisState.INITIAL_URL + "/invoice/checkDummyByProfile?invoiceNo=" + thisState.invoices.dummyInvoiceNo + "&profile=" + thisState.PROFILE).then(response => {
+                            if (response.status === 200) {
+                                return response.json();
+                            } else throw Error(response.statusText);
+                        }).then(result => {
+                            return result;
+                        }).catch(() => {
+                            return false;
+                        }).then(result => {
+                            if (result) {
+                                thisState.invoice.dummy = true;
+                                thisState.invoice.invoiceNo = thisState.invoices.dummyInvoiceNo;
+                                thisState.invoices.dummySelectorDialog = false;
+                            } else {
+                                thisState.alerts.push({
+                                    id: new Date().getTime(),
+                                    type: "danger",
+                                    headline: "Dummy Invoice No not available",
+                                    message: "Please try another Invoice No"
+                                });
+                            }
+                            thisState.setMyState(thisState)
+                        });
 
 
                     }}

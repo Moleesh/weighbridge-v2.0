@@ -15,51 +15,39 @@ const Configuration = props => {
                         <h5 className="font-weight-bold pb-3">Configuration</h5>
                         <Nav.Item>
                             <Nav.Link eventKey="material" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/material/getAllMaterials")
-                                    .then(response => {
-                                        if (response.status === 200) {
-                                            return response.json();
-                                        } else throw Error(response.statusText);
-                                    })
-                                    .then(result => {
-                                        thisState.configuration.material.list = result;
-                                        thisState.setMyState(thisState);
-                                    })
-                                    .catch(() => {
-                                    });
+                                fetch(thisState.INITIAL_URL + "/material/getAllMaterials").then(response => {
+                                    if (response.status === 200) {
+                                        return response.json();
+                                    } else throw Error(response.statusText);
+                                }).then(result => {
+                                    thisState.configuration.material.list = result;
+                                    thisState.setMyState(thisState);
+                                });
                             }}
                             >Materials</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="customers" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/customer/getAllCustomers")
-                                    .then(response => {
-                                        if (response.status === 200) {
-                                            return response.json();
-                                        } else throw Error(response.statusText);
-                                    })
-                                    .then(result => {
-                                        thisState.configuration.customer.list = result;
-                                        thisState.setMyState(thisState);
-                                    })
-                                    .catch(() => {
-                                    });
+                                fetch(thisState.INITIAL_URL + "/customer/getAllCustomers").then(response => {
+                                    if (response.status === 200) {
+                                        return response.json();
+                                    } else throw Error(response.statusText);
+                                }).then(result => {
+                                    thisState.configuration.customer.list = result;
+                                    thisState.setMyState(thisState);
+                                });
                             }}>Customer's Details</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="tareWeight" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights")
-                                    .then(response => {
-                                        if (response.status === 200) {
-                                            return response.json();
-                                        } else throw Error(response.statusText);
-                                    })
-                                    .then(result => {
-                                        thisState.configuration.tareWeight.list = result;
-                                        thisState.setMyState(thisState);
-                                    })
-                                    .catch(() => {
-                                    });
+                                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(response => {
+                                    if (response.status === 200) {
+                                        return response.json();
+                                    } else throw Error(response.statusText);
+                                }).then(result => {
+                                    thisState.configuration.tareWeight.list = result;
+                                    thisState.setMyState(thisState);
+                                });
                             }}>Tare Weights</Nav.Link>
                         </Nav.Item>
                     </Nav>

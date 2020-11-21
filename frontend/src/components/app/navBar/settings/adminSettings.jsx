@@ -54,10 +54,9 @@ const AdminSettings = props => {
                                     thisState.settings.resetSlipNo = 1;
                                     thisState.settings.resetSlipNoDialog = true;
                                     thisState
-                                        .setMyState(thisState)
-                                        .then(() =>
-                                            thisState.settings.resetSlipNoReference.current.focus()
-                                        );
+                                        .setMyState(thisState).then(() =>
+                                        thisState.settings.resetSlipNoReference.current.focus()
+                                    );
                                 }}
                             >
                                 <FontAwesomeIcon icon={faBackward} className="mr-3"/>
@@ -79,10 +78,9 @@ const AdminSettings = props => {
                                         thisState.settings.resetInvoiceNo = 1;
                                         thisState.settings.resetInvoiceNoDialog = true;
                                         thisState
-                                            .setMyState(thisState)
-                                            .then(() =>
-                                                thisState.settings.resetInvoiceNoReference.current.focus()
-                                            );
+                                            .setMyState(thisState).then(() =>
+                                            thisState.settings.resetInvoiceNoReference.current.focus()
+                                        );
                                     }}
                                 >
                                     <FontAwesomeIcon icon={faBackward} className="mr-3"/>
@@ -122,10 +120,9 @@ const AdminSettings = props => {
                                         thisState.settings.manualEntryDialog = true;
                                         thisState.settings.manualEntryPassword = "";
                                         thisState
-                                            .setMyState(thisState)
-                                            .then(() =>
-                                                thisState.settings.manualEntryPasswordReference.current.focus()
-                                            );
+                                            .setMyState(thisState).then(() =>
+                                            thisState.settings.manualEntryPasswordReference.current.focus()
+                                        );
                                     } else {
                                         thisState.settings.manualEntry = false;
                                         thisState.setMyState(thisState);
@@ -152,10 +149,9 @@ const AdminSettings = props => {
                                         thisState.settings.editEnableDialog = true;
                                         thisState.settings.editEnablePassword = "";
                                         thisState
-                                            .setMyState(thisState)
-                                            .then(() =>
-                                                thisState.settings.editEnablePasswordReference.current.focus()
-                                            );
+                                            .setMyState(thisState).then(() =>
+                                            thisState.settings.editEnablePasswordReference.current.focus()
+                                        );
                                     } else {
                                         thisState.settings.editEnable = false;
                                         thisState.setMyState(thisState);
@@ -179,19 +175,153 @@ const AdminSettings = props => {
                             <Toggle
                                 onClick={() => {
                                     thisState.settings.hideFields = !thisState.settings.hideFields;
-                                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
-                                        .then(response => {
+                                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(response => {
+                                        if (response.status === 200) {
+                                            return response.json();
+                                        } else throw Error(response.statusText);
+                                    }).then(result => {
+                                        return result;
+                                    }).catch(() => {
+                                        return -1;
+                                    }).then(result => {
+                                        thisState.weighing.disable.grossSelectorDisabled = false;
+                                        thisState.weighing.disable.tareSelectorDisabled = false;
+                                        thisState.weighing.disable.vehicleNoDisabled = false;
+                                        thisState.weighing.disable.customersNameDisabled = false;
+                                        thisState.weighing.disable.transporterNameDisabled = false;
+                                        thisState.weighing.disable.materialDisabled = false;
+                                        thisState.weighing.disable.chargesDisabled = false;
+                                        thisState.weighing.disable.remarksDisabled = false;
+                                        thisState.weighing.disable.getWeightDisabled = false;
+                                        thisState.weighing.disable.saveDisabled = true;
+                                        thisState.weighing.disable.printDisabled = true;
+                                        thisState.weighing.disable.customersIdDisabled = true;
+                                        thisState.weighing.disable.materialIdDisabled = true;
+                                        thisState.weight.slipNo = result;
+                                        if (result === -1) {
+                                            thisState.weighing.disable.getWeightDisabled = true;
+                                            thisState.SETTING_DISABLED = true;
+                                        }
+                                        thisState.weight.vehicleNo = "";
+                                        thisState.weight.customersName = "";
+                                        thisState.weight.transporterName = "";
+                                        thisState.weight.material = "";
+                                        thisState.weighing.reference.materialReference.value = [
+                                            {material: ""}
+                                        ];
+                                        thisState.weight.grossWeight = "";
+                                        thisState.weight.grossTime = "";
+                                        thisState.weight.tareWeight = "";
+                                        thisState.weight.tareTime = "";
+                                        thisState.weight.nettWeight = "";
+                                        thisState.weight.nettTime = "";
+                                        thisState.weight.charges = "";
+                                        thisState.weight.remarks = "";
+                                        thisState.setMyState(thisState)
+                                    });
+                                }}
+                                on="ON"
+                                off="OFF"
+                                size="lg"
+                                offstyle="danger"
+                                active={thisState.settings.hideFields}
+                                recalculateOnResize={true}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="3">
+                            Invoice
+                        </Form.Label>
+                        <Col sm="9">
+                            <Toggle
+                                onClick={() => {
+                                    if (!thisState.settings.value.invoice) {
+                                        thisState.settings.invoiceDialog = true;
+                                        thisState.settings.invoicePassword = "";
+                                        thisState
+                                            .setMyState(thisState).then(() =>
+                                            thisState.settings.invoicePasswordReference.current.focus()
+                                        );
+                                    } else {
+                                        thisState.settings.value.invoice = false;
+                                        thisState.setMyState(thisState);
+                                    }
+                                }}
+                                on="ON"
+                                off="OFF"
+                                size="lg"
+                                offstyle="danger"
+                                active={thisState.settings.value.invoice}
+                                recalculateOnResize={true}
+                            />
+                            <Invoice preState={thisState}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="3">
+                            Automation
+                        </Form.Label>
+                        <Col sm="9">
+                            <Toggle
+                                onClick={() => {
+                                    thisState.settings.value.automation = !thisState.settings.value.automation;
+                                    thisState.setMyState(thisState);
+                                    if (thisState.settings.value.automation) {
+                                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(response => {
                                             if (response.status === 200) {
                                                 return response.json();
                                             } else throw Error(response.statusText);
-                                        })
-                                        .then(result => {
+                                        }).then(result => {
                                             return result;
-                                        })
-                                        .catch(() => {
+                                        }).catch(() => {
                                             return -1;
-                                        })
-                                        .then(result => {
+                                        }).then(result => {
+                                            thisState.weighing.disable.grossSelectorDisabled = true;
+                                            thisState.weighing.disable.tareSelectorDisabled = true;
+                                            thisState.weighing.disable.vehicleNoDisabled = true;
+                                            thisState.weighing.disable.customersNameDisabled = true;
+                                            thisState.weighing.disable.transporterNameDisabled = true;
+                                            thisState.weighing.disable.materialDisabled = true;
+                                            thisState.weighing.disable.chargesDisabled = true;
+                                            thisState.weighing.disable.remarksDisabled = true;
+                                            thisState.weighing.disable.getWeightDisabled = true;
+                                            thisState.weighing.disable.saveDisabled = true;
+                                            thisState.weighing.disable.printDisabled = true;
+                                            thisState.weighing.disable.customersIdDisabled = false;
+                                            thisState.weighing.disable.materialIdDisabled = false;
+                                            thisState.weight.slipNo = result;
+                                            if (result === -1) {
+                                                thisState.weighing.disable.getWeightDisabled = true;
+                                                thisState.SETTING_DISABLED = true;
+                                            }
+                                            thisState.weight.vehicleNo = "";
+                                            thisState.weight.customersName = "";
+                                            thisState.weight.transporterName = "";
+                                            thisState.weight.material = "";
+                                            thisState.weighing.reference.materialReference.value = [
+                                                {material: ""}
+                                            ];
+                                            thisState.weight.grossWeight = "";
+                                            thisState.weight.grossTime = "";
+                                            thisState.weight.tareWeight = "";
+                                            thisState.weight.tareTime = "";
+                                            thisState.weight.nettWeight = "";
+                                            thisState.weight.nettTime = "";
+                                            thisState.weight.charges = "";
+                                            thisState.weight.remarks = "";
+                                            thisState.setMyState(thisState)
+                                        });
+                                    } else {
+                                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(response => {
+                                            if (response.status === 200) {
+                                                return response.json();
+                                            } else throw Error(response.statusText);
+                                        }).then(result => {
+                                            return result;
+                                        }).catch(() => {
+                                            return -1;
+                                        }).then(result => {
                                             thisState.weighing.disable.grossSelectorDisabled = false;
                                             thisState.weighing.disable.tareSelectorDisabled = false;
                                             thisState.weighing.disable.vehicleNoDisabled = false;
@@ -227,153 +357,6 @@ const AdminSettings = props => {
                                             thisState.weight.remarks = "";
                                             thisState.setMyState(thisState)
                                         });
-                                }}
-                                on="ON"
-                                off="OFF"
-                                size="lg"
-                                offstyle="danger"
-                                active={thisState.settings.hideFields}
-                                recalculateOnResize={true}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="3">
-                            Invoice
-                        </Form.Label>
-                        <Col sm="9">
-                            <Toggle
-                                onClick={() => {
-                                    if (!thisState.settings.value.invoice) {
-                                        thisState.settings.invoiceDialog = true;
-                                        thisState.settings.invoicePassword = "";
-                                        thisState
-                                            .setMyState(thisState)
-                                            .then(() =>
-                                                thisState.settings.invoicePasswordReference.current.focus()
-                                            );
-                                    } else {
-                                        thisState.settings.value.invoice = false;
-                                        thisState.setMyState(thisState);
-                                    }
-                                }}
-                                on="ON"
-                                off="OFF"
-                                size="lg"
-                                offstyle="danger"
-                                active={thisState.settings.value.invoice}
-                                recalculateOnResize={true}
-                            />
-                            <Invoice preState={thisState}/>
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="3">
-                            Automation
-                        </Form.Label>
-                        <Col sm="9">
-                            <Toggle
-                                onClick={() => {
-                                    thisState.settings.value.automation = !thisState.settings.value.automation;
-                                    thisState.setMyState(thisState);
-                                    if (thisState.settings.value.automation) {
-                                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
-                                                return result;
-                                            })
-                                            .catch(() => {
-                                                return -1;
-                                            })
-                                            .then(result => {
-                                                thisState.weighing.disable.grossSelectorDisabled = true;
-                                                thisState.weighing.disable.tareSelectorDisabled = true;
-                                                thisState.weighing.disable.vehicleNoDisabled = true;
-                                                thisState.weighing.disable.customersNameDisabled = true;
-                                                thisState.weighing.disable.transporterNameDisabled = true;
-                                                thisState.weighing.disable.materialDisabled = true;
-                                                thisState.weighing.disable.chargesDisabled = true;
-                                                thisState.weighing.disable.remarksDisabled = true;
-                                                thisState.weighing.disable.getWeightDisabled = true;
-                                                thisState.weighing.disable.saveDisabled = true;
-                                                thisState.weighing.disable.printDisabled = true;
-                                                thisState.weighing.disable.customersIdDisabled = false;
-                                                thisState.weighing.disable.materialIdDisabled = false;
-                                                thisState.weight.slipNo = result;
-                                                if (result === -1) {
-                                                    thisState.weighing.disable.getWeightDisabled = true;
-                                                    thisState.SETTING_DISABLED = true;
-                                                }
-                                                thisState.weight.vehicleNo = "";
-                                                thisState.weight.customersName = "";
-                                                thisState.weight.transporterName = "";
-                                                thisState.weight.material = "";
-                                                thisState.weighing.reference.materialReference.value = [
-                                                    {material: ""}
-                                                ];
-                                                thisState.weight.grossWeight = "";
-                                                thisState.weight.grossTime = "";
-                                                thisState.weight.tareWeight = "";
-                                                thisState.weight.tareTime = "";
-                                                thisState.weight.nettWeight = "";
-                                                thisState.weight.nettTime = "";
-                                                thisState.weight.charges = "";
-                                                thisState.weight.remarks = "";
-                                                thisState.setMyState(thisState)
-                                            });
-                                    } else {
-                                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
-                                                return result;
-                                            })
-                                            .catch(() => {
-                                                return -1;
-                                            })
-                                            .then(result => {
-                                                thisState.weighing.disable.grossSelectorDisabled = false;
-                                                thisState.weighing.disable.tareSelectorDisabled = false;
-                                                thisState.weighing.disable.vehicleNoDisabled = false;
-                                                thisState.weighing.disable.customersNameDisabled = false;
-                                                thisState.weighing.disable.transporterNameDisabled = false;
-                                                thisState.weighing.disable.materialDisabled = false;
-                                                thisState.weighing.disable.chargesDisabled = false;
-                                                thisState.weighing.disable.remarksDisabled = false;
-                                                thisState.weighing.disable.getWeightDisabled = false;
-                                                thisState.weighing.disable.saveDisabled = true;
-                                                thisState.weighing.disable.printDisabled = true;
-                                                thisState.weighing.disable.customersIdDisabled = true;
-                                                thisState.weighing.disable.materialIdDisabled = true;
-                                                thisState.weight.slipNo = result;
-                                                if (result === -1) {
-                                                    thisState.weighing.disable.getWeightDisabled = true;
-                                                    thisState.SETTING_DISABLED = true;
-                                                }
-                                                thisState.weight.vehicleNo = "";
-                                                thisState.weight.customersName = "";
-                                                thisState.weight.transporterName = "";
-                                                thisState.weight.material = "";
-                                                thisState.weighing.reference.materialReference.value = [
-                                                    {material: ""}
-                                                ];
-                                                thisState.weight.grossWeight = "";
-                                                thisState.weight.grossTime = "";
-                                                thisState.weight.tareWeight = "";
-                                                thisState.weight.tareTime = "";
-                                                thisState.weight.nettWeight = "";
-                                                thisState.weight.nettTime = "";
-                                                thisState.weight.charges = "";
-                                                thisState.weight.remarks = "";
-                                                thisState.setMyState(thisState)
-                                            });
                                     }
                                 }}
                                 on="ON"
@@ -397,23 +380,19 @@ const AdminSettings = props => {
                             fetch(thisState.INITIAL_URL + "/cache/clearCache", {
                                 method: "POST",
                                 headers: {"content-type": "application/json"}
-                            })
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        return response;
-                                    } else throw Error(response.statusText);
-                                })
-                                .then(() => {
-                                    thisState.alerts.push({
-                                        id: new Date().getTime(),
-                                        type: "success",
-                                        headline: "Clear Cache",
-                                        message: "Cache Cleared."
-                                    });
-                                    thisState.setMyState(thisState);
-                                })
-                                .catch(() => {
+                            }).then(response => {
+                                if (response.status === 200) {
+                                    return response;
+                                } else throw Error(response.statusText);
+                            }).then(() => {
+                                thisState.alerts.push({
+                                    id: new Date().getTime(),
+                                    type: "success",
+                                    headline: "Clear Cache",
+                                    message: "Cache Cleared."
                                 });
+                                thisState.setMyState(thisState);
+                            });
                         }}
 
                     >

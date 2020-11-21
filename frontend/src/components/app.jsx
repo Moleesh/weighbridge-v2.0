@@ -493,12 +493,8 @@ class App extends Component {
             },
             reportSelect: "Weighing - Daily Report",
             date: {
-                start: moment()
-                    .startOf("day")
-                    .toDate(),
-                end: moment()
-                    .endOf("day")
-                    .toDate()
+                start: moment().startOf("day").toDate(),
+                end: moment().endOf("day").toDate()
             },
             dateDisabled: true,
             inputLabel: "",
@@ -870,26 +866,24 @@ class App extends Component {
                     thisState.settings.array.availablePrinters.push(thisState.settings.value.printerNameForInvoice);
                 }
                 thisState._WEIGHT = setInterval(() => {
-                    fetch(thisState.INITIAL_URL + "/serialPort/getNextWeight")
-                        .then(response => {
-                            if (response.status === 200) {
-                                return response.json();
-                            } else {
-                                throw Error();
-                            }
-                        })
-                        .then(result => {
-                            thisState.setMyState({
-                                WEIGHT: result,
-                                SETTING_DISABLED: false
-                            });
-                        }).catch(() => {
+                    fetch(thisState.INITIAL_URL + "/serialPort/getNextWeight").then(response => {
+                        if (response.status === 200) {
+                            return response.json();
+                        } else {
+                            throw Error();
+                        }
+                    }).then(result => {
+                        thisState.setMyState({
+                            WEIGHT: result,
+                            SETTING_DISABLED: false
+                        });
+                    }).catch(() => {
                         clearInterval(thisState._WEIGHT);
                         thisState.setMyState({
                             WEIGHT: -1,
                             SETTING_DISABLED: true
                         });
-                    })
+                    });
                 }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
                 thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?fullSize=false&webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
                 thisState.loading = false;
@@ -900,14 +894,14 @@ class App extends Component {
                 thisState.weighing.disable.getWeightDisabled = true;
                 thisState.loading = false;
                 thisState.setMyState(thisState);
-            })
+            });
         }).catch(() => {
             thisState.weight.slipNo = -1;
             thisState.SETTING_DISABLED = true;
             thisState.weighing.disable.getWeightDisabled = true;
             thisState.loading = false;
             thisState.setMyState(thisState);
-        })
+        });
     }
 
     render() {

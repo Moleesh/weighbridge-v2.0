@@ -162,7 +162,7 @@ const GeneralSettings = props => {
                                     message: "Profile Update Failed."
                                 });
                                 thisState.setMyState(thisState);
-                            })
+                            });
                             thisState.setMyState(thisState);
                         }}
                     >
@@ -182,10 +182,9 @@ const GeneralSettings = props => {
                     thisState.settings.resetSlipNoPassword = "";
                     thisState.settings.addNewProfileDialog = true;
                     thisState
-                        .setMyState(thisState)
-                        .then(() =>
-                            thisState.settings.newProfileReference.current.focus()
-                        );
+                        .setMyState(thisState).then(() =>
+                        thisState.settings.newProfileReference.current.focus()
+                    );
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
@@ -209,16 +208,15 @@ const GeneralSettings = props => {
                             });
                             thisState.setMyState(thisState);
                         } else throw Error(response.statusText);
-                    })
-                        .catch(() => {
-                            thisState.alerts.push({
-                                id: new Date().getTime(),
-                                type: "danger",
-                                headline: "Primary Profile Update",
-                                message: "Primary Profile Update Failed."
-                            });
-                            thisState.setMyState(thisState);
+                    }).catch(() => {
+                        thisState.alerts.push({
+                            id: new Date().getTime(),
+                            type: "danger",
+                            headline: "Primary Profile Update",
+                            message: "Primary Profile Update Failed."
                         });
+                        thisState.setMyState(thisState);
+                    });
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >

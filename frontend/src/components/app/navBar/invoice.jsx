@@ -29,12 +29,11 @@ const Invoice = props => {
                             <Toggle
                                 onClick={() => {
                                     if (!thisState.invoice.dummy) {
-                                        fetch(thisState.INITIAL_URL + "/setting/getNextDummyInvoiceNoByProfile?profile=" + thisState.PROFILE)
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            }).then(result => {
+                                        fetch(thisState.INITIAL_URL + "/setting/getNextDummyInvoiceNoByProfile?profile=" + thisState.PROFILE).then(response => {
+                                            if (response.status === 200) {
+                                                return response.json();
+                                            } else throw Error(response.statusText);
+                                        }).then(result => {
                                             return result;
                                         }).catch(() => {
                                             return -1;
@@ -51,27 +50,23 @@ const Invoice = props => {
                                             thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', 'dummyInvoiceNo', false));
                                         });
                                     } else {
-                                        fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE)
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
-                                                return result;
-                                            })
-                                            .catch(() => {
-                                                return -1;
-                                            })
-                                            .then(result => {
-                                                thisState.invoice.dummy = false;
-                                                thisState.invoice.invoiceNo = result;
-                                                if (result === -1) {
-                                                    thisState.invoices.disable.saveDisabled = true;
-                                                    thisState.SETTING_DISABLED = true;
-                                                }
-                                                thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', '', false));
-                                            });
+                                        fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE).then(response => {
+                                            if (response.status === 200) {
+                                                return response.json();
+                                            } else throw Error(response.statusText);
+                                        }).then(result => {
+                                            return result;
+                                        }).catch(() => {
+                                            return -1;
+                                        }).then(result => {
+                                            thisState.invoice.dummy = false;
+                                            thisState.invoice.invoiceNo = result;
+                                            if (result === -1) {
+                                                thisState.invoices.disable.saveDisabled = true;
+                                                thisState.SETTING_DISABLED = true;
+                                            }
+                                            thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', '', false));
+                                        });
                                     }
                                 }}
                                 on="ON"

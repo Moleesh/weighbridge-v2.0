@@ -58,39 +58,37 @@ const ColumnOne = props => {
                                             thisState.INITIAL_URL +
                                             "/weight/getGrossWeightByVehicleNoAndProfile?profile=" + thisState.PROFILE + "&vehicleNo=" +
                                             thisState.weight.vehicleNo
-                                        )
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            }).then(result => {
-                                                thisState.weighing.previousWeightSelector = true;
-                                                thisState.weighing.previousWeight = "Gross";
-                                                thisState.weighing.previousWeightResult = result;
-                                                thisState.setMyState(thisState);
-                                                thisState.switchFocus(thisState, 'weighing', 'previousWeight', false);
-                                            }).catch(() => {
-                                                thisState.switchFocus(thisState, 'weighing', 'material', false);
-                                            });
+                                        ).then(response => {
+                                            if (response.status === 200) {
+                                                return response.json();
+                                            } else throw Error(response.statusText);
+                                        }).then(result => {
+                                            thisState.weighing.previousWeightSelector = true;
+                                            thisState.weighing.previousWeight = "Gross";
+                                            thisState.weighing.previousWeightResult = result;
+                                            thisState.setMyState(thisState);
+                                            thisState.switchFocus(thisState, 'weighing', 'previousWeight', false);
+                                        }).catch(() => {
+                                            thisState.switchFocus(thisState, 'weighing', 'material', false);
+                                        });
                                     } else {
                                         await fetch(
                                             thisState.INITIAL_URL +
                                             "/tareWeight/getTareWeightByVehicleNo?vehicleNo=" +
                                             thisState.weight.vehicleNo
-                                        )
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            }).then(result => {
-                                                thisState.weighing.previousWeightSelector = true;
-                                                thisState.weighing.previousWeight = "Tare";
-                                                thisState.weighing.previousWeightResult = result;
-                                                thisState.setMyState(thisState);
-                                                thisState.switchFocus(thisState, 'weighing', 'previousWeight', false);
-                                            }).catch(() => {
-                                                thisState.switchFocus(thisState, 'weighing', 'material', false);
-                                            });
+                                        ).then(response => {
+                                            if (response.status === 200) {
+                                                return response.json();
+                                            } else throw Error(response.statusText);
+                                        }).then(result => {
+                                            thisState.weighing.previousWeightSelector = true;
+                                            thisState.weighing.previousWeight = "Tare";
+                                            thisState.weighing.previousWeightResult = result;
+                                            thisState.setMyState(thisState);
+                                            thisState.switchFocus(thisState, 'weighing', 'previousWeight', false);
+                                        }).catch(() => {
+                                            thisState.switchFocus(thisState, 'weighing', 'material', false);
+                                        });
                                     }
                                 } else {
                                     thisState.setMyState(thisState);

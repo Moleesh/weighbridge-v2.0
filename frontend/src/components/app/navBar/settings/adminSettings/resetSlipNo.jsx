@@ -88,70 +88,63 @@ const ResetSlipNo = props => {
                                 thisState.INITIAL_URL +
                                 "/weight/resetWeightByProfile?profile=" + thisState.PROFILE + "&slipNo=" +
                                 thisState.settings.resetSlipNo
-                            )
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE)
-                                            .then(response => {
-                                                if (response.status === 200) {
-                                                    return response.json();
-                                                } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
-                                                return result;
-                                            })
-                                            .catch(() => {
-                                                return -1;
-                                            })
-                                            .then(result => {
-                                                thisState.weighing.disable.grossSelectorDisabled = false;
-                                                thisState.weighing.disable.tareSelectorDisabled = false;
-                                                thisState.weighing.disable.vehicleNoDisabled = false;
-                                                thisState.weighing.disable.customersNameDisabled = false;
-                                                thisState.weighing.disable.transporterNameDisabled = false;
-                                                thisState.weighing.disable.materialDisabled = false;
-                                                thisState.weighing.disable.chargesDisabled = false;
-                                                thisState.weighing.disable.remarksDisabled = false;
-                                                thisState.weighing.disable.getWeightDisabled = false;
-                                                thisState.weighing.disable.saveDisabled = true;
-                                                thisState.weighing.disable.printDisabled = true;
-                                                thisState.weight.slipNo = result;
-                                                if (result === -1) {
-                                                    thisState.weighing.disable.getWeightDisabled = true;
-                                                    thisState.SETTING_DISABLED = true;
-                                                }
-                                                thisState.weight.vehicleNo = "";
-                                                thisState.weight.customersName = "";
-                                                thisState.weight.transporterName = "";
-                                                thisState.weight.material = "";
-                                                thisState.weighing.reference.materialReference.value = [
-                                                    {material: ""}
-                                                ];
-                                                thisState.weight.grossWeight = "";
-                                                thisState.weight.grossTime = "";
-                                                thisState.weight.tareWeight = "";
-                                                thisState.weight.tareTime = "";
-                                                thisState.weight.nettWeight = "";
-                                                thisState.weight.nettTime = "";
-                                                thisState.weight.charges = "";
-                                                thisState.weight.remarks = "";
-                                                thisState.weighing.grossSelector = true;
-                                                thisState.weighing.tareSelector = false;
-                                                thisState.alerts.push({
-                                                    id: new Date().getTime(),
-                                                    type: "success",
-                                                    headline: "Reset Slip No",
-                                                    message: "Slip No Reset Successfully."
-                                                });
-                                                thisState.settings.resetSlipNo = 1;
-                                                thisState.settings.resetSlipNoPassword = "";
-                                                thisState.settings.resetSlipNoDialog = false;
-                                                thisState.setMyState(thisState);
-                                            });
-                                    } else throw Error(response.statusText);
-                                })
-                                .catch(() => {
-                                });
+                            ).then(response => {
+                                if (response.status === 200) {
+                                    fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(response => {
+                                        if (response.status === 200) {
+                                            return response.json();
+                                        } else throw Error(response.statusText);
+                                    }).then(result => {
+                                        return result;
+                                    }).catch(() => {
+                                        return -1;
+                                    }).then(result => {
+                                        thisState.weighing.disable.grossSelectorDisabled = false;
+                                        thisState.weighing.disable.tareSelectorDisabled = false;
+                                        thisState.weighing.disable.vehicleNoDisabled = false;
+                                        thisState.weighing.disable.customersNameDisabled = false;
+                                        thisState.weighing.disable.transporterNameDisabled = false;
+                                        thisState.weighing.disable.materialDisabled = false;
+                                        thisState.weighing.disable.chargesDisabled = false;
+                                        thisState.weighing.disable.remarksDisabled = false;
+                                        thisState.weighing.disable.getWeightDisabled = false;
+                                        thisState.weighing.disable.saveDisabled = true;
+                                        thisState.weighing.disable.printDisabled = true;
+                                        thisState.weight.slipNo = result;
+                                        if (result === -1) {
+                                            thisState.weighing.disable.getWeightDisabled = true;
+                                            thisState.SETTING_DISABLED = true;
+                                        }
+                                        thisState.weight.vehicleNo = "";
+                                        thisState.weight.customersName = "";
+                                        thisState.weight.transporterName = "";
+                                        thisState.weight.material = "";
+                                        thisState.weighing.reference.materialReference.value = [
+                                            {material: ""}
+                                        ];
+                                        thisState.weight.grossWeight = "";
+                                        thisState.weight.grossTime = "";
+                                        thisState.weight.tareWeight = "";
+                                        thisState.weight.tareTime = "";
+                                        thisState.weight.nettWeight = "";
+                                        thisState.weight.nettTime = "";
+                                        thisState.weight.charges = "";
+                                        thisState.weight.remarks = "";
+                                        thisState.weighing.grossSelector = true;
+                                        thisState.weighing.tareSelector = false;
+                                        thisState.alerts.push({
+                                            id: new Date().getTime(),
+                                            type: "success",
+                                            headline: "Reset Slip No",
+                                            message: "Slip No Reset Successfully."
+                                        });
+                                        thisState.settings.resetSlipNo = 1;
+                                        thisState.settings.resetSlipNoPassword = "";
+                                        thisState.settings.resetSlipNoDialog = false;
+                                        thisState.setMyState(thisState);
+                                    });
+                                } else throw Error(response.statusText);
+                            });
                         } else {
                             thisState.alerts.push({
                                 id: new Date().getTime(),

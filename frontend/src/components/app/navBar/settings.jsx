@@ -82,27 +82,25 @@ const Settings = props => {
                                 method: "PUT",
                                 body: JSON.stringify(thisState.settings.value),
                                 headers: {"content-type": "application/json"}
-                            })
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        thisState.alerts.push({
-                                            id: new Date().getTime(),
-                                            type: "success",
-                                            headline: "Setting Updated",
-                                            message: "Setting Updated successfully."
-                                        });
-                                        thisState.setMyState(thisState);
-                                    } else throw Error(response.statusText);
-                                })
-                                .catch(() => {
+                            }).then(response => {
+                                if (response.status === 200) {
                                     thisState.alerts.push({
                                         id: new Date().getTime(),
-                                        type: "danger",
+                                        type: "success",
                                         headline: "Setting Updated",
-                                        message: "Setting Updated Failed."
+                                        message: "Setting Updated successfully."
                                     });
                                     thisState.setMyState(thisState);
+                                } else throw Error(response.statusText);
+                            }).catch(() => {
+                                thisState.alerts.push({
+                                    id: new Date().getTime(),
+                                    type: "danger",
+                                    headline: "Setting Updated",
+                                    message: "Setting Updated Failed."
                                 });
+                                thisState.setMyState(thisState);
+                            });
                         }}
                         disabled={thisState.SETTING_DISABLED}
                     >
@@ -114,35 +112,31 @@ const Settings = props => {
                         size="lg"
                         className="mr-3"
                         onClick={() => {
-                            fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE)
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                })
-                                .then(settings => {
-                                    settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
-                                    settings.invoice = settings.invoice.toLowerCase().indexOf("true") !== -1;
-                                    settings.secondWeight = settings.secondWeight.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideRemarks = settings.hideRemarks.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideVehicleNo = settings.hideVehicleNo.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideDriverName = settings.hideDriverName.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideTimeOfArrival = settings.hideTimeOfArrival.toLowerCase().indexOf("true") !== -1;
-                                    settings.hideModeOfPayment = settings.hideModeOfPayment.toLowerCase().indexOf("true") !== -1;
-                                    thisState.settings.value = settings;
-                                    thisState.alerts.push({
-                                        id: new Date().getTime(),
-                                        type: "success",
-                                        headline: "Setting Refresh",
-                                        message: "Setting Refresh Successfully."
-                                    });
-                                    thisState.setMyState(thisState);
-                                })
-                                .catch(() => {
+                            fetch(thisState.INITIAL_URL + "/setting/getAllSettingsByProfile?profile=" + thisState.PROFILE).then(response => {
+                                if (response.status === 200) {
+                                    return response.json();
+                                } else throw Error(response.statusText);
+                            }).then(settings => {
+                                settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
+                                settings.invoice = settings.invoice.toLowerCase().indexOf("true") !== -1;
+                                settings.secondWeight = settings.secondWeight.toLowerCase().indexOf("true") !== -1;
+                                settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
+                                settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
+                                settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;
+                                settings.hideRemarks = settings.hideRemarks.toLowerCase().indexOf("true") !== -1;
+                                settings.hideVehicleNo = settings.hideVehicleNo.toLowerCase().indexOf("true") !== -1;
+                                settings.hideDriverName = settings.hideDriverName.toLowerCase().indexOf("true") !== -1;
+                                settings.hideTimeOfArrival = settings.hideTimeOfArrival.toLowerCase().indexOf("true") !== -1;
+                                settings.hideModeOfPayment = settings.hideModeOfPayment.toLowerCase().indexOf("true") !== -1;
+                                thisState.settings.value = settings;
+                                thisState.alerts.push({
+                                    id: new Date().getTime(),
+                                    type: "success",
+                                    headline: "Setting Refresh",
+                                    message: "Setting Refresh Successfully."
                                 });
+                                thisState.setMyState(thisState);
+                            });
                         }}
                     >
                         <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
@@ -154,22 +148,19 @@ const Settings = props => {
                         onClick={() => {
                             clearInterval(thisState._WEIGHT);
                             thisState._WEIGHT = setInterval(() => {
-                                fetch(thisState.INITIAL_URL + "/serialPort/getNextWeight")
-                                    .then(response => {
-                                        if (response.status === 200) {
-                                            return response.json();
-                                        } else throw Error(response.statusText);
-                                    })
-                                    .then(result => {
-                                        thisState.setMyState({
-                                            WEIGHT: result
-                                        });
-                                    })
-                                    .catch(() => {
-                                        thisState.setMyState({
-                                            WEIGHT: -1
-                                        });
+                                fetch(thisState.INITIAL_URL + "/serialPort/getNextWeight").then(response => {
+                                    if (response.status === 200) {
+                                        return response.json();
+                                    } else throw Error(response.statusText);
+                                }).then(result => {
+                                    thisState.setMyState({
+                                        WEIGHT: result
                                     });
+                                }).catch(() => {
+                                    thisState.setMyState({
+                                        WEIGHT: -1
+                                    });
+                                });
                             }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
                             thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
                             thisState.alerts.push({

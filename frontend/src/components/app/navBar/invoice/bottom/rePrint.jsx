@@ -73,39 +73,36 @@ const RePrint = props => {
                                 thisState.INITIAL_URL +
                                 "/invoice/getInvoiceByInvoiceNoAndProfile?dummy=" + thisState.invoices.dummy + "&profile=" + thisState.PROFILE + "&invoiceNo=" +
                                 thisState.invoices.reprintSlipNo
-                            )
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                })
-                                .then(result => {
-                                    thisState.invoices.reprint = false;
-                                    thisState.invoices.disable.selector = true;
-                                    thisState.invoices.disable.referenceSlipNoDisabled = true;
-                                    thisState.invoices.disable.customersNameDisabled = true;
-                                    thisState.invoices.disable.vehicleNoDisabled = true;
-                                    thisState.invoices.disable.materialDisabled = true;
-                                    thisState.invoices.disable.unitPriceDisabled = true;
-                                    thisState.invoices.disable.quantityDisabled = true;
-                                    thisState.invoices.disable.address1Disabled = true;
-                                    thisState.invoices.disable.address2Disabled = true;
-                                    thisState.invoices.disable.timeOfArrivalDisabled = true;
-                                    thisState.invoices.disable.saveDisabled = true;
-                                    thisState.invoices.disable.printDisabled = false;
-                                    thisState.invoice = result;
-                                    thisState.invoices.reference.customersNameReference.value = [
-                                        {customerName: thisState.invoice.customersName}
-                                    ];
-                                    thisState.invoices.reference.materialReference.value = [
-                                        {material: thisState.invoice.material}
-                                    ];
-                                    thisState.setMyState(thisState);
-                                })
-                                .catch(() => {
-                                    thisState.invoices.reprint = false;
-                                    thisState.setMyState(thisState);
-                                });
+                            ).then(response => {
+                                if (response.status === 200) {
+                                    return response.json();
+                                } else throw Error(response.statusText);
+                            }).then(result => {
+                                thisState.invoices.reprint = false;
+                                thisState.invoices.disable.selector = true;
+                                thisState.invoices.disable.referenceSlipNoDisabled = true;
+                                thisState.invoices.disable.customersNameDisabled = true;
+                                thisState.invoices.disable.vehicleNoDisabled = true;
+                                thisState.invoices.disable.materialDisabled = true;
+                                thisState.invoices.disable.unitPriceDisabled = true;
+                                thisState.invoices.disable.quantityDisabled = true;
+                                thisState.invoices.disable.address1Disabled = true;
+                                thisState.invoices.disable.address2Disabled = true;
+                                thisState.invoices.disable.timeOfArrivalDisabled = true;
+                                thisState.invoices.disable.saveDisabled = true;
+                                thisState.invoices.disable.printDisabled = false;
+                                thisState.invoice = result;
+                                thisState.invoices.reference.customersNameReference.value = [
+                                    {customerName: thisState.invoice.customersName}
+                                ];
+                                thisState.invoices.reference.materialReference.value = [
+                                    {material: thisState.invoice.material}
+                                ];
+                                thisState.setMyState(thisState);
+                            }).catch(() => {
+                                thisState.invoices.reprint = false;
+                                thisState.setMyState(thisState);
+                            });
                         } else {
                             thisState.invoices.reprint = false;
                             thisState.setMyState(thisState);
