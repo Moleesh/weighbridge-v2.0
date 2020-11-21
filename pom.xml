@@ -63,7 +63,7 @@
 							<directory>target</directory>
 						</fileset>
 						<fileset>
-							<directory>WeighBridge</directory>
+							<directory>WeighBridge 2.0</directory>
 						</fileset>
 					</filesets>
 				</configuration>
@@ -77,13 +77,12 @@
 						<phase>${skipValidate}</phase>
 						<configuration>
 							<target>
-								<delete dir="WeighBridge" quiet="true" failonerror="false"/>
-								<mkdir dir="WeighBridge"/>
-								<copy file="backend/target/weighBridge.jar" tofile="WeighBridge/weighBridge.jar"/>
-								<copy file="RunMeForSchedulingInWindows.bat"
-									  tofile="WeighBridge/RunMeForSchedulingInWindows.bat"/>
-								<copy file="babulensLogo.bmp" tofile="WeighBridge/babulensLogo.bmp"/>
-								<copy file="webcam.xml" tofile="WeighBridge/webcam.xml"/>
+								<delete dir="WeighBridge 2.0" quiet="true" failonerror="false"/>
+								<mkdir dir="WeighBridge 2.0"/>
+								<copy file="backend/target/weighBridge.jar" tofile="WeighBridge 2.0/weighBridge.jar"/>
+								<copy file="RunMeForSchedulingInWindows.bat" tofile="WeighBridge 2.0/RunMeForSchedulingInWindows.bat"/>
+								<copy file="babulensLogo.bmp" tofile="WeighBridge 2.0/babulensLogo.bmp"/>
+								<copy file="webcam.xml" tofile="WeighBridge 2.0/webcam.xml"/>
 							</target>
 						</configuration>
 						<goals>
