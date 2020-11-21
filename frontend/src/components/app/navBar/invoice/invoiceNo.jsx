@@ -12,6 +12,8 @@ const InvoiceNo = props => {
                 thisState.invoices.dummySelectorDialog = false;
                 thisState.setMyState(thisState);
             }}
+            onAfterClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
+            onRequestClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -38,9 +40,11 @@ const InvoiceNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) ;
-                                else if (event.keyCode === 13 || event.keyCode === 9)
-                                    thisState.invoices.dummySelectorReference.current.focus();
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                    thisState.switchFocus(thisState, 'invoices', 'dummySelector', false);
+                                }
                             }}
                             ref={thisState.invoices.reference.dummyInvoiceNoReference}
                         />

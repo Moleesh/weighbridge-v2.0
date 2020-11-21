@@ -50,14 +50,12 @@ const Bottom = props => {
                                     thisState
                                         .setMyState(thisState)
                                         .then(() => {
-                                                thisState.invoices.reference.printReference.current.focus();
-                                                preventSave = false;
-                                            }
-                                        );
-                                })
-                                .catch(() => {
-                                    preventSave = false;
-                                });
+                                            thisState.switchFocus(thisState, 'invoices', 'print', false);
+                                            preventSave = false;
+                                        });
+                                }).catch(() => {
+                                preventSave = false;
+                            });
                         }
                     }}
                     onKeyPress={event => {
@@ -83,11 +81,7 @@ const Bottom = props => {
                     onClick={() => {
                         thisState.invoices.reprint = true;
                         thisState.invoices.reprintSlipNo = "";
-                        thisState
-                            .setMyState(thisState)
-                            .then(() =>
-                                thisState.invoices.reference.rePrintFieldReference.current.focus()
-                            );
+                        thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', 'rePrint', false));
                     }}
                     onKeyPress={event => {
                         if (prevent) {
@@ -98,7 +92,7 @@ const Bottom = props => {
                     onFocus={() => {
                         thisState.invoices.disable.printDisabled
                             ? (prevent = true)
-                            : thisState.invoices.reference.printReference.current.focus();
+                            : thisState.switchFocus(thisState, 'invoices', 'print', false);
                     }}
                 >
                     Re Print
@@ -112,9 +106,7 @@ const Bottom = props => {
                     block
                     onClick={() => {
                         thisState.invoices.print = true;
-                        thisState.setMyState(thisState).then(() =>
-                            thisState.invoices.reference.printDialogReference.current.focus()
-                        );
+                        thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', 'printDialog', false));
                     }}
                     disabled={thisState.invoices.disable.printDisabled}
                     ref={thisState.invoices.reference.printReference}
@@ -129,7 +121,7 @@ const Bottom = props => {
                             prevent = true;
                         else {
                             thisState.invoices.disable.printDisabled = true;
-                            thisState.invoices.reference.referenceSlipNoReference.current.focus();
+                            thisState.switchFocus(thisState, 'invoices', '', false);
                         }
                     }}
                 >
@@ -201,11 +193,7 @@ const Bottom = props => {
                                 thisState.invoice.total = 0;
                                 thisState.invoices.igstSelector = false;
                                 thisState.invoices.disablecalculation = false;
-                                thisState
-                                    .setMyState(thisState)
-                                    .then(() =>
-                                        thisState.invoices.reference.referenceSlipNoReference.current.focus()
-                                    );
+                                thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', '', false));
                             });
                     }}
                 >

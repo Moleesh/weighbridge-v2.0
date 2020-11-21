@@ -37,9 +37,11 @@ const ManualEntry = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) ;
-                                else if (event.keyCode === 13 || event.keyCode === 9)
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.settings.manualEntryReference.current.focus();
+                                }
                             }}
                             ref={thisState.settings.manualEntryPasswordReference}
                         />

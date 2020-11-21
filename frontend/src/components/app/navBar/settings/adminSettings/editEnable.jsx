@@ -37,8 +37,10 @@ const EditEnable = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-if (event.keyCode === 13 || event.keyCode === 9)
-    thisState.settings.editEnableReference.current.focus();
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9)
+                                    thisState.settings.editEnableReference.current.focus();
                             }}
                             ref={thisState.settings.editEnablePasswordReference}
                         />

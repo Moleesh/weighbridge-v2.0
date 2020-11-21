@@ -61,7 +61,7 @@ const Bottom = props => {
                         thisState
                             .setMyState(thisState)
                             .then(() =>
-                                thisState.weighing.reference.saveReference.current.focus()
+                                thisState.switchFocus(thisState, 'weighing', 'save', false)
                             );
                     }}
                     disabled={thisState.weighing.disable.getWeightDisabled}
@@ -106,7 +106,7 @@ const Bottom = props => {
                                     thisState
                                         .setMyState(thisState)
                                         .then(() => {
-                                                thisState.weighing.reference.printReference.current.focus();
+                                                thisState.switchFocus(thisState, 'weighing', 'print', false);
                                                 preventSave = false;
                                             }
                                         );
@@ -130,7 +130,7 @@ const Bottom = props => {
                         thisState.weighing.reprint = true;
                         thisState.weighing.reprintSlipNo = "";
                         thisState.setMyState(thisState).then(() =>
-                            thisState.weighing.reference.rePrintFieldReference.current.focus()
+                            thisState.switchFocus(thisState, 'invoices', 'rePrint', false)
                         );
                     }}
                     onKeyPress={event => {
@@ -142,7 +142,7 @@ const Bottom = props => {
                     onFocus={() => {
                         thisState.weighing.disable.printDisabled
                             ? (prevent = true)
-                            : thisState.weighing.reference.printReference.current.focus();
+                            : thisState.switchFocus(thisState, 'weighing', 'print', false);
                     }}
                 >
                     Re Print
@@ -156,9 +156,7 @@ const Bottom = props => {
                     block
                     onClick={() => {
                         thisState.weighing.print = true;
-                        thisState.setMyState(thisState).then(() =>
-                            thisState.weighing.reference.printDialogReference.current.focus()
-                        );
+                        thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'printDialog', false));
                     }}
                     disabled={thisState.weighing.disable.printDisabled}
                     ref={thisState.weighing.reference.printReference}
@@ -173,7 +171,7 @@ const Bottom = props => {
                             prevent = true;
                         else {
                             thisState.weighing.disable.printDisabled = true;
-                            thisState.weighing.reference.vehicleNoReference.current.focus();
+                            thisState.switchFocus(thisState, 'weighing', 'vehicleNo', false);
                         }
                     }}
                 >
@@ -236,11 +234,7 @@ const Bottom = props => {
                                     thisState.weighing.disable.grossDetailsDisabled = false;
                                     thisState.weighing.disable.tareDetailsWeightDisabled = false;
                                 }
-                                thisState
-                                    .setMyState(thisState)
-                                    .then(() =>
-                                        thisState.weighing.reference.vehicleNoReference.current.focus()
-                                    );
+                                thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'vehicleNo', false));
                             });
                     }}
                 >

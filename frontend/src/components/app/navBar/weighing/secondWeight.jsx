@@ -7,36 +7,8 @@ const SecondWeight = props => {
     return (
         <Modal
             show={thisState.weighing.secondWeight}
-            onAfterClose={() => {
-                !thisState.weighing.disable.vehicleNoDisabled
-                    ? thisState.weighing.reference.vehicleNoReference.current.focus()
-                    : !thisState.weighing.disable.materialDisabled
-                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                    : !thisState.settings.value.hideCustomerName
-                        ? thisState.weighing.reference.customersNameReference.current.focus()
-                        : !thisState.settings.value.hideTransporterName
-                            ? thisState.weighing.reference.transporterNameReference.current.focus()
-                            : !thisState.settings.value.hideCharges
-                                ? thisState.weighing.reference.chargesReference.current.focus()
-                                : !thisState.settings.value.hideRemarks
-                                    ? thisState.weighing.reference.remarksReference.current.focus()
-                                    : thisState.weighing.reference.getWeightReference.current.focus();
-            }}
-            onRequestClose={() => {
-                !thisState.weighing.disable.vehicleNoDisabled
-                    ? thisState.weighing.reference.vehicleNoReference.current.focus()
-                    : !thisState.weighing.disable.materialDisabled
-                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                    : !thisState.settings.value.hideCustomerName
-                        ? thisState.weighing.reference.customersNameReference.current.focus()
-                        : !thisState.settings.value.hideTransporterName
-                            ? thisState.weighing.reference.transporterNameReference.current.focus()
-                            : !thisState.settings.value.hideCharges
-                                ? thisState.weighing.reference.chargesReference.current.focus()
-                                : !thisState.settings.value.hideRemarks
-                                    ? thisState.weighing.reference.remarksReference.current.focus()
-                                    : thisState.weighing.reference.getWeightReference.current.focus();
-            }}
+            onAfterClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
+            onRequestClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
             onHide={() => {
                 thisState.weighing.secondWeight = false;
                 thisState.setMyState(thisState);
@@ -67,8 +39,11 @@ const SecondWeight = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if ((event.keyCode === 13) || (event.keyCode === 9))
-                                    thisState.weighing.reference.secondWeightButtonReference.current.focus();
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                    thisState.switchFocus(thisState, 'weighing', 'secondWeightButton', false);
+                                }
                             }}
                             ref={thisState.weighing.reference.secondWeightFieldReference}
                         />

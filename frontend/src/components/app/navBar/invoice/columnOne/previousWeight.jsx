@@ -8,9 +8,10 @@ const PreviousWeight = props => {
             show={thisState.invoices.previousWeightSelector}
             onHide={() => {
                 thisState.invoices.previousWeightSelector = false;
-                thisState.invoices.preventFocus = true;
                 thisState.setMyState(thisState);
             }}
+            onAfterClose={() => thisState.switchFocus(thisState, 'invoices', 'customersName', false)}
+            onRequestClose={() => thisState.switchFocus(thisState, 'invoices', 'customersName', false)}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -114,7 +115,6 @@ const PreviousWeight = props => {
                             {material: thisState.invoices.previousWeightResult.material}
                         ];
                         thisState.invoice.quantity = thisState.invoices.previousWeightResult.nettWeight;
-                        thisState.invoices.preventFocus = true;
                         thisState.invoices.disable.vehicleNoDisabled = true;
                         thisState.invoices.disable.quantityDisabled = true;
                         if (thisState.invoices.previousWeightResult.unitPrice) {
@@ -129,7 +129,6 @@ const PreviousWeight = props => {
                         if (thisState.invoices.previousWeightResult.address2) {
                             thisState.invoice.address2 = thisState.invoices.previousWeightResult.address2;
                         }
-                        thisState.setMyState(thisState);
                         thisState.calculateInvoiceAmount(thisState);
                     }}
                     ref={thisState.invoices.reference.previousWeightReference}

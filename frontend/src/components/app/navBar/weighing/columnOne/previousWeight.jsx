@@ -8,9 +8,10 @@ const PreviousWeight = props => {
             show={thisState.weighing.previousWeightSelector}
             onHide={() => {
                 thisState.weighing.previousWeightSelector = false;
-                thisState.weighing.preventFocus = true;
                 thisState.setMyState(thisState);
             }}
+            onAfterClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
+            onRequestClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -53,7 +54,6 @@ const PreviousWeight = props => {
                             thisState.weight.tareWeight = thisState.weighing.previousWeightResult.tareWeight;
                             thisState.weight.tareTime = thisState.weighing.previousWeightResult.tareTime;
                         }
-                        thisState.weighing.preventFocus = true;
                         thisState.setMyState(thisState);
                     }}
                     ref={thisState.weighing.reference.previousWeightReference}
@@ -64,7 +64,6 @@ const PreviousWeight = props => {
                     variant="secondary"
                     onClick={() => {
                         thisState.weighing.previousWeightSelector = false;
-                        thisState.weighing.preventFocus = true;
                         thisState.setMyState(thisState);
                     }}
                 >

@@ -37,8 +37,11 @@ const RePrint = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-if ((event.keyCode === 13) || (event.keyCode === 9))
-    thisState.weighing.reference.rePrintButtonReference.current.focus();
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                    thisState.switchFocus(thisState, 'weighing', 'rePrintButton', false);
+                                }
                             }}
                             ref={thisState.weighing.reference.rePrintFieldReference}
                         />

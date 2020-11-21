@@ -34,31 +34,21 @@ const Invoice = props => {
                                                 if (response.status === 200) {
                                                     return response.json();
                                                 } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
-                                                return result;
-                                            })
-                                            .catch(() => {
-                                                return -1;
-                                            })
-                                            .then(result => {
-                                                thisState.invoice.dummy = false;
-                                                thisState.invoices.dummyInvoiceNo = result;
-                                                if (result === -1) {
-                                                    thisState.invoice.invoiceNo = -1;
-                                                    thisState.invoices.disable.saveDisabled = true;
-                                                    thisState.SETTING_DISABLED = true;
-                                                } else {
-                                                    thisState.invoices.dummySelectorDialog = true;
-                                                }
-                                                thisState
-                                                    .setMyState(thisState)
-                                                    .then(() => {
-                                                            if (thisState.invoices.dummySelectorDialog) {
-                                                                thisState.invoices.reference.referenceSlipNoReference.current.focus()
-                                                            }
-                                                        }
-                                                    );
+                                            }).then(result => {
+                                            return result;
+                                        }).catch(() => {
+                                            return -1;
+                                        }).then(result => {
+                                            thisState.invoice.dummy = false;
+                                            thisState.invoices.dummyInvoiceNo = result;
+                                            if (result === -1) {
+                                                thisState.invoice.invoiceNo = -1;
+                                                thisState.invoices.disable.saveDisabled = true;
+                                                thisState.SETTING_DISABLED = true;
+                                            } else {
+                                                thisState.invoices.dummySelectorDialog = true;
+                                            }
+                                            thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', 'dummyInvoiceNo', false));
                                             });
                                     } else {
                                         fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE)
@@ -80,11 +70,7 @@ const Invoice = props => {
                                                     thisState.invoices.disable.saveDisabled = true;
                                                     thisState.SETTING_DISABLED = true;
                                                 }
-                                                thisState
-                                                    .setMyState(thisState)
-                                                    .then(() =>
-                                                        thisState.invoices.reference.referenceSlipNoReference.current.focus()
-                                                    );
+                                                thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', '', false));
                                             });
                                     }
                                 }}
@@ -110,9 +96,8 @@ const Invoice = props => {
                             checked={!thisState.invoices.igstSelector}
                             onClick={() => {
                                 thisState.invoices.igstSelector = false;
-                                thisState.invoices.reference.referenceSlipNoReference.current.focus();
-                                thisState.setMyState(thisState);
                                 thisState.calculateInvoiceAmount(thisState);
+                                thisState.switchFocus(thisState, 'invoices', '', false);
                             }}
                             onChange={() => {
                             }}
@@ -128,9 +113,8 @@ const Invoice = props => {
                             checked={thisState.invoices.igstSelector}
                             onClick={() => {
                                 thisState.invoices.igstSelector = true;
-                                thisState.invoices.reference.referenceSlipNoReference.current.focus();
-                                thisState.setMyState(thisState);
                                 thisState.calculateInvoiceAmount(thisState);
+                                thisState.switchFocus(thisState, 'invoices', '', false);
                             }}
                             onChange={() => {
                             }}

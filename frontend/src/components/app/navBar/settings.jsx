@@ -71,7 +71,7 @@ const Settings = props => {
                 </Col>
             </Row>
             <Row/>
-            <div className="footer-copyright text-center py-3 ">
+            <div className="footer-copyright text-center py-1">
                 <footer>
                     <Button
                         variant="success"

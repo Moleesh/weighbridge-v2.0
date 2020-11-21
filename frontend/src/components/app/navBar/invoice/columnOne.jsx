@@ -42,13 +42,11 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if ((event.keyCode === 13) || (event.keyCode === 9)) {
+                            if (event.keyCode === 9 && event.shiftKey) {
+
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
                                 if (thisState.invoice.referenceSlipNo) {
-                                    await fetch(
-                                        thisState.INITIAL_URL +
-                                        "/weight/getWeightBySlipNoAndProfile?profile=" + thisState.PROFILE + "&slipNo=" +
-                                        thisState.invoice.referenceSlipNo
-                                    )
+                                    await fetch(thisState.INITIAL_URL + "/weight/getWeightBySlipNoAndProfile?profile=" + thisState.PROFILE + "&slipNo=" + thisState.invoice.referenceSlipNo)
                                         .then(response => {
                                             if (response.status === 200) {
                                                 return response.json();
@@ -70,25 +68,11 @@ const ColumnOne = props => {
                                             }
                                             thisState.invoices.previousWeightResult = result;
                                             thisState.setMyState(thisState);
-                                            thisState.invoices.reference.previousWeightReference.current.focus();
-                                        })
-                                        .catch(() => {
-                                            !thisState.invoices.disable.customersNameDisabled
-                                                ? thisState.invoices.reference.customersNameReference.reference.current.focus()
-                                                : thisState.invoices.reference.gstinReference.current.focus();
-                                        });
+                                            thisState.switchFocus(thisState, 'invoices', 'previousWeight', false);
+                                        }).catch(() => thisState.switchFocus(thisState, 'invoices', 'customersName', false));
                                 } else {
-                                    !thisState.invoices.disable.customersNameDisabled
-                                        ? thisState.invoices.reference.customersNameReference.reference.current.focus()
-                                        : thisState.invoices.reference.gstinReference.current.focus();
+                                    thisState.switchFocus(thisState, 'invoices', 'customersName', false);
                                 }
-                            }
-                        }}
-                        onFocus={() => {
-                            if (thisState.invoices.preventFocus) {
-                                thisState.invoices.preventFocus = false;
-                                thisState.setMyState(thisState);
-                                thisState.invoices.reference.customersNameReference.reference.current.focus();
                             }
                         }}
                     />
@@ -155,9 +139,9 @@ const ColumnOne = props => {
                         }}
                         ref={thisState.invoices.reference.customersNameReference.reference}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                thisState.invoices.reference.referenceSlipNoReference.current.focus();
-                            else if (event.keyCode === 13 || event.keyCode === 9) {
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'invoices', '', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
                                 thisState.invoices.reference.customersNameReference.open = false;
                                 thisState.invoices.reference.customersNameReference.value[0].customerName = thisState.invoices.reference.customersNameReference.value[0].customerName.toUpperCase()
                                 thisState.invoice.customersName = thisState.invoices.reference.customersNameReference.value[0].customerName;
@@ -169,7 +153,7 @@ const ColumnOne = props => {
                                     thisState.invoice.address2 = temp[0].address2;
                                 }
                                 thisState.setMyState(thisState);
-                                thisState.invoices.reference.gstinReference.current.focus();
+                                thisState.switchFocus(thisState, 'invoices', 'gstin', false);
                             }
                         }}
                         onFocus={() => {
@@ -181,7 +165,7 @@ const ColumnOne = props => {
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm="6">
-                    GSTIN
+                    Customer GSTIN
                 </Form.Label>
                 <Col sm="6">
                     <Form.Control
@@ -194,22 +178,12 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                thisState.invoices.reference.customersNameReference.reference.current.focus();
-                            else {
-                                if (event.keyCode === 13 || event.keyCode === 9) {
-                                    thisState.invoice.gstin = thisState.invoice.gstin
-                                        .toUpperCase()
-                                        .replaceAll(" ", "");
-                                    thisState.setMyState(thisState);
-                                    if (!thisState.invoices.disable.vehicleNoDisabled) {
-                                        thisState.invoices.reference.vehicleNoReference.current.focus();
-                                    } else if (!thisState.invoices.disable.unitPriceDisabled) {
-                                        thisState.invoices.reference.unitPriceReference.current.focus();
-                                    } else {
-                                        thisState.invoices.reference.address1Reference.current.focus();
-                                    }
-                                }
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'invoices', 'customersName', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.invoice.gstin = thisState.invoice.gstin.toUpperCase().replaceAll(" ", "");
+                                thisState.setMyState(thisState);
+                                thisState.switchFocus(thisState, 'invoices', 'vehicleNo', false);
                             }
                         }}
                     />
@@ -230,16 +204,12 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                thisState.invoices.reference.gstinReference.current.focus();
-                            else {
-                                if (event.keyCode === 13 || event.keyCode === 9) {
-                                    thisState.invoice.vehicleNo = thisState.invoice.vehicleNo
-                                        .toUpperCase()
-                                        .replaceAll(" ", "");
-                                    thisState.setMyState(thisState);
-                                    thisState.invoices.reference.materialReference.reference.current.focus();
-                                }
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'invoices', 'gstin', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.invoice.vehicleNo = thisState.invoice.vehicleNo.toUpperCase().replaceAll(" ", "");
+                                thisState.setMyState(thisState);
+                                thisState.switchFocus(thisState, 'invoices', 'material', false);
                             }
                         }}
                     />

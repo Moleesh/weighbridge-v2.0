@@ -41,9 +41,11 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) ;
-                                else if (event.keyCode === 13 || event.keyCode === 9)
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.settings.resetSlipNoPasswordReference.current.focus();
+                                }
                             }}
                             ref={thisState.settings.resetSlipNoReference}
                         />
@@ -64,9 +66,11 @@ const ResetSlipNo = props => {
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if (event.keyCode === 9 && event.shiftKey) ;
-                                else if (event.keyCode === 13 || event.keyCode === 9)
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9) {
                                     thisState.settings.resetSlipNoButtonReference.current.focus();
+                                }
                             }}
                             ref={thisState.settings.resetSlipNoPasswordReference}
                         />

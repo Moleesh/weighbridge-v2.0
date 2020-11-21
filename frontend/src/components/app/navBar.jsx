@@ -18,12 +18,12 @@ const NavBar = props => {
                 defaultActiveKey="weighing"
                 className="mt-1 h5 py-2 pb-1">
                 <Tab eventKey="weighing" title="Weighing"
-                     onEntered={() => thisState.weighing.reference.vehicleNoReference.current.focus()}>
+                     onEntered={() => thisState.switchFocus(thisState, 'weighing', '', false)}>
                     <Weighing preState={thisState}/>
                 </Tab>
                 {thisState.settings.value.invoice ?
                     <Tab eventKey="invoice" title="Invoice"
-                         onEntered={() => thisState.invoices.reference.referenceSlipNoReference.current.focus()}>
+                         onEntered={() => thisState.switchFocus(thisState, 'invoices', '', false)}>
                         <Invoice preState={thisState}/>
                     </Tab> : ""}
                 < Tab eventKey="webcams" title="WebCams">

@@ -34,21 +34,12 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                !thisState.weighing.disable.materialDisabled
-                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                    : thisState.weighing.reference.vehicleNoReference.current.focus();
-                            else if ((event.keyCode === 13) || (event.keyCode === 9)) {
-                                thisState.weight.customersName = thisState.weight.customersName
-                                    .toUpperCase();
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'weighing', 'material', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.weight.customersName = thisState.weight.customersName.toUpperCase();
                                 thisState.setMyState(thisState);
-                                !thisState.settings.value.hideTransporterName
-                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                    : !thisState.settings.value.hideCharges
-                                    ? thisState.weighing.reference.chargesReference.current.focus()
-                                    : !thisState.settings.value.hideRemarks
-                                        ? thisState.weighing.reference.remarksReference.current.focus()
-                                        : thisState.weighing.reference.getWeightReference.current.focus();
+                                thisState.switchFocus(thisState, 'weighing', 'transporterName', false);
                             }
                         }}
                     />
@@ -83,20 +74,12 @@ const ColumnTwo = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                !thisState.settings.value.hideCustomerName
-                                    ? thisState.weighing.reference.customersNameReference.current.focus()
-                                    : !thisState.weighing.disable.materialDisabled
-                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                    : thisState.weighing.reference.vehicleNoReference.current.focus();
-                            else if ((event.keyCode === 13) || (event.keyCode === 9)) {
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'weighing', 'customersName', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
                                 thisState.weight.transporterName = thisState.weight.transporterName.toUpperCase();
                                 thisState.setMyState(thisState);
-                                !thisState.settings.value.hideCharges
-                                    ? thisState.weighing.reference.chargesReference.current.focus()
-                                    : !thisState.settings.value.hideRemarks
-                                    ? thisState.weighing.reference.remarksReference.current.focus()
-                                    : thisState.weighing.reference.getWeightReference.current.focus();
+                                thisState.switchFocus(thisState, 'weighing', 'charges', false);
                             }
                         }}
                     />

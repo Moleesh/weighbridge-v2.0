@@ -11,6 +11,8 @@ const RePrint = props => {
                 thisState.invoices.reprint = false;
                 thisState.setMyState(thisState);
             }}
+            onAfterClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
+            onRequestClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -32,13 +34,16 @@ const RePrint = props => {
                                     : thisState.invoices.reprintSlipNo
                             }
                             onChange={event => {
-                                thisState.invoices.reprintSlipNo =
-                                    (event.target.value.match("[0-9]+") || []).pop() || "";
+                                thisState.invoices.reprintSlipNo = (event.target.value.match("[0-9]+") || []).pop() || "";
                                 thisState.setMyState(thisState);
                             }}
                             onKeyDown={event => {
-                                if ((event.keyCode === 13) || (event.keyCode === 9))
-                                    thisState.invoices.reference.rePrintButtonReference.current.focus();
+                                if (event.keyCode === 9 && event.shiftKey) {
+
+                                } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                    thisState.switchFocus(thisState, 'invoices', 'rePrintButton', false);
+
+                                }
                             }}
                             ref={thisState.invoices.reference.rePrintFieldReference}
                         />

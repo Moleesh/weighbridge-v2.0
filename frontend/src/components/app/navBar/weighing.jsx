@@ -35,7 +35,7 @@ const Weighing = props => {
                                 thisState.weighing.reference.materialReference.value = [
                                     {material: ""}
                                 ];
-                                thisState.weighing.reference.vehicleNoReference.current.focus()
+                                thisState.switchFocus(thisState, 'weighing', '', false);
                                 thisState.setMyState(thisState);
                             }}
                             onChange={() => {
@@ -58,7 +58,7 @@ const Weighing = props => {
                                     {material: "Empty"}
                                 ];
                                 thisState.weighing.disable.materialDisabled = true;
-                                thisState.weighing.reference.vehicleNoReference.current.focus()
+                                thisState.switchFocus(thisState, 'weighing', '', false);
                                 thisState.setMyState(thisState);
                             }}
                             onChange={() => {
@@ -74,25 +74,10 @@ const Weighing = props => {
                                 thisState.weighing.secondWeight = true;
                                 thisState.weighing.secondWeightSlipNo = "";
                                 thisState.setMyState(thisState).then(() =>
-                                    thisState.weighing.reference.secondWeightFieldReference.current.focus()
+                                    thisState.switchFocus(thisState, 'weighing', 'secondWeightField', false)
                                 );
                             }}
 
-                            onFocus={() => {
-                                !thisState.weighing.disable.vehicleNoDisabled
-                                    ? thisState.weighing.reference.vehicleNoReference.current.focus()
-                                    : !thisState.weighing.disable.materialDisabled
-                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                    : !thisState.settings.value.hideCustomerName
-                                        ? thisState.weighing.reference.customersNameReference.current.focus()
-                                        : !thisState.settings.value.hideTransporterName
-                                            ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                            : !thisState.settings.value.hideCharges
-                                                ? thisState.weighing.reference.chargesReference.current.focus()
-                                                : !thisState.settings.value.hideRemarks
-                                                    ? thisState.weighing.reference.remarksReference.current.focus()
-                                                    : thisState.weighing.reference.getWeightReference.current.focus();
-                            }}
                             disabled={thisState.weighing.disable.secondWeightDisabled}
                         >
                             Second Weight

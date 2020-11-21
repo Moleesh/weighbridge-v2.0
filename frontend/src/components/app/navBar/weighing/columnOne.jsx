@@ -48,10 +48,10 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={async event => {
-                            if (event.keyCode === 13 || event.keyCode === 9) {
-                                thisState.weight.vehicleNo = thisState.weight.vehicleNo
-                                    .toUpperCase()
-                                    .replaceAll(" ", "");
+                            if (event.keyCode === 9 && event.shiftKey) {
+
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.weight.vehicleNo = thisState.weight.vehicleNo.toUpperCase().replaceAll(" ", "");
                                 if (!thisState.settings.value.secondWeight) {
                                     if (thisState.weighing.tareSelector) {
                                         await fetch(
@@ -63,26 +63,14 @@ const ColumnOne = props => {
                                                 if (response.status === 200) {
                                                     return response.json();
                                                 } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
+                                            }).then(result => {
                                                 thisState.weighing.previousWeightSelector = true;
                                                 thisState.weighing.previousWeight = "Gross";
                                                 thisState.weighing.previousWeightResult = result;
                                                 thisState.setMyState(thisState);
-                                                thisState.weighing.reference.previousWeightReference.current.focus();
-                                            })
-                                            .catch(() => {
-                                                !thisState.weighing.disable.materialDisabled
-                                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                                    : !thisState.settings.value.hideCustomerName
-                                                    ? thisState.weighing.reference.customersNameReference.current.focus()
-                                                    : !thisState.settings.value.hideTransporterName
-                                                        ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                                        : !thisState.settings.value.hideCharges
-                                                            ? thisState.weighing.reference.chargesReference.current.focus()
-                                                            : !thisState.settings.value.hideRemarks
-                                                                ? thisState.weighing.reference.remarksReference.current.focus()
-                                                                : thisState.weighing.reference.getWeightReference.current.focus();
+                                                thisState.switchFocus(thisState, 'weighing', 'previousWeight', false);
+                                            }).catch(() => {
+                                                thisState.switchFocus(thisState, 'weighing', 'material', false);
                                             });
                                     } else {
                                         await fetch(
@@ -94,62 +82,23 @@ const ColumnOne = props => {
                                                 if (response.status === 200) {
                                                     return response.json();
                                                 } else throw Error(response.statusText);
-                                            })
-                                            .then(result => {
+                                            }).then(result => {
                                                 thisState.weighing.previousWeightSelector = true;
                                                 thisState.weighing.previousWeight = "Tare";
                                                 thisState.weighing.previousWeightResult = result;
                                                 thisState.setMyState(thisState);
-                                                thisState.weighing.reference.previousWeightReference.current.focus();
-                                            })
-                                            .catch(() => {
-                                                !thisState.weighing.disable.materialDisabled
-                                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                                    : !thisState.settings.value.hideCustomerName
-                                                    ? thisState.weighing.reference.customersNameReference.current.focus()
-                                                    : !thisState.settings.value.hideTransporterName
-                                                        ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                                        : !thisState.settings.value.hideCharges
-                                                            ? thisState.weighing.reference.chargesReference.current.focus()
-                                                            : !thisState.settings.value.hideRemarks
-                                                                ? thisState.weighing.reference.remarksReference.current.focus()
-                                                                : thisState.weighing.reference.getWeightReference.current.focus();
+                                                thisState.switchFocus(thisState, 'weighing', 'previousWeight', false);
+                                            }).catch(() => {
+                                                thisState.switchFocus(thisState, 'weighing', 'material', false);
                                             });
                                     }
                                 } else {
                                     thisState.setMyState(thisState);
-                                    !thisState.weighing.disable.materialDisabled
-                                        ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                        : !thisState.settings.value.hideCustomerName
-                                        ? thisState.weighing.reference.customersNameReference.current.focus()
-                                        : !thisState.settings.value.hideTransporterName
-                                            ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                            : !thisState.settings.value.hideCharges
-                                                ? thisState.weighing.reference.chargesReference.current.focus()
-                                                : !thisState.settings.value.hideRemarks
-                                                    ? thisState.weighing.reference.remarksReference.current.focus()
-                                                    : thisState.weighing.reference.getWeightReference.current.focus();
+                                    thisState.switchFocus(thisState, 'weighing', 'material', false);
                                 }
                             }
                         }
                         }
-                        onFocus={() => {
-                            if (thisState.weighing.preventFocus) {
-                                thisState.weighing.preventFocus = false;
-                                thisState.setMyState(thisState);
-                                !thisState.weighing.disable.materialDisabled
-                                    ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                    : !thisState.settings.value.hideCustomerName
-                                    ? thisState.weighing.reference.customersNameReference.current.focus()
-                                    : !thisState.settings.value.hideTransporterName
-                                        ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                        : !thisState.settings.value.hideCharges
-                                            ? thisState.weighing.reference.chargesReference.current.focus()
-                                            : !thisState.settings.value.hideRemarks
-                                                ? thisState.weighing.reference.remarksReference.current.focus()
-                                                : thisState.weighing.reference.getWeightReference.current.focus();
-                            }
-                        }}
                         autoFocus={true}
                     />
                     <PreviousWeight preState={thisState}/>
@@ -200,9 +149,9 @@ const ColumnOne = props => {
                         }}
                         ref={thisState.weighing.reference.materialReference.reference}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                thisState.weighing.reference.vehicleNoReference.current.focus();
-                            else if (event.keyCode === 13 || event.keyCode === 9) {
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'weighing', '', false);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
                                 thisState.weighing.reference.materialReference.open = false;
                                 thisState.weighing.reference.materialReference.value[0].material = thisState.weighing.reference.materialReference.value[0].material
                                     .toUpperCase()
@@ -213,15 +162,7 @@ const ColumnOne = props => {
                                     thisState.weighing.grossSelector = false;
                                 }
                                 thisState.setMyState(thisState);
-                                !thisState.settings.value.hideCustomerName
-                                    ? thisState.weighing.reference.customersNameReference.current.focus()
-                                    : !thisState.settings.value.hideTransporterName
-                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                    : !thisState.settings.value.hideCharges
-                                        ? thisState.weighing.reference.chargesReference.current.focus()
-                                        : !thisState.settings.value.hideRemarks
-                                            ? thisState.weighing.reference.remarksReference.current.focus()
-                                            : thisState.weighing.reference.getWeightReference.current.focus();
+                                thisState.switchFocus(thisState, 'weighing', 'customersName', false);
                             }
                         }}
                         onFocus={() => {
@@ -261,18 +202,11 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                !thisState.settings.value.hideTransporterName
-                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                    : !thisState.settings.value.hideCustomerName
-                                    ? thisState.weighing.reference.customersNameReference.current.focus()
-                                    : !thisState.weighing.disable.materialDisabled
-                                        ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                        : thisState.weighing.reference.vehicleNoReference.current.focus();
-                            else if (event.keyCode === 13 || event.keyCode === 9)
-                                !thisState.settings.value.hideRemarks
-                                    ? thisState.weighing.reference.remarksReference.current.focus()
-                                    : thisState.weighing.reference.getWeightReference.current.focus();
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'weighing', 'transporterName', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.switchFocus(thisState, 'weighing', 'remarks', false);
+                            }
                         }}
                     />
                 </Col>
@@ -306,18 +240,11 @@ const ColumnOne = props => {
                             thisState.setMyState(thisState);
                         }}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                !thisState.settings.valuee.hideCharges
-                                    ? thisState.weighing.reference.chargesReference.current.focus()
-                                    : !thisState.settings.value.hideTransporterName
-                                    ? thisState.weighing.reference.transporterNameReference.current.focus()
-                                    : !thisState.settings.value.hideCustomerName
-                                        ? thisState.weighing.reference.customersNameReference.current.focus()
-                                        : !thisState.weighing.disable.materialDisabled
-                                            ? thisState.weighing.reference.materialReference.reference.current.focus()
-                                            : thisState.weighing.reference.vehicleNoReference.current.focus();
-                            else if (event.keyCode === 13 || event.keyCode === 9)
-                                thisState.weighing.reference.getWeightReference.current.focus();
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'weighing', 'charges', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.switchFocus(thisState, 'weighing', 'getWeight', false);
+                            }
                         }}
                     />
                 </Col>

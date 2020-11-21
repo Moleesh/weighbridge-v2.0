@@ -244,7 +244,6 @@ class App extends Component {
             previousWeightSelector: false,
             previousWeight: "",
             previousWeightResult: "",
-            preventFocus: false,
             grossSelector: true,
             tareSelector: false,
             reprint: false,
@@ -329,6 +328,7 @@ class App extends Component {
                     value: [{material: ""}],
                     open: undefined
                 },
+                dummySelectorReference: React.createRef(),
                 dummyInvoiceNoReference: React.createRef(),
                 unitPriceReference: React.createRef(),
                 quantityReference: React.createRef(),
@@ -508,6 +508,258 @@ class App extends Component {
         this.setState(myState);
     }
 
+    switchFocus(thisState, screen, field, reverse) {
+        switch (screen) {
+            case 'weighing':
+                switch (field) {
+                    case 'getWeight':
+                        thisState.weighing.reference.getWeightReference.current.focus();
+                        break;
+                    case 'secondWeightField':
+                        thisState.weighing.reference.secondWeightFieldReference.current.focus();
+                        break;
+                    case 'save':
+                        thisState.weighing.reference.saveReference.current.focus();
+                        break;
+                    case 'print':
+                        thisState.weighing.reference.printReference.current.focus();
+                        break;
+                    case 'rePrintButton':
+                        thisState.weighing.reference.rePrintButtonReference.current.focus();
+                        break;
+                    case 'secondWeightButton':
+                        thisState.weighing.reference.secondWeightButtonReference.current.focus();
+                        break;
+                    case 'materialId':
+                        thisState.weighing.reference.materialIdReference.current.focus();
+                        break;
+                    case 'customersId':
+                        thisState.weighing.reference.customersIdReference.current.focus();
+                        break;
+                    case 'grossDetails':
+                        thisState.weighing.reference.grossDetailsWeightReference.current.focus();
+                        break;
+                    case 'tareDetails':
+                        thisState.weighing.reference.tareDetailsWeightReference.current.focus();
+                        break;
+                    case 'previousWeight':
+                        thisState.weighing.reference.previousWeightReference.current.focus();
+                        break;
+                    case 'printDialog':
+                        thisState.weighing.reference.printDialogReference.current.focus();
+                        break;
+                    default:
+                        if (!reverse) {
+                            switch (field) {
+                                default:
+                                    if (!thisState.weighing.disable.vehicleNoDisabled) {
+                                        thisState.weighing.reference.vehicleNoReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'material':
+                                    if (!thisState.weighing.disable.materialDisabled) {
+                                        thisState.weighing.reference.materialReference.reference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'customersName':
+                                    if (!thisState.settings.value.hideCustomerName) {
+                                        thisState.weighing.reference.customersNameReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'transporterName':
+                                    if (!thisState.settings.value.hideTransporterName) {
+                                        thisState.weighing.reference.transporterNameReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'charges':
+                                    if (!thisState.settings.value.hideCharges) {
+                                        thisState.weighing.reference.chargesReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'remarks':
+                                    if (!thisState.settings.value.hideRemarks) {
+                                        thisState.weighing.reference.remarksReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'getWeight':
+                                    thisState.weighing.reference.getWeightReference.current.focus();
+                            }
+                        } else {
+                            switch (field) {
+                                case 'remarks':
+                                    if (!thisState.settings.value.hideRemarks) {
+                                        thisState.weighing.reference.remarksReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'charges':
+                                    if (!thisState.settings.value.hideCharges) {
+                                        thisState.weighing.reference.chargesReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'transporterName':
+                                    if (!thisState.settings.value.hideTransporterName) {
+                                        thisState.weighing.reference.transporterNameReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'customersName':
+                                    if (!thisState.settings.value.hideCustomerName) {
+                                        thisState.weighing.reference.customersNameReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'material':
+                                    if (!thisState.weighing.disable.materialDisabled) {
+                                        thisState.weighing.reference.materialReference.reference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                default:
+                                    if (!thisState.weighing.disable.vehicleNoDisabled) {
+                                        thisState.weighing.reference.vehicleNoReference.current.focus();
+                                    }
+                            }
+                        }
+                }
+                break;
+            case 'invoices':
+                switch (field) {
+                    case 'save':
+                        thisState.invoices.reference.saveReference.current.focus();
+                        break;
+                    case 'print':
+                        thisState.invoices.reference.printReference.current.focus();
+                        break;
+                    case 'rePrint':
+                        thisState.invoices.reference.rePrintFieldReference.current.focus();
+                        break;
+                    case 'rePrintButton':
+                        thisState.invoices.reference.rePrintButtonReference.current.focus();
+                        break;
+                    case 'printDialog':
+                        thisState.invoices.reference.printDialogReference.current.focus();
+                        break;
+                    case 'previousWeight':
+                        thisState.invoices.reference.previousWeightReference.current.focus();
+                        break;
+                    case 'dummySelector':
+                        thisState.invoices.reference.dummySelectorReference.current.focus();
+                        break;
+                    case 'dummyInvoiceNo':
+                        thisState.invoices.reference.dummyInvoiceNoReference.current.focus();
+                        break;
+                    default:
+                        if (!reverse) {
+                            switch (field) {
+                                default:
+                                    thisState.invoices.reference.referenceSlipNoReference.current.focus()
+                                    break;
+                                // falls through
+                                case 'customersName':
+                                    if (!thisState.invoices.disable.customersNameDisabled) {
+                                        thisState.invoices.reference.customersNameReference.reference.current.focus();
+                                        break;
+                                    }
+                                // falls through    
+                                case 'gstin':
+                                    thisState.invoices.reference.gstinReference.current.focus();
+                                    break;
+                                case 'vehicleNo':
+                                    if (!thisState.invoices.disable.vehicleNoDisabled) {
+                                        thisState.invoices.reference.vehicleNoReference.current.focus();
+                                        break;
+                                    }
+                                // falls through  
+                                case 'material':
+                                    thisState.invoices.reference.materialReference.reference.current.focus();
+                                    break;
+                                case 'unitPrice':
+                                    if (!thisState.invoices.disable.unitPriceDisabled) {
+                                        thisState.invoices.reference.unitPriceReference.current.focus();
+                                        break;
+                                    }
+                                // falls through 
+                                case 'quantity':
+                                    if (!thisState.invoices.disable.quantityDisabled) {
+                                        thisState.invoices.reference.quantityReference.current.focus();
+                                        break;
+                                    }
+                                // falls through      
+                                case 'address1':
+                                    thisState.invoices.reference.address1Reference.current.focus();
+                                    break;
+                                case 'address2':
+                                    thisState.invoices.reference.address2Reference.current.focus();
+                                    break;
+                                case 'timeOfArrival':
+                                    thisState.invoices.reference.timeOfArrivalReference.current.focus();
+                                    break;
+                                case 'save':
+                                    thisState.invoices.reference.saveReference.current.focus();
+                            }
+                        } else {
+                            switch (field) {
+                                case 'save':
+                                    thisState.invoices.reference.saveReference.current.focus();
+                                    break;
+                                case 'timeOfArrival':
+                                    thisState.invoices.reference.timeOfArrivalReference.current.focus();
+                                    break;
+                                case 'address2':
+                                    thisState.invoices.reference.address2Reference.current.focus();
+                                    break;
+                                case 'address1':
+                                    thisState.invoices.reference.address1Reference.current.focus();
+                                    break;
+                                case 'quantity':
+                                    if (!thisState.invoices.disable.quantityDisabled) {
+                                        thisState.invoices.reference.quantityReference.current.focus();
+                                        break;
+                                    }
+                                // falls through 
+                                case 'unitPrice':
+                                    if (!thisState.invoices.disable.unitPriceDisabled) {
+                                        thisState.invoices.reference.unitPriceReference.current.focus();
+                                        break;
+                                    }
+                                // falls through 
+                                case 'material':
+                                    thisState.invoices.reference.materialReference.reference.current.focus();
+                                    break;
+
+                                case 'vehicleNo':
+                                    if (!thisState.invoices.disable.vehicleNoDisabled) {
+                                        thisState.invoices.reference.vehicleNoReference.current.focus();
+                                        break;
+                                    }
+                                // falls through  
+                                case 'gstin':
+                                    thisState.invoices.reference.gstinReference.current.focus();
+                                    break;
+                                case 'customersName':
+                                    if (!thisState.invoices.disable.customersNameDisabled) {
+                                        thisState.invoices.reference.customersNameReference.reference.current.focus();
+                                        break;
+                                    }
+                                // falls through  
+                                default:
+                                    thisState.invoices.reference.referenceSlipNoReference.current.focus()
+                            }
+                        }
+                }
+                break;
+            default:
+        }
+    }
+
     calculateInvoiceAmount(thisState) {
         if (thisState.invoice.quantity > 0 && thisState.invoice.unitPrice > 0 && !thisState.invoices.disablecalculation) {
             thisState.invoice.amount = (thisState.invoice.quantity * thisState.invoice.unitPrice).toFixed(2) * 1;
@@ -526,7 +778,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        let thisState = {...this.state, setMyState: this.setMyState};
+        let thisState = {...this.state, setMyState: this.setMyState, switchFocus: this.switchFocus};
         Promise.all(
             [
                 fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
@@ -690,7 +942,7 @@ class App extends Component {
                             <NavTabs preState={thisState}/>
                         </Col>
                     </Row>
-                    <div className="footer-copyright text-center py-3 ">
+                    <div className="footer-copyright text-center py-1">
                         <footer className="">
                             &copy; {new Date().getFullYear()} Copyright:
                             <a href="https://www.Babulens.com"> Babulens.com </a>
