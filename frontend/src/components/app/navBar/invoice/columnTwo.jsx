@@ -189,14 +189,27 @@ const ColumnTwo = props => {
                     />
                 </Col>
             </Form.Group>
-            <Form.Group as={Row}>
-                <Form.Label column sm="6">
-                    Time Of Arrival (Approximate)
+            <Form.Group as={Row}> {thisState.settings.hideFields ?
+                <Col sm="6">
+                    <Form.Check
+                        type="checkbox"
+                        label=" Time Of Arrival (Approx)"
+                        checked={thisState.settings.value.hideTimeOfArrival}
+                        onChange={event => {
+                            thisState.settings.value.hideTimeOfArrival = event.target.checked;
+                            thisState.setMyState(thisState);
+                        }}
+                    />
+                </Col>
+                :
+                <Form.Label column sm="6" className={thisState.settings.value.hideTimeOfArrival ? "hide" : ""}>
+                    Time Of Arrival (Approx)
                 </Form.Label>
+            }
                 <Col sm="6">
                     <Form.Control
-                        className="text-center"
-                        disabled={thisState.invoices.disable.timeOfArrivalDisabled}
+                        className={thisState.settings.value.hideTimeOfArrival ? "hide" : "text-center"}
+                        disabled={thisState.invoices.disable.timeOfArrivalDisabled || thisState.settings.value.hideTimeOfArrival}
                         autoComplete="none"
                         ref={thisState.invoices.reference.timeOfArrivalReference}
                         value={thisState.invoice.timeOfArrival}
@@ -208,11 +221,63 @@ const ColumnTwo = props => {
                             if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'invoices', 'address2', true);
                             } else if (event.key === "Enter" || event.key === "Tab") {
-                                thisState.invoice.timeOfArrival = thisState.invoice.timeOfArrival
-                                    .toUpperCase();
+                                thisState.invoice.timeOfArrival = thisState.invoice.timeOfArrival.toUpperCase();
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'invoices', 'save', false);
                             }
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                {thisState.settings.hideFields ?
+                    <Col sm="6">
+                        <Form.Check
+                            type="checkbox"
+                            label="Mode Of Payment"
+                            checked={thisState.settings.value.hideModeOfPayment}
+                            onChange={event => {
+                                thisState.settings.value.hideModeOfPayment = event.target.checked;
+                                thisState.setMyState(thisState);
+                            }}
+                        />
+                    </Col>
+                    :
+                    <Form.Label column sm="6" className={thisState.settings.value.hideModeOfPayment ? "hide" : ""}>
+                        Mode Of Payment
+                    </Form.Label>
+                }
+                <Col sm="6">
+                    <Typeahead
+                        className={thisState.settings.value.hideModeOfPayment ? "hide" : ""}
+                        highlightOnlyResult
+                        id="modeOfPayment"
+                        shouldSelect={true}
+                        options={thisState.configuration.modeOfPayment.list}
+                        maxHeight={"200px"}
+                        selected={thisState.invoices.reference.modeOfPaymentReference.value}
+                        disabled={thisState.invoices.disable.modeOfPaymentDisabled || thisState.settings.value.hideModeOfPayment}
+                        open={thisState.invoices.reference.modeOfPaymentReference.open}
+                        onChange={event => {
+                            thisState.invoices.reference.modeOfPaymentReference.value = event.length === 0 ? [thisState.invoices.reference.modeOfPaymentReference.reference.current.getInput().value] : event;
+                            thisState.invoice.modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment;
+                            thisState.setMyState(thisState);
+                        }}
+                        ref={thisState.invoices.reference.modeOfPaymentReference.reference}
+                        onKeyDown={event => {
+                            if (event.keyCode === 9 && event.shiftKey)
+                                thisState.invoices.reference.vehicleNoReference.current.focus();
+                            else if (event.keyCode === 13 || event.keyCode === 9) {
+                                thisState.invoices.reference.modeOfPaymentReference.open = false;
+                                thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment.toUpperCase()
+                                thisState.invoice.modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment;
+                                thisState.setMyState(thisState);
+                                thisState.invoices.reference.unitPriceReference.current.focus();
+                            }
+                        }}
+                        onFocus={() => {
+                            thisState.invoices.reference.modeOfPaymentReference.open = undefined;
+                            thisState.setMyState(thisState);
                         }}
                     />
                 </Col>

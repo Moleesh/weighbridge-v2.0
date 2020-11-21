@@ -128,6 +128,10 @@ const Settings = props => {
                                     settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
                                     settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;
                                     settings.hideRemarks = settings.hideRemarks.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideVehicleNo = settings.hideVehicleNo.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideDriverName = settings.hideDriverName.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideTimeOfArrival = settings.hideTimeOfArrival.toLowerCase().indexOf("true") !== -1;
+                                    settings.hideModeOfPayment = settings.hideModeOfPayment.toLowerCase().indexOf("true") !== -1;
                                     thisState.settings.value = settings;
                                     thisState.alerts.push({
                                         id: new Date().getTime(),

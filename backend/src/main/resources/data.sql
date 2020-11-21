@@ -144,6 +144,22 @@ INSERT INTO SETTING
 SELECT 'Standard_hideRemarks', 'hideRemarks', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideRemarks' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideVehicleNo', 'hideVehicleNo', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideVehicleNo' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideDriverName', 'hideDriverName', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideDriverName' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideTimeOfArrival', 'hideTimeOfArrival', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideTimeOfArrival' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_hideModeOfPayment', 'hideModeOfPayment', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'hideModeOfPayment' AND PROFILE like 'Standard');
 
 INSERT INTO SERIAL_PORT_DETAIL
 SELECT 'indicator',

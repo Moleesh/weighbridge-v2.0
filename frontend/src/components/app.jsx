@@ -46,6 +46,7 @@ class App extends Component {
             address2: "",
             timeOfArrival: "",
             vehicleNo: "",
+            driverName: "",
             material: "",
             unitPrice: 0,
             quantity: 0,
@@ -57,6 +58,7 @@ class App extends Component {
             sgst: 0,
             igst: 0,
             total: 0,
+            modeOfPayment: "CASH",
             dummy: false,
             profile: "Standard"
         },
@@ -103,6 +105,10 @@ class App extends Component {
                 hideCustomerName: false,
                 hideTransporterName: false,
                 hideRemarks: false,
+                hideVehicleNo: false,
+                hideDriverName: false,
+                hideTimeOfArrival: false,
+                hideModeOfPayment: false,
                 secondWeight: false
             },
             indicator: {
@@ -188,6 +194,9 @@ class App extends Component {
             settings: false
         },
         configuration: {
+            modeOfPayment: {
+                list: ["CASH", "CREDIT"]
+            },
             material: {
                 header: ["Material Id", "Material Name", "Unit Price"],
                 filterText: "",
@@ -323,6 +332,7 @@ class App extends Component {
                 },
                 gstinReference: React.createRef(),
                 vehicleNoReference: React.createRef(),
+                driverNameReference: React.createRef(),
                 materialReference: {
                     reference: React.createRef(),
                     value: [{material: ""}],
@@ -335,6 +345,11 @@ class App extends Component {
                 address1Reference: React.createRef(),
                 address2Reference: React.createRef(),
                 timeOfArrivalReference: React.createRef(),
+                modeOfPaymentReference: {
+                    reference: React.createRef(),
+                    value: ["CASH"],
+                    open: undefined
+                },
                 saveReference: React.createRef(),
                 printReference: React.createRef(),
                 previousWeightReference: React.createRef(),
@@ -348,12 +363,14 @@ class App extends Component {
                 customersNameDisabled: false,
                 gstinDisabled: false,
                 vehicleNoDisabled: false,
+                driverNameDisabled: false,
                 materialDisabled: false,
                 unitPriceDisabled: false,
                 quantityDisabled: false,
                 address1Disabled: false,
                 address2Disabled: false,
                 timeOfArrivalDisabled: false,
+                modeOfPaymentDisabled: false,
                 saveDisabled: false,
                 printDisabled: true
             }
@@ -828,6 +845,10 @@ class App extends Component {
                 settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
                 settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;
                 settings.hideRemarks = settings.hideRemarks.toLowerCase().indexOf("true") !== -1;
+                settings.hideVehicleNo = settings.hideVehicleNo.toLowerCase().indexOf("true") !== -1;
+                settings.hideDriverName = settings.hideDriverName.toLowerCase().indexOf("true") !== -1;
+                settings.hideTimeOfArrival = settings.hideTimeOfArrival.toLowerCase().indexOf("true") !== -1;
+                settings.hideModeOfPayment = settings.hideModeOfPayment.toLowerCase().indexOf("true") !== -1;
                 thisState.settings.value = settings;
                 thisState.weight.slipNo = slipNo;
                 thisState.invoice.invoiceNo = invoiceNo;

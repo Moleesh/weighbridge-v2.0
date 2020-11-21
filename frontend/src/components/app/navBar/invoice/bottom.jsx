@@ -39,12 +39,14 @@ const Bottom = props => {
                                     thisState.invoices.disable.customersNameDisabled = true;
                                     thisState.invoices.disable.gstinDisabled = true;
                                     thisState.invoices.disable.vehicleNoDisabled = true;
+                                    thisState.invoices.disable.driverNameDisabled = true;
                                     thisState.invoices.disable.materialDisabled = true;
                                     thisState.invoices.disable.unitPriceDisabled = true;
                                     thisState.invoices.disable.quantityDisabled = true;
                                     thisState.invoices.disable.address1Disabled = true;
                                     thisState.invoices.disable.address2Disabled = true;
                                     thisState.invoices.disable.timeOfArrivalDisabled = true;
+                                    thisState.invoices.disable.modeOfPaymentDisabled = true;
                                     thisState.invoices.disable.saveDisabled = true;
                                     thisState.invoices.disable.printDisabled = false;
                                     thisState
@@ -154,12 +156,14 @@ const Bottom = props => {
                                 thisState.invoices.disable.customersNameDisabled = false;
                                 thisState.invoices.disable.gstinDisabled = false;
                                 thisState.invoices.disable.vehicleNoDisabled = false;
+                                thisState.invoices.disable.driverNameDisabled = false;
                                 thisState.invoices.disable.materialDisabled = false;
                                 thisState.invoices.disable.unitPriceDisabled = false;
                                 thisState.invoices.disable.quantityDisabled = false;
                                 thisState.invoices.disable.address1Disabled = false;
                                 thisState.invoices.disable.address2Disabled = false;
                                 thisState.invoices.disable.timeOfArrivalDisabled = false;
+                                thisState.invoices.disable.modeOfPaymentDisabled = false;
                                 thisState.invoices.disable.saveDisabled = false;
                                 thisState.invoices.disable.printDisabled = true;
                                 thisState.invoice.invoiceNo = result;
@@ -176,7 +180,11 @@ const Bottom = props => {
                                 ];
                                 thisState.invoice.address1 = "";
                                 thisState.invoice.address2 = "";
+                                thisState.invoice.timeOfArrival = "";
+                                thisState.invoice.modeOfPayment = "CASH";
+                                thisState.invoices.reference.modeOfPaymentReference.value = ["CASH"];
                                 thisState.invoice.vehicleNo = "";
+                                thisState.invoice.driverName = "";
                                 thisState.invoice.material = "";
                                 thisState.invoices.reference.materialReference.value = [
                                     {material: ""}

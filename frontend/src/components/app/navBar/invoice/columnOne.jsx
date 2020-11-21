@@ -190,13 +190,27 @@ const ColumnOne = props => {
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
-                <Form.Label column sm="6">
-                    Vehicle No
-                </Form.Label>
+                {thisState.settings.hideFields ?
+                    <Col sm="6">
+                        <Form.Check
+                            type="checkbox"
+                            label="Vehicle No"
+                            checked={thisState.settings.value.hideVehicleNo}
+                            onChange={event => {
+                                thisState.settings.value.hideVehicleNo = event.target.checked;
+                                thisState.setMyState(thisState);
+                            }}
+                        />
+                    </Col>
+                    :
+                    <Form.Label column sm="6" className={thisState.settings.value.hideVehicleNo ? "hide" : ""}>
+                        Vehicle No
+                    </Form.Label>
+                }
                 <Col sm="6">
                     <Form.Control
-                        className="text-center"
-                        disabled={thisState.invoices.disable.vehicleNoDisabled}
+                        className={thisState.settings.value.hideVehicleNo ? "hide" : "text-center"}
+                        disabled={thisState.invoices.disable.vehicleNoDisabled || thisState.settings.value.hideVehicleNo}
                         value={thisState.invoice.vehicleNo}
                         ref={thisState.invoices.reference.vehicleNoReference}
                         onChange={event => {
@@ -211,6 +225,47 @@ const ColumnOne = props => {
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'invoices', 'material', false);
                             }
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                {thisState.settings.hideFields ?
+                    <Col sm="6">
+                        <Form.Check
+                            type="checkbox"
+                            label="Driver Name"
+                            checked={thisState.settings.value.hideDriverName}
+                            onChange={event => {
+                                thisState.settings.value.hideDriverName = event.target.checked;
+                                thisState.setMyState(thisState);
+                            }}
+                        />
+                    </Col>
+                    :
+                    <Form.Label column sm="6" className={thisState.settings.value.hideDriverName ? "hide" : ""}>
+                        Driver Name
+                    </Form.Label>
+                }
+                <Col sm="6">
+                    <Form.Control
+                        className={thisState.settings.value.hideDriverName ? "hide" : "text-center"}
+                        disabled={thisState.invoices.disable.driverNameDisabled || thisState.settings.value.hideDriverName}
+                        value={thisState.invoice.driverName}
+                        ref={thisState.invoices.reference.driverNameReference}
+                        onChange={event => {
+                            thisState.invoice.driverName = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                        onKeyDown={async event => {
+                            if (event.key === "Tab" && event.shiftKey) {
+
+                            } else if (event.key === "Enter" || event.key === "Tab") {
+                                thisState.invoice.driverName = thisState.invoice.driverName.toUpperCase().replaceAll(" ", "");
+                                thisState.setMyState(thisState);
+                                thisState.invoices.reference.materialReference.reference.current.focus();
+                            }
+
                         }}
                     />
                 </Col>
