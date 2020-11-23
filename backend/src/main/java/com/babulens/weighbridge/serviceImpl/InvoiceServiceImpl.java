@@ -51,6 +51,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		return invoiceDAO.findFirstByDummyAndInvoiceNoAndProfileOrderByInvoiceNoDesc(dummy, invoiceNo, profile);
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	@Override
 	public PrintInvoiceReport getInvoiceReportByProfile(Date startInvoiceTime, Date endInvoiceTime, String inputLabel, String input, String dummy, String profile) {
 		PrintInvoiceReport printInvoiceReport = new PrintInvoiceReport();
@@ -60,19 +61,25 @@ public class InvoiceServiceImpl implements InvoiceService {
 			case "invoice":
 				switch (inputLabel) {
 					case "Invoice No":
-						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input), startInvoiceTime, endInvoiceTime, profile));
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input.replaceAll("[^0-9]", "")), startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Reference Slip No":
-						printInvoiceReport.setInvoices(invoiceDAO.findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input), startInvoiceTime, endInvoiceTime, profile));
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Customer Name":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
+						break;
+					case "Driver Name":
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByDriverNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Vehicle No":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByVehicleNoContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Material":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByMaterialContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
+						break;
+					case "Mode Of Payment":
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByModeOfPaymentContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					default:
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(startInvoiceTime, endInvoiceTime, profile));
@@ -81,19 +88,25 @@ public class InvoiceServiceImpl implements InvoiceService {
 			case "dummy":
 				switch (inputLabel) {
 					case "Invoice No":
-						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input), startInvoiceTime, endInvoiceTime, profile));
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input.replaceAll("[^0-9]", "")), startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Reference Slip No":
-						printInvoiceReport.setInvoices(invoiceDAO.findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input), startInvoiceTime, endInvoiceTime, profile));
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Customer Name":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
+						break;
+					case "Driver Name":
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByDriverNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Vehicle No":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByVehicleNoContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Material":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByMaterialContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
+						break;
+					case "Mode Of Payment":
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByModeOfPaymentContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					default:
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(startInvoiceTime, endInvoiceTime, profile));
@@ -102,19 +115,25 @@ public class InvoiceServiceImpl implements InvoiceService {
 			default:
 				switch (inputLabel) {
 					case "Invoice No":
-						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input), startInvoiceTime, endInvoiceTime, profile));
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input.replaceAll("[^0-9]", "")), startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Reference Slip No":
-						printInvoiceReport.setInvoices(invoiceDAO.findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(Integer.parseInt(0 + input), startInvoiceTime, endInvoiceTime, profile));
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Customer Name":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
+						break;
+					case "Driver Name":
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByDriverNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Vehicle No":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByVehicleNoContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					case "Material":
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByMaterialContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
+						break;
+					case "Mode Of Payment":
+						printInvoiceReport.setInvoices(invoiceDAO.findAllByModeOfPaymentContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(input, startInvoiceTime, endInvoiceTime, profile));
 						break;
 					default:
 						printInvoiceReport.setInvoices(invoiceDAO.findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(startInvoiceTime, endInvoiceTime, profile));
@@ -146,7 +165,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public boolean checkDummyByProfile(int invoiceNo, String profile) {
+	public boolean checkDummyInvoiceNoByProfile(int invoiceNo, String profile) {
 		return invoiceDAO.findFirstByInvoiceNoAndProfileAndDummyIsTrue(invoiceNo, profile) == null;
 	}
 }

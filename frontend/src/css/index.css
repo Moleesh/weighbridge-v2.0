@@ -208,7 +208,7 @@ input {
     border: 1px solid rgb(226, 226, 226)
 }
 
-.hide {
+.hide, .hide .rbt-input {
     color: #ced4da00 !important;
     border: 1px solid #ced4da00 !important;
     background-color: transparent !important;

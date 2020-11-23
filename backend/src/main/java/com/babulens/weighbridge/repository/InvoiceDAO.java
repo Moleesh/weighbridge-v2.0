@@ -14,7 +14,9 @@ public interface InvoiceDAO extends CrudRepository<Invoice, String> {
 
 	List<Invoice> findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(int invoiceNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
-	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(int referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(String referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByDriverNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(String driverName, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
 	List<Invoice> findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(String customersName, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
@@ -24,11 +26,15 @@ public interface InvoiceDAO extends CrudRepository<Invoice, String> {
 
 	List<Invoice> findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(Date startInvoiceTime, Date endInvoiceTime, String profile);
 
+	List<Invoice> findAllByModeOfPaymentContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndProfileOrderByInvoiceNoAsc(String modeOfPayment, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
 	List<Invoice> findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(int invoiceNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
-	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(int referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(String referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
 	List<Invoice> findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(String customersName, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByDriverNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(String driverName, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
 	List<Invoice> findAllByVehicleNoContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(String vehicleNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
@@ -36,11 +42,15 @@ public interface InvoiceDAO extends CrudRepository<Invoice, String> {
 
 	List<Invoice> findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(Date startInvoiceTime, Date endInvoiceTime, String profile);
 
+	List<Invoice> findAllByModeOfPaymentContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsTrueAndProfileOrderByInvoiceNoAsc(String modeOfPayment, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
 	List<Invoice> findAllByInvoiceNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(int invoiceNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
-	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(int referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
+	List<Invoice> findAllByReferenceSlipNoGreaterThanEqualAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(String referenceSlipNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
 	List<Invoice> findAllByCustomersNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(String customersName, Date startInvoiceTime, Date endInvoiceTime, String profile);
+
+	List<Invoice> findAllByDriverNameContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(String driverName, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
 	List<Invoice> findAllByVehicleNoContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(String vehicleNo, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
@@ -48,6 +58,7 @@ public interface InvoiceDAO extends CrudRepository<Invoice, String> {
 
 	List<Invoice> findAllByInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(Date startInvoiceTime, Date endInvoiceTime, String profile);
 
+	List<Invoice> findAllByModeOfPaymentContainingAndInvoiceTimeGreaterThanEqualAndInvoiceTimeLessThanEqualAndDummyIsFalseAndProfileOrderByInvoiceNoAsc(String modeOfPayment, Date startInvoiceTime, Date endInvoiceTime, String profile);
 
 	Long deleteByProfile(String profile);
 

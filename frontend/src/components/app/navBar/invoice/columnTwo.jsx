@@ -58,7 +58,7 @@ const ColumnTwo = props => {
                         ref={thisState.invoices.reference.materialReference.reference}
                         onKeyDown={event => {
                             if (event.key === "Tab" && event.shiftKey) {
-                                thisState.switchFocus(thisState, 'invoices', 'vehicleNo', true);
+                                thisState.switchFocus(thisState, 'invoices', 'driverName', true);
                             } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoices.reference.materialReference.open = false;
                                 thisState.invoices.reference.materialReference.value[0].material =
@@ -223,7 +223,7 @@ const ColumnTwo = props => {
                             } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoice.timeOfArrival = thisState.invoice.timeOfArrival.toUpperCase();
                                 thisState.setMyState(thisState);
-                                thisState.switchFocus(thisState, 'invoices', 'save', false);
+                                thisState.switchFocus(thisState, 'invoices', 'modeOfPayment', false);
                             }
                         }}
                     />
@@ -265,14 +265,14 @@ const ColumnTwo = props => {
                         }}
                         ref={thisState.invoices.reference.modeOfPaymentReference.reference}
                         onKeyDown={event => {
-                            if (event.keyCode === 9 && event.shiftKey)
-                                thisState.invoices.reference.vehicleNoReference.current.focus();
-                            else if (event.keyCode === 13 || event.keyCode === 9) {
+                            if (event.keyCode === 9 && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'invoices', 'timeOfArrival', true);
+                            } else if (event.keyCode === 13 || event.keyCode === 9) {
                                 thisState.invoices.reference.modeOfPaymentReference.open = false;
-                                thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment.toUpperCase()
+                                thisState.invoices.reference.modeOfPaymentReference.value[0] = thisState.invoices.reference.modeOfPaymentReference.value[0].toUpperCase()
                                 thisState.invoice.modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment;
                                 thisState.setMyState(thisState);
-                                thisState.invoices.reference.unitPriceReference.current.focus();
+                                thisState.switchFocus(thisState, 'invoices', 'save', false);
                             }
                         }}
                         onFocus={() => {

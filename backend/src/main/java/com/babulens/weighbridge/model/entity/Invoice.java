@@ -20,11 +20,13 @@ public class Invoice {
 	private String address1;
 	private String address2;
 	private String vehicleNo;
+	private String driverName;
 	private String material;
 	private String timeOfArrival;
 	private double unitPrice;
 	private long quantity;
 	private double amount;
+	private String modeOfPayment;
 	private double _cgst;
 	private double _sgst;
 	private double _igst;
@@ -38,7 +40,7 @@ public class Invoice {
 	public Invoice() {
 	}
 
-	public Invoice(int invoiceNo, String referenceSlipNo, Date invoiceTime, String customersName, String gstin, String address1, String address2, String vehicleNo, String material, String timeOfArrival, double unitPrice, long quantity, double amount, double _cgst, double _sgst, double _igst, double cgst, double sgst, double igst, long total, boolean dummy, String profile) {
+	public Invoice(int invoiceNo, String referenceSlipNo, Date invoiceTime, String customersName, String gstin, String address1, String address2, String vehicleNo, String driverName, String material, String timeOfArrival, double unitPrice, long quantity, double amount, String modeOfPayment, double _cgst, double _sgst, double _igst, double cgst, double sgst, double igst, long total, boolean dummy, String profile) {
 		this.invoiceNo = invoiceNo;
 		this.referenceSlipNo = referenceSlipNo;
 		this.invoiceTime = invoiceTime;
@@ -47,11 +49,13 @@ public class Invoice {
 		this.address1 = address1;
 		this.address2 = address2;
 		this.vehicleNo = vehicleNo;
+		this.driverName = driverName;
 		this.material = material;
 		this.timeOfArrival = timeOfArrival;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
 		this.amount = amount;
+		this.modeOfPayment = modeOfPayment;
 		this._cgst = _cgst;
 		this._sgst = _sgst;
 		this._igst = _igst;
@@ -135,6 +139,14 @@ public class Invoice {
 		this.vehicleNo = vehicleNo;
 	}
 
+	public String getDriverName() {
+		return driverName;
+	}
+
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
+	}
+
 	public String getMaterial() {
 		return material;
 	}
@@ -173,6 +185,14 @@ public class Invoice {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+	public String getModeOfPayment() {
+		return modeOfPayment;
+	}
+
+	public void setModeOfPayment(String modeOfPayment) {
+		this.modeOfPayment = modeOfPayment;
 	}
 
 	public double get_cgst() {
@@ -233,10 +253,6 @@ public class Invoice {
 
 	public boolean isDummy() {
 		return dummy;
-	}
-
-	public String getDummy() {
-		return Boolean.toString(dummy);
 	}
 
 	public void setDummy(boolean dummy) {

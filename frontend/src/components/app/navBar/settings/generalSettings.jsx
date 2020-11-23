@@ -151,7 +151,8 @@ const GeneralSettings = props => {
                                     message: "Indicator Successfully Updated."
                                 });
                                 thisState.setMyState(thisState)
-                            }).catch(() => {
+                            }).catch(error => {
+                                console.log(error);
                                 thisState.weight.slipNo = -1;
                                 thisState.SETTING_DISABLED = true;
                                 thisState.weighing.disable.getWeightDisabled = true;

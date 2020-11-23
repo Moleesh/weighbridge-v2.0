@@ -5,16 +5,16 @@ WeighBridge V2.0
 mvn clean
 
 set NODE_SKIP_PLATFORM_CHECK=1
-mvn install 
+mvn install
 
 mvn validate -DskipValidate=validate
 
 ## To Run
 java -jar target/WeighBridge.jar
 
-## check fr latest maven dependency 
+## check fr latest maven dependency
 mvn versions:display-dependency-updates
- 
+
 mvn versions:use-latest-releases
 
 mvn versions:update-properties

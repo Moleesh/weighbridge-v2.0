@@ -28,15 +28,13 @@ public class StaticVariable {
 				try {
 					add(new IpCamDriver(new IpCamStorage("webcam.xml")));
 				} catch (NullPointerException | WebcamException ex) {
-					add(new IpCamDriver() {
-						{
-							try {
-								super.register(new IpCamDevice("No WebCam Available", "http:", IpCamMode.PULL));
-							} catch (MalformedURLException | WebcamException ex) {
-								Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-							}
+					add(new IpCamDriver() {{
+						try {
+							register(new IpCamDevice("No WebCam Available", "http:", IpCamMode.PULL));
+						} catch (MalformedURLException | WebcamException ex) {
+							Logger.getLogger(StaticVariable.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
 						}
-					});
+					}});
 				}
 				add(new WebcamDefaultDriver());
 			}

@@ -406,11 +406,13 @@ class App extends Component {
                     address1: "Address Line 1",
                     address2: "Address Line 2",
                     vehicleNo: "Vehicle No",
+                    driverName: "Driver Name",
                     timeOfArrival: "Time Of Arrival",
                     material: "Material",
                     unitPrice: "Unit Price",
                     quantity: "Quantity",
                     amount: "Amount",
+                    modeOfPayment: "Mode Of Payment",
                     _cgst: "CGST %",
                     cgst: "CGST",
                     _sgst: "SGST %",
@@ -462,10 +464,12 @@ class App extends Component {
                     address2: false,
                     timeOfArrival: false,
                     vehicleNo: false,
+                    driverName: false,
                     material: true,
                     unitPrice: true,
                     quantity: true,
                     amount: true,
+                    modeOfPayment: true,
                     _cgst: false,
                     cgst: true,
                     _sgst: false,
@@ -681,16 +685,22 @@ class App extends Component {
                                         thisState.invoices.reference.customersNameReference.reference.current.focus();
                                         break;
                                     }
-                                // falls through    
+                                // falls through
                                 case 'gstin':
                                     thisState.invoices.reference.gstinReference.current.focus();
                                     break;
                                 case 'vehicleNo':
-                                    if (!thisState.invoices.disable.vehicleNoDisabled) {
+                                    if (!(thisState.invoices.disable.vehicleNoDisabled || thisState.settings.value.hideVehicleNo)) {
                                         thisState.invoices.reference.vehicleNoReference.current.focus();
                                         break;
                                     }
-                                // falls through  
+                                // falls through
+                                case 'driverName':
+                                    if (!(thisState.invoices.disable.driverNameDisabled || thisState.settings.value.hideDriverName)) {
+                                        thisState.invoices.reference.driverNameReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
                                 case 'material':
                                     thisState.invoices.reference.materialReference.reference.current.focus();
                                     break;
@@ -699,13 +709,13 @@ class App extends Component {
                                         thisState.invoices.reference.unitPriceReference.current.focus();
                                         break;
                                     }
-                                // falls through 
+                                // falls through
                                 case 'quantity':
                                     if (!thisState.invoices.disable.quantityDisabled) {
                                         thisState.invoices.reference.quantityReference.current.focus();
                                         break;
                                     }
-                                // falls through      
+                                // falls through
                                 case 'address1':
                                     thisState.invoices.reference.address1Reference.current.focus();
                                     break;
@@ -713,8 +723,17 @@ class App extends Component {
                                     thisState.invoices.reference.address2Reference.current.focus();
                                     break;
                                 case 'timeOfArrival':
-                                    thisState.invoices.reference.timeOfArrivalReference.current.focus();
-                                    break;
+                                    if (!(thisState.invoices.disable.timeOfArrivalDisabled || thisState.settings.value.hideTimeOfArrival)) {
+                                        thisState.invoices.reference.timeOfArrivalReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'modeOfPayment':
+                                    if (!(thisState.invoices.disable.modeOfPaymentDisabled || thisState.settings.value.hideModeOfPayment)) {
+                                        thisState.invoices.reference.modeOfPaymentReference.reference.current.focus();
+                                        break;
+                                    }
+                                // falls through
                                 case 'save':
                                     thisState.invoices.reference.saveReference.current.focus();
                             }
@@ -723,9 +742,18 @@ class App extends Component {
                                 case 'save':
                                     thisState.invoices.reference.saveReference.current.focus();
                                     break;
+                                case 'modeOfPayment':
+                                    if (!(thisState.invoices.disable.modeOfPaymentDisabled || thisState.settings.value.hideModeOfPayment)) {
+                                        thisState.invoices.reference.modeOfPaymentReference.reference.current.focus();
+                                        break;
+                                    }
+                                // falls through
                                 case 'timeOfArrival':
-                                    thisState.invoices.reference.timeOfArrivalReference.current.focus();
-                                    break;
+                                    if (!(thisState.invoices.disable.timeOfArrivalDisabled || thisState.settings.value.hideTimeOfArrival)) {
+                                        thisState.invoices.reference.timeOfArrivalReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
                                 case 'address2':
                                     thisState.invoices.reference.address2Reference.current.focus();
                                     break;
@@ -737,23 +765,28 @@ class App extends Component {
                                         thisState.invoices.reference.quantityReference.current.focus();
                                         break;
                                     }
-                                // falls through 
+                                // falls through
                                 case 'unitPrice':
                                     if (!thisState.invoices.disable.unitPriceDisabled) {
                                         thisState.invoices.reference.unitPriceReference.current.focus();
                                         break;
                                     }
-                                // falls through 
+                                // falls through
                                 case 'material':
                                     thisState.invoices.reference.materialReference.reference.current.focus();
                                     break;
-
+                                case 'driverName':
+                                    if (!(thisState.invoices.disable.driverNameDisabled || thisState.settings.value.hideDriverName)) {
+                                        thisState.invoices.reference.driverNameReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
                                 case 'vehicleNo':
-                                    if (!thisState.invoices.disable.vehicleNoDisabled) {
+                                    if (!(thisState.invoices.disable.vehicleNoDisabled || thisState.settings.value.hideVehicleNo)) {
                                         thisState.invoices.reference.vehicleNoReference.current.focus();
                                         break;
                                     }
-                                // falls through  
+                                // falls through
                                 case 'gstin':
                                     thisState.invoices.reference.gstinReference.current.focus();
                                     break;
@@ -762,7 +795,7 @@ class App extends Component {
                                         thisState.invoices.reference.customersNameReference.reference.current.focus();
                                         break;
                                     }
-                                // falls through  
+                                // falls through
                                 default:
                                     thisState.invoices.reference.referenceSlipNoReference.current.focus()
                             }
@@ -874,28 +907,28 @@ class App extends Component {
                         }
                     }).then(result => {
                         thisState.setMyState({
-                            WEIGHT: result,
-                            SETTING_DISABLED: false
+                            WEIGHT: result
                         });
                     }).catch(() => {
                         clearInterval(thisState._WEIGHT);
                         thisState.setMyState({
-                            WEIGHT: -1,
-                            SETTING_DISABLED: true
+                            WEIGHT: -1
                         });
                     });
                 }, thisState.adminSettings.REFRESH_TIME_WEIGHT);
                 thisState.primaryWebCamImage = thisState.INITIAL_URL + "/webCam/getWebCamImage?fullSize=false&webcam=" + thisState.webCam.details[0].name + "&rnd=" + Math.random();
                 thisState.loading = false;
                 thisState.setMyState(thisState)
-            }).catch(() => {
+            }).catch(error => {
+                console.log(error);
                 thisState.weight.slipNo = -1;
                 thisState.SETTING_DISABLED = true;
                 thisState.weighing.disable.getWeightDisabled = true;
                 thisState.loading = false;
                 thisState.setMyState(thisState);
             });
-        }).catch(() => {
+        }).catch(error => {
+            console.log(error);
             thisState.weight.slipNo = -1;
             thisState.SETTING_DISABLED = true;
             thisState.weighing.disable.getWeightDisabled = true;

@@ -328,9 +328,9 @@ class Controller {
 		weighService.resetWeightByProfile(slipNo, profile);
 	}
 
-	@RequestMapping(value = "/invoice/checkDummyByProfile", method = {RequestMethod.GET})
-	public boolean checkDummyByProfile(@RequestParam("invoiceNo") int invoiceNo, @RequestParam("profile") String profile) {
-		return invoiceService.checkDummyByProfile(invoiceNo, profile);
+	@RequestMapping(value = "/invoice/checkDummyInvoiceNoByProfile", method = {RequestMethod.GET})
+	public boolean checkDummyInvoiceNoByProfile(@RequestParam("invoiceNo") int invoiceNo, @RequestParam("profile") String profile) {
+		return invoiceService.checkDummyInvoiceNoByProfile(invoiceNo, profile);
 	}
 
 	@RequestMapping(value = "/invoice/saveInvoice", method = {RequestMethod.POST})

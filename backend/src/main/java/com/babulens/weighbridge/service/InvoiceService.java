@@ -17,5 +17,5 @@ public interface InvoiceService {
 
 	Invoice updateInvoice(Invoice invoice);
 
-	boolean checkDummyByProfile(int invoiceNo, String profile);
+	boolean checkDummyInvoiceNoByProfile(int invoiceNo, String profile);
 }

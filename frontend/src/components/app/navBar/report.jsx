@@ -306,6 +306,20 @@ const Report = props => {
                                                     moment(thisState.report.date.start).format("DD-MM-YYYY HH:mm:ss") + " - " +
                                                     moment(thisState.report.date.end).format("DD-MM-YYYY HH:mm:ss");
                                                 break;
+                                            case "Invoice - Mode Of Payment Report":
+                                                thisState.report.type = "invoice";
+                                                thisState.report.date = {
+                                                    start: moment([2019, 1, 1]).toDate(),
+                                                    end: moment().endOf("year").toDate()
+                                                };
+                                                thisState.report.dateDisabled = false;
+                                                thisState.report.inputLabel = "Mode Of Payment";
+                                                thisState.report.input = "";
+                                                thisState.report.inputDisabled = false;
+                                                thisState.report.reportTitle = "Mode Of Payment Report (" + thisState.report.input + ") : " +
+                                                    moment(thisState.report.date.start).format("DD-MM-YYYY HH:mm:ss") + " - " +
+                                                    moment(thisState.report.date.end).format("DD-MM-YYYY HH:mm:ss");
+                                                break;
                                             default:
                                         }
                                         thisState.setMyState(thisState);
@@ -334,8 +348,10 @@ const Report = props => {
                                         <option value="Invoice - Reference Slip No Report">Reference Slip No Report
                                         </option>
                                         <option value="Invoice - Customer Name Report">Customer Name Report</option>
+                                        <option value="Invoice - Driver Name Report">Driver Name Report</option>
                                         <option value="Invoice - Vehicle No Report">Vehicle No Report</option>
                                         <option value="Invoice - Material Report">Material Report</option>
+                                        <option value="Invoice - Mode Of Payment Report">Mode Of Payment Report</option>
                                     </optgroup>
                                 </Form.Control>
                             </Col>

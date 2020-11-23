@@ -55,6 +55,12 @@ const ReportInvoiceTable = props => {
                     width: thisState.report.filter.vehicleNo ? "" : 0.01
                 },
                 {
+                    key: "driverName",
+                    name: "Driver Name",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.driverName ? "" : 0.01
+                },
+                {
                     key: "timeOfArrival",
                     name: "Time Of Arrival",
                     editable: thisState.report.edit,
@@ -84,6 +90,12 @@ const ReportInvoiceTable = props => {
                     name: "Amount",
                     editable: thisState.report.edit,
                     width: thisState.report.filter.amount ? "" : 0.01
+                },
+                {
+                    key: "modeOfPayment",
+                    name: "Mode Of Payment",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.modeOfPayment ? "" : 0.01
                 },
                 {
                     key: "_cgst",

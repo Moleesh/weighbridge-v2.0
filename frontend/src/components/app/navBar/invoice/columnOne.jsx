@@ -221,7 +221,7 @@ const ColumnOne = props => {
                             } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoice.vehicleNo = thisState.invoice.vehicleNo.toUpperCase().replaceAll(" ", "");
                                 thisState.setMyState(thisState);
-                                thisState.switchFocus(thisState, 'invoices', 'material', false);
+                                thisState.switchFocus(thisState, 'invoices', 'driverName', false);
                             }
                         }}
                     />
@@ -257,11 +257,11 @@ const ColumnOne = props => {
                         }}
                         onKeyDown={async event => {
                             if (event.key === "Tab" && event.shiftKey) {
-
+                                thisState.switchFocus(thisState, 'invoices', 'vehicleNo', true);
                             } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.invoice.driverName = thisState.invoice.driverName.toUpperCase().replaceAll(" ", "");
                                 thisState.setMyState(thisState);
-                                thisState.invoices.reference.materialReference.reference.current.focus();
+                                thisState.switchFocus(thisState, 'invoices', 'material', false);
                             }
 
                         }}
