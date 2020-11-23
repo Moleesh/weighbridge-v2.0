@@ -26,9 +26,10 @@ const NavBar = props => {
                          onEntered={() => thisState.switchFocus(thisState, 'invoices', '', false)}>
                         <Invoice preState={thisState}/>
                     </Tab> : ""}
-                < Tab eventKey="webcams" title="WebCams">
-                    <WebCams preState={thisState}/>
-                </Tab>
+                {thisState.settings.value.webcams ?
+                    < Tab eventKey="webcams" title="WebCams">
+                        <WebCams preState={thisState}/>
+                    </Tab> : ""}
                 <Tab eventKey="report" title="Report">
                     <Report preState={thisState}/>
                 </Tab>

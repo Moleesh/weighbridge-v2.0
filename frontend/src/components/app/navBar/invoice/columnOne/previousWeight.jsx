@@ -10,15 +10,14 @@ const PreviousWeight = props => {
                 thisState.invoices.previousWeightSelector = false;
                 thisState.setMyState(thisState);
             }}
-            onAfterClose={() => thisState.switchFocus(thisState, 'invoices', 'customersName', false)}
-            onRequestClose={() => thisState.switchFocus(thisState, 'invoices', 'customersName', false)}
+            onExited={() => thisState.switchFocus(thisState, 'invoices', 'customersName', false)}
+            restoreFocus={false}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title
-                    id="contained-modal-title-vcenter">Reference Weight</Modal.Title>
+                <Modal.Title id="contained-modal-title-vcenter">Reference Weight</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row className="my-4  ml-3">

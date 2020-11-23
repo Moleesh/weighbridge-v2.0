@@ -66,7 +66,7 @@ const Bottom = props => {
                     onFocus={() => {
                         prevent = true;
                     }}
-                    disabled={thisState.invoices.disable.saveDisabled}
+                    disabled={thisState.invoices.disable.saveDisabled || thisState.SETTING_DISABLED}
                     ref={thisState.invoices.reference.saveReference}
                 >
                     Save
@@ -174,8 +174,8 @@ const Bottom = props => {
                             thisState.invoice.address1 = "";
                             thisState.invoice.address2 = "";
                             thisState.invoice.timeOfArrival = "";
-                            thisState.invoice.modeOfPayment = "CASH";
-                            thisState.invoices.reference.modeOfPaymentReference.value = ["CASH"];
+                            thisState.invoice.modeOfPayment = "";
+                            thisState.invoices.reference.modeOfPaymentReference.value = [""];
                             thisState.invoice.vehicleNo = "";
                             thisState.invoice.driverName = "";
                             thisState.invoice.material = "";

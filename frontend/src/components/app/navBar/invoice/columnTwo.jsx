@@ -260,7 +260,7 @@ const ColumnTwo = props => {
                         open={thisState.invoices.reference.modeOfPaymentReference.open}
                         onChange={event => {
                             thisState.invoices.reference.modeOfPaymentReference.value = event.length === 0 ? [thisState.invoices.reference.modeOfPaymentReference.reference.current.getInput().value] : event;
-                            thisState.invoice.modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment;
+                            thisState.invoice.modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0];
                             thisState.setMyState(thisState);
                         }}
                         ref={thisState.invoices.reference.modeOfPaymentReference.reference}
@@ -270,7 +270,7 @@ const ColumnTwo = props => {
                             } else if (event.keyCode === 13 || event.keyCode === 9) {
                                 thisState.invoices.reference.modeOfPaymentReference.open = false;
                                 thisState.invoices.reference.modeOfPaymentReference.value[0] = thisState.invoices.reference.modeOfPaymentReference.value[0].toUpperCase()
-                                thisState.invoice.modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0].modeOfPayment;
+                                thisState.invoice.modeOfPayment = thisState.invoices.reference.modeOfPaymentReference.value[0];
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'invoices', 'save', false);
                             }

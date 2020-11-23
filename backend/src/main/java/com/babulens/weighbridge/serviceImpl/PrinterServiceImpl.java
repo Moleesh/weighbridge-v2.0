@@ -97,7 +97,7 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	public List<String> getAllInvoicePrintFormats() {
-		return Arrays.asList("Pre Print", "Standard");
+		return Arrays.asList("Pre Print 1", "Pre Print 2", "Standard");
 	}
 
 	@Override
@@ -134,12 +134,14 @@ public class PrinterServiceImpl implements PrinterService {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 
 		switch (printInvoice.getPrintFormat()) {
-			case "Pre Print":
-				printerJob.setPageable(printUtil.printPrePrint(printInvoice));
+			case "Pre Print 1":
+				printerJob.setPageable(printUtil.printPrePrint1(printInvoice));
 				break;
-			case "Standard":
+			case "Pre Print 2":
+				printerJob.setPageable(printUtil.printPrePrint2(printInvoice));
+				break;
+			default:
 				printerJob.setPageable(printUtil.printStandard(printInvoice));
-				break;
 		}
 		try {
 			printerJob.setPrintService(getPrinter(printInvoice.getPrinterName()));
@@ -152,9 +154,10 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	public byte[] getPrintWeightPDF(PrintWeight printWeight) {
-		Book book = new Book();
+		Book book;
 		switch (printWeight.getPrintFormat()) {
 			case "Normal Print":
+				book = new Book();
 				break;
 			case "Pre Print 2":
 				book = printUtil.printPrePrint2(printWeight);
@@ -173,14 +176,16 @@ public class PrinterServiceImpl implements PrinterService {
 
 	@Override
 	public byte[] getPrintInvoicePDF(PrintInvoice printInvoice) {
-		Book book = new Book();
+		Book book;
 		switch (printInvoice.getPrintFormat()) {
-			case "Pre Print":
-				book = printUtil.printPrePrint(printInvoice);
+			case "Pre Print 1":
+				book = printUtil.printPrePrint1(printInvoice);
 				break;
-			case "Standard":
+			case "Pre Print 2":
+				book = printUtil.printPrePrint2(printInvoice);
+				break;
+			default:
 				book = printUtil.printStandard(printInvoice);
-				break;
 		}
 		return getBook(book);
 	}

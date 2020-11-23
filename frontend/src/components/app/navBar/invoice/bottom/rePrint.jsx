@@ -11,8 +11,7 @@ const RePrint = props => {
                 thisState.invoices.reprint = false;
                 thisState.setMyState(thisState);
             }}
-            onAfterClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
-            onRequestClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
+            restoreFocus={true}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -82,13 +81,16 @@ const RePrint = props => {
                                 thisState.invoices.disable.selector = true;
                                 thisState.invoices.disable.referenceSlipNoDisabled = true;
                                 thisState.invoices.disable.customersNameDisabled = true;
+                                thisState.invoices.disable.gstinDisabled = true;
                                 thisState.invoices.disable.vehicleNoDisabled = true;
+                                thisState.invoices.disable.driverNameDisabled = true;
                                 thisState.invoices.disable.materialDisabled = true;
                                 thisState.invoices.disable.unitPriceDisabled = true;
                                 thisState.invoices.disable.quantityDisabled = true;
                                 thisState.invoices.disable.address1Disabled = true;
                                 thisState.invoices.disable.address2Disabled = true;
                                 thisState.invoices.disable.timeOfArrivalDisabled = true;
+                                thisState.invoices.disable.modeOfPaymentDisabled = true;
                                 thisState.invoices.disable.saveDisabled = true;
                                 thisState.invoices.disable.printDisabled = false;
                                 thisState.invoice = result;
@@ -98,6 +100,9 @@ const RePrint = props => {
                                 thisState.invoices.reference.materialReference.value = [
                                     {material: thisState.invoice.material}
                                 ];
+                                thisState.invoice.modeOfPayment = thisState.invoice.modeOfPayment ? thisState.invoice.modeOfPayment : ""
+                                thisState.invoices.reference.modeOfPaymentReference.value =
+                                    [thisState.invoice.modeOfPayment];
                                 thisState.setMyState(thisState);
                             }).catch(() => {
                                 thisState.invoices.reprint = false;

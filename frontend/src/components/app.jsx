@@ -5,7 +5,7 @@ import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
-import {css} from "@emotion/core";
+import {css} from "@emotion/react";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 
@@ -58,7 +58,7 @@ class App extends Component {
             sgst: 0,
             igst: 0,
             total: 0,
-            modeOfPayment: "CASH",
+            modeOfPayment: "",
             dummy: false,
             profile: "Standard"
         },
@@ -69,7 +69,8 @@ class App extends Component {
             RESET_SLIP_PASSWORD: "",
             MANUAL_ENTRY_PASSWORD: "",
             EDIT_ENABLE_PASSWORD: "",
-            INVOICE_PASSWORD: ""
+            INVOICE_PASSWORD: "",
+            WEBCAMS_PASSWORD: ""
         },
         PROFILE: "Standard",
         profiles: [
@@ -101,6 +102,7 @@ class App extends Component {
                 igst: 0,
                 automation: false,
                 invoice: false,
+                webcams: false,
                 hideCharges: false,
                 hideCustomerName: false,
                 hideTransporterName: false,
@@ -173,6 +175,8 @@ class App extends Component {
             editEnablePassword: "",
             invoiceDialog: false,
             invoicePassword: "",
+            webcamsDialog: false,
+            webcamsPassword: "",
             addNewProfileDialog: false,
             newProfile: "",
             manualEntryPasswordReference: React.createRef(),
@@ -181,6 +185,8 @@ class App extends Component {
             editEnableReference: React.createRef(),
             invoicePasswordReference: React.createRef(),
             invoiceReference: React.createRef(),
+            webcamsPasswordReference: React.createRef(),
+            webcamsReference: React.createRef(),
             newProfileReference: React.createRef(),
             addNewProfileReference: React.createRef(),
             resetSlipNoReference: React.createRef(),
@@ -195,7 +201,7 @@ class App extends Component {
         },
         configuration: {
             modeOfPayment: {
-                list: ["CASH", "CREDIT"]
+                list: ["", "CASH", "CREDIT"]
             },
             material: {
                 header: ["Material Id", "Material Name", "Unit Price"],
@@ -347,7 +353,7 @@ class App extends Component {
                 timeOfArrivalReference: React.createRef(),
                 modeOfPaymentReference: {
                     reference: React.createRef(),
-                    value: ["CASH"],
+                    value: [""],
                     open: undefined
                 },
                 saveReference: React.createRef(),
@@ -540,6 +546,9 @@ class App extends Component {
                         break;
                     case 'print':
                         thisState.weighing.reference.printReference.current.focus();
+                        break;
+                    case 'rePrint':
+                        thisState.weighing.reference.rePrintFieldReference.current.focus();
                         break;
                     case 'rePrintButton':
                         thisState.weighing.reference.rePrintButtonReference.current.focus();
@@ -867,8 +876,10 @@ class App extends Component {
                     fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE).then(resp => resp.text())
                 ]
             ).then(([settings, slipNo, invoiceNo]) => {
+                thisState.SETTING_DISABLED = false;
                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                 settings.invoice = settings.invoice.toLowerCase().indexOf("true") !== -1;
+                settings.webcams = settings.webcams.toLowerCase().indexOf("true") !== -1;
                 settings.secondWeight = settings.secondWeight.toLowerCase().indexOf("true") !== -1;
                 settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
                 settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;

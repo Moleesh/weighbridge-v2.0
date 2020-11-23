@@ -7,8 +7,8 @@ const SecondWeight = props => {
     return (
         <Modal
             show={thisState.weighing.secondWeight}
-            onAfterClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
-            onRequestClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
+            onExited={() => thisState.switchFocus(thisState, 'weighing', '', false)}
+            restoreFocus={false}
             onHide={() => {
                 thisState.weighing.secondWeight = false;
                 thisState.setMyState(thisState);

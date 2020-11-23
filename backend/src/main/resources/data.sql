@@ -27,6 +27,10 @@ INSERT INTO ADMIN_SETTING
 SELECT 'INVOICE_PASSWORD', '147085'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM ADMIN_SETTING WHERE KEY = 'INVOICE_PASSWORD');
+INSERT INTO ADMIN_SETTING
+SELECT 'WEBCAMS_PASSWORD', '147085'
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM ADMIN_SETTING WHERE KEY = 'WEBCAMS_PASSWORD');
 
 INSERT INTO SETTING
 SELECT 'Standard_slipNo', 'slipNo', 'Standard', 1
@@ -113,13 +117,17 @@ SELECT 'Standard_noOfCopiesForInvoice', 'noOfCopiesForInvoice', 'Standard', 1
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'noOfCopiesForInvoice' AND PROFILE like 'Standard');
 INSERT INTO SETTING
-SELECT 'Standard_printFormatForInvoice', 'printFormatForInvoice', 'Standard', 'Pre Print'
+SELECT 'Standard_printFormatForInvoice', 'printFormatForInvoice', 'Standard', 'Standard'
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'printFormatForInvoice' AND PROFILE like 'Standard');
 INSERT INTO SETTING
 SELECT 'Standard_invoice', 'invoice', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'invoice' AND PROFILE like 'Standard');
+INSERT INTO SETTING
+SELECT 'Standard_webcams', 'webcams', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'webcams' AND PROFILE like 'Standard');
 INSERT INTO SETTING
 SELECT 'Standard_automation', 'automation', 'Standard', false
 FROM DUAL

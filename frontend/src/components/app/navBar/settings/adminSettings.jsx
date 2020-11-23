@@ -10,6 +10,8 @@ import ResetInvoiceNo from "./adminSettings/resetInvoiceNo";
 import ManualEntry from "./adminSettings/manualEntry";
 import EditEnable from "./adminSettings/editEnable";
 import Invoice from "./adminSettings/invoice";
+import Webcams from "./adminSettings/webcams";
+
 
 const AdminSettings = props => {
     let thisState = props.preState;
@@ -256,6 +258,35 @@ const AdminSettings = props => {
                                 recalculateOnResize={true}
                             />
                             <Invoice preState={thisState}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="3">
+                            Webcams
+                        </Form.Label>
+                        <Col sm="9">
+                            <Toggle
+                                onClick={() => {
+                                    if (!thisState.settings.value.webcams) {
+                                        thisState.settings.webcamsDialog = true;
+                                        thisState.settings.webcamsPassword = "";
+                                        thisState
+                                            .setMyState(thisState).then(() =>
+                                            thisState.settings.webcamsPasswordReference.current.focus()
+                                        );
+                                    } else {
+                                        thisState.settings.value.webcams = false;
+                                        thisState.setMyState(thisState);
+                                    }
+                                }}
+                                on="ON"
+                                off="OFF"
+                                size="lg"
+                                offstyle="danger"
+                                active={thisState.settings.value.webcams}
+                                recalculateOnResize={true}
+                            />
+                            <Webcams preState={thisState}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>

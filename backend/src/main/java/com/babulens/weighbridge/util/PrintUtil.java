@@ -20,7 +20,9 @@ public interface PrintUtil {
 
 	Book printReport(PrintInvoiceReport printInvoiceReport);
 
-	Book printPrePrint(PrintInvoice printInvoice);
+	Book printPrePrint1(PrintInvoice printInvoice);
+
+	Book printPrePrint2(PrintInvoice printInvoice);
 
 	Book printStandard(PrintInvoice printInvoice);
 

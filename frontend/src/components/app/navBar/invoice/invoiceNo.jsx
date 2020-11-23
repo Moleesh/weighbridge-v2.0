@@ -12,8 +12,8 @@ const InvoiceNo = props => {
                 thisState.invoices.dummySelectorDialog = false;
                 thisState.setMyState(thisState);
             }}
-            onAfterClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
-            onRequestClose={() => thisState.switchFocus(thisState, 'invoices', '', false)}
+            onExited={() => thisState.switchFocus(thisState, 'invoices', '', false)}
+            restoreFocus={false}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered

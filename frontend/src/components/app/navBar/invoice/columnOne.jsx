@@ -249,7 +249,7 @@ const ColumnOne = props => {
                     <Form.Control
                         className={thisState.settings.value.hideDriverName ? "hide" : "text-center"}
                         disabled={thisState.invoices.disable.driverNameDisabled || thisState.settings.value.hideDriverName}
-                        value={thisState.invoice.driverName}
+                        value={thisState.invoice.driverName ? thisState.invoice.driverName : ""}
                         ref={thisState.invoices.reference.driverNameReference}
                         onChange={event => {
                             thisState.invoice.driverName = event.target.value;

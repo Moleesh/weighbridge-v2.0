@@ -112,7 +112,7 @@ const Bottom = props => {
                         }
                     }
                     }
-                    disabled={thisState.weighing.disable.saveDisabled}
+                    disabled={thisState.weighing.disable.saveDisabled || thisState.SETTING_DISABLED}
                     ref={thisState.weighing.reference.saveReference}
                 >
                     Save
@@ -125,7 +125,7 @@ const Bottom = props => {
                         thisState.weighing.reprint = true;
                         thisState.weighing.reprintSlipNo = "";
                         thisState.setMyState(thisState).then(() =>
-                            thisState.switchFocus(thisState, 'invoices', 'rePrint', false)
+                            thisState.switchFocus(thisState, 'weighing', 'rePrint', false)
                         );
                     }}
                     onKeyPress={event => {

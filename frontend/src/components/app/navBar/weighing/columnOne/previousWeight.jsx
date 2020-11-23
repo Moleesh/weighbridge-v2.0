@@ -10,8 +10,8 @@ const PreviousWeight = props => {
                 thisState.weighing.previousWeightSelector = false;
                 thisState.setMyState(thisState);
             }}
-            onAfterClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
-            onRequestClose={() => thisState.switchFocus(thisState, 'weighing', '', false)}
+            onExited={() => thisState.switchFocus(thisState, 'weighing', '', false)}
+            restoreFocus={false}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered

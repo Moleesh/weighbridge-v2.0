@@ -118,6 +118,7 @@ const Settings = props => {
                             }).then(settings => {
                                 settings.automation = settings.automation.toLowerCase().indexOf("true") !== -1;
                                 settings.invoice = settings.invoice.toLowerCase().indexOf("true") !== -1;
+                                settings.webcams = settings.webcams.toLowerCase().indexOf("true") !== -1;
                                 settings.secondWeight = settings.secondWeight.toLowerCase().indexOf("true") !== -1;
                                 settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
                                 settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
