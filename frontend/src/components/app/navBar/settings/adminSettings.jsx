@@ -262,6 +262,26 @@ const AdminSettings = props => {
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm="3">
+                            Tonnage
+                        </Form.Label>
+                        <Col sm="9">
+                            <Toggle
+                                onClick={() => {
+                                    thisState.settings.value.tonnage = !thisState.settings.value.tonnage;
+                                    thisState.setMyState(thisState);
+                                }}
+                                on="ON"
+                                off="OFF"
+                                size="lg"
+                                offstyle="danger"
+                                active={thisState.settings.value.tonnage}
+                                recalculateOnResize={true}
+                            />
+                            <Invoice preState={thisState}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="3">
                             Webcams
                         </Form.Label>
                         <Col sm="9">

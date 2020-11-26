@@ -22,7 +22,7 @@ const PreviousWeight = props => {
             </Modal.Header>
             <Modal.Body>
                 <Row className="my-4  ml-3">
-                    Please select 'YES' to enter the previous {thisState.weighing.previousWeight} weight ...
+                    Please select 'Yes' to enter the previous {thisState.weighing.previousWeight} weight ...
                 </Row>
                 <Row>
                     <Col className="my-3  ml-5" sm="4">
@@ -58,7 +58,7 @@ const PreviousWeight = props => {
                     }}
                     ref={thisState.weighing.reference.previousWeightReference}
                 >
-                    YES
+                    Yes
                 </Button>
                 <Button
                     variant="secondary"

@@ -21,7 +21,7 @@ const PreviousWeight = props => {
             </Modal.Header>
             <Modal.Body>
                 <Row className="my-4  ml-3">
-                    Please select 'YES' to fill the below details ...
+                    Please select 'Yes' to fill the below details ...
                 </Row>
                 <Row>
                     <Col className="my-2  ml-5" sm="4">
@@ -113,7 +113,7 @@ const PreviousWeight = props => {
                         thisState.invoices.reference.materialReference.value = [
                             {material: thisState.invoices.previousWeightResult.material}
                         ];
-                        thisState.invoice.quantity = thisState.invoices.previousWeightResult.nettWeight;
+                        thisState.invoice.quantity = thisState.settings.value.tonnage ? thisState.invoices.previousWeightResult.nettWeight / 1000 : thisState.invoices.previousWeightResult.nettWeight;
                         thisState.invoices.disable.vehicleNoDisabled = true;
                         thisState.invoices.disable.quantityDisabled = true;
                         if (thisState.invoices.previousWeightResult.unitPrice) {
@@ -132,7 +132,7 @@ const PreviousWeight = props => {
                     }}
                     ref={thisState.invoices.reference.previousWeightReference}
                 >
-                    YES
+                    Yes
                 </Button>
                 <Button
                     variant="secondary"

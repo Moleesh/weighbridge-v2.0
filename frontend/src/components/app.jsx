@@ -111,7 +111,8 @@ class App extends Component {
                 hideDriverName: false,
                 hideTimeOfArrival: false,
                 hideModeOfPayment: false,
-                secondWeight: false
+                secondWeight: false,
+                tonnage: false
             },
             indicator: {
                 name: "indicator",
@@ -881,6 +882,7 @@ class App extends Component {
                 settings.invoice = settings.invoice.toLowerCase().indexOf("true") !== -1;
                 settings.webcams = settings.webcams.toLowerCase().indexOf("true") !== -1;
                 settings.secondWeight = settings.secondWeight.toLowerCase().indexOf("true") !== -1;
+                settings.tonnage = settings.tonnage.toLowerCase().indexOf("true") !== -1;
                 settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
                 settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
                 settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;

@@ -125,6 +125,10 @@ SELECT 'Standard_invoice', 'invoice', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'invoice' AND PROFILE like 'Standard');
 INSERT INTO SETTING
+SELECT 'Standard_tonnage', 'tonnage', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'tonnage' AND PROFILE like 'Standard');
+INSERT INTO SETTING
 SELECT 'Standard_webcams', 'webcams', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE KEY = 'webcams' AND PROFILE like 'Standard');

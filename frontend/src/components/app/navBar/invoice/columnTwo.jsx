@@ -121,7 +121,7 @@ const ColumnTwo = props => {
                                 : thisState.invoice.quantity
                         }
                         onChange={event => {
-                            thisState.invoice.quantity = (event.target.value.match("[0-9]+") || []).pop() || "";
+                            thisState.invoice.quantity = (event.target.value.match("[0-9]*\\.?[0-9]*") || []).pop() || "";
                             thisState.setMyState(thisState);
                             thisState.calculateInvoiceAmount(thisState);
                         }}
