@@ -62,9 +62,6 @@
 						<fileset>
 							<directory>target</directory>
 						</fileset>
-						<fileset>
-							<directory>WeighBridge 2.0</directory>
-						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
