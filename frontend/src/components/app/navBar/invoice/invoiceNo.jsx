@@ -64,7 +64,7 @@ const InvoiceNo = props => {
                 <Button
                     variant="info"
                     onClick={() => {
-                        fetch(thisState.INITIAL_URL + "/invoice/checkDummyByProfile?invoiceNo=" + thisState.invoices.dummyInvoiceNo + "&profile=" + thisState.PROFILE).then(response => {
+                        fetch(thisState.INITIAL_URL + "/invoice/checkDummyInvoiceNoByProfile?invoiceNo=" + thisState.invoices.dummyInvoiceNo + "&profile=" + thisState.PROFILE).then(response => {
                             if (response.status === 200) {
                                 return response.json();
                             } else throw Error(response.statusText);

@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -31,9 +32,9 @@ public class TransactionFilter implements Filter {
 			String sessionId = httpServletRequest.getSession().getId();
 			if (httpServletRequest.getRequestURI().contains("error")) {
 				chain.doFilter(request, response);
-            } else if ((httpServletRequest.getRequestURI().contains("console") || httpServletRequest.getRequestURI().contains("swagger")) && TransactionFilter.list.contains(clientIp)) {
-                chain.doFilter(request, response);
-            } else if (httpServletRequest.getRequestURI().contains("loginForm")) {
+			} else if ((httpServletRequest.getRequestURI().contains("console") || httpServletRequest.getRequestURI().contains("swagger")) && TransactionFilter.list.contains(clientIp)) {
+				chain.doFilter(request, response);
+			} else if (httpServletRequest.getRequestURI().contains("loginForm")) {
 				if (TransactionFilter.list.contains(sessionId) || TransactionFilter.list.contains(clientIp)) {
 					((HttpServletResponse) response).sendRedirect("/");
 				} else {
@@ -55,6 +56,7 @@ public class TransactionFilter implements Filter {
 			} else {
 				chain.doFilter(request, response);
 			}
+		} catch (IOException ignored) {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

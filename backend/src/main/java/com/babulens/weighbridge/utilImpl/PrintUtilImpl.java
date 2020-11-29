@@ -1,11 +1,6 @@
 package com.babulens.weighbridge.utilImpl;
 
-import com.babulens.weighbridge.model.Coordinate;
-import com.babulens.weighbridge.model.Line;
-import com.babulens.weighbridge.model.PrintInvoice;
-import com.babulens.weighbridge.model.PrintInvoiceReport;
-import com.babulens.weighbridge.model.PrintWeight;
-import com.babulens.weighbridge.model.PrintWeightReport;
+import com.babulens.weighbridge.model.*;
 import com.babulens.weighbridge.model.entity.WebCamDetail;
 import com.babulens.weighbridge.model.entity.Weight;
 import com.babulens.weighbridge.repository.WebCamDetailDAO;
@@ -19,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import java.awt.BasicStroke;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
@@ -580,11 +572,10 @@ public class PrintUtilImpl implements PrintUtil {
 
 			graphics.setFont(new Font("Courier New", Font.PLAIN, 8).deriveFont(affineTransform));
 			graphics.drawString("Date: " + new SimpleDateFormat(" dd/MM/yyyy   ").format(printInvoice.getInvoice().getInvoiceTime()), 135, 123);
-			graphics.drawString("Time: " + new SimpleDateFormat(" hh:mm:ss aa  ").format(printInvoice.getInvoice().getInvoiceTime()), 150, 123);
-			graphics.drawString("Type: " + printInvoice.getInvoice().getModeOfPayment(), 165, 123);
+			graphics.drawString("Type: " + printInvoice.getInvoice().getModeOfPayment(), 150, 123);
 
-			graphics.drawLine(172, 25, 172, 127);
-			graphics.drawLine(125, 127, 172, 127);
+			graphics.drawLine(157, 25, 157, 127);
+			graphics.drawLine(125, 127, 157, 127);
 
 			graphics.setFont(new Font("Courier New", Font.BOLD, 8).deriveFont(affineTransform));
 			graphics.drawString("To,", 135, 375);
@@ -660,8 +651,6 @@ public class PrintUtilImpl implements PrintUtil {
 
 			graphics.drawLine(138, 95, 138, 30);
 			graphics.drawLine(153, 95, 153, 30);
-			graphics.drawLine(168, 95, 168, 30);
-
 
 			graphics.drawLine(153, 314, 153, 135);
 			graphics.drawLine(167, 314, 167, 135);
