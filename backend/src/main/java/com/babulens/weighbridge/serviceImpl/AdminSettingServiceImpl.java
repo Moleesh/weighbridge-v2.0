@@ -31,6 +31,11 @@ public class AdminSettingServiceImpl implements AdminSettingService {
 	}
 
 	@Override
+	public String getAdminSetting(String key) {
+		return adminSettingDAO.findById(key).isPresent() ? adminSettingDAO.findById(key).get().getValue() : null;
+	}
+
+	@Override
 	@CacheEvict(value = "AdminSettings", allEntries = true)
 	public void addUpdateAdminSettings(AdminSetting adminSetting) {
 		adminSettingDAO.save(adminSetting);

@@ -5,6 +5,7 @@ WeighBridge V2.0
 mvn clean
 
 set NODE_SKIP_PLATFORM_CHECK=1
+
 mvn install
 
 mvn validate -DskipValidate=validate

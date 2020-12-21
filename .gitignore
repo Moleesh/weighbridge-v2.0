@@ -15,6 +15,7 @@ dist
 target
 /WeighBridge/
 /WeighBridge 2.0/
+/backup/
 WebCamOutput
 .settings
 logs
@@ -27,3 +28,4 @@ weighdata.trace.db
 pom.xml.versionsBackup
 report.*.json
 .eslintcache
+/backup.zip

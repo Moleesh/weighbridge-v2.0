@@ -7,8 +7,10 @@ import java.util.Map;
 
 public interface AdminSettingService {
 
-	Map<String, String> getAllAdminSettings();
+    String getAdminSetting(String key);
 
-	void addUpdateAdminSettings(AdminSetting adminSetting);
+    Map<String, String> getAllAdminSettings();
+
+    void addUpdateAdminSettings(AdminSetting adminSetting);
 
 }
