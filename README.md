@@ -14,6 +14,7 @@ mvn validate -DskipValidate=validate
 java -jar target/WeighBridge.jar
 
 ## check fr latest maven dependency
+
 mvn versions:display-dependency-updates
 
 mvn versions:use-latest-releases
@@ -21,10 +22,15 @@ mvn versions:use-latest-releases
 mvn versions:update-properties
 
 ## check for latest npm package
+
+npm install -g npm-check-updates
+
 ncu -u
+
 npm update --max-old-space-size=8192 --depth 20
 
 ## git Config
+
 git config filter.app_jsx.clean "sed 's/^const INITIAL_URL.*/const INITIAL_URL = \"\";/g'"
 
 git config filter.app_jsx.smudge cat
