@@ -24,7 +24,7 @@ public class DBAutoBackupController {
         this.entityManager = entityManager;
     }
 
-    @Scheduled(initialDelay = 300000, fixedDelay = 86400000)
+    @Scheduled(initialDelay = 300000, fixedDelay = 21600000)
     @Transactional
     public void schedule() {
         if ("true".equalsIgnoreCase(adminSettingService.getAdminSetting("BACKUP"))) {
