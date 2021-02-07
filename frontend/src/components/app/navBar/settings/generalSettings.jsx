@@ -154,7 +154,6 @@ const GeneralSettings = props => {
                                 });
                                 thisState.setMyState(thisState)
                             }).catch(error => {
-                                console.log(error);
                                 thisState.weight.slipNo = -1;
                                 thisState.SETTING_DISABLED = true;
                                 thisState.weighing.disable.getWeightDisabled = true;
@@ -191,10 +190,10 @@ const GeneralSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faEdit} className="mr-3" />
+                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
                 Add New Profile
             </Button>
-            <AddNewProfile preState={thisState} />
+            <AddNewProfile preState={thisState}/>
             <Button
                 variant="success"
                 size="lg"
@@ -223,7 +222,7 @@ const GeneralSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faWrench} className="mr-3" />
+                <FontAwesomeIcon icon={faWrench} className="mr-3"/>
                 Set Primary Profile
             </Button>
         </Form>

@@ -933,7 +933,6 @@ class App extends Component {
                 thisState.loading = false;
                 thisState.setMyState(thisState)
             }).catch(error => {
-                console.log(error);
                 thisState.weight.slipNo = -1;
                 thisState.SETTING_DISABLED = true;
                 thisState.weighing.disable.getWeightDisabled = true;
@@ -941,7 +940,6 @@ class App extends Component {
                 thisState.setMyState(thisState);
             });
         }).catch(error => {
-            console.log(error);
             thisState.weight.slipNo = -1;
             thisState.SETTING_DISABLED = true;
             thisState.weighing.disable.getWeightDisabled = true;

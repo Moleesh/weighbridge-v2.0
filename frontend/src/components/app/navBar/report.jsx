@@ -574,7 +574,6 @@ const Report = props => {
                                                 }).then(blob => {
                                                     FileSaver.saveAs(blob, "report.xlsx");
                                                 }).catch(error => {
-                                                    console.log(error);
                                                 });
                                                 break;
                                             case "invoice":
@@ -601,7 +600,6 @@ const Report = props => {
                                                 }).then(blob => {
                                                     FileSaver.saveAs(blob, "report.xlsx");
                                                 }).catch(error => {
-                                                    console.log(error);
                                                 });
                                                 break;
                                             default:
@@ -647,7 +645,6 @@ const Report = props => {
                                                             thisState.setMyState(thisState);
                                                         }
                                                     }).catch(error => {
-                                                        console.log(error);
                                                     });
                                                 } else {
                                                     fetch(thisState.INITIAL_URL + "/printer/printWeightReport", {
@@ -670,7 +667,6 @@ const Report = props => {
                                                             throw Error(response.statusText);
                                                         }
                                                     }).catch(error => {
-                                                        console.log(error);
                                                     });
                                                 }
                                                 break;
@@ -704,7 +700,6 @@ const Report = props => {
                                                             thisState.setMyState(thisState);
                                                         }
                                                     }).catch(error => {
-                                                        console.log(error);
                                                     });
                                                 } else {
                                                     fetch(thisState.INITIAL_URL + "/printer/printInvoiceReport", {
@@ -727,7 +722,6 @@ const Report = props => {
                                                             throw Error(response.statusText);
                                                         }
                                                     }).catch(error => {
-                                                        console.log(error);
                                                     });
                                                 }
                                                 break;
