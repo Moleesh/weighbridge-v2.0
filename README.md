@@ -27,7 +27,7 @@ npm install -g npm-check-updates
 
 ncu -u
 
-npm update --max-old-space-size=8192 --depth 20
+npm update --max-old-space-size=8192 --force
 
 ## git Config
 
