@@ -43,7 +43,7 @@
     "start": "react-scripts start fast-live-reload",
     "build": "react-scripts build",
     "move": "node buildme.sh",
-    "up": "npm update --max-old-space-size=8192 --depth 20"
+    "up": "npm update --max-old-space-size=8192 --force"
   },
   "eslintConfig": {
     "extends": "react-app"
