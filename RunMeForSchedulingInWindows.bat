@@ -11,9 +11,12 @@ goto :eof
     echo %CURRENT_DIVE% > "%CURRENT_DIR%\WeighbridgeStart.bat"
     echo cd "%CURRENT_DIR%" >> "%CURRENT_DIR%\WeighbridgeStart.bat"
     echo taskkill /f /im javaw.exe >> "%CURRENT_DIR%\WeighbridgeStart.bat"
+    echo taskkill /f /im ngrok.exe >> "%CURRENT_DIR%\WeighbridgeStart.bat"
+    echo start /b ngrok start -config ngrok.yml babulens >> "%CURRENT_DIR%\WeighbridgeStart.bat"
     echo javaw.exe -Djava.security.egd=file:/dev/./urandom -jar weighbridge.jar >> "%CURRENT_DIR%\WeighbridgeStart.bat"
 
     echo taskkill /f /im javaw.exe > "%CURRENT_DIR%\WeighbridgeStop.bat"
+    echo taskkill /f /im ngrok.exe >> "%CURRENT_DIR%\WeighbridgeStop.bat"
 
     echo Set WshShell = CreateObject("WScript.Shell") > "%CURRENT_DIR%\Weighbridge.vbs"
     echo WshShell.Run chr(34) ^& "%CURRENT_DIR%\WeighbridgeStart.bat" ^& Chr(34), 0 >> "%CURRENT_DIR%\Weighbridge.vbs"

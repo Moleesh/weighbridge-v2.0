@@ -9,7 +9,7 @@
             <Pattern>
                 %black(%d{dd-MM-yy HH:mm:ss}) %highlight([%level]) %yellow(%C{1.}.%M) %black(\(%F:%L\)): %msg
                 %throwable %n
-            </Pattern>     
+            </Pattern>
         </layout>
     </appender>
 

@@ -1,0 +1,15 @@
+authtoken: 1rFjfJO97gCJOieEswuZOfk1f9G_7jqRg7DEve5TLhSfuNDfy
+region: in
+console_ui: false
+log_level: error
+log_format: json
+log: logs/ngrok.log
+update: true
+update_channel: stable
+web_addr: localhost:4040
+tunnels:
+  babulens:
+    addr: 9000
+    host_header: babulens
+    proto: http
+    subdomain: babulens

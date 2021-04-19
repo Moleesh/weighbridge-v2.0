@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -80,6 +80,8 @@
 								<copy file="RunMeForSchedulingInWindows.bat" tofile="WeighBridge 2.0/RunMeForSchedulingInWindows.bat"/>
 								<copy file="babulensLogo.bmp" tofile="WeighBridge 2.0/babulensLogo.bmp"/>
 								<copy file="webcam.xml" tofile="WeighBridge 2.0/webcam.xml"/>
+								<copy file="ngrok.exe" tofile="WeighBridge 2.0/ngrok.exe"/>
+								<copy file="ngrok.yml" tofile="WeighBridge 2.0/ngrok.yml"/>
 							</target>
 						</configuration>
 						<goals>
