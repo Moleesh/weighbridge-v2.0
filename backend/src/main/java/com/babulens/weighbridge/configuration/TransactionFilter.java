@@ -28,7 +28,7 @@ public class TransactionFilter implements Filter {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) {
 		try {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-			String clientIp = request.getServerName().contains("ngrok") ? null : request.getRemoteAddr();
+			String clientIp = request.getServerName().contains("babulens") ? null : request.getRemoteAddr();
 			String sessionId = httpServletRequest.getSession().getId();
 			if (httpServletRequest.getRequestURI().contains("error") || httpServletRequest.getRequestURI().contains("404.png")) {
 				chain.doFilter(request, response);
