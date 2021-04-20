@@ -77,8 +77,17 @@ public class WebCamServiceImpl implements WebCamService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "WebCams")
 	public List<String> getAllWebCams() {
+		List<String> webcams = getAllWebCamFromCache();
+		if (webcams == null) {
+			webcams = new ArrayList<>();
+			webcams.add("dummy " + "[0*0]");
+		}
+		return webcams;
+	}
+
+	@Cacheable(cacheNames = "WebCams", unless="#result == null")
+	public List<String> getAllWebCamFromCache() {
 		List<String> webcams = new ArrayList<>();
 		try {
 			for (Webcam webcam : Webcam.getWebcams(20, TimeUnit.SECONDS)) {
@@ -93,7 +102,7 @@ public class WebCamServiceImpl implements WebCamService {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
 		}
 		if (webcams.size() == 0) {
-			webcams.add("dummy " + "[0*0]");
+			return null;
 		}
 		return webcams;
 	}
