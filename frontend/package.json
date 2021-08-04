@@ -10,33 +10,33 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/react-fontawesome": "^0.1.14",
-    "@types/file-saver": "^2.0.2",
-    "@wojtekmaj/react-datetimerange-picker": "^3.2.0",
-    "bootstrap": "^4.6.0",
-    "eslint": "^7.25.0",
+    "@fortawesome/react-fontawesome": "^0.1.15",
+    "@types/file-saver": "^2.0.3",
+    "@wojtekmaj/react-datetimerange-picker": "^3.3.0",
+    "bootstrap": "^5.0.2",
+    "eslint": "^7.32.0",
     "file-saver": "^2.0.5",
     "font-awesome-animation": "^1.1.1",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
-    "perfect-scrollbar": "^1.5.0",
+    "perfect-scrollbar": "^1.5.2",
     "react": "^17.0.2",
-    "react-bootstrap": "^1.5.2",
+    "react-bootstrap": "^1.6.1",
     "react-bootstrap-toggle": "^2.3.2",
-    "react-bootstrap-typeahead": "^5.1.4",
+    "react-bootstrap-typeahead": "^5.2.0",
     "react-bs-notifier": "^6.0.0",
     "react-data-grid": "^7.0.0-canary.43",
     "react-datetime": "^3.0.4",
     "react-datetime-range-picker": "^3.0.0",
     "react-dom": "^17.0.2",
-    "react-live-clock": "^5.1.0",
+    "react-live-clock": "^5.2.0",
     "react-moment": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
-    "react-spinners": "^0.10.6",
-    "typescript": "^4.2.4"
+    "react-spinners": "^0.11.0",
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "start": "react-scripts start fast-live-reload",
@@ -53,6 +53,6 @@
   "license": "UNLICENSED",
   "typings": "./ambient.d.ts",
   "devDependencies": {
-    "@emotion/react": "^11.1.5"
+    "@emotion/react": "^11.4.0"
   }
 }
