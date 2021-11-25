@@ -897,11 +897,11 @@ class App extends Component {
                 thisState.invoice._sgst = settings.sgst;
                 thisState.invoice._cgst = settings.cgst;
                 thisState.invoice._igst = settings.igst;
-                if (slipNo == -1) {
+                if (slipNo === -1) {
                     thisState.SETTING_DISABLED = true;
                     thisState.weighing.disable.getWeightDisabled = true;
                 }
-                if (invoiceNo == -1) {
+                if (invoiceNo === -1) {
                     thisState.SETTING_DISABLED = true;
                     thisState.invoices.disable.saveDisabled = true;
                 }

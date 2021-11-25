@@ -132,11 +132,11 @@ const GeneralSettings = props => {
                                 settings.hideModeOfPayment = settings.hideModeOfPayment.toLowerCase().indexOf("true") !== -1;
                                 thisState.settings.value = settings;
                                 thisState.weight.slipNo = slipNo;
-                                if (slipNo == -1) {
+                                if (slipNo === -1) {
                                     thisState.SETTING_DISABLED = true;
                                     thisState.weighing.disable.getWeightDisabled = true;
                                 }
-                                if (invoiceNo == -1) {
+                                if (invoiceNo === -1) {
                                     thisState.SETTING_DISABLED = true;
                                     thisState.invoices.disable.saveDisabled = true;
                                 }
