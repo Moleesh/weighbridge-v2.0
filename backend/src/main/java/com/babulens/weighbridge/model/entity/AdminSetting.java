@@ -1,5 +1,6 @@
 package com.babulens.weighbridge.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
@@ -7,7 +8,9 @@ import java.util.Objects;
 @Entity
 public class AdminSetting {
 	@Id
+	@Column(name = "SQNO")
 	private String key;
+	@Column(name = "_VALUE")
 	private String value;
 
 	public AdminSetting() {

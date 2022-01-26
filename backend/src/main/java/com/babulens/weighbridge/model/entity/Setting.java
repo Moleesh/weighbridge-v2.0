@@ -1,5 +1,6 @@
 package com.babulens.weighbridge.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -10,7 +11,9 @@ public class Setting implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
+	@Column(name = "SQNO")
 	private String key;
+	@Column(name = "_VALUE")
 	private String value;
 	private String profile;
 

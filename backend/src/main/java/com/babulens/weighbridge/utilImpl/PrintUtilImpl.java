@@ -8,8 +8,8 @@ import com.babulens.weighbridge.service.SettingService;
 import com.babulens.weighbridge.util.NumToWordUtil;
 import com.babulens.weighbridge.util.PrintUtil;
 import com.ibm.icu.text.NumberFormat;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
