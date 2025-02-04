@@ -13,7 +13,7 @@
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@types/file-saver": "^2.0.4",
     "@wojtekmaj/react-datetimerange-picker": "^3.4.2",
-    "bootstrap": "^4.6.1",
+    "bootstrap": "^5.3.3",
     "eslint": "^7.11.0",
     "file-saver": "^2.0.5",
     "font-awesome-animation": "^1.1.1",
@@ -53,9 +53,5 @@
   "browserslist": [
     "last 5 Chrome versions"
   ],
-  "license": "UNLICENSED",
-  "typings": "./ambient.d.ts",
-  "devDependencies": {
-    "@emotion/react": "^11.6.0"
-  }
+  "license": "UNLICENSED"
 }
