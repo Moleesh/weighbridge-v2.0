@@ -24,11 +24,11 @@ const Header = props => {
                         />
                     </Col>
                     <Col sm="10">
-                        <Row className="justify-content-center font-weight-bold  h3">
-                            {thisState.settings.value.weighbridgeName}
+                        <Row className="justify-content-center font-weight-bold h3">
+                            {thisState.settings.value.weighbridgeName.split("|").map(value => <div key={value}>{value}</div>)}
                         </Row>
                         <Row className="justify-content-center h5">
-                            {thisState.settings.value.weighbridgeAddress.replaceAll("|", " ")}
+                            {thisState.settings.value.weighbridgeAddress.replaceAll("|", ", ")}
                         </Row>
                     </Col>
                 </Row>
