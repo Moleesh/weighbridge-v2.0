@@ -22,6 +22,7 @@ const Print = props => {
                     thisState.weighing.disable.vehicleNoDisabled = false;
                     thisState.weighing.disable.customersNameDisabled = false;
                     thisState.weighing.disable.transporterNameDisabled = false;
+                    thisState.weighing.disable.placeDisabled = false;
                     thisState.weighing.disable.materialDisabled = false;
                     thisState.weighing.disable.chargesDisabled = false;
                     thisState.weighing.disable.remarksDisabled = false;
@@ -35,6 +36,9 @@ const Print = props => {
                     thisState.weight.vehicleNo = "";
                     thisState.weight.customersName = "";
                     thisState.weight.transporterName = "";
+                    thisState.weight.place = ""; thisState.weighing.reference.placeReference.value = [
+                        { place: "" }
+                    ];
                     thisState.weight.material = "";
                     thisState.weighing.reference.materialReference.value = [
                         { material: "" }
@@ -133,6 +137,7 @@ const Print = props => {
                             thisState.weighing.disable.vehicleNoDisabled = false;
                             thisState.weighing.disable.customersNameDisabled = false;
                             thisState.weighing.disable.transporterNameDisabled = false;
+                            thisState.weighing.disable.placeDisabled = false;
                             thisState.weighing.disable.materialDisabled = false;
                             thisState.weighing.disable.chargesDisabled = false;
                             thisState.weighing.disable.remarksDisabled = false;
@@ -146,6 +151,9 @@ const Print = props => {
                             thisState.weight.vehicleNo = "";
                             thisState.weight.customersName = "";
                             thisState.weight.transporterName = "";
+                            thisState.weight.place = ""; thisState.weighing.reference.placeReference.value = [
+                                { place: "" }
+                            ];
                             thisState.weight.material = "";
                             thisState.weighing.reference.materialReference.value = [
                                 { material: "" }
@@ -190,6 +198,7 @@ const Print = props => {
                             thisState.weighing.disable.vehicleNoDisabled = false;
                             thisState.weighing.disable.customersNameDisabled = false;
                             thisState.weighing.disable.transporterNameDisabled = false;
+                            thisState.weighing.disable.placeDisabled = false;
                             thisState.weighing.disable.materialDisabled = false;
                             thisState.weighing.disable.chargesDisabled = false;
                             thisState.weighing.disable.remarksDisabled = false;
@@ -203,6 +212,9 @@ const Print = props => {
                             thisState.weight.vehicleNo = "";
                             thisState.weight.customersName = "";
                             thisState.weight.transporterName = "";
+                            thisState.weight.place = ""; thisState.weighing.reference.placeReference.value = [
+                                { place: "" }
+                            ];
                             thisState.weight.material = "";
                             thisState.weighing.reference.materialReference.value = [
                                 { material: "" }

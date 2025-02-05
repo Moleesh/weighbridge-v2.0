@@ -115,7 +115,7 @@ const InvoiceSettings = props => {
                         onChange={event => {
                             thisState.settings.value.cgst = (event.target.value.match("[0-9.]+") || []).pop() || "";
                             thisState.settings.value.cgst = thisState.settings.value.cgst.split(".").slice(0, 2).join(".");
-                            if (!thisState.invoices.disablecalculation) {
+                            if (!thisState.invoices.disableCalculation) {
                                 thisState.invoice._cgst = thisState.settings.value.cgst;
                             }
                             thisState.setMyState(thisState);
@@ -140,7 +140,7 @@ const InvoiceSettings = props => {
                         onChange={event => {
                             thisState.settings.value.sgst = (event.target.value.match("[0-9.]+") || []).pop() || "";
                             thisState.settings.value.sgst = thisState.settings.value.sgst.split(".").slice(0, 2).join(".");
-                            if (!thisState.invoices.disablecalculation) {
+                            if (!thisState.invoices.disableCalculation) {
                                 thisState.invoice._sgst = thisState.settings.value.sgst;
                             }
                             thisState.setMyState(thisState);
@@ -165,7 +165,7 @@ const InvoiceSettings = props => {
                         onChange={event => {
                             thisState.settings.value.igst = (event.target.value.match("[0-9.]+") || []).pop() || "";
                             thisState.settings.value.igst = thisState.settings.value.igst.split(".").slice(0, 2).join(".");
-                            if (!thisState.invoices.disablecalculation) {
+                            if (!thisState.invoices.disableCalculation) {
                                 thisState.invoice._igst = thisState.settings.value.igst;
                             }
                             thisState.setMyState(thisState);

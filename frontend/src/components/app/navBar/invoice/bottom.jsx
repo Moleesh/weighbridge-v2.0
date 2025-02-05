@@ -18,7 +18,7 @@ const Bottom = props => {
                     onClick={() => {
                         if (!preventSave) {
                             preventSave = true;
-                            thisState.invoices.disablecalculation = true;
+                            thisState.invoices.disableCalculation = true;
                             thisState.invoice.invoiceTime = moment().format("DD-MM-YYYY HH:mm:ss");
                             thisState.invoice.profile = thisState.PROFILE
                             fetch(thisState.INITIAL_URL + "/invoice/saveInvoice", {
@@ -189,7 +189,7 @@ const Bottom = props => {
                             thisState.invoice.igst = 0;
                             thisState.invoice.total = 0;
                             thisState.invoices.igstSelector = false;
-                            thisState.invoices.disablecalculation = false;
+                            thisState.invoices.disableCalculation = false;
                             thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', '', false));
                         });
                     }}

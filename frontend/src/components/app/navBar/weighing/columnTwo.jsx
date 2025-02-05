@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Form, Row } from "react-bootstrap";
+import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 
 const ColumnTwo = props => {
     let thisState = props.preState;
@@ -104,23 +105,61 @@ const ColumnTwo = props => {
                     </Form.Label>
                 }
                 <Col sm="6">
-                    <Form.Control
-                        className={thisState.settings.value.hidePlace ? "hide" : "text-center"}
-                        disabled={thisState.weighing.disable.placeDisabled || thisState.settings.value.hidePlace}
-                        ref={thisState.weighing.reference.placeReference}
-                        value={thisState.weight.place}
+                    <Typeahead
+                        highlightOnlyResult
+                        id="place"
+                        shouldSelect={true}
+                        filterBy={["placeId", "place"]}
+                        labelKey={option => option.place}
+                        renderMenu={(results, menuProps) =>
+                            results.length !== 0 ? (
+                                <Menu {...menuProps} key="placeMenu">
+                                    {results.map((result, index) => (
+                                        <MenuItem
+                                            option={result}
+                                            position={index}
+                                            key={(result.id ? result.id : -1).toString()}
+                                        >
+                                            {result.place}
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            ) : null
+                        }
+                        options={thisState.configuration.place.list}
+                        maxHeight={"200px"}
+                        selected={thisState.weighing.reference.placeReference.value}
+                        disabled={thisState.weighing.disable.placeDisabled}
+                        open={thisState.weighing.reference.placeReference.open}
                         onChange={event => {
-                            thisState.weight.place = event.target.value;
+                            thisState.weighing.reference.placeReference.value =
+                                event.length === 0
+                                    ? [
+                                        {
+                                            place: thisState.weighing.reference.placeReference.reference.current.getInput().value
+                                        }
+                                    ]
+                                    : event;
+                            thisState.weight.place = thisState.weighing.reference.placeReference.value[0].place;
                             thisState.setMyState(thisState);
                         }}
+                        ref={thisState.weighing.reference.placeReference.reference}
                         onKeyDown={event => {
                             if (event.key === "Tab" && event.shiftKey) {
                                 thisState.switchFocus(thisState, 'weighing', 'transporterName', true);
                             } else if (event.key === "Enter" || event.key === "Tab") {
-                                thisState.weight.place = thisState.weight.place.toUpperCase();
+                                thisState.weighing.reference.placeReference.open = false;
+                                thisState.weighing.reference.placeReference.value[0].place = thisState.weighing.reference.placeReference.value[0].place
+                                    .toUpperCase()
+                                thisState.weight.place =
+                                    thisState.weighing.reference.placeReference.value[0].place;
                                 thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'weighing', 'charges', false);
                             }
+                        }}
+                        onFocus={() => {
+                            thisState.weighing.reference.placeReference.open = undefined;
+                            thisState.setMyState(thisState);
                         }}
                     />
                 </Col>

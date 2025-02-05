@@ -157,6 +157,9 @@ const ColumnThree = props => {
                                                     thisState.weight.vehicleNo = "";
                                                     thisState.weight.customersName = "";
                                                     thisState.weight.transporterName = "";
+                                                    thisState.weight.place = ""; thisState.weighing.reference.placeReference.value = [
+                                                        { place: "" }
+                                                    ];
                                                     thisState.weight.material = "";
                                                     thisState.weighing.customersId = "";
                                                     thisState.weighing.materialId = "";
@@ -206,6 +209,15 @@ const ColumnThree = props => {
                         </Col>
                     </Form.Group>
                 </React.Fragment>}
+            <Form.Group as={Row}>
+                <Col>
+                    <Form.Control
+                        className="nullButton"
+                        disabled
+
+                    />
+                </Col>
+            </Form.Group>
             <Form.Group as={Row}>
                 <Col sm="6">
                     <Form.Control

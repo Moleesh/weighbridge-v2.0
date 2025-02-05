@@ -24,6 +24,7 @@ class App extends Component {
             material: "",
             customersName: "",
             transporterName: "",
+            place: "",
             grossWeight: "",
             grossTime: "",
             tareWeight: "",
@@ -291,7 +292,11 @@ class App extends Component {
                 },
                 customersNameReference: React.createRef(),
                 transporterNameReference: React.createRef(),
-                placeReference: React.createRef(),
+                placeReference: {
+                    reference: React.createRef(),
+                    value: [{ place: "" }],
+                    open: undefined
+                },
                 chargesReference: React.createRef(),
                 remarksReference: React.createRef(),
                 previousWeightReference: React.createRef(),
@@ -330,7 +335,7 @@ class App extends Component {
         },
         invoices: {
             dummy: false,
-            disablecalculation: false,
+            disableCalculation: false,
             previousWeightSelector: false,
             preventFocus: false,
             igstSelector: false,
@@ -405,6 +410,7 @@ class App extends Component {
                     material: "Material",
                     customersName: "Customer Name",
                     transporterName: "Transporter Name",
+                    place: "Place",
                     grossWeight: "Gross Weight",
                     grossTime: "Gross Time",
                     tareWeight: "Tare Weight",
@@ -445,6 +451,7 @@ class App extends Component {
                 material: "Material",
                 customersName: "Customer Name",
                 transporterName: "Transporter Name",
+                place: "Place",
                 grossWeight: "Gross Weight",
                 grossTime: "Gross Time",
                 tareWeight: "Tare Weight",
@@ -503,6 +510,7 @@ class App extends Component {
                 material: true,
                 customersName: false,
                 transporterName: false,
+                place: false,
                 grossWeight: true,
                 grossTime: false,
                 tareWeight: true,
@@ -615,7 +623,7 @@ class App extends Component {
                                 // falls through
                                 case 'place':
                                     if (!thisState.settings.value.hidePlace) {
-                                        thisState.weighing.reference.placeReference.current.focus();
+                                        thisState.weighing.reference.placeReference.reference.current.focus();
                                         break;
                                     }
                                 // falls through
@@ -656,7 +664,7 @@ class App extends Component {
                                 // falls through
                                 case 'place':
                                     if (!thisState.settings.value.hidePlace) {
-                                        thisState.weighing.reference.placeReference.current.focus();
+                                        thisState.weighing.reference.placeReference.reference.current.focus();
                                         break;
                                     }
                                 // falls through
@@ -840,7 +848,7 @@ class App extends Component {
     }
 
     calculateInvoiceAmount(thisState) {
-        if (thisState.invoice.quantity > 0 && thisState.invoice.unitPrice > 0 && !thisState.invoices.disablecalculation) {
+        if (thisState.invoice.quantity > 0 && thisState.invoice.unitPrice > 0 && !thisState.invoices.disableCalculation) {
             thisState.invoice.amount = (thisState.invoice.quantity * thisState.invoice.unitPrice).toFixed(2) * 1;
             if (thisState.invoices.igstSelector) {
                 thisState.invoice.cgst = 0;
@@ -873,7 +881,7 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=display").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/material/getAllMaterials").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/customer/getAllCustomers").then(resp => resp.json()),
-                fetch(thisState.INITIAL_URL + "/place/getAllPlaces").then(resp => resp.json()), 
+                fetch(thisState.INITIAL_URL + "/place/getAllPlaces").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(resp => resp.json())
             ]
         ).then(([adminSettings, profile, profiles, printers, weightPrintFormats, invoicePrintFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, customers, places, tareWeights]) => {

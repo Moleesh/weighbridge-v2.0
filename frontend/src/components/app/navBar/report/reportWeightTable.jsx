@@ -82,6 +82,14 @@ const ReportWeightTable = props => {
                     editor: TextEditor
                 },
                 {
+                    key: "place",
+                    name: "Place",
+                    editable: thisState.report.edit,
+                    width: thisState.report.filter.place ? "" : 0,
+                    maxWidth: thisState.report.filter.place ? "" : 0,
+                    editor: TextEditor
+                },
+                {
                     key: "grossWeight",
                     name: "Gross Weight",
                     editable: thisState.report.edit,

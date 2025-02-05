@@ -62,7 +62,7 @@ const Print = props => {
                     thisState.invoice.igst = 0;
                     thisState.invoice.total = 0;
                     thisState.invoices.igstSelector = false;
-                    thisState.invoices.disablecalculation = false;
+                    thisState.invoices.disableCalculation = false;
                     thisState.invoices.print = false;
                     thisState.setMyState(thisState);
                 });
@@ -200,7 +200,7 @@ const Print = props => {
                             thisState.invoice.igst = 0;
                             thisState.invoice.total = 0;
                             thisState.invoices.igstSelector = false;
-                            thisState.invoices.disablecalculation = false;
+                            thisState.invoices.disableCalculation = false;
                             thisState.invoices.print = false;
                             thisState.setMyState(thisState);
                         });
@@ -280,7 +280,7 @@ const Print = props => {
                             thisState.invoice.igst = 0;
                             thisState.invoice.total = 0;
                             thisState.invoices.igstSelector = false;
-                            thisState.invoices.disablecalculation = false;
+                            thisState.invoices.disableCalculation = false;
                             thisState.invoices.print = false;
                             thisState.setMyState(thisState);
                         });

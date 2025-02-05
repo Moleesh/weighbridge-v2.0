@@ -68,6 +68,7 @@ const RePrint = props => {
                                 thisState.weighing.disable.vehicleNoDisabled = true;
                                 thisState.weighing.disable.customersNameDisabled = true;
                                 thisState.weighing.disable.transporterNameDisabled = true;
+                                thisState.weighing.disable.placeDisabled = true;
                                 thisState.weighing.disable.materialDisabled = true;
                                 thisState.weighing.disable.chargesDisabled = true;
                                 thisState.weighing.disable.remarksDisabled = true;
@@ -78,6 +79,9 @@ const RePrint = props => {
                                 thisState.weight = result;
                                 thisState.weighing.reference.materialReference.value = [
                                     { material: thisState.weight.material }
+                                ];
+                                thisState.weighing.reference.placeReference.value = [
+                                    { place: thisState.weight.place }
                                 ];
                                 thisState.setMyState(thisState);
                             }).catch(() => {
