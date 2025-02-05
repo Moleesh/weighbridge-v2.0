@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const RePrint = props => {
     let thisState = props.preState;
@@ -77,7 +77,7 @@ const RePrint = props => {
                                 thisState.weighing.disable.secondWeightDisabled = true;
                                 thisState.weight = result;
                                 thisState.weighing.reference.materialReference.value = [
-                                    {material: thisState.weight.material}
+                                    { material: thisState.weight.material }
                                 ];
                                 thisState.setMyState(thisState);
                             }).catch(() => {

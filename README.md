@@ -2,6 +2,7 @@ WeighBridge V2.0
 ================
 
 ## To Build
+
 mvn clean
 
 set NODE_SKIP_PLATFORM_CHECK=1
@@ -11,6 +12,7 @@ mvn install
 mvn validate -DskipValidate=validate
 
 ## To Run
+
 java -jar target/WeighBridge.jar
 
 ## check fr latest maven dependency
@@ -27,7 +29,7 @@ npm install -g npm-check-updates
 
 ncu -u
 
-npm update --max-old-space-size=8192 
+npm update --max-old-space-size=8192
 
 ## git Config
 

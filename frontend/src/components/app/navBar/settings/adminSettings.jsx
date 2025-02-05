@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBackward} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
 import Toggle from "react-bootstrap-toggle";
 
 import ResetSlipNo from "./adminSettings/resetSlipNo";
@@ -39,7 +39,7 @@ const AdminSettings = props => {
                         active={thisState.settings.settings}
                         recalculateOnResize={true}
                     />
-                    <Invoice preState={thisState}/>
+                    <Invoice preState={thisState} />
                 </Col>
             </Form.Group>
             {thisState.settings.settings ?
@@ -57,14 +57,14 @@ const AdminSettings = props => {
                                     thisState.settings.resetSlipNoDialog = true;
                                     thisState
                                         .setMyState(thisState).then(() =>
-                                        thisState.settings.resetSlipNoReference.current.focus()
-                                    );
+                                            thisState.settings.resetSlipNoReference.current.focus()
+                                        );
                                 }}
                             >
-                                <FontAwesomeIcon icon={faBackward} className="mr-3"/>
+                                <FontAwesomeIcon icon={faBackward} className="mr-3" />
                                 Reset Slip No
                             </Button>
-                            <ResetSlipNo preState={thisState}/>
+                            <ResetSlipNo preState={thisState} />
                         </Col>
                     </Form.Group>
                     {thisState.settings.value.invoice ?
@@ -81,14 +81,14 @@ const AdminSettings = props => {
                                         thisState.settings.resetInvoiceNoDialog = true;
                                         thisState
                                             .setMyState(thisState).then(() =>
-                                            thisState.settings.resetInvoiceNoReference.current.focus()
-                                        );
+                                                thisState.settings.resetInvoiceNoReference.current.focus()
+                                            );
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faBackward} className="mr-3"/>
+                                    <FontAwesomeIcon icon={faBackward} className="mr-3" />
                                     Reset Invoice No
                                 </Button>
-                                <ResetInvoiceNo preState={thisState}/>
+                                <ResetInvoiceNo preState={thisState} />
                             </Col>
                         </Form.Group> : ""}
                     <Form.Group as={Row}>
@@ -108,7 +108,7 @@ const AdminSettings = props => {
                                 active={thisState.settings.value.secondWeight}
                                 recalculateOnResize={true}
                             />
-                            <Invoice preState={thisState}/>
+                            <Invoice preState={thisState} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -123,8 +123,8 @@ const AdminSettings = props => {
                                         thisState.settings.manualEntryPassword = "";
                                         thisState
                                             .setMyState(thisState).then(() =>
-                                            thisState.settings.manualEntryPasswordReference.current.focus()
-                                        );
+                                                thisState.settings.manualEntryPasswordReference.current.focus()
+                                            );
                                     } else {
                                         thisState.settings.manualEntry = false;
                                         thisState.setMyState(thisState);
@@ -137,7 +137,7 @@ const AdminSettings = props => {
                                 active={thisState.settings.manualEntry}
                                 recalculateOnResize={true}
                             />
-                            <ManualEntry preState={thisState}/>
+                            <ManualEntry preState={thisState} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -152,8 +152,8 @@ const AdminSettings = props => {
                                         thisState.settings.editEnablePassword = "";
                                         thisState
                                             .setMyState(thisState).then(() =>
-                                            thisState.settings.editEnablePasswordReference.current.focus()
-                                        );
+                                                thisState.settings.editEnablePasswordReference.current.focus()
+                                            );
                                     } else {
                                         thisState.settings.editEnable = false;
                                         thisState.setMyState(thisState);
@@ -166,7 +166,7 @@ const AdminSettings = props => {
                                 active={thisState.settings.editEnable}
                                 recalculateOnResize={true}
                             />
-                            <EditEnable preState={thisState}/>
+                            <EditEnable preState={thisState} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -209,7 +209,7 @@ const AdminSettings = props => {
                                         thisState.weight.transporterName = "";
                                         thisState.weight.material = "";
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.weight.grossWeight = "";
                                         thisState.weight.grossTime = "";
@@ -243,8 +243,8 @@ const AdminSettings = props => {
                                         thisState.settings.invoicePassword = "";
                                         thisState
                                             .setMyState(thisState).then(() =>
-                                            thisState.settings.invoicePasswordReference.current.focus()
-                                        );
+                                                thisState.settings.invoicePasswordReference.current.focus()
+                                            );
                                     } else {
                                         thisState.settings.value.invoice = false;
                                         thisState.setMyState(thisState);
@@ -257,7 +257,7 @@ const AdminSettings = props => {
                                 active={thisState.settings.value.invoice}
                                 recalculateOnResize={true}
                             />
-                            <Invoice preState={thisState}/>
+                            <Invoice preState={thisState} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -277,7 +277,7 @@ const AdminSettings = props => {
                                 active={thisState.settings.value.tonnage}
                                 recalculateOnResize={true}
                             />
-                            <Invoice preState={thisState}/>
+                            <Invoice preState={thisState} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -292,8 +292,8 @@ const AdminSettings = props => {
                                         thisState.settings.webcamsPassword = "";
                                         thisState
                                             .setMyState(thisState).then(() =>
-                                            thisState.settings.webcamsPasswordReference.current.focus()
-                                        );
+                                                thisState.settings.webcamsPasswordReference.current.focus()
+                                            );
                                     } else {
                                         thisState.settings.value.webcams = false;
                                         thisState.setMyState(thisState);
@@ -306,7 +306,7 @@ const AdminSettings = props => {
                                 active={thisState.settings.value.webcams}
                                 recalculateOnResize={true}
                             />
-                            <Webcams preState={thisState}/>
+                            <Webcams preState={thisState} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
@@ -351,7 +351,7 @@ const AdminSettings = props => {
                                             thisState.weight.transporterName = "";
                                             thisState.weight.material = "";
                                             thisState.weighing.reference.materialReference.value = [
-                                                {material: ""}
+                                                { material: "" }
                                             ];
                                             thisState.weight.grossWeight = "";
                                             thisState.weight.grossTime = "";
@@ -396,7 +396,7 @@ const AdminSettings = props => {
                                             thisState.weight.transporterName = "";
                                             thisState.weight.material = "";
                                             thisState.weighing.reference.materialReference.value = [
-                                                {material: ""}
+                                                { material: "" }
                                             ];
                                             thisState.weight.grossWeight = "";
                                             thisState.weight.grossTime = "";
@@ -430,7 +430,7 @@ const AdminSettings = props => {
                         onClick={() => {
                             fetch(thisState.INITIAL_URL + "/cache/clearCache", {
                                 method: "POST",
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status === 200) {
                                     return response;

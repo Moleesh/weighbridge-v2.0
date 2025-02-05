@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Nav, Row, Tab} from "react-bootstrap";
+import { Button, Col, Nav, Row, Tab } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faRetweet, faSync, faWrench} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRetweet, faSync, faWrench } from "@fortawesome/free-solid-svg-icons";
 
 import GeneralSettings from "./settings/generalSettings";
 import InvoiceSettings from "./settings/invoiceSettings";
@@ -46,30 +46,30 @@ const Settings = props => {
                 <Col sm="10" className="pt-2">
                     <Tab.Content>
                         <Tab.Pane eventKey="generalSettings">
-                            <GeneralSettings preState={thisState} key="generalSettings"/>
+                            <GeneralSettings preState={thisState} key="generalSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="invoiceSettings">
-                            <InvoiceSettings preState={thisState} key="invoiceSettings"/>
+                            <InvoiceSettings preState={thisState} key="invoiceSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="webCamSettings">
-                            <WebCamSettings preState={thisState} key="webCamSettings"/>
+                            <WebCamSettings preState={thisState} key="webCamSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="printerSettings">
-                            <PrinterSettings preState={thisState} key="printerSettings"/>
+                            <PrinterSettings preState={thisState} key="printerSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="indicatorSettings">
-                            <IndicatorSettings preState={thisState} key="indicatorSettings"/>
+                            <IndicatorSettings preState={thisState} key="indicatorSettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="displaySettings">
-                            <DisplaySettings preState={thisState} key="displaySettings"/>
+                            <DisplaySettings preState={thisState} key="displaySettings" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="adminSettings">
-                            <AdminSettings preState={thisState} key="adminSettings"/>
+                            <AdminSettings preState={thisState} key="adminSettings" />
                         </Tab.Pane>
                     </Tab.Content>
                 </Col>
             </Row>
-            <Row/>
+            <Row />
             <div className="footer-copyright text-center py-1">
                 <footer>
                     <Button
@@ -80,7 +80,7 @@ const Settings = props => {
                             fetch(thisState.INITIAL_URL + "/setting/saveAllSettingsByProfile?profile=" + thisState.PROFILE, {
                                 method: "PUT",
                                 body: JSON.stringify(thisState.settings.value),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status === 200) {
                                     thisState.alerts.push({
@@ -103,7 +103,7 @@ const Settings = props => {
                         }}
                         disabled={thisState.SETTING_DISABLED}
                     >
-                        <FontAwesomeIcon icon={faWrench} className="mr-3"/>
+                        <FontAwesomeIcon icon={faWrench} className="mr-3" />
                         UPDATE
                     </Button>
                     <Button
@@ -140,7 +140,7 @@ const Settings = props => {
                             });
                         }}
                     >
-                        <FontAwesomeIcon icon={faSync} spin className="mr-3"/>
+                        <FontAwesomeIcon icon={faSync} spin className="mr-3" />
                         Refresh
                     </Button>
                     <Button
@@ -173,7 +173,7 @@ const Settings = props => {
                             thisState.setMyState(thisState);
                         }}
                     >
-                        <FontAwesomeIcon icon={faRetweet} className="mr-3"/>
+                        <FontAwesomeIcon icon={faRetweet} className="mr-3" />
                         Local Refresh
                     </Button>
                 </footer>

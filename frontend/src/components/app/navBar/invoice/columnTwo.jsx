@@ -1,6 +1,6 @@
 import React from "react";
-import {Col, Form, Row} from "react-bootstrap";
-import {Menu, MenuItem, Typeahead} from "react-bootstrap-typeahead";
+import { Col, Form, Row } from "react-bootstrap";
+import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 
 
 const ColumnTwo = props => {

@@ -20,124 +20,124 @@ import java.util.logging.Logger;
 @Service
 public class SerialPortServiceImpl implements SerialPortService {
 
-	final SerialPortSettingDAO serialPortSettingDAO;
+    final SerialPortSettingDAO serialPortSettingDAO;
 
-	@Autowired
-	public SerialPortServiceImpl(SerialPortSettingDAO serialPortSettingDAO) {
-		this.serialPortSettingDAO = serialPortSettingDAO;
-	}
+    @Autowired
+    public SerialPortServiceImpl(SerialPortSettingDAO serialPortSettingDAO) {
+        this.serialPortSettingDAO = serialPortSettingDAO;
+    }
 
-	@EventListener(ContextRefreshedEvent.class)
-	public void init() {
-		getAllSerialPort();
-		settingUpSerialPort("indicator", true);
-		settingUpSerialPort("display", false);
-	}
+    @EventListener(ContextRefreshedEvent.class)
+    public void init() {
+        getAllSerialPort();
+        settingUpSerialPort("indicator", true);
+        settingUpSerialPort("display", false);
+    }
 
-	@Override
-	public SerialPortDetail getSerialPortDetailByName(String name) {
-		return serialPortSettingDAO.findById(name).orElse(new SerialPortDetail(name));
-	}
+    @Override
+    public SerialPortDetail getSerialPortDetailByName(String name) {
+        return serialPortSettingDAO.findById(name).orElse(new SerialPortDetail(name));
+    }
 
-	@Override
-	public List<String> getAllSerialPort() {
-		List<String> serialPorts = new ArrayList<>();
-		serialPorts.add("dummy");
-		for (SerialPort serialPort : SerialPort.getCommPorts()) {
-			serialPorts.add(serialPort.getSystemPortName());
-		}
-		return serialPorts;
-	}
+    @Override
+    public List<String> getAllSerialPort() {
+        List<String> serialPorts = new ArrayList<>();
+        serialPorts.add("dummy");
+        for (SerialPort serialPort : SerialPort.getCommPorts()) {
+            serialPorts.add(serialPort.getSystemPortName());
+        }
+        return serialPorts;
+    }
 
-	@Override
-	public void settingUpSerialPort(String name, boolean setDataListener) {
+    @Override
+    public void settingUpSerialPort(String name, boolean setDataListener) {
 
-		SerialPortDetail serialPortDetail = getSerialPortDetailByName(name);
-		SerialPort serialPort = StaticVariable.getSerialPort(name);
+        SerialPortDetail serialPortDetail = getSerialPortDetailByName(name);
+        SerialPort serialPort = StaticVariable.getSerialPort(name);
 
-		if (serialPortDetail == null) {
-			return;
-		}
+        if (serialPortDetail == null) {
+            return;
+        }
 
-		if (serialPort != null) {
-			serialPort.removeDataListener();
-			serialPort.closePort();
-		}
-		for (SerialPort _serialPort : SerialPort.getCommPorts()) {
-			if (_serialPort.getSystemPortName().equals(serialPortDetail.getSerialPort())) {
-				serialPort = _serialPort;
-				break;
-			}
-		}
+        if (serialPort != null) {
+            serialPort.removeDataListener();
+            serialPort.closePort();
+        }
+        for (SerialPort _serialPort : SerialPort.getCommPorts()) {
+            if (_serialPort.getSystemPortName().equals(serialPortDetail.getSerialPort())) {
+                serialPort = _serialPort;
+                break;
+            }
+        }
 
-		if (serialPort != null) {
-			serialPort.setComPortParameters(serialPortDetail.getBaudRate(),
-					serialPortDetail.getDataBits(),
-					serialPortDetail.getStopBits(),
-					serialPortDetail.getParity());
-			serialPort.openPort();
-		}
+        if (serialPort != null) {
+            serialPort.setComPortParameters(serialPortDetail.getBaudRate(),
+                    serialPortDetail.getDataBits(),
+                    serialPortDetail.getStopBits(),
+                    serialPortDetail.getParity());
+            serialPort.openPort();
+        }
 
-		if (serialPort != null && setDataListener) {
-			serialPort.addDataListener(new SerialPortMessageListenerWithExceptions() {
-				@Override
-				public void catchException(Exception ex) {
-					Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-				}
+        if (serialPort != null && setDataListener) {
+            serialPort.addDataListener(new SerialPortMessageListenerWithExceptions() {
+                @Override
+                public void catchException(Exception ex) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                }
 
-				@Override
-				public byte[] getMessageDelimiter() {
-					return new byte[]{(byte) (serialPortDetail.getDelimiter() % 128)};
-				}
+                @Override
+                public byte[] getMessageDelimiter() {
+                    return new byte[]{(byte) (serialPortDetail.getDelimiter() % 128)};
+                }
 
-				@Override
-				public boolean delimiterIndicatesEndOfMessage() {
-					return true;
-				}
+                @Override
+                public boolean delimiterIndicatesEndOfMessage() {
+                    return true;
+                }
 
-				@Override
-				public int getListeningEvents() {
-					return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
-				}
+                @Override
+                public int getListeningEvents() {
+                    return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+                }
 
-				@Override
-				public void serialEvent(SerialPortEvent serialPortEvent) {
-					try {
-						StaticVariable.setWeight(
-								Integer.parseInt(0 + new String(serialPortEvent.getReceivedData()).replaceAll("[^0-9" + serialPortDetail.getLastCharacter() + "]", "").split(serialPortDetail.getLastCharacter())[0]));
-					} catch (Exception ex) {
-						Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-					}
-				}
-			});
-		}
-		StaticVariable.setSerialPort(name, serialPort);
+                @Override
+                public void serialEvent(SerialPortEvent serialPortEvent) {
+                    try {
+                        StaticVariable.setWeight(
+                                Integer.parseInt(0 + new String(serialPortEvent.getReceivedData()).replaceAll("[^0-9" + serialPortDetail.getLastCharacter() + "]", "").split(serialPortDetail.getLastCharacter())[0]));
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                    }
+                }
+            });
+        }
+        StaticVariable.setSerialPort(name, serialPort);
 
-	}
+    }
 
-	@Override
-	public void updateSerialPortDetail(SerialPortDetail serialPortDetail) {
-		serialPortSettingDAO.save(serialPortDetail);
-	}
+    @Override
+    public void updateSerialPortDetail(SerialPortDetail serialPortDetail) {
+        serialPortSettingDAO.save(serialPortDetail);
+    }
 
-	@Override
-	public int getWeight() {
-		return StaticVariable.getWeight();
-	}
+    @Override
+    public int getWeight() {
+        return StaticVariable.getWeight();
+    }
 
-	@Override
-	public void sendToDisplay(String message) {
-		SerialPort display = StaticVariable.getSerialPort("display");
-		if (display == null) {
-			settingUpSerialPort("display", false);
-		}
+    @Override
+    public void sendToDisplay(String message) {
+        SerialPort display = StaticVariable.getSerialPort("display");
+        if (display == null) {
+            settingUpSerialPort("display", false);
+        }
 
-		if (display == null) {
-			return;
-		}
+        if (display == null) {
+            return;
+        }
 
-		byte[] sendData = message.getBytes();
-		display.writeBytes(sendData, sendData.length);
-	}
+        byte[] sendData = message.getBytes();
+        display.writeBytes(sendData, sendData.length);
+    }
 
 }

@@ -6,18 +6,18 @@ import java.util.List;
 
 public interface WebCamService {
 
-	String getMyPrimaryWebCam();
+    String getMyPrimaryWebCam();
 
-	List<WebCamDetail> getAllWebCamDetails();
+    List<WebCamDetail> getAllWebCamDetails();
 
-	List<String> getAllWebCams();
+    List<String> getAllWebCams();
 
-	void settingUpWebCam(String name);
+    void settingUpWebCam(String name);
 
-	void updateWebCam(WebCamDetail webCamDetail);
+    void updateWebCam(WebCamDetail webCamDetail);
 
-	byte[] getWebCamImage(String name, boolean fullSize);
+    byte[] getWebCamImage(String name, boolean fullSize);
 
-	void saveWebCamImageToDisk(String fileName, String name);
+    void saveWebCamImageToDisk(String fileName, String name);
 
 }

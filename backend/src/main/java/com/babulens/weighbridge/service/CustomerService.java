@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface CustomerService {
 
-	List<Customer> getAllCustomers();
+    List<Customer> getAllCustomers();
 
-	Customer addUpdateCustomer(Customer customer);
+    Customer addUpdateCustomer(Customer customer);
 
-	void deleteCustomer(int id);
+    void deleteCustomer(int id);
 
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/images/logo.svg";
-import {Card, Col, Row} from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 
 const Header = props => {
     let thisState = props.preState;

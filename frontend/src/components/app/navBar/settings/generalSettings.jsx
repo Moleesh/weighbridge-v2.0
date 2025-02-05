@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faWrench} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faWrench } from "@fortawesome/free-solid-svg-icons";
 
 import AddNewProfile from "./generalSettings/addNewProfile"
 
@@ -185,15 +185,15 @@ const GeneralSettings = props => {
                     thisState.settings.addNewProfileDialog = true;
                     thisState
                         .setMyState(thisState).then(() =>
-                        thisState.settings.newProfileReference.current.focus()
-                    );
+                            thisState.settings.newProfileReference.current.focus()
+                        );
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faEdit} className="mr-3"/>
+                <FontAwesomeIcon icon={faEdit} className="mr-3" />
                 Add New Profile
             </Button>
-            <AddNewProfile preState={thisState}/>
+            <AddNewProfile preState={thisState} />
             <Button
                 variant="success"
                 size="lg"
@@ -222,7 +222,7 @@ const GeneralSettings = props => {
                 }}
                 disabled={thisState.SETTING_DISABLED}
             >
-                <FontAwesomeIcon icon={faWrench} className="mr-3"/>
+                <FontAwesomeIcon icon={faWrench} className="mr-3" />
                 Set Primary Profile
             </Button>
         </Form>

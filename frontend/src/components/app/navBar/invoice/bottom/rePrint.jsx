@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const RePrint = props => {
     let thisState = props.preState;
@@ -49,7 +49,7 @@ const RePrint = props => {
                     </Col>
                 </Form.Group>
                 <Row>
-                    <Col sm="7"/>
+                    <Col sm="7" />
                     <Form.Group>
                         <Form.Check
                             type="checkbox"
@@ -95,10 +95,10 @@ const RePrint = props => {
                                 thisState.invoices.disable.printDisabled = false;
                                 thisState.invoice = result;
                                 thisState.invoices.reference.customersNameReference.value = [
-                                    {customerName: thisState.invoice.customersName}
+                                    { customerName: thisState.invoice.customersName }
                                 ];
                                 thisState.invoices.reference.materialReference.value = [
-                                    {material: thisState.invoice.material}
+                                    { material: thisState.invoice.material }
                                 ];
                                 thisState.invoice.modeOfPayment = thisState.invoice.modeOfPayment ? thisState.invoice.modeOfPayment : ""
                                 thisState.invoices.reference.modeOfPaymentReference.value =

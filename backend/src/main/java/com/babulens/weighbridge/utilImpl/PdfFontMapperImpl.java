@@ -15,50 +15,50 @@ import java.util.logging.Logger;
 
 public class PdfFontMapperImpl implements FontMapper {
 
-	private BaseFont getBaseFontFromFile(String directory, String filename) {
-		try (InputStream inputStream = new ClassPathResource(directory + filename).getInputStream()) {
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			byte[] bytes = new byte[1024];
-			while (true) {
-				int size = inputStream.read(bytes);
-				if (size < 0) {
-					break;
-				}
-				byteArrayOutputStream.write(bytes, 0, size);
-			}
-			bytes = byteArrayOutputStream.toByteArray();
-			return BaseFont.createFont(filename, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, BaseFont.CACHED,
-					bytes, null);
-		} catch (DocumentException | IOException | NullPointerException ex) {
-			Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
-		}
-		return null;
-	}
+    private BaseFont getBaseFontFromFile(String directory, String filename) {
+        try (InputStream inputStream = new ClassPathResource(directory + filename).getInputStream()) {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            byte[] bytes = new byte[1024];
+            while (true) {
+                int size = inputStream.read(bytes);
+                if (size < 0) {
+                    break;
+                }
+                byteArrayOutputStream.write(bytes, 0, size);
+            }
+            bytes = byteArrayOutputStream.toByteArray();
+            return BaseFont.createFont(filename, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, BaseFont.CACHED,
+                    bytes, null);
+        } catch (DocumentException | IOException | NullPointerException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
+    }
 
-	@Override
-	public BaseFont awtToPdf(Font font) {
-		String directory = "Fonts" + File.separator;
-		if (font.getName().equals("Nirmala UI")) {
-			if (font.isBold()) {
-				return getBaseFontFromFile(directory, "NirmalaB.ttf");
-			} else {
-				return getBaseFontFromFile(directory, "Nirmala.ttf");
-			}
-		} else {
-			if (font.isBold() && font.isItalic()) {
-				return getBaseFontFromFile(directory, "courbi.ttf");
-			} else if (font.isBold()) {
-				return getBaseFontFromFile(directory, "courbd.ttf");
-			} else if (font.isItalic()) {
-				return getBaseFontFromFile(directory, "couri.ttf");
-			} else {
-				return getBaseFontFromFile(directory, "cour.ttf");
-			}
-		}
-	}
+    @Override
+    public BaseFont awtToPdf(Font font) {
+        String directory = "Fonts" + File.separator;
+        if (font.getName().equals("Nirmala UI")) {
+            if (font.isBold()) {
+                return getBaseFontFromFile(directory, "NirmalaB.ttf");
+            } else {
+                return getBaseFontFromFile(directory, "Nirmala.ttf");
+            }
+        } else {
+            if (font.isBold() && font.isItalic()) {
+                return getBaseFontFromFile(directory, "courbi.ttf");
+            } else if (font.isBold()) {
+                return getBaseFontFromFile(directory, "courbd.ttf");
+            } else if (font.isItalic()) {
+                return getBaseFontFromFile(directory, "couri.ttf");
+            } else {
+                return getBaseFontFromFile(directory, "cour.ttf");
+            }
+        }
+    }
 
-	@Override
-	public Font pdfToAwt(BaseFont baseFont, int size) {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public Font pdfToAwt(BaseFont baseFont, int size) {
+        throw new UnsupportedOperationException();
+    }
 }

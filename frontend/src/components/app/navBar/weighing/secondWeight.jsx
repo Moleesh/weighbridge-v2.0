@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const SecondWeight = props => {
     let thisState = props.preState;
@@ -73,7 +73,7 @@ const SecondWeight = props => {
                                     thisState.weighing.grossSelector = false;
                                     thisState.weight.material = "Empty";
                                     thisState.weighing.reference.materialReference.value = [
-                                        {material: "Empty"}
+                                        { material: "Empty" }
                                     ];
                                     thisState.weighing.disable.materialDisabled = true;
                                     thisState.weight.grossWeight = result.grossWeight;

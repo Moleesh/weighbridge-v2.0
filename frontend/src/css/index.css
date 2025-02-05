@@ -21,9 +21,11 @@
         left: -90px;
         color: #eee;
     }
+
     50% {
         color: #666;
     }
+
     100% {
         left: 90px;
         color: #eee;
@@ -82,7 +84,7 @@ input {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
+.nav-pills .show>.nav-link {
     color: #495057;
     background-color: #e8e8e8;
     border-radius: 5px;
@@ -208,7 +210,8 @@ input {
     border: 1px solid rgb(226, 226, 226)
 }
 
-.hide, .hide .rbt-input {
+.hide,
+.hide .rbt-input {
     color: #ced4da00 !important;
     border: 1px solid #ced4da00 !important;
     background-color: transparent !important;
@@ -247,12 +250,14 @@ input {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
-.btn:disabled, .nav-item[disabled] {
+.btn:disabled,
+.nav-item[disabled] {
     cursor: not-allowed !important;
 }
 
@@ -260,6 +265,7 @@ input {
     min-width: 75px;
 }
 
-a.nav-item.nav-link, button {
+a.nav-item.nav-link,
+button {
     outline: none !important;
 }

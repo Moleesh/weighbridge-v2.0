@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Col, Form, Row} from "react-bootstrap";
+import { Card, Col, Form, Row } from "react-bootstrap";
 
 import ColumnOne from "./invoice/columnOne";
 import ColumnTwo from "./invoice/columnTwo";
@@ -20,9 +20,9 @@ const Invoice = props => {
                 }
             }}
         >
-            <Row style={{height: 200}}>
+            <Row style={{ height: 200 }}>
                 <Form.Group as={Row}>
-                    <Col sm="1"/>
+                    <Col sm="1" />
                     <Col sm="2" className="mt-4">
                         <Form.Label column sm="3">Dummy</Form.Label>
                         <Col>
@@ -80,10 +80,10 @@ const Invoice = props => {
                         </Col>
                     </Col>
                 </Form.Group>
-                <InvoiceNo preState={thisState}/>
+                <InvoiceNo preState={thisState} />
                 <Col sm="2" className="mt-5">
                     <Form.Group as={Row}>
-                        <Col sm="1"/>
+                        <Col sm="1" />
                         <Form.Check
                             type="radio"
                             name="GST-Selector"
@@ -100,7 +100,7 @@ const Invoice = props => {
                         />
                     </Form.Group>
                     <Form.Group as={Row} className="mb-0">
-                        <Col sm="1"/>
+                        <Col sm="1" />
                         <Form.Check
                             type="radio"
                             name="GST-Selector"
@@ -132,15 +132,15 @@ const Invoice = props => {
                 </Col>
             </Row>
             <Row>
-                <ColumnOne preState={thisState}/>
-                <ColumnTwo preState={thisState}/>
-                <ColumnThree preState={thisState}/>
+                <ColumnOne preState={thisState} />
+                <ColumnTwo preState={thisState} />
+                <ColumnThree preState={thisState} />
             </Row>
             <Row>
                 <Col sm="6">
-                    <Bottom preState={thisState}/>
+                    <Bottom preState={thisState} />
                 </Col>
-                <Col sm="6"/>
+                <Col sm="6" />
             </Row>
         </Form>
     );

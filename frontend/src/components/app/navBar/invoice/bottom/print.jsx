@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, Modal, Row} from "react-bootstrap";
+import { Button, Form, Modal, Row } from "react-bootstrap";
 import FileSaver from "file-saver";
 
 const Print = props => {
@@ -42,14 +42,14 @@ const Print = props => {
                     thisState.invoice.customersName = "";
                     thisState.invoice.gstin = "";
                     thisState.invoices.reference.customersNameReference.value = [
-                        {customerName: ""}
+                        { customerName: "" }
                     ];
                     thisState.invoice.address1 = "";
                     thisState.invoice.address2 = "";
                     thisState.invoice.vehicleNo = "";
                     thisState.invoice.material = "";
                     thisState.invoices.reference.materialReference.value = [
-                        {material: ""}
+                        { material: "" }
                     ];
                     thisState.invoice.unitPrice = 0;
                     thisState.invoice.quantity = 0;
@@ -105,7 +105,7 @@ const Print = props => {
                                     gstin: thisState.settings.value.gstin,
                                     additionalInformation: thisState.settings.value.additionalInformation
                                 }),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status !== 200) {
                                     throw Error(response.statusText);
@@ -134,7 +134,7 @@ const Print = props => {
                                     additionalInformation: thisState.settings.value.additionalInformation
 
                                 }),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status !== 200) {
                                     throw Error(response.statusText);
@@ -176,7 +176,7 @@ const Print = props => {
                             thisState.invoice.customersName = "";
                             thisState.invoice.gstin = "";
                             thisState.invoices.reference.customersNameReference.value = [
-                                {customerName: ""}
+                                { customerName: "" }
                             ];
                             thisState.invoice.address1 = "";
                             thisState.invoice.address2 = "";
@@ -187,7 +187,7 @@ const Print = props => {
                             thisState.invoice.driverName = "";
                             thisState.invoice.material = "";
                             thisState.invoices.reference.materialReference.value = [
-                                {material: ""}
+                                { material: "" }
                             ];
                             thisState.invoice.unitPrice = 0;
                             thisState.invoice.quantity = 0;
@@ -256,7 +256,7 @@ const Print = props => {
                             thisState.invoice.customersName = "";
                             thisState.invoice.gstin = "";
                             thisState.invoices.reference.customersNameReference.value = [
-                                {customerName: ""}
+                                { customerName: "" }
                             ];
                             thisState.invoice.address1 = "";
                             thisState.invoice.address2 = "";
@@ -267,7 +267,7 @@ const Print = props => {
                             thisState.invoice.driverName = "";
                             thisState.invoice.material = "";
                             thisState.invoices.reference.materialReference.value = [
-                                {material: ""}
+                                { material: "" }
                             ];
                             thisState.invoice.unitPrice = 0;
                             thisState.invoice.quantity = 0;

@@ -2,47 +2,52 @@ package com.babulens.weighbridge.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
 import java.util.Objects;
 
 @Entity
 public class Profile {
-	@Id
-	private String profileName;
-	private boolean myPrimary = false;
+    @Id
+    private String profileName;
+    private boolean myPrimary = false;
 
-	public Profile() {
-	}
+    public Profile() {
+    }
 
-	public Profile(String profileName) {
-		this.profileName = profileName;
-	}
+    public Profile(String profileName) {
+        this.profileName = profileName;
+    }
 
-	public String getProfileName() {
-		return profileName;
-	}
+    public String getProfileName() {
+        return profileName;
+    }
 
-	public void setProfileName(String profileName) {
-		this.profileName = profileName;
-	}
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
 
-	public boolean isMyPrimary() {
-		return myPrimary;
-	}
+    public boolean isMyPrimary() {
+        return myPrimary;
+    }
 
-	public void setMyPrimary(boolean myPrimary) {
-		this.myPrimary = myPrimary;
-	}
+    public void setMyPrimary(boolean myPrimary) {
+        this.myPrimary = myPrimary;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Profile profile = (Profile) o;
-		return Objects.equals(profileName, profile.profileName);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Profile profile = (Profile) o;
+        return Objects.equals(profileName, profile.profileName);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(profileName);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(profileName);
+    }
 }

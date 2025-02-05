@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Modal, Row} from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 
 const PreviousWeight = props => {
     let thisState = props.preState;
@@ -107,11 +107,11 @@ const PreviousWeight = props => {
                     onClick={() => {
                         thisState.invoices.previousWeightSelector = false;
                         thisState.invoices.reference.customersNameReference.value = [
-                            {customerName: thisState.invoices.previousWeightResult.customersName}
+                            { customerName: thisState.invoices.previousWeightResult.customersName }
                         ];
                         thisState.invoice.vehicleNo = thisState.invoices.previousWeightResult.vehicleNo;
                         thisState.invoices.reference.materialReference.value = [
-                            {material: thisState.invoices.previousWeightResult.material}
+                            { material: thisState.invoices.previousWeightResult.material }
                         ];
                         thisState.invoice.quantity = thisState.settings.value.tonnage ? thisState.invoices.previousWeightResult.nettWeight / 1000 : thisState.invoices.previousWeightResult.nettWeight;
                         thisState.invoices.disable.vehicleNoDisabled = true;

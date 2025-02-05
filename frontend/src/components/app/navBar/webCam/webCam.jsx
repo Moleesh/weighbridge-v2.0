@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Col, Image} from "react-bootstrap";
+import React, { Component } from "react";
+import { Col, Image } from "react-bootstrap";
 
 class WebCam extends Component {
 
@@ -17,7 +17,7 @@ class WebCam extends Component {
     }
 
     render() {
-        let thisState = {...this.state, setMyState: this.setMyState};
+        let thisState = { ...this.state, setMyState: this.setMyState };
         return (
             <Col sm="6">
                 <Image

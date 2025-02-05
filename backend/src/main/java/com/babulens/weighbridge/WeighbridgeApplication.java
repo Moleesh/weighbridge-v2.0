@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class WeighbridgeApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WeighbridgeApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WeighbridgeApplication.class, args);
+    }
 }

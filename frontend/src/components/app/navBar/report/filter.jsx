@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const Filter = props => {
     let thisState = props.preState;
@@ -31,7 +31,7 @@ const Filter = props => {
                                     onClick={() => {
                                         thisState.report.filter[key] = !thisState.report.filter[
                                             key
-                                            ];
+                                        ];
                                         thisState.setMyState(thisState);
                                     }}
                                     onChange={() => {

@@ -1,95 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.2</version>
-		<relativePath/>
-	</parent>
-	<groupId>com.babulens</groupId>
-	<artifactId>weighbridge</artifactId>
-	<version>2.0.0-RELEASE</version>
-	<packaging>pom</packaging>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.babulens</groupId>
+    <artifactId>weighbridge</artifactId>
+    <version>2.0.0-RELEASE</version>
+    <packaging>pom</packaging>
 
-	<modules>
-		<module>frontend</module>
-		<module>backend</module>
-	</modules>
+    <modules>
+        <module>frontend</module>
+        <module>backend</module>
+    </modules>
 
-	<name>weighbridge</name>
-	<description>Weighbridge Software</description>
+    <name>weighbridge</name>
+    <description>Weighbridge Software</description>
 
-	<properties>
-		<java.version>22</java.version>
-		<skipValidate>none</skipValidate>
-	</properties>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.9.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.1.0</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>frontend/dist</directory>
-						</fileset>
-						<fileset>
-							<directory>frontend/build</directory>
-						</fileset>
-						<fileset>
-							<directory>frontend/target</directory>
-						</fileset>
-						<fileset>
-							<directory>frontend/node</directory>
-						</fileset>
-						<fileset>
-							<directory>frontend/node_modules</directory>
-						</fileset>
-						<fileset>
-							<directory>backend/target</directory>
-						</fileset>
-						<fileset>
-							<directory>target</directory>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>3.0.0</version>
-				<inherited>false</inherited>
-				<executions>
-					<execution>
-						<phase>${skipValidate}</phase>
-						<configuration>
-							<target>
-								<delete dir="WeighBridge 2.0" quiet="true" failonerror="false"/>
-								<mkdir dir="WeighBridge 2.0"/>
-								<copy file="backend/target/weighBridge.jar" tofile="WeighBridge 2.0/weighBridge.jar"/>
-								<copy file="RunMeForSchedulingInWindows.bat" tofile="WeighBridge 2.0/RunMeForSchedulingInWindows.bat"/>
-								<copy file="babulensLogo.bmp" tofile="WeighBridge 2.0/babulensLogo.bmp"/>
-								<copy file="webcam.xml" tofile="WeighBridge 2.0/webcam.xml"/>
-								<copy file="ngrok.exe" tofile="WeighBridge 2.0/ngrok.exe"/>
-								<copy file="ngrok.yml" tofile="WeighBridge 2.0/ngrok.yml"/>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    <properties>
+        <java.version>22</java.version>
+        <skipValidate>none</skipValidate>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.9.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>frontend/dist</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>frontend/build</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>frontend/target</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>frontend/node</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>frontend/node_modules</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>backend/target</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>target</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <phase>${skipValidate}</phase>
+                        <configuration>
+                            <target>
+                                <delete dir="WeighBridge 2.0" quiet="true" failonerror="false"/>
+                                <mkdir dir="WeighBridge 2.0"/>
+                                <copy file="backend/target/weighBridge.jar" tofile="WeighBridge 2.0/weighBridge.jar"/>
+                                <copy file="RunMeForSchedulingInWindows.bat"
+                                      tofile="WeighBridge 2.0/RunMeForSchedulingInWindows.bat"/>
+                                <copy file="babulensLogo.bmp" tofile="WeighBridge 2.0/babulensLogo.bmp"/>
+                                <copy file="webcam.xml" tofile="WeighBridge 2.0/webcam.xml"/>
+                                <copy file="ngrok.exe" tofile="WeighBridge 2.0/ngrok.exe"/>
+                                <copy file="ngrok.yml" tofile="WeighBridge 2.0/ngrok.yml"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

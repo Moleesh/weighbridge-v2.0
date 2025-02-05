@@ -9,25 +9,25 @@ import java.util.List;
 
 public interface PrinterService {
 
-	List<String> getAllPrinters();
+    List<String> getAllPrinters();
 
-	List<String> getAllWeightPrintFormats();
+    List<String> getAllWeightPrintFormats();
 
-	List<String> getAllInvoicePrintFormats();
+    List<String> getAllInvoicePrintFormats();
 
-	void printWeight(PrintWeight printWeight);
+    void printWeight(PrintWeight printWeight);
 
-	void printInvoice(PrintInvoice printInvoice);
+    void printInvoice(PrintInvoice printInvoice);
 
-	void printWeightReport(PrintWeightReport printWeightReport);
+    void printWeightReport(PrintWeightReport printWeightReport);
 
-	byte[] getPrintWeightPDF(PrintWeight printWeight);
+    byte[] getPrintWeightPDF(PrintWeight printWeight);
 
-	byte[] getPrintInvoicePDF(PrintInvoice printInvoice);
+    byte[] getPrintInvoicePDF(PrintInvoice printInvoice);
 
-	byte[] getPrintWeightReportPDF(PrintWeightReport printWeightReport);
+    byte[] getPrintWeightReportPDF(PrintWeightReport printWeightReport);
 
-	void printInvoiceReport(PrintInvoiceReport printInvoiceReport);
+    void printInvoiceReport(PrintInvoiceReport printInvoiceReport);
 
-	byte[] getInvoiceReportPDF(PrintInvoiceReport printInvoiceReport);
+    byte[] getInvoiceReportPDF(PrintInvoiceReport printInvoiceReport);
 }

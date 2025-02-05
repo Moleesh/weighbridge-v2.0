@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Nav, Row, Tab} from "react-bootstrap";
+import { Col, Nav, Row, Tab } from "react-bootstrap";
 
 import Material from "./configuration/material";
 import Customer from "./configuration/customer";
@@ -55,13 +55,13 @@ const Configuration = props => {
                 <Col sm="10" className="pt-2">
                     <Tab.Content>
                         <Tab.Pane eventKey="material">
-                            <Material preState={thisState} key="material"/>
+                            <Material preState={thisState} key="material" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="customers">
-                            <Customer preState={thisState} key="customers"/>
+                            <Customer preState={thisState} key="customers" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="tareWeight">
-                            <TareWeight preState={thisState} key="tareWeight"/>
+                            <TareWeight preState={thisState} key="tareWeight" />
                         </Tab.Pane>
                     </Tab.Content>
                 </Col>

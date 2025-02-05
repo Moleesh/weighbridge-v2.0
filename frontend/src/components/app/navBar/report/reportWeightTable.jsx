@@ -1,7 +1,7 @@
 import React from "react";
-import ReactDataGrid, {TextEditor} from 'react-data-grid';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSave} from "@fortawesome/free-solid-svg-icons";
+import ReactDataGrid, { TextEditor } from 'react-data-grid';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 const ReportWeightTable = props => {
 
@@ -13,12 +13,12 @@ const ReportWeightTable = props => {
                 {
                     key: "slipNo",
                     name: "Slip No",
-                    formatter({row}) {
+                    formatter({ row }) {
                         function callback() {
                             fetch(thisState.INITIAL_URL + "/weight/updateWeight", {
                                 method: "POST",
                                 body: JSON.stringify(row),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status === 200) {
                                     thisState.alerts.push({
@@ -42,7 +42,7 @@ const ReportWeightTable = props => {
                         return (
                             <React.Fragment>
                                 {thisState.report.edit ?
-                                    <FontAwesomeIcon onClick={callback} icon={faSave} className="mr-2 hand"/> : ""}
+                                    <FontAwesomeIcon onClick={callback} icon={faSave} className="mr-2 hand" /> : ""}
                                 <span>{row.slipNo}</span>
                             </React.Fragment>
                         );

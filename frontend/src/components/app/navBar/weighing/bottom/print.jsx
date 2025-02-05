@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, Modal, Row} from "react-bootstrap";
+import { Button, Form, Modal, Row } from "react-bootstrap";
 import FileSaver from "file-saver";
 
 const Print = props => {
@@ -37,7 +37,7 @@ const Print = props => {
                     thisState.weight.transporterName = "";
                     thisState.weight.material = "";
                     thisState.weighing.reference.materialReference.value = [
-                        {material: ""}
+                        { material: "" }
                     ];
                     thisState.weight.grossWeight = "";
                     thisState.weight.grossTime = "";
@@ -87,10 +87,10 @@ const Print = props => {
                                     printFormat: thisState.settings.value.printFormatForWeighing,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
+                                        thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status !== 200) {
                                     throw Error(response.statusText);
@@ -109,10 +109,10 @@ const Print = props => {
                                     printFormat: thisState.settings.value.printFormatForWeighing,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
                                     weighbridgeAddress:
-                                    thisState.settings.value.weighbridgeAddress,
+                                        thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status !== 200) {
                                     throw Error(response.statusText);
@@ -148,7 +148,7 @@ const Print = props => {
                             thisState.weight.transporterName = "";
                             thisState.weight.material = "";
                             thisState.weighing.reference.materialReference.value = [
-                                {material: ""}
+                                { material: "" }
                             ];
                             thisState.weight.grossWeight = "";
                             thisState.weight.grossTime = "";
@@ -205,7 +205,7 @@ const Print = props => {
                             thisState.weight.transporterName = "";
                             thisState.weight.material = "";
                             thisState.weighing.reference.materialReference.value = [
-                                {material: ""}
+                                { material: "" }
                             ];
                             thisState.weight.grossWeight = "";
                             thisState.weight.grossTime = "";

@@ -13,29 +13,29 @@ import java.util.List;
 @Service
 public class MaterialServiceImpl implements MaterialService {
 
-	private final
-	MaterialDAO materialDAO;
+    private final
+    MaterialDAO materialDAO;
 
-	public MaterialServiceImpl(MaterialDAO materialDAO) {
-		this.materialDAO = materialDAO;
-	}
+    public MaterialServiceImpl(MaterialDAO materialDAO) {
+        this.materialDAO = materialDAO;
+    }
 
-	@Override
-	@Cacheable(cacheNames = "Materials")
-	public List<Material> getAllMaterials() {
-		return Lists.newArrayList(materialDAO.findAll());
-	}
+    @Override
+    @Cacheable(cacheNames = "Materials")
+    public List<Material> getAllMaterials() {
+        return Lists.newArrayList(materialDAO.findAll());
+    }
 
-	@Override
-	@CacheEvict(value = "Materials", allEntries = true)
-	public Material addUpdateMaterial(Material material) {
-		return materialDAO.save(material);
-	}
+    @Override
+    @CacheEvict(value = "Materials", allEntries = true)
+    public Material addUpdateMaterial(Material material) {
+        return materialDAO.save(material);
+    }
 
-	@Override
-	@CacheEvict(value = "Materials", allEntries = true)
-	public void deleteMaterial(int id) {
-		materialDAO.deleteById(id);
-	}
+    @Override
+    @CacheEvict(value = "Materials", allEntries = true)
+    public void deleteMaterial(int id) {
+        materialDAO.deleteById(id);
+    }
 
 }

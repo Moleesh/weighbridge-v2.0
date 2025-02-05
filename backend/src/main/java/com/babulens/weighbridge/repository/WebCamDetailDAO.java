@@ -9,11 +9,11 @@ import java.util.List;
 @Repository
 public interface WebCamDetailDAO extends CrudRepository<WebCamDetail, String> {
 
-	WebCamDetail findFirstByMyPrimaryIsTrue();
+    WebCamDetail findFirstByMyPrimaryIsTrue();
 
-	List<WebCamDetail> findAllByOrderByMyPrimaryDesc();
+    List<WebCamDetail> findAllByOrderByMyPrimaryDesc();
 
-	List<WebCamDetail> findAllByMyPrimaryIsTrue();
+    List<WebCamDetail> findAllByMyPrimaryIsTrue();
 
 
 }

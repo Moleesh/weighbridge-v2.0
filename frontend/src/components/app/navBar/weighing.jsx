@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, Col, Form, Image, Row} from "react-bootstrap";
+import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
 
 import ColumnOne from "./weighing/columnOne";
 import ColumnTwo from "./weighing/columnTwo";
@@ -18,10 +18,10 @@ const Weighing = props => {
                 }
             }}
         >
-            <Row style={{height: 200}}>
+            <Row style={{ height: 200 }}>
                 <Col sm="2" className="mt-3">
                     <Form.Group as={Row} className="ml-3">
-                        <Col sm="1"/>
+                        <Col sm="1" />
                         <Form.Check
                             type="radio"
                             name="Gross-Tare-Selector"
@@ -33,7 +33,7 @@ const Weighing = props => {
                                 thisState.weight.material = "";
                                 thisState.weighing.disable.materialDisabled = false;
                                 thisState.weighing.reference.materialReference.value = [
-                                    {material: ""}
+                                    { material: "" }
                                 ];
                                 thisState.switchFocus(thisState, 'weighing', '', false);
                                 thisState.setMyState(thisState);
@@ -44,7 +44,7 @@ const Weighing = props => {
                         />
                     </Form.Group>
                     <Form.Group as={Row} className="ml-3">
-                        <Col sm="1"/>
+                        <Col sm="1" />
                         <Form.Check
                             type="radio"
                             name="Gross-Tare-Selector"
@@ -55,7 +55,7 @@ const Weighing = props => {
                                 thisState.weighing.grossSelector = false;
                                 thisState.weight.material = "Empty";
                                 thisState.weighing.reference.materialReference.value = [
-                                    {material: "Empty"}
+                                    { material: "Empty" }
                                 ];
                                 thisState.weighing.disable.materialDisabled = true;
                                 thisState.switchFocus(thisState, 'weighing', '', false);
@@ -82,7 +82,7 @@ const Weighing = props => {
                         >
                             Second Weight
                         </Button> : ""}
-                    <SecondWeight preState={thisState}/>
+                    <SecondWeight preState={thisState} />
 
                 </Col>
 
@@ -102,7 +102,7 @@ const Weighing = props => {
                 <Col sm="5">
                     <Image
                         src={thisState.primaryWebCamImage}
-                        style={{height: 200}}
+                        style={{ height: 200 }}
                         className="rounded mx-auto d-block"
                         alt=""
                         onLoad={() => {
@@ -124,15 +124,15 @@ const Weighing = props => {
                 </Col>
             </Row>
             <Row>
-                <ColumnOne preState={thisState}/>
-                <ColumnTwo preState={thisState}/>
-                <ColumnThree preState={thisState}/>
+                <ColumnOne preState={thisState} />
+                <ColumnTwo preState={thisState} />
+                <ColumnThree preState={thisState} />
             </Row>
             <Row>
                 <Col sm="6">
-                    <Bottom preState={thisState}/>
+                    <Bottom preState={thisState} />
                 </Col>
-                <Col sm="6"/>
+                <Col sm="6" />
             </Row>
         </Form>
     );

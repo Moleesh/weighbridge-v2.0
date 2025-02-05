@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import DatetimeRangePicker from "react-datetime-range-picker";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faFileDownload, faFilter, faPrint} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faFileDownload, faFilter, faPrint } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import FileSaver from "file-saver";
 
@@ -16,15 +16,15 @@ const Report = props => {
     return (
         <React.Fragment>
             <iframe src={thisState.report.pdfURL}
-                    name="Report Print"
-                    onLoad={() => {
-                        if (thisState.report.pdfURL !== "") {
-                            window.frames["Report Print"].print();
-                        }
-                    }}
-                    title="Report Print"
-                    style={{display: "none"}}
-                    className="none"/>
+                name="Report Print"
+                onLoad={() => {
+                    if (thisState.report.pdfURL !== "") {
+                        window.frames["Report Print"].print();
+                    }
+                }}
+                title="Report Print"
+                style={{ display: "none" }}
+                className="none" />
             <Form className="justify-content-center ">
                 <Row className="pb-1">
                     <Col className="pl-3">
@@ -372,7 +372,7 @@ const Report = props => {
                                         thisState.setMyState(thisState);
                                     }}
                                     isValidEndDate={() => true}
-                                    inputProps={{disabled: thisState.report.dateDisabled}}
+                                    inputProps={{ disabled: thisState.report.dateDisabled }}
                                 />
                             </Col>
                         </Form.Group>
@@ -409,7 +409,7 @@ const Report = props => {
                                                         input: thisState.report.input,
                                                         profile: thisState.PROFILE
                                                     }),
-                                                    headers: {"content-type": "application/json"}
+                                                    headers: { "content-type": "application/json" }
                                                 }).then(response => {
                                                     if (response.status === 200) {
                                                         return response.json();
@@ -442,7 +442,7 @@ const Report = props => {
                         </Form.Group>
                     </Col>
                 </Row>
-                <InvoiceSelect preState={thisState}/>
+                <InvoiceSelect preState={thisState} />
                 <Row>
                     <Col>
                         <Form.Group as={Row}>
@@ -467,10 +467,10 @@ const Report = props => {
                                         thisState.setMyState(thisState);
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faFilter} className="mr-3"/>
+                                    <FontAwesomeIcon icon={faFilter} className="mr-3" />
                                     Filter Records
                                 </Button>
-                                <Filter preState={thisState}/>
+                                <Filter preState={thisState} />
                             </Col>
                         </Form.Group>
                     </Col>
@@ -495,7 +495,7 @@ const Report = props => {
                             <Col sm="5">
                                 <Form.Group as={Row}>
                                     <Form.Label column
-                                                sm="6">{thisState.report.type === "weight" ? "Total Nett Weight" : "Quatity Sold"}</Form.Label>
+                                        sm="6">{thisState.report.type === "weight" ? "Total Nett Weight" : "Quatity Sold"}</Form.Label>
                                     <Col sm="6">
                                         <Form.Control
                                             autoComplete="none"
@@ -510,7 +510,7 @@ const Report = props => {
                             <Col sm="4">
                                 <Form.Group as={Row}>
                                     <Form.Label column
-                                                sm="6">{thisState.report.type === "weight" ? "Total Charge" : "Total Amount"}</Form.Label>
+                                        sm="6">{thisState.report.type === "weight" ? "Total Charge" : "Total Amount"}</Form.Label>
                                     <Col sm="6">
                                         <Form.Control
                                             autoComplete="none"
@@ -531,9 +531,9 @@ const Report = props => {
                                     thisState.report.edit = !thisState.report.edit;
                                     thisState.setMyState(thisState);
                                 }}
-                                        disabled={!thisState.settings.editEnable}
-                                        className="none">
-                                    <FontAwesomeIcon icon={faEdit} className="mr-3"/>
+                                    disabled={!thisState.settings.editEnable}
+                                    className="none">
+                                    <FontAwesomeIcon icon={faEdit} className="mr-3" />
                                     Edit {thisState.report.edit ? "ON" : "OFF"}
                                 </Button>
                             </Col>
@@ -565,7 +565,7 @@ const Report = props => {
                                                         totalCharge: thisState.report.totalCharge,
                                                         footer: thisState.settings.value.footer
                                                     }),
-                                                    headers: {"content-type": "application/json"}
+                                                    headers: { "content-type": "application/json" }
                                                 }).then(response => {
                                                     if (response.status !== 200) {
                                                         throw Error(response.statusText);
@@ -591,7 +591,7 @@ const Report = props => {
                                                         totalAmount: thisState.report.totalCharge,
                                                         footer: thisState.settings.value.footer
                                                     }),
-                                                    headers: {"content-type": "application/json"}
+                                                    headers: { "content-type": "application/json" }
                                                 }).then(response => {
                                                     if (response.status !== 200) {
                                                         throw Error(response.statusText);
@@ -606,7 +606,7 @@ const Report = props => {
                                         }
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faFileDownload} className="mr-3"/>Export to Excel</Button>
+                                    <FontAwesomeIcon icon={faFileDownload} className="mr-3" />Export to Excel</Button>
                             </Col>
                             <Col sm="3">
                                 <Button
@@ -631,7 +631,7 @@ const Report = props => {
                                                             totalCharge: thisState.report.totalCharge,
                                                             footer: thisState.settings.value.footer
                                                         }),
-                                                        headers: {"content-type": "application/json"}
+                                                        headers: { "content-type": "application/json" }
                                                     }).then(response => {
                                                         if (response.status !== 200) {
                                                             throw Error(response.statusText);
@@ -641,7 +641,7 @@ const Report = props => {
                                                         if (thisState.settings.value.printerNameForWeighing === "get as .pdf File") {
                                                             FileSaver.saveAs(blob, "report.pdf");
                                                         } else {
-                                                            thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}));
+                                                            thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
                                                             thisState.setMyState(thisState);
                                                         }
                                                     }).catch(error => {
@@ -661,7 +661,7 @@ const Report = props => {
                                                             totalCharge: thisState.report.totalCharge,
                                                             footer: thisState.settings.value.footer
                                                         }),
-                                                        headers: {"content-type": "application/json"}
+                                                        headers: { "content-type": "application/json" }
                                                     }).then(response => {
                                                         if (response.status !== 200) {
                                                             throw Error(response.statusText);
@@ -686,7 +686,7 @@ const Report = props => {
                                                             totalAmount: thisState.report.totalCharge,
                                                             footer: thisState.settings.value.footer
                                                         }),
-                                                        headers: {"content-type": "application/json"}
+                                                        headers: { "content-type": "application/json" }
                                                     }).then(response => {
                                                         if (response.status !== 200) {
                                                             throw Error(response.statusText);
@@ -696,7 +696,7 @@ const Report = props => {
                                                         if (thisState.settings.value.printerNameForWeighing === "get as .pdf File") {
                                                             FileSaver.saveAs(blob, "report.pdf");
                                                         } else {
-                                                            thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}));
+                                                            thisState.report.pdfURL = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
                                                             thisState.setMyState(thisState);
                                                         }
                                                     }).catch(error => {
@@ -716,7 +716,7 @@ const Report = props => {
                                                             totalQuantity: thisState.report.totalWeight,
                                                             totalAmount: thisState.report.totalCharge,
                                                         }),
-                                                        headers: {"content-type": "application/json"}
+                                                        headers: { "content-type": "application/json" }
                                                     }).then(response => {
                                                         if (response.status !== 200) {
                                                             throw Error(response.statusText);
@@ -729,7 +729,7 @@ const Report = props => {
                                         }
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faPrint} className="mr-3"/>Print</Button>
+                                    <FontAwesomeIcon icon={faPrint} className="mr-3" />Print</Button>
                             </Col>
                         </Row>
                     </Col>
@@ -738,8 +738,8 @@ const Report = props => {
             {
                 thisState.report.list.length !== 0 ?
                     thisState.report.isType === "weight" ?
-                        <ReportWeightTable preState={thisState} className="flex-column"/>
-                        : <ReportInvoiceTable preState={thisState} className="flex-column"/>
+                        <ReportWeightTable preState={thisState} className="flex-column" />
+                        : <ReportInvoiceTable preState={thisState} className="flex-column" />
                     : ""
             }
         </React.Fragment>

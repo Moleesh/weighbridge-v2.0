@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const ResetInvoiceNo = props => {
     let thisState = props.preState;
@@ -122,14 +122,14 @@ const ResetInvoiceNo = props => {
                                         thisState.invoice.invoiceTime = "";
                                         thisState.invoice.customersName = "";
                                         thisState.invoices.reference.customersNameReference.value = [
-                                            {customerName: ""}
+                                            { customerName: "" }
                                         ];
                                         thisState.invoice.address1 = "";
                                         thisState.invoice.address2 = "";
                                         thisState.invoice.vehicleNo = "";
                                         thisState.invoice.material = "";
                                         thisState.invoices.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.invoice.unitPrice = 0;
                                         thisState.invoice.quantity = 0;

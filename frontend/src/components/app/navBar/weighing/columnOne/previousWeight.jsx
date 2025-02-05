@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Modal, Row} from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 
 const PreviousWeight = props => {
     let thisState = props.preState;

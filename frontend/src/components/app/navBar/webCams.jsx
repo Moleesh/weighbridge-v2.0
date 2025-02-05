@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Form, Row} from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 
 import WebCam from "./webCam/webCam";
 
@@ -23,20 +23,20 @@ const WebCams = props => {
                 </Form.Label>
                 {
                     thisState.settings.array.availableWebCams.map(webcam =>
-                        (
-                            <Col sm="2" key={webcam.split(" [")[0]}>
-                                <Form.Check
-                                    type="checkbox"
-                                    label={webcam.split(" [")[0]}
-                                    value={webcam.split(" [")[0]}
-                                />
-                            </Col>
-                        )
+                    (
+                        <Col sm="2" key={webcam.split(" [")[0]}>
+                            <Form.Check
+                                type="checkbox"
+                                label={webcam.split(" [")[0]}
+                                value={webcam.split(" [")[0]}
+                            />
+                        </Col>
+                    )
                     )
                 }
             </Form.Group>
             <Row>
-                {thisState.webcams.map(webcam => (<WebCam webcam={webcam} INITIAL_URL={thisState.INITIAL_URL}/>))}
+                {thisState.webcams.map(webcam => (<WebCam webcam={webcam} INITIAL_URL={thisState.INITIAL_URL} />))}
             </Row>
         </Form>
 

@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface TareWeightService {
 
-	TareWeight getTareWeightByVehicleNo(String vehicleNo);
+    TareWeight getTareWeightByVehicleNo(String vehicleNo);
 
-	List<TareWeight> getAllTareWeights();
+    List<TareWeight> getAllTareWeights();
 
-	TareWeight addUpdateTareWeight(TareWeight tareWeight);
+    TareWeight addUpdateTareWeight(TareWeight tareWeight);
 
-	void deleteTareWeight(String vehicleNo);
+    void deleteTareWeight(String vehicleNo);
 
 }

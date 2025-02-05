@@ -16,49 +16,49 @@ import java.util.Map;
 @Service
 public class SettingServiceImpl implements SettingService {
 
-	private final
-	SettingDAO settingDAO;
+    private final
+    SettingDAO settingDAO;
 
-	@Autowired
-	public SettingServiceImpl(SettingDAO settingDAO) {
-		this.settingDAO = settingDAO;
-	}
+    @Autowired
+    public SettingServiceImpl(SettingDAO settingDAO) {
+        this.settingDAO = settingDAO;
+    }
 
-	@Override
-	public String getSettingByProfile(String key, String profile) {
-		if (settingDAO.findOneByKeyAndProfile(key, profile) != null) {
-			return settingDAO.findOneByKeyAndProfile(key, profile).getValue();
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public String getSettingByProfile(String key, String profile) {
+        if (settingDAO.findOneByKeyAndProfile(key, profile) != null) {
+            return settingDAO.findOneByKeyAndProfile(key, profile).getValue();
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	@Cacheable(cacheNames = "Settings")
-	public Map<String, String> getAllSettingsByProfile(String profile) {
-		Map<String, String> settings = new HashMap<>();
-		settingDAO.findAllByProfile(profile).forEach(setting -> settings.put(setting.getKey(), setting.getValue()));
-		return settings;
-	}
+    @Override
+    @Cacheable(cacheNames = "Settings")
+    public Map<String, String> getAllSettingsByProfile(String profile) {
+        Map<String, String> settings = new HashMap<>();
+        settingDAO.findAllByProfile(profile).forEach(setting -> settings.put(setting.getKey(), setting.getValue()));
+        return settings;
+    }
 
-	@Override
-	@CacheEvict(value = "Settings", allEntries = true)
-	public void saveSetting(Setting setting) {
-		settingDAO.save(setting);
-	}
+    @Override
+    @CacheEvict(value = "Settings", allEntries = true)
+    public void saveSetting(Setting setting) {
+        settingDAO.save(setting);
+    }
 
-	@Override
-	@CacheEvict(value = "Settings", allEntries = true)
-	public void saveAllSettingsByProfile(Map<String, String> settings, String profile, boolean resetSlipNo) {
-		List<Setting> settingList = new ArrayList<>();
-		for (String key : settings.keySet()) {
-			if (!key.equals("slipNo")) {
-				settingList.add(new Setting(key, settings.get(key), profile));
-			} else if (resetSlipNo) {
-				settingList.add(new Setting(key, 1, profile));
-			}
-		}
-		settingDAO.saveAll(settingList);
-	}
+    @Override
+    @CacheEvict(value = "Settings", allEntries = true)
+    public void saveAllSettingsByProfile(Map<String, String> settings, String profile, boolean resetSlipNo) {
+        List<Setting> settingList = new ArrayList<>();
+        for (String key : settings.keySet()) {
+            if (!key.equals("slipNo")) {
+                settingList.add(new Setting(key, settings.get(key), profile));
+            } else if (resetSlipNo) {
+                settingList.add(new Setting(key, 1, profile));
+            }
+        }
+        settingDAO.saveAll(settingList);
+    }
 
 }

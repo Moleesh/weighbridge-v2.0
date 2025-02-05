@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfileDAO extends CrudRepository<Profile, String> {
 
-	Profile findFirstByMyPrimaryIsTrue();
+    Profile findFirstByMyPrimaryIsTrue();
 
 }

@@ -14,30 +14,30 @@ import java.util.Map;
 @Service
 public class AdminSettingServiceImpl implements AdminSettingService {
 
-	final
-	AdminSettingDAO adminSettingDAO;
+    final
+    AdminSettingDAO adminSettingDAO;
 
-	@Autowired
-	public AdminSettingServiceImpl(AdminSettingDAO adminSettingDAO) {
-		this.adminSettingDAO = adminSettingDAO;
-	}
+    @Autowired
+    public AdminSettingServiceImpl(AdminSettingDAO adminSettingDAO) {
+        this.adminSettingDAO = adminSettingDAO;
+    }
 
-	@Override
-	@Cacheable(cacheNames = "AdminSettings")
-	public Map<String, String> getAllAdminSettings() {
-		Map<String, String> adminSettings = new HashMap<>();
-		adminSettingDAO.findAll().forEach(adminSetting -> adminSettings.put(adminSetting.getKey(), adminSetting.getValue()));
-		return adminSettings;
-	}
+    @Override
+    @Cacheable(cacheNames = "AdminSettings")
+    public Map<String, String> getAllAdminSettings() {
+        Map<String, String> adminSettings = new HashMap<>();
+        adminSettingDAO.findAll().forEach(adminSetting -> adminSettings.put(adminSetting.getKey(), adminSetting.getValue()));
+        return adminSettings;
+    }
 
-	@Override
-	public String getAdminSetting(String key) {
-		return adminSettingDAO.findById(key).isPresent() ? adminSettingDAO.findById(key).get().getValue() : null;
-	}
+    @Override
+    public String getAdminSetting(String key) {
+        return adminSettingDAO.findById(key).isPresent() ? adminSettingDAO.findById(key).get().getValue() : null;
+    }
 
-	@Override
-	@CacheEvict(value = "AdminSettings", allEntries = true)
-	public void addUpdateAdminSettings(AdminSetting adminSetting) {
-		adminSettingDAO.save(adminSetting);
-	}
+    @Override
+    @CacheEvict(value = "AdminSettings", allEntries = true)
+    public void addUpdateAdminSettings(AdminSetting adminSetting) {
+        adminSettingDAO.save(adminSetting);
+    }
 }

@@ -5,7 +5,7 @@ import com.babulens.weighbridge.model.PrintWeightReport;
 
 public interface ExcelUtil {
 
-	byte[] getInvoiceAsExcel(PrintInvoiceReport printInvoiceReport);
+    byte[] getInvoiceAsExcel(PrintInvoiceReport printInvoiceReport);
 
-	byte[] getWeightAsExcel(PrintWeightReport printWeightReport);
+    byte[] getWeightAsExcel(PrintWeightReport printWeightReport);
 }

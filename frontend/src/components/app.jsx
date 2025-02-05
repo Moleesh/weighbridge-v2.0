@@ -1,11 +1,11 @@
-import React, {Component} from "react";
-import {Col, Container, Row} from "react-bootstrap";
-import {AlertList} from "react-bs-notifier";
+import React, { Component } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { AlertList } from "react-bs-notifier";
 import Header from "./app/header";
 import NavTabs from "./app/navBar";
 import moment from "moment";
 
-import {css} from "@emotion/react";
+import { css } from "@emotion/react";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 
@@ -207,7 +207,7 @@ class App extends Component {
             material: {
                 header: ["Material Id", "Material Name", "Unit Price"],
                 filterText: "",
-                template: {materialId: "", material: "", unitPrice: ""},
+                template: { materialId: "", material: "", unitPrice: "" },
                 list: [],
                 editable: true,
                 unlock: false
@@ -239,7 +239,7 @@ class App extends Component {
             tareWeight: {
                 header: ["Vehicle No", "Tare Weight", "Tare Time"],
                 filterText: "",
-                template: {vehicleNo: "", tareWeight: "", tareTime: ""},
+                template: { vehicleNo: "", tareWeight: "", tareTime: "" },
                 list: [],
                 editable: false,
                 unlock: false
@@ -278,7 +278,7 @@ class App extends Component {
                 vehicleNoReference: React.createRef(),
                 materialReference: {
                     reference: React.createRef(),
-                    value: [{material: ""}],
+                    value: [{ material: "" }],
                     open: undefined
                 },
                 customersNameReference: React.createRef(),
@@ -334,7 +334,7 @@ class App extends Component {
                 referenceSlipNoReference: React.createRef(),
                 customersNameReference: {
                     reference: React.createRef(),
-                    value: [{customerName: ""}],
+                    value: [{ customerName: "" }],
                     open: undefined
                 },
                 gstinReference: React.createRef(),
@@ -342,7 +342,7 @@ class App extends Component {
                 driverNameReference: React.createRef(),
                 materialReference: {
                     reference: React.createRef(),
-                    value: [{material: ""}],
+                    value: [{ material: "" }],
                     open: undefined
                 },
                 dummySelectorReference: React.createRef(),
@@ -834,7 +834,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        let thisState = {...this.state, setMyState: this.setMyState, switchFocus: this.switchFocus};
+        let thisState = { ...this.state, setMyState: this.setMyState, switchFocus: this.switchFocus };
         Promise.all(
             [
                 fetch(thisState.INITIAL_URL + "/adminSetting/getAllAdminSettings").then(resp => resp.json()),
@@ -957,7 +957,7 @@ class App extends Component {
         if (thisState.loading) {
             return (
                 <Container>
-                    <Row className="mt-5 pt-5"/>
+                    <Row className="mt-5 pt-5" />
                     <Row className="mt-5 pt-5 justify-content-md-center">
                         <Col lg="auto">
                             Software is Loading...
@@ -993,12 +993,12 @@ class App extends Component {
                     />
                     <Row>
                         <Col>
-                            <Header preState={thisState}/>
+                            <Header preState={thisState} />
                         </Col>
                     </Row>
                     <Row className="min-height">
                         <Col>
-                            <NavTabs preState={thisState}/>
+                            <NavTabs preState={thisState} />
                         </Col>
                     </Row>
                     <div className="footer-copyright text-center py-1">

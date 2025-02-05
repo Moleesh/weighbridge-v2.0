@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Row} from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import moment from "moment";
 
 import RePrint from "./bottom/rePrint";
@@ -60,8 +60,8 @@ const Bottom = props => {
                         thisState.weight.nettTime = date;
                         thisState
                             .setMyState(thisState).then(() =>
-                            thisState.switchFocus(thisState, 'weighing', 'save', false)
-                        );
+                                thisState.switchFocus(thisState, 'weighing', 'save', false)
+                            );
                     }}
                     disabled={thisState.weighing.disable.getWeightDisabled}
                     ref={thisState.weighing.reference.getWeightReference}
@@ -91,7 +91,7 @@ const Bottom = props => {
                             fetch(thisState.INITIAL_URL + "/weight/saveWeight", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.weight),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status === 200) {
                                     return response.json();
@@ -105,7 +105,7 @@ const Bottom = props => {
                                         thisState.switchFocus(thisState, 'weighing', 'print', false);
                                         preventSave = false;
                                     }
-                                );
+                                    );
                             }).catch(() => {
                                 preventSave = false;
                             });
@@ -142,7 +142,7 @@ const Bottom = props => {
                 >
                     Re Print
                 </Button>
-                <RePrint preState={thisState}/>
+                <RePrint preState={thisState} />
             </Col>
             <Col sm="4">
                 <Button
@@ -172,7 +172,7 @@ const Bottom = props => {
                 >
                     Print
                 </Button>
-                <Print preState={thisState}/>
+                <Print preState={thisState} />
                 <Button
                     className="adam-button"
                     variant="primary"
@@ -208,7 +208,7 @@ const Bottom = props => {
                             thisState.weight.transporterName = "";
                             thisState.weight.material = "";
                             thisState.weighing.reference.materialReference.value = [
-                                {material: ""}
+                                { material: "" }
                             ];
                             thisState.weight.grossWeight = "";
                             thisState.weight.grossTime = "";
@@ -232,7 +232,7 @@ const Bottom = props => {
                     Clear
                 </Button>
             </Col>
-            <Col sm="6"/>
+            <Col sm="6" />
         </Row>
     );
 };

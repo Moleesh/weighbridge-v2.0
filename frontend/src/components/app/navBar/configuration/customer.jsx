@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Row, Table} from "react-bootstrap";
+import { Button, Col, Form, Row, Table } from "react-bootstrap";
 
 import Toggle from "react-bootstrap-toggle";
 
@@ -8,7 +8,7 @@ const Customer = props => {
     return (
         <Form className="justify-content-center ">
             <Row className="pb-2">
-                <Col sm="2"/>
+                <Col sm="2" />
                 <Col sm="8" className="pl-3">
                     <h4 className="text-center font-weight-bold">Customer's Details</h4>
                 </Col>
@@ -81,7 +81,7 @@ const Customer = props => {
                                                 profile: thisState.PROFILE
                                             }
                                         ),
-                                        headers: {"content-type": "application/json"}
+                                        headers: { "content-type": "application/json" }
                                     }).then(response => {
                                         if (response.status === 200) {
                                             return response.json();
@@ -118,113 +118,113 @@ const Customer = props => {
             )}
             <Table hover size="sm">
                 <thead>
-                <tr>
-                    {thisState.configuration.customer.header.map(item => (
-                        <th key={item} className="centre">
-                            {item}
-                        </th>
-                    ))}
-                    {thisState.configuration.customer.unlock ? <th/> : null}
-                </tr>
+                    <tr>
+                        {thisState.configuration.customer.header.map(item => (
+                            <th key={item} className="centre">
+                                {item}
+                            </th>
+                        ))}
+                        {thisState.configuration.customer.unlock ? <th /> : null}
+                    </tr>
                 </thead>
                 <tbody>
-                {thisState.configuration.customer.list.map((item, index) => (
-                    <tr key={index} className="eachRow">
-                        {Object.values(item).toString().replaceAll(",", ".").indexOf(thisState.configuration.customer.filterText) ===
-                        -1 ? null : (
-                            <React.Fragment>
-                                {Object.keys(thisState.configuration.customer.template).map(key => (
-                                    <td key={key + "_" + item[key]}>
-                                        <Col>
-                                            <Form.Control
-                                                autoComplete="none"
-                                                className="text-center form-control reportInputs"
-                                                disabled={
-                                                    !(
-                                                        thisState.configuration.customer.unlock &&
-                                                        thisState.configuration.customer.editable
-                                                    )
-                                                }
-                                                type="text"
-                                                name={key}
-                                                value={item[key] !== null ? item[key] : ""}
-                                                onChange={event => {
-                                                    thisState.configuration.customer.list[index][key] =
-                                                        event.target.value;
-                                                    thisState.setMyState(thisState);
-                                                }}
-                                            />
-                                        </Col>
-                                    </td>
-                                ))}
-                                {thisState.configuration.customer.unlock ? (
-                                    <td>
-                                        <Row>
-                                            {thisState.configuration.customer.editable ? (
+                    {thisState.configuration.customer.list.map((item, index) => (
+                        <tr key={index} className="eachRow">
+                            {Object.values(item).toString().replaceAll(",", ".").indexOf(thisState.configuration.customer.filterText) ===
+                                -1 ? null : (
+                                <React.Fragment>
+                                    {Object.keys(thisState.configuration.customer.template).map(key => (
+                                        <td key={key + "_" + item[key]}>
+                                            <Col>
+                                                <Form.Control
+                                                    autoComplete="none"
+                                                    className="text-center form-control reportInputs"
+                                                    disabled={
+                                                        !(
+                                                            thisState.configuration.customer.unlock &&
+                                                            thisState.configuration.customer.editable
+                                                        )
+                                                    }
+                                                    type="text"
+                                                    name={key}
+                                                    value={item[key] !== null ? item[key] : ""}
+                                                    onChange={event => {
+                                                        thisState.configuration.customer.list[index][key] =
+                                                            event.target.value;
+                                                        thisState.setMyState(thisState);
+                                                    }}
+                                                />
+                                            </Col>
+                                        </td>
+                                    ))}
+                                    {thisState.configuration.customer.unlock ? (
+                                        <td>
+                                            <Row>
+                                                {thisState.configuration.customer.editable ? (
+                                                    <Col>
+                                                        <Button
+                                                            block
+                                                            className="btn-min-width"
+                                                            variant="warning"
+                                                            onClick={() => {
+                                                                fetch(
+                                                                    thisState.INITIAL_URL + "/customer/addUpdateCustomer",
+                                                                    {
+                                                                        method: "PUT",
+                                                                        body: JSON.stringify(
+                                                                            thisState.configuration.customer.list[index]
+                                                                        ),
+                                                                        headers: {
+                                                                            "content-type": "application/json"
+                                                                        }
+                                                                    }
+                                                                ).then(response => {
+                                                                    if (response.status === 200) {
+                                                                        return response.json();
+                                                                    } else throw Error(response.statusText);
+                                                                });
+                                                            }}
+                                                        >
+                                                            Update
+                                                        </Button>
+                                                    </Col>
+                                                ) : (
+                                                    ""
+                                                )}
                                                 <Col>
                                                     <Button
                                                         block
                                                         className="btn-min-width"
-                                                        variant="warning"
+                                                        variant="danger"
                                                         onClick={() => {
                                                             fetch(
-                                                                thisState.INITIAL_URL + "/customer/addUpdateCustomer",
+                                                                thisState.INITIAL_URL +
+                                                                "/customer/deleteCustomer?id=" +
+                                                                thisState.configuration.customer.list[index].id,
                                                                 {
-                                                                    method: "PUT",
-                                                                    body: JSON.stringify(
-                                                                        thisState.configuration.customer.list[index]
-                                                                    ),
-                                                                    headers: {
-                                                                        "content-type": "application/json"
-                                                                    }
+                                                                    method: "DELETE"
                                                                 }
                                                             ).then(response => {
                                                                 if (response.status === 200) {
-                                                                    return response.json();
+                                                                    thisState.configuration.customer.list.splice(
+                                                                        index,
+                                                                        1
+                                                                    );
+                                                                    thisState.setMyState(thisState);
                                                                 } else throw Error(response.statusText);
                                                             });
                                                         }}
                                                     >
-                                                        Update
+                                                        Remove
                                                     </Button>
                                                 </Col>
-                                            ) : (
-                                                ""
-                                            )}
-                                            <Col>
-                                                <Button
-                                                    block
-                                                    className="btn-min-width"
-                                                    variant="danger"
-                                                    onClick={() => {
-                                                        fetch(
-                                                            thisState.INITIAL_URL +
-                                                            "/customer/deleteCustomer?id=" +
-                                                            thisState.configuration.customer.list[index].id,
-                                                            {
-                                                                method: "DELETE"
-                                                            }
-                                                        ).then(response => {
-                                                            if (response.status === 200) {
-                                                                thisState.configuration.customer.list.splice(
-                                                                    index,
-                                                                    1
-                                                                );
-                                                                thisState.setMyState(thisState);
-                                                            } else throw Error(response.statusText);
-                                                        });
-                                                    }}
-                                                >
-                                                    Remove
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </td>
-                                ) : null}
-                            </React.Fragment>
-                        )}
-                    </tr>
-                ))}
+                                            </Row>
+                                        </td>
+                                    ) : null}
+                                </React.Fragment>
+                            )}
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </Form>

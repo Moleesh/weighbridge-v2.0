@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Form, Row} from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 
 const ColumnTwo = props => {
     let thisState = props.preState;

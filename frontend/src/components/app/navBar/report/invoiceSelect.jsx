@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, Modal, Row} from "react-bootstrap";
+import { Button, Form, Modal, Row } from "react-bootstrap";
 
 import moment from "moment";
 
@@ -77,7 +77,7 @@ const InvoiceSelect = props => {
                                 dummy: thisState.report.dummy,
                                 profile: thisState.PROFILE
                             }),
-                            headers: {"content-type": "application/json"}
+                            headers: { "content-type": "application/json" }
                         }).then(response => {
                             if (response.status === 200) {
                                 return response.json();

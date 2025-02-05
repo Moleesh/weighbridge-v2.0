@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface SerialPortService {
 
-	SerialPortDetail getSerialPortDetailByName(String name);
+    SerialPortDetail getSerialPortDetailByName(String name);
 
-	List<String> getAllSerialPort();
+    List<String> getAllSerialPort();
 
-	void settingUpSerialPort(String name, boolean setDataListener);
+    void settingUpSerialPort(String name, boolean setDataListener);
 
-	void updateSerialPortDetail(SerialPortDetail serialPortDetail);
+    void updateSerialPortDetail(SerialPortDetail serialPortDetail);
 
-	int getWeight();
+    int getWeight();
 
-	void sendToDisplay(String message);
+    void sendToDisplay(String message);
 
 }

@@ -9,5 +9,4 @@ import "react-bootstrap-typeahead/css/Typeahead.min.css";
 
 import "./css/index.css";
 
-ReactDOM.render(< App/>, document.getElementById("root"))
-
+ReactDOM.render(<App />, document.getElementById("root"));

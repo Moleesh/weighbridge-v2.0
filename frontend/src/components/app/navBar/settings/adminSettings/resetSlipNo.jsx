@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 const ResetSlipNo = props => {
     let thisState = props.preState;
@@ -120,7 +120,7 @@ const ResetSlipNo = props => {
                                         thisState.weight.transporterName = "";
                                         thisState.weight.material = "";
                                         thisState.weighing.reference.materialReference.value = [
-                                            {material: ""}
+                                            { material: "" }
                                         ];
                                         thisState.weight.grossWeight = "";
                                         thisState.weight.grossTime = "";

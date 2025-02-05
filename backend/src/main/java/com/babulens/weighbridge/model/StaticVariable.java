@@ -18,60 +18,60 @@ import java.util.logging.Logger;
 
 public class StaticVariable {
 
-	private static final Map<String, SerialPort> serialPorts = new HashMap<>();
-	private static final Map<String, Webcam> webcams = new HashMap<>();
-	private static int weight = -1;
+    private static final Map<String, SerialPort> serialPorts = new HashMap<>();
+    private static final Map<String, Webcam> webcams = new HashMap<>();
+    private static int weight = -1;
 
-	static {
-		Webcam.setDriver(new WebcamCompositeDriver() {
-			{
-				try {
-					add(new IpCamDriver(new IpCamStorage("webcam.xml")));
-				} catch (NullPointerException | WebcamException ex) {
-					add(new IpCamDriver() {{
-						try {
-							register(new IpCamDevice("No WebCam Available", "http:", IpCamMode.PULL));
-						} catch (MalformedURLException | WebcamException ex) {
-							Logger.getLogger(StaticVariable.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-						}
-					}});
-				}
-				add(new WebcamDefaultDriver());
-			}
-		});
-	}
+    static {
+        Webcam.setDriver(new WebcamCompositeDriver() {
+            {
+                try {
+                    add(new IpCamDriver(new IpCamStorage("webcam.xml")));
+                } catch (NullPointerException | WebcamException ex) {
+                    add(new IpCamDriver() {{
+                        try {
+                            register(new IpCamDevice("No WebCam Available", "http:", IpCamMode.PULL));
+                        } catch (MalformedURLException | WebcamException ex) {
+                            Logger.getLogger(StaticVariable.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                        }
+                    }});
+                }
+                add(new WebcamDefaultDriver());
+            }
+        });
+    }
 
-	StaticVariable() {
-	}
+    StaticVariable() {
+    }
 
-	public static int getWeight() {
-		return weight;
-	}
+    public static int getWeight() {
+        return weight;
+    }
 
-	public static void setWeight(int weight) {
-		StaticVariable.weight = weight;
-	}
+    public static void setWeight(int weight) {
+        StaticVariable.weight = weight;
+    }
 
-	public static SerialPort getSerialPort(String serialPort) {
-		if (!serialPorts.containsKey(serialPort)) {
-			serialPorts.put(serialPort, null);
-		}
-		return serialPorts.get(serialPort);
-	}
+    public static SerialPort getSerialPort(String serialPort) {
+        if (!serialPorts.containsKey(serialPort)) {
+            serialPorts.put(serialPort, null);
+        }
+        return serialPorts.get(serialPort);
+    }
 
-	public static void setSerialPort(String key, SerialPort serialPort) {
-		StaticVariable.serialPorts.put(key, serialPort);
-	}
+    public static void setSerialPort(String key, SerialPort serialPort) {
+        StaticVariable.serialPorts.put(key, serialPort);
+    }
 
-	public static Webcam getWebcam(String webCam) {
-		if (!webcams.containsKey(webCam)) {
-			webcams.put(webCam, null);
-		}
-		return webcams.get(webCam);
-	}
+    public static Webcam getWebcam(String webCam) {
+        if (!webcams.containsKey(webCam)) {
+            webcams.put(webCam, null);
+        }
+        return webcams.get(webCam);
+    }
 
-	public static void setWebcam(String key, Webcam webcam) {
-		StaticVariable.webcams.put(key, webcam);
-	}
+    public static void setWebcam(String key, Webcam webcam) {
+        StaticVariable.webcams.put(key, webcam);
+    }
 
 }

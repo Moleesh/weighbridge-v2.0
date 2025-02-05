@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Row} from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import moment from "moment";
 
 import RePrint from "./bottom/rePrint";
@@ -25,7 +25,7 @@ const Bottom = props => {
                             fetch(thisState.INITIAL_URL + "/invoice/saveInvoice", {
                                 method: "POST",
                                 body: JSON.stringify(thisState.invoice),
-                                headers: {"content-type": "application/json"}
+                                headers: { "content-type": "application/json" }
                             }).then(response => {
                                 if (response.status === 200) {
                                     return response.json();
@@ -49,9 +49,9 @@ const Bottom = props => {
                                 thisState.invoices.disable.printDisabled = false;
                                 thisState
                                     .setMyState(thisState).then(() => {
-                                    thisState.switchFocus(thisState, 'invoices', 'print', false);
-                                    preventSave = false;
-                                });
+                                        thisState.switchFocus(thisState, 'invoices', 'print', false);
+                                        preventSave = false;
+                                    });
                             }).catch(() => {
                                 preventSave = false;
                             });
@@ -96,7 +96,7 @@ const Bottom = props => {
                 >
                     Re Print
                 </Button>
-                <RePrint preState={thisState}/>
+                <RePrint preState={thisState} />
             </Col>
             <Col sm="3">
                 <Button
@@ -126,7 +126,7 @@ const Bottom = props => {
                 >
                     Print
                 </Button>
-                <Print preState={thisState}/>
+                <Print preState={thisState} />
             </Col>
             <Col sm="3">
                 <Button
@@ -169,7 +169,7 @@ const Bottom = props => {
                             thisState.invoice.customersName = "";
                             thisState.invoice.gstin = "";
                             thisState.invoices.reference.customersNameReference.value = [
-                                {customerName: ""}
+                                { customerName: "" }
                             ];
                             thisState.invoice.address1 = "";
                             thisState.invoice.address2 = "";
@@ -180,7 +180,7 @@ const Bottom = props => {
                             thisState.invoice.driverName = "";
                             thisState.invoice.material = "";
                             thisState.invoices.reference.materialReference.value = [
-                                {material: ""}
+                                { material: "" }
                             ];
                             thisState.invoice.unitPrice = 0;
                             thisState.invoice.quantity = 0;

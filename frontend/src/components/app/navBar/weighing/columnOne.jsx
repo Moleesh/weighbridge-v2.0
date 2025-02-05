@@ -1,7 +1,7 @@
 import React from "react";
-import {Col, Form, Row} from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import Clock from "react-live-clock";
-import {Menu, MenuItem, Typeahead} from "react-bootstrap-typeahead";
+import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 
 import PreviousWeight from './columnOne/previousWeight';
 
@@ -29,8 +29,8 @@ const ColumnOne = props => {
                 <Form.Label column sm="6">
                     Date & Time
                 </Form.Label>
-                <Col sm="6" style={{textAlign: "center"}}>
-                    <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true}/>
+                <Col sm="6" style={{ textAlign: "center" }}>
+                    <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -99,7 +99,7 @@ const ColumnOne = props => {
                         }
                         autoFocus={true}
                     />
-                    <PreviousWeight preState={thisState}/>
+                    <PreviousWeight preState={thisState} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
