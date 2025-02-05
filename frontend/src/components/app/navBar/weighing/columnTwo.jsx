@@ -128,9 +128,9 @@ const ColumnTwo = props => {
                             ) : null
                         }
                         options={thisState.configuration.place.list}
-                        maxHeight={"200px"}
+                        maxHeight={200}
                         selected={thisState.weighing.reference.placeReference.value}
-                        disabled={thisState.weighing.disable.placeDisabled}
+                        disabled={thisState.settings.value.hidePlace || thisState.weighing.disable.placeDisabled}
                         open={thisState.weighing.reference.placeReference.open}
                         onChange={event => {
                             thisState.weighing.reference.placeReference.value =

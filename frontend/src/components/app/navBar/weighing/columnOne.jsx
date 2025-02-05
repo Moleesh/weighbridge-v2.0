@@ -129,7 +129,7 @@ const ColumnOne = props => {
                             ) : null
                         }
                         options={thisState.configuration.material.list}
-                        maxHeight={"200px"}
+                        maxHeight={200}
                         selected={thisState.weighing.reference.materialReference.value}
                         disabled={thisState.weighing.disable.materialDisabled}
                         open={thisState.weighing.reference.materialReference.open}

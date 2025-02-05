@@ -33,7 +33,7 @@ const ColumnTwo = props => {
                             ) : null
                         }
                         options={thisState.configuration.material.list}
-                        maxHeight={"200px"}
+                        maxHeight={200}
                         selected={thisState.invoices.reference.materialReference.value}
                         disabled={thisState.invoices.disable.materialDisabled}
                         open={thisState.invoices.reference.materialReference.open}
@@ -253,7 +253,7 @@ const ColumnTwo = props => {
                         id="modeOfPayment"
                         shouldSelect={true}
                         options={thisState.configuration.modeOfPayment.list}
-                        maxHeight={"200px"}
+                        maxHeight={200}
                         selected={thisState.invoices.reference.modeOfPaymentReference.value}
                         disabled={thisState.invoices.disable.modeOfPaymentDisabled || thisState.settings.value.hideModeOfPayment}
                         open={thisState.invoices.reference.modeOfPaymentReference.open}

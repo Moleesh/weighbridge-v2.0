@@ -90,8 +90,7 @@ const Print = props => {
                                     noOfCopies: thisState.settings.value.noOfCopiesForWeighing,
                                     printFormat: thisState.settings.value.printFormatForWeighing,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress:
-                                        thisState.settings.value.weighbridgeAddress,
+                                    weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
                                 headers: { "content-type": "application/json" }
@@ -112,8 +111,7 @@ const Print = props => {
                                     noOfCopies: thisState.settings.value.noOfCopiesForWeighing,
                                     printFormat: thisState.settings.value.printFormatForWeighing,
                                     weighbridgeName: thisState.settings.value.weighbridgeName,
-                                    weighbridgeAddress:
-                                        thisState.settings.value.weighbridgeAddress,
+                                    weighbridgeAddress: thisState.settings.value.weighbridgeAddress,
                                     footer: thisState.settings.value.footer
                                 }),
                                 headers: { "content-type": "application/json" }

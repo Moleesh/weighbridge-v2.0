@@ -112,7 +112,7 @@ const ColumnOne = props => {
                             ) : null
                         }
                         options={thisState.configuration.customer.list}
-                        maxHeight={"200px"}
+                        maxHeight={200}
                         selected={thisState.invoices.reference.customersNameReference.value}
                         disabled={thisState.invoices.disable.customersNameDisabled}
                         open={thisState.invoices.reference.customersNameReference.open}

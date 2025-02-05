@@ -16,6 +16,11 @@
     animation-duration: 1.2s;
 }
 
+.close {
+    border: none;
+    background: none;
+}
+
 @keyframes run {
     0% {
         left: -90px;
