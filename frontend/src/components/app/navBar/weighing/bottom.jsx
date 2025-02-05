@@ -16,7 +16,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         thisState.weighing.disable.grossSelectorDisabled = true;
                         thisState.weighing.disable.tareSelectorDisabled = true;
@@ -82,7 +81,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         if (!preventSave) {
                             preventSave = true;
@@ -120,7 +118,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         thisState.weighing.reprint = true;
                         thisState.weighing.reprintSlipNo = "";
@@ -148,7 +145,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         thisState.weighing.print = true;
                         thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'weighing', 'printDialog', false));
@@ -176,7 +172,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         fetch(thisState.INITIAL_URL + "/setting/getNextSlipNoByProfile?profile=" + thisState.PROFILE).then(response => {
                             if (response.status === 200) {

@@ -87,8 +87,6 @@ const InvoiceNo = props => {
                             }
                             thisState.setMyState(thisState)
                         });
-
-
                     }}
                     onKeyPress={event => {
                         if (prevent) {

@@ -1,6 +1,5 @@
 package com.babulens.weighbridge.service;
 
-
 import java.util.List;
 
 public interface ProfileService {

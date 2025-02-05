@@ -79,6 +79,46 @@ const ColumnTwo = props => {
                             } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.weight.transporterName = thisState.weight.transporterName.toUpperCase();
                                 thisState.setMyState(thisState);
+                                thisState.switchFocus(thisState, 'weighing', 'place', false);
+                            }
+                        }}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+                {thisState.settings.hideFields ?
+                    <Col sm="6">
+                        <Form.Check
+                            type="checkbox"
+                            label="Place"
+                            checked={thisState.settings.value.hidePlace}
+                            onChange={event => {
+                                thisState.settings.value.hidePlace = event.target.checked;
+                                thisState.setMyState(thisState);
+                            }}
+                        />
+                    </Col>
+                    :
+                    <Form.Label column sm="6" className={thisState.settings.value.hidePlace ? "hide" : ""}>
+                        Place
+                    </Form.Label>
+                }
+                <Col sm="6">
+                    <Form.Control
+                        className={thisState.settings.value.hidePlace ? "hide" : "text-center"}
+                        disabled={thisState.weighing.disable.placeDisabled || thisState.settings.value.hidePlace}
+                        ref={thisState.weighing.reference.placeReference}
+                        value={thisState.weight.place}
+                        onChange={event => {
+                            thisState.weight.place = event.target.value;
+                            thisState.setMyState(thisState);
+                        }}
+                        onKeyDown={event => {
+                            if (event.key === "Tab" && event.shiftKey) {
+                                thisState.switchFocus(thisState, 'weighing', 'transporterName', true);
+                            } else if (event.key === "Enter" || event.key === "Tab") {
+                                thisState.weight.place = thisState.weight.place.toUpperCase();
+                                thisState.setMyState(thisState);
                                 thisState.switchFocus(thisState, 'weighing', 'charges', false);
                             }
                         }}

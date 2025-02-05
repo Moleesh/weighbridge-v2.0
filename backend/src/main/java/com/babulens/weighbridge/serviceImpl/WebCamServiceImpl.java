@@ -32,7 +32,6 @@ public class WebCamServiceImpl implements WebCamService {
     private final WebCamDetailDAO webCamDetailDAO;
     private boolean dontLog = false;
 
-
     @Autowired
     public WebCamServiceImpl(WebCamDetailDAO webCamDetailDAO) {
         this.webCamDetailDAO = webCamDetailDAO;

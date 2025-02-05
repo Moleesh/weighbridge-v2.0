@@ -3,7 +3,6 @@ import { Col, Form, Row } from "react-bootstrap";
 
 import WebCam from "./webCam/webCam";
 
-
 const WebCams = props => {
     let thisState = props.preState;
     return (

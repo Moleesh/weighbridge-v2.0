@@ -8,6 +8,7 @@ import com.babulens.weighbridge.model.PrintWeightReport;
 import com.babulens.weighbridge.model.entity.Customer;
 import com.babulens.weighbridge.model.entity.Invoice;
 import com.babulens.weighbridge.model.entity.Material;
+import com.babulens.weighbridge.model.entity.Place;
 import com.babulens.weighbridge.model.entity.SerialPortDetail;
 import com.babulens.weighbridge.model.entity.TareWeight;
 import com.babulens.weighbridge.model.entity.WebCamDetail;
@@ -16,6 +17,7 @@ import com.babulens.weighbridge.service.AdminSettingService;
 import com.babulens.weighbridge.service.CustomerService;
 import com.babulens.weighbridge.service.InvoiceService;
 import com.babulens.weighbridge.service.MaterialService;
+import com.babulens.weighbridge.service.PlaceService;
 import com.babulens.weighbridge.service.PrinterService;
 import com.babulens.weighbridge.service.ProfileService;
 import com.babulens.weighbridge.service.SerialPortService;
@@ -47,6 +49,7 @@ class RestController {
     private final InvoiceService invoiceService;
     private final MaterialService materialService;
     private final CustomerService customerService;
+    private final PlaceService placeService;
     private final TareWeightService tareWeightService;
     private final SettingService settingService;
     private final PrinterService printerService;
@@ -57,7 +60,7 @@ class RestController {
     private final CacheManager cacheManager;
 
     @Autowired
-    public RestController(WeighService weighService, InvoiceService invoiceService, MaterialService materialService, CustomerService customerService,
+    public RestController(WeighService weighService, InvoiceService invoiceService, MaterialService materialService, CustomerService customerService, PlaceService placeService,
                           TareWeightService tareWeightService, SettingService settingService, PrinterService printerService,
                           SerialPortService serialPortService, WebCamService webCamService, ProfileService profileService,
                           AdminSettingService adminSettingService, ExcelUtil excelUtil, CacheManager cacheManager) {
@@ -65,6 +68,7 @@ class RestController {
         this.materialService = materialService;
         this.invoiceService = invoiceService;
         this.customerService = customerService;
+        this.placeService = placeService;
         this.tareWeightService = tareWeightService;
         this.settingService = settingService;
         this.printerService = printerService;
@@ -213,6 +217,21 @@ class RestController {
     @RequestMapping(value = "/customer/deleteCustomer", method = {RequestMethod.DELETE})
     public void deleteCustomer(@RequestParam("id") int id) {
         customerService.deleteCustomer(id);
+    }
+
+    @RequestMapping(value = "/place/getAllPlaces", method = {RequestMethod.GET})
+    public List<Place> getAllPlaces() {
+        return placeService.getAllPlaces();
+    }
+
+    @RequestMapping(value = "/place/addUpdatePlace", method = {RequestMethod.POST, RequestMethod.PUT})
+    public Place addUpdatePlace(@RequestBody Place place) {
+        return placeService.addUpdatePlace(place);
+    }
+
+    @RequestMapping(value = "/place/deletePlace", method = {RequestMethod.DELETE})
+    public void deletePlace(@RequestParam("id") int id) {
+        placeService.deletePlace(id);
     }
 
     @RequestMapping(value = "/tareWeight/getAllTareWeights", method = {RequestMethod.GET})

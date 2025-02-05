@@ -201,7 +201,7 @@ const ColumnOne = props => {
                         }}
                         onKeyDown={event => {
                             if (event.key === "Tab" && event.shiftKey) {
-                                thisState.switchFocus(thisState, 'weighing', 'transporterName', true);
+                                thisState.switchFocus(thisState, 'weighing', 'place', true);
                             } else if (event.key === "Enter" || event.key === "Tab") {
                                 thisState.switchFocus(thisState, 'weighing', 'remarks', false);
                             }

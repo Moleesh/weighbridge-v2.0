@@ -6,13 +6,13 @@ import Toggle from "react-bootstrap-toggle";
 const Customer = props => {
     let thisState = props.preState;
     return (
-        <Form className="justify-content-center ">
+        <Form className="justify-content-center">
             <Row className="pb-2">
                 <Col sm="2" />
                 <Col sm="8" className="pl-3">
                     <h4 className="text-center font-weight-bold">Customer's Details</h4>
                 </Col>
-                <Col sm="2">
+                <Col sm={2}>
                     <Row className="justify-content-center">
                         <Toggle
                             onClick={() => {
@@ -43,7 +43,7 @@ const Customer = props => {
                 />
             </Form.Group>
             {thisState.configuration.customer.unlock ? (
-                <Form.Row>
+                <Row>
                     {Object.keys(thisState.configuration.customer.template).map(key => (
                         <Col className="pb-2" key={key}>
                             <Form.Control
@@ -93,7 +93,6 @@ const Customer = props => {
                                         );
                                         thisState.setMyState(thisState).then(() => {
                                             thisState.configuration.customer.list.push(result);
-
                                             thisState.setMyState(thisState);
                                         });
                                     });
@@ -112,7 +111,7 @@ const Customer = props => {
                             Add
                         </Button>
                     </Col>
-                </Form.Row>
+                </Row>
             ) : (
                 ""
             )}
@@ -134,7 +133,7 @@ const Customer = props => {
                                 -1 ? null : (
                                 <React.Fragment>
                                     {Object.keys(thisState.configuration.customer.template).map(key => (
-                                        <td key={key + "_" + item[key]}>
+                                        <td key={key + "_" + item["id"]}>
                                             <Col>
                                                 <Form.Control
                                                     autoComplete="none"
@@ -163,7 +162,6 @@ const Customer = props => {
                                                 {thisState.configuration.customer.editable ? (
                                                     <Col>
                                                         <Button
-                                                            block
                                                             className="btn-min-width"
                                                             variant="warning"
                                                             onClick={() => {
@@ -193,7 +191,6 @@ const Customer = props => {
                                                 )}
                                                 <Col>
                                                     <Button
-                                                        block
                                                         className="btn-min-width"
                                                         variant="danger"
                                                         onClick={() => {

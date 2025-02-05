@@ -4,6 +4,7 @@ import { Col, Nav, Row, Tab } from "react-bootstrap";
 import Material from "./configuration/material";
 import Customer from "./configuration/customer";
 import TareWeight from "./configuration/tareWeight";
+import Place from "./configuration/place";
 
 const Configuration = props => {
     let thisState = props.preState;
@@ -14,41 +15,16 @@ const Configuration = props => {
                     <Nav variant="pills" className="flex-column">
                         <h5 className="font-weight-bold pb-3">Configuration</h5>
                         <Nav.Item>
-                            <Nav.Link eventKey="material" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/material/getAllMaterials").then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                }).then(result => {
-                                    thisState.configuration.material.list = result;
-                                    thisState.setMyState(thisState);
-                                });
-                            }}
-                            >Materials</Nav.Link>
+                            <Nav.Link eventKey="material">Materials</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="customers" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/customer/getAllCustomers").then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                }).then(result => {
-                                    thisState.configuration.customer.list = result;
-                                    thisState.setMyState(thisState);
-                                });
-                            }}>Customer's Details</Nav.Link>
+                            <Nav.Link eventKey="place">Places</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="tareWeight" onSelect={() => {
-                                fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(response => {
-                                    if (response.status === 200) {
-                                        return response.json();
-                                    } else throw Error(response.statusText);
-                                }).then(result => {
-                                    thisState.configuration.tareWeight.list = result;
-                                    thisState.setMyState(thisState);
-                                });
-                            }}>Tare Weights</Nav.Link>
+                            <Nav.Link eventKey="customers">Customer's Details</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="tareWeight">Tare Weights</Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Col>
@@ -56,6 +32,9 @@ const Configuration = props => {
                     <Tab.Content>
                         <Tab.Pane eventKey="material">
                             <Material preState={thisState} key="material" />
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="place">
+                            <Place preState={thisState} key="place" />
                         </Tab.Pane>
                         <Tab.Pane eventKey="customers">
                             <Customer preState={thisState} key="customers" />

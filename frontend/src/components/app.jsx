@@ -8,7 +8,6 @@ import moment from "moment";
 import { css } from "@emotion/react";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
-
 const INITIAL_URL = "";
 
 class App extends Component {
@@ -106,6 +105,7 @@ class App extends Component {
                 hideCharges: false,
                 hideCustomerName: false,
                 hideTransporterName: false,
+                hidePlace: false,
                 hideRemarks: false,
                 hideVehicleNo: false,
                 hideDriverName: false,
@@ -236,6 +236,14 @@ class App extends Component {
                 editable: true,
                 unlock: false
             },
+            place: {
+                header: ["Place Id", "Place Name"],
+                filterText: "",
+                template: { placeId: "", place: "" },
+                list: [],
+                editable: true,
+                unlock: false
+            },
             tareWeight: {
                 header: ["Vehicle No", "Tare Weight", "Tare Time"],
                 filterText: "",
@@ -283,6 +291,7 @@ class App extends Component {
                 },
                 customersNameReference: React.createRef(),
                 transporterNameReference: React.createRef(),
+                placeReference: React.createRef(),
                 chargesReference: React.createRef(),
                 remarksReference: React.createRef(),
                 previousWeightReference: React.createRef(),
@@ -307,6 +316,7 @@ class App extends Component {
                 materialDisabled: false,
                 customersNameDisabled: false,
                 transporterNameDisabled: false,
+                placeDisabled: false,
                 chargesDisabled: false,
                 remarksDisabled: false,
                 grossDetailsDisabled: true,
@@ -452,6 +462,7 @@ class App extends Component {
                     material: true,
                     customersName: false,
                     transporterName: false,
+                    place: false,
                     grossWeight: true,
                     grossTime: false,
                     tareWeight: true,
@@ -602,6 +613,12 @@ class App extends Component {
                                         break;
                                     }
                                 // falls through
+                                case 'place':
+                                    if (!thisState.settings.value.hidePlace) {
+                                        thisState.weighing.reference.placeReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
                                 case 'charges':
                                     if (!thisState.settings.value.hideCharges) {
                                         thisState.weighing.reference.chargesReference.current.focus();
@@ -634,6 +651,12 @@ class App extends Component {
                                 case 'transporterName':
                                     if (!thisState.settings.value.hideTransporterName) {
                                         thisState.weighing.reference.transporterNameReference.current.focus();
+                                        break;
+                                    }
+                                // falls through
+                                case 'place':
+                                    if (!thisState.settings.value.hidePlace) {
+                                        thisState.weighing.reference.placeReference.current.focus();
                                         break;
                                     }
                                 // falls through
@@ -850,9 +873,10 @@ class App extends Component {
                 fetch(thisState.INITIAL_URL + "/serialPort/getSerialPortDetailByName?name=display").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/material/getAllMaterials").then(resp => resp.json()),
                 fetch(thisState.INITIAL_URL + "/customer/getAllCustomers").then(resp => resp.json()),
+                fetch(thisState.INITIAL_URL + "/place/getAllPlaces").then(resp => resp.json()), 
                 fetch(thisState.INITIAL_URL + "/tareWeight/getAllTareWeights").then(resp => resp.json())
             ]
-        ).then(([adminSettings, profile, profiles, printers, weightPrintFormats, invoicePrintFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, customers, tareWeights]) => {
+        ).then(([adminSettings, profile, profiles, printers, weightPrintFormats, invoicePrintFormats, webCamDetails, webCams, serialPorts, indicator, display, materials, customers, places, tareWeights]) => {
             thisState.adminSettings = adminSettings;
             thisState.PROFILE = profile;
             thisState.profiles = profiles;
@@ -868,6 +892,7 @@ class App extends Component {
             thisState.settings.indicator = indicator;
             thisState.settings.display = display;
             thisState.configuration.material.list = materials;
+            thisState.configuration.place.list = places;
             thisState.configuration.customer.list = customers;
             thisState.configuration.tareWeight.list = tareWeights;
             Promise.all(
@@ -966,11 +991,7 @@ class App extends Component {
                     <Row className="mt-3 pr-4 justify-content-md-center">
                         <Col lg="auto">
                             <PropagateLoader
-                                css={css`
-                    display: block;
-                    margin: 0 auto;
-                    border-color: red;
-                  `}
+                                css={css`display: block; margin: 0 auto; border-color: red;`}
                                 size={15}
                                 color={"#123abc"}
                                 loading={true}

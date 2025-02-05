@@ -12,7 +12,6 @@ import EditEnable from "./adminSettings/editEnable";
 import Invoice from "./adminSettings/invoice";
 import Webcams from "./adminSettings/webcams";
 
-
 const AdminSettings = props => {
     let thisState = props.preState;
     return (

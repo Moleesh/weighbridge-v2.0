@@ -4,7 +4,6 @@ import com.babulens.weighbridge.model.entity.Setting;
 
 import java.util.Map;
 
-
 public interface SettingService {
 
     String getSettingByProfile(String key, String profile);

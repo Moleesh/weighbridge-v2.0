@@ -1,6 +1,5 @@
 package com.babulens.weighbridge.service;
 
-
 import com.babulens.weighbridge.model.entity.Customer;
 
 import java.util.List;

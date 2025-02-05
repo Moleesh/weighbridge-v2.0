@@ -15,7 +15,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         if (!preventSave) {
                             preventSave = true;
@@ -76,7 +75,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         thisState.invoices.reprint = true;
                         thisState.invoices.reprintSlipNo = "";
@@ -102,7 +100,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         thisState.invoices.print = true;
                         thisState.setMyState(thisState).then(() => thisState.switchFocus(thisState, 'invoices', 'printDialog', false));
@@ -132,7 +129,6 @@ const Bottom = props => {
                 <Button
                     className="adam-button"
                     variant="primary"
-                    block
                     onClick={() => {
                         fetch(thisState.INITIAL_URL + "/setting/getNextInvoiceNoByProfile?profile=" + thisState.PROFILE).then(response => {
                             if (response.status === 200) {

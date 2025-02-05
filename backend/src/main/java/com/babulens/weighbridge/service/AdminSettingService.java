@@ -1,6 +1,5 @@
 package com.babulens.weighbridge.service;
 
-
 import com.babulens.weighbridge.model.entity.AdminSetting;
 
 import java.util.Map;

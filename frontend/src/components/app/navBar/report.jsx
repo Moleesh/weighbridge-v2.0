@@ -25,7 +25,7 @@ const Report = props => {
                 title="Report Print"
                 style={{ display: "none" }}
                 className="none" />
-            <Form className="justify-content-center ">
+            <Form className="justify-content-center">
                 <Row className="pb-1">
                     <Col className="pl-3">
                         <h4 className="text-center font-weight-bold">Report</h4>
@@ -395,7 +395,6 @@ const Report = props => {
                             </Col>
                             <Col sm="2">
                                 <Button
-                                    block
                                     variant="primary"
                                     onClick={() => {
                                         switch (thisState.report.type) {
@@ -460,7 +459,6 @@ const Report = props => {
                             </Col>
                             <Col sm="3">
                                 <Button
-                                    block
                                     variant="info"
                                     onClick={() => {
                                         thisState.report.filterPopUp = true;
@@ -527,7 +525,7 @@ const Report = props => {
                     <Col sm="4">
                         <Row>
                             <Col sm="4">
-                                <Button variant={thisState.report.edit ? "danger" : "warning"} block onClick={() => {
+                                <Button variant={thisState.report.edit ? "danger" : "warning"} onClick={() => {
                                     thisState.report.edit = !thisState.report.edit;
                                     thisState.setMyState(thisState);
                                 }}
@@ -540,7 +538,6 @@ const Report = props => {
                             <Col sm="5">
                                 <Button
                                     variant="secondary"
-                                    block
                                     disabled={thisState.report.list.length === 0}
                                     onClick={() => {
                                         let header = [thisState.report.isType === "weight" ? "Slip No" : "Invoice No"];
@@ -612,7 +609,6 @@ const Report = props => {
                                 <Button
                                     variant="success"
                                     disabled={thisState.report.isType === "invoice" || thisState.report.list.length === 0}
-                                    block
                                     onClick={() => {
                                         switch (thisState.report.isType) {
                                             case "weight":

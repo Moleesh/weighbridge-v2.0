@@ -45,6 +45,14 @@ const NavBar = props => {
                             thisState.configuration.material.list = result;
                             thisState.setMyState(thisState);
                         });
+                        fetch(thisState.INITIAL_URL + "/place/getAllPlaces").then(response => {
+                            if (response.status === 200) {
+                                return response.json();
+                            } else throw Error(response.statusText);
+                        }).then(result => {
+                            thisState.configuration.place.list = result;
+                            thisState.setMyState(thisState);
+                        });
                         fetch(thisState.INITIAL_URL + "/customer/getAllCustomers").then(response => {
                             if (response.status === 200) {
                                 return response.json();

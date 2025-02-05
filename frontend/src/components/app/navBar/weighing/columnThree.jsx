@@ -6,7 +6,6 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import TareDetails from "./columnThree/tareDetails";
 import GrossDetails from "./columnThree/grossDetails";
 
-
 const ColumnThree = props => {
     let thisState = props.preState;
     return (

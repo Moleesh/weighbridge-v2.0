@@ -6,11 +6,11 @@ import Toggle from "react-bootstrap-toggle";
 const Material = props => {
     let thisState = props.preState;
     return (
-        <Form className="justify-content-center ">
+        <Form className="justify-content-center">
             <Row className="pb-2">
                 <Col sm="2" />
                 <Col sm="8" className="pl-3">
-                    <h4 className="text-center font-weight-bold">Material</h4>
+                    <h4 className="text-center font-weight-bold">Materials</h4>
                 </Col>
                 <Col sm={2}>
                     <Row className="justify-content-center">
@@ -44,7 +44,7 @@ const Material = props => {
             </Form.Group>
 
             {thisState.configuration.material.unlock ? (
-                <Form.Row>
+                <Row>
                     {Object.keys(thisState.configuration.material.template).map(key => (
                         <Col className="pb-2" key={key}>
                             <Form.Control
@@ -114,7 +114,7 @@ const Material = props => {
                             Add
                         </Button>
                     </Col>
-                </Form.Row>
+                </Row>
             ) : (
                 ""
             )}
@@ -166,7 +166,6 @@ const Material = props => {
                                                 {thisState.configuration.material.editable ? (
                                                     <Col>
                                                         <Button
-                                                            block
                                                             className="btn-min-width"
                                                             variant="warning"
                                                             onClick={() => {
@@ -196,7 +195,6 @@ const Material = props => {
                                                 )}
                                                 <Col>
                                                     <Button
-                                                        block
                                                         className="btn-min-width"
                                                         variant="danger"
                                                         onClick={() => {

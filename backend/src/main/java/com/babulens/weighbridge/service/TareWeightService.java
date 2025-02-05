@@ -1,6 +1,5 @@
 package com.babulens.weighbridge.service;
 
-
 import com.babulens.weighbridge.model.entity.TareWeight;
 
 import java.util.List;

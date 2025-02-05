@@ -18,7 +18,7 @@ const Weighing = props => {
                 }
             }}
         >
-            <Row style={{ height: 200 }}>
+            <Row style={{ height: 200, marginLeft: 20 }}>
                 <Col sm="2" className="mt-3">
                     <Form.Group as={Row} className="ml-3">
                         <Col sm="1" />
@@ -134,7 +134,7 @@ const Weighing = props => {
                 </Col>
                 <Col sm="6" />
             </Row>
-        </Form>
+        </Form >
     );
 };
 

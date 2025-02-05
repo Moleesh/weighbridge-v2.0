@@ -15,5 +15,4 @@ public interface WebCamDetailDAO extends CrudRepository<WebCamDetail, String> {
 
     List<WebCamDetail> findAllByMyPrimaryIsTrue();
 
-
 }

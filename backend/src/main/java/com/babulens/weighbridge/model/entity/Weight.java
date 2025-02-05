@@ -16,6 +16,7 @@ public class Weight {
     private String material;
     private String customersName;
     private String transporterName;
+    private String place;
     private long grossWeight;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private Date grossTime;
@@ -33,12 +34,13 @@ public class Weight {
     public Weight() {
     }
 
-    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime, double charges, String remarks, boolean manual, String profile) {
+    public Weight(int slipNo, String vehicleNo, String material, String customersName, String transporterName, String place, long grossWeight, Date grossTime, long tareWeight, Date tareTime, long nettWeight, Date nettTime, double charges, String remarks, boolean manual, String profile) {
         this.slipNo = slipNo;
         this.vehicleNo = vehicleNo;
         this.material = material;
         this.customersName = customersName;
         this.transporterName = transporterName;
+        this.place = place;
         this.grossWeight = grossWeight;
         this.grossTime = grossTime;
         this.tareWeight = tareWeight;
@@ -90,6 +92,14 @@ public class Weight {
 
     public void setTransporterName(String transporterName) {
         this.transporterName = transporterName;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public long getGrossWeight() {
