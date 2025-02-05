@@ -919,6 +919,7 @@ class App extends Component {
                 settings.hideCharges = settings.hideCharges.toLowerCase().indexOf("true") !== -1;
                 settings.hideCustomerName = settings.hideCustomerName.toLowerCase().indexOf("true") !== -1;
                 settings.hideTransporterName = settings.hideTransporterName.toLowerCase().indexOf("true") !== -1;
+                settings.hidePlace = settings.hidePlace.toLowerCase().indexOf("true") !== -1;
                 settings.hideRemarks = settings.hideRemarks.toLowerCase().indexOf("true") !== -1;
                 settings.hideVehicleNo = settings.hideVehicleNo.toLowerCase().indexOf("true") !== -1;
                 settings.hideDriverName = settings.hideDriverName.toLowerCase().indexOf("true") !== -1;

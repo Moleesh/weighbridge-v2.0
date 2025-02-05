@@ -56,11 +56,11 @@ public class PrintUtilImpl implements PrintUtil {
     }
 
     private String indianCurrency(double num) {
-        return NumberFormat.getCurrencyInstance(new Locale("en", "IN")).format(num).replaceAll("₹", "");
+        return NumberFormat.getCurrencyInstance(Locale.of("en", "IN")).format(num).replaceAll("₹", "");
     }
 
     private int getPaddingForCentreAlign(Graphics graphics, String text, int space) {
-        if (text.trim().equals("")) {
+        if (text.trim().isEmpty()) {
             text = "_";
         }
         return (int) ((space - graphics.getFontMetrics().getStringBounds(text.trim(), graphics).getWidth()) / 2);
@@ -68,7 +68,7 @@ public class PrintUtilImpl implements PrintUtil {
 
     @SuppressWarnings("SameParameterValue")
     private int getPaddingForRightAlign(Graphics graphics, String text, int space) {
-        if (text.equals("")) {
+        if (text.isEmpty()) {
             text = "_";
         }
         return (int) (space - graphics.getFontMetrics().getStringBounds(text, graphics).getWidth());
@@ -104,7 +104,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8d * 72d, 6.1d * 72d, 0d * 72d, 0d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, _) -> {
             graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
             int space = 223;
             int margin = 40;
@@ -136,7 +136,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, _) -> {
             graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
             int space = 220;
             int margin = 40;
@@ -171,7 +171,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8d * 72d, 4d * 72d, .5d * 72d, .25d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, _) -> {
             final String format1 = "     %1$-9s: %2$-7s Kg               %3$-20s\n";
             final String format2 = " %1$-18s: %2$-30s\n";
             final String format3 = "     %1$-9s: %2$s";
@@ -189,8 +189,8 @@ public class PrintUtilImpl implements PrintUtil {
             drawString(graphics, "-----------------------------------------------------------------", margin, len = len + 14);
             drawString(graphics, String.format(format4, "Sl.No", printWeight.getWeight().getSlipNo(), "Date & Time", DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a").format(printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")))), margin, len = len + 14);
             drawString(graphics, String.format(format2, "Customer's Name", printWeight.getWeight().getCustomersName()), margin, len = len + 14);
-            if (!printWeight.getWeight().getTransporterName().trim().equals("")) {
-                drawString(graphics, String.format(format2, "Transpoter's Name", printWeight.getWeight().getTransporterName()), margin, len = len + 14);
+            if (!printWeight.getWeight().getTransporterName().trim().isEmpty()) {
+                drawString(graphics, String.format(format2, "Transporter's Name", printWeight.getWeight().getTransporterName()), margin, len = len + 14);
             }
             drawString(graphics, String.format(format4, "Vehicle No", printWeight.getWeight().getVehicleNo(), "Material", printWeight.getWeight().getMaterial()), margin, len = len + 14);
             drawString(graphics, "-----------------------------------------------------------------", margin, len = len + 14);
@@ -219,7 +219,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, _) -> {
             final String format = "%1$-5s%2$-20s: ";
 
             String initString = "\n\n" + StringUtils.center(printWeight.getWeighbridgeName(), 62);
@@ -294,10 +294,42 @@ public class PrintUtilImpl implements PrintUtil {
                         (int) (300.00 / cropImage.getWidth() * cropImage.getHeight()), null);
             } catch (IOException | NullPointerException | RasterFormatException ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-                        printWeight.getWeight().getSlipNo() + ".jpeg Image not availabel");
+                        printWeight.getWeight().getSlipNo() + ".jpeg Image not available");
             }
             return Printable.PAGE_EXISTS;
         }, pageFormat);
+        return book;
+    }
+
+    @Override
+    public Book printMunicipalPrint(PrintWeight printWeight) {
+        PageFormat pageFormat = new PageFormat();
+        Paper paper = pageFormat.getPaper();
+
+        setPaper(pageFormat, paper, 4d * 72d, 6d * 72d, 0d * 72d, 0d * 72d);
+        Book book = new Book();
+
+        book.append((graphics, _, _) -> {
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
+            int space = 223;
+            int margin = 40;
+            int iterate = 1;
+            int len = 64;
+            int height = 24;
+            drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalDate(), margin, len += height, iterate, space);
+            drawStringAsColumn(graphics, "" + printWeight.getWeight().getNettTime().toInstant().atZone(ZoneId.of("UTC")).toLocalTime(), margin, len += height, iterate, space);
+            drawStringAsColumn(graphics, "" + printWeight.getWeight().getSlipNo(), margin, len += height, iterate, space);
+            drawStringAsColumn(graphics, printWeight.getWeight().getMaterial(), margin, len += height, iterate, space);
+            drawStringAsColumn(graphics, printWeight.getWeight().getVehicleNo(), margin, len += height, iterate, space);
+            drawStringAsColumn(graphics, printWeight.getWeight().getCharges() == 0 ? "" : "" + (int) printWeight.getWeight().getCharges(), margin, len += height, iterate, space);
+            graphics.setFont(new Font("Courier New", Font.BOLD, 14));
+            drawStringAsColumn(graphics, printWeight.getWeight().getGrossWeight() + " Kg", margin, len += height - 2, iterate, space);
+            height = 33;
+            drawStringAsColumn(graphics, printWeight.getWeight().getTareWeight() + " Kg", margin, len += height, iterate, space);
+            drawStringAsColumn(graphics, printWeight.getWeight().getNettWeight() + " Kg", margin, len + height, iterate, space);
+            return Printable.PAGE_EXISTS;
+        }, pageFormat);
+
         return book;
     }
 
@@ -356,7 +388,7 @@ public class PrintUtilImpl implements PrintUtil {
         lines.add(new Line(printWeightReport.getFooter(), new Font("Courier New", Font.ITALIC, 10)));
 
         final int LIMIT = 35;
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, pageIndex) -> {
             Coordinate coordinate = new Coordinate(25, 0);
             graphics.setFont(new Font("Courier New", Font.BOLD, 20));
             coordinate = drawString(graphics, "\n\n\n", 35, coordinate.getY());
@@ -382,9 +414,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) ->
-                        Printable.PAGE_EXISTS
-                , pageFormat);
+        book.append((_, _, _) -> Printable.PAGE_EXISTS, pageFormat);
         return book;
     }
 
@@ -396,7 +426,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8.25d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, _) -> {
             AffineTransform affineTransform = new AffineTransform();
             affineTransform.setToQuadrantRotation(3);
             graphics.drawLine(30, 25, 30, 385);
@@ -538,7 +568,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8.25d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, _) -> {
             AffineTransform affineTransform = new AffineTransform();
             affineTransform.setToQuadrantRotation(3);
             graphics.drawLine(30, 25, 30, 385);
@@ -680,7 +710,7 @@ public class PrintUtilImpl implements PrintUtil {
         setPaper(pageFormat, paper, 8d * 72d, 6d * 72d, 0d * 72d, 0.25d * 72d);
         Book book = new Book();
 
-        book.append((graphics, _pageFormat, pageIndex) -> {
+        book.append((graphics, _, _) -> {
 
             graphics.setFont(new Font("Courier New", Font.BOLD, 20));
             graphics.drawString(StringUtils.center(printInvoice.getWeighbridgeName(), 51), 40, 25);

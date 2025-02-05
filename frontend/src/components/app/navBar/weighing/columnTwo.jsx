@@ -111,6 +111,7 @@ const ColumnTwo = props => {
                         shouldSelect={true}
                         filterBy={["placeId", "place"]}
                         labelKey={option => option.place}
+                        className={thisState.settings.value.hidePlace ? "hide" : ""}
                         renderMenu={(results, menuProps) =>
                             results.length !== 0 ? (
                                 <Menu {...menuProps} key="placeMenu">

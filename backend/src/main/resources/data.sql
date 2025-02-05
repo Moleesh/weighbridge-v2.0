@@ -157,6 +157,10 @@ SELECT 'Standard_hideTransporterName', 'hideTransporterName', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE SQNO = 'hideTransporterName' AND PROFILE like 'Standard');
 INSERT INTO SETTING
+SELECT 'Standard_hidePlace', 'hidePlace', 'Standard', false
+FROM DUAL
+WHERE NOT EXISTS(SELECT * FROM SETTING WHERE SQNO = 'hidePlace' AND PROFILE like 'Standard');
+INSERT INTO SETTING
 SELECT 'Standard_hideRemarks', 'hideRemarks', 'Standard', false
 FROM DUAL
 WHERE NOT EXISTS(SELECT * FROM SETTING WHERE SQNO = 'hideRemarks' AND PROFILE like 'Standard');

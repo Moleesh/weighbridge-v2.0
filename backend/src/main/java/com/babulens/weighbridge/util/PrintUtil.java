@@ -16,6 +16,8 @@ public interface PrintUtil {
 
     Book printWebCamPrint(PrintWeight printWeight);
 
+    Book printMunicipalPrint(PrintWeight printWeight);
+
     Book printReport(PrintWeightReport printWeightReport);
 
     Book printReport(PrintInvoiceReport printInvoiceReport);

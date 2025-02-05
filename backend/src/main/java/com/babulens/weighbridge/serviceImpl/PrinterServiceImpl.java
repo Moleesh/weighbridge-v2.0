@@ -92,7 +92,7 @@ public class PrinterServiceImpl implements PrinterService {
     @Override
     @Cacheable(cacheNames = "PrintFormats")
     public List<String> getAllWeightPrintFormats() {
-        return Arrays.asList("Pre Print 1", "Pre Print 2", "Plain Paper", "WebCam Print");
+        return Arrays.asList("Pre Print 1", "Pre Print 2", "Plain Paper", "WebCam Print", "Municipal Print");
     }
 
     @Override
@@ -115,6 +115,9 @@ public class PrinterServiceImpl implements PrinterService {
                 break;
             case "WebCam Print":
                 printerJob.setPageable(printUtil.printWebCamPrint(printWeight));
+                break;
+            case "Municipal Print":
+                printerJob.setPageable(printUtil.printMunicipalPrint(printWeight));
                 break;
             default:
                 printerJob.setPageable(printUtil.printPrePrint1(printWeight));
@@ -154,39 +157,24 @@ public class PrinterServiceImpl implements PrinterService {
 
     @Override
     public byte[] getPrintWeightPDF(PrintWeight printWeight) {
-        Book book;
-        switch (printWeight.getPrintFormat()) {
-            case "Normal Print":
-                book = new Book();
-                break;
-            case "Pre Print 2":
-                book = printUtil.printPrePrint2(printWeight);
-                break;
-            case "Plain Paper":
-                book = printUtil.printPlainPaper(printWeight);
-                break;
-            case "WebCam Print":
-                book = printUtil.printWebCamPrint(printWeight);
-                break;
-            default:
-                book = printUtil.printPrePrint1(printWeight);
-        }
+        Book book = switch (printWeight.getPrintFormat()) {
+            case "Normal Print" -> new Book();
+            case "Pre Print 2" -> printUtil.printPrePrint2(printWeight);
+            case "Plain Paper" -> printUtil.printPlainPaper(printWeight);
+            case "WebCam Print" -> printUtil.printWebCamPrint(printWeight);
+            case "Municipal Print" -> printUtil.printMunicipalPrint(printWeight);
+            default -> printUtil.printPrePrint1(printWeight);
+        };
         return getBook(book);
     }
 
     @Override
     public byte[] getPrintInvoicePDF(PrintInvoice printInvoice) {
-        Book book;
-        switch (printInvoice.getPrintFormat()) {
-            case "Pre Print 1":
-                book = printUtil.printPrePrint1(printInvoice);
-                break;
-            case "Pre Print 2":
-                book = printUtil.printPrePrint2(printInvoice);
-                break;
-            default:
-                book = printUtil.printStandard(printInvoice);
-        }
+        Book book = switch (printInvoice.getPrintFormat()) {
+            case "Pre Print 1" -> printUtil.printPrePrint1(printInvoice);
+            case "Pre Print 2" -> printUtil.printPrePrint2(printInvoice);
+            default -> printUtil.printStandard(printInvoice);
+        };
         return getBook(book);
     }
 
