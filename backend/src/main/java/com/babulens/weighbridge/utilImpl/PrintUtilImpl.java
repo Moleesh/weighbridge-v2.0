@@ -310,22 +310,20 @@ public class PrintUtilImpl implements PrintUtil {
         PageFormat pageFormat = new PageFormat();
         Paper paper = pageFormat.getPaper();
 
-        setPaper(pageFormat, paper, 4d * 72d, 6.5d * 72d, 0d * 72d, 0d * 72d);
+        setPaper(pageFormat, paper, 4d * 72d, 5d * 72d, 0d * 72d, 0d * 72d);
         Book book = new Book();
 
         book.append((graphics, _, _) -> {
             int margin = 20;
-            int len = 10;
-            int height = 24;
+            int len = 4;
+            int height = 18;
 
             graphics.setFont(new Font("Courier New", Font.BOLD, 14));
             String[] temp = printWeight.getWeighbridgeName().trim().split("\\|");
             for (String text : temp) {
                 drawStringAsColumn(graphics, StringUtils.center(text, 30), margin, len += height);
             }
-//            drawStringAsColumn(graphics, "01234567890123456789012345678901234567890123456789012345678901234567890123456789", margin, len += height);
             graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-//            drawStringAsColumn(graphics, "01234567890123456789012345678901234567890123456789012345678901234567890123456789", margin, len += height);
             drawStringAsColumn(graphics, StringUtils.center(printWeight.getWeighbridgeAddress(), 35), margin, len += height);
             graphics.setFont(new Font("Courier New", Font.BOLD, 14));
             drawStringAsColumn(graphics, StringUtils.center("WEIGHMENT CERTIFICATE", 30), margin, len += height);
@@ -340,7 +338,7 @@ public class PrintUtilImpl implements PrintUtil {
             drawStringAsColumn(graphics, "VEHICLE NO     : " + printWeight.getWeight().getVehicleNo(), margin, len += height);
             drawStringAsColumn(graphics, "PLACE          : " + printWeight.getWeight().getPlace(), margin, len += height);
             drawStringAsColumn(graphics, "MATERIAL       : " + printWeight.getWeight().getMaterial(), margin, len += height);
-            height = 33;
+            height = 27;
             drawStringAsColumn(graphics, "GROSS WT       : ", margin, len += height);
             graphics.setFont(new Font("Courier New", Font.BOLD, 14));
             drawStringAsColumn(graphics, "               " + StringUtils.leftPad("" + printWeight.getWeight().getGrossWeight(), 8, " "), margin, len - 2);
@@ -353,7 +351,7 @@ public class PrintUtilImpl implements PrintUtil {
             graphics.setFont(new Font("Courier New", Font.BOLD, 14));
             drawStringAsColumn(graphics, "               " + StringUtils.leftPad("" + printWeight.getWeight().getNettWeight(), 8, " "), margin, len - 2);
             graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, printWeight.getFooter(), margin, len + 50);
+            drawStringAsColumn(graphics, printWeight.getFooter(), margin, len + 40);
 
             return Printable.PAGE_EXISTS;
         }, pageFormat);
