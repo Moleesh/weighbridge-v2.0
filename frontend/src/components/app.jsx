@@ -8,7 +8,7 @@ import moment from "moment";
 import { css } from "@emotion/react";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
-const INITIAL_URL = "http://localhost:9000";
+const INITIAL_URL = "";
 
 class App extends Component {
     state = {
