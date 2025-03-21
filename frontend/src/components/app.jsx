@@ -284,7 +284,11 @@ class App extends Component {
             customersId: "",
             materialId: "",
             reference: {
-                vehicleNoReference: React.createRef(),
+                 vehicleNoReference: {
+                                    reference: React.createRef(),
+                                    value: [{ vehicleNo: "" }],
+                                    open: undefined
+                                },
                 materialReference: {
                     reference: React.createRef(),
                     value: [{ material: "" }],
@@ -599,7 +603,7 @@ class App extends Component {
                             switch (field) {
                                 default:
                                     if (!thisState.weighing.disable.vehicleNoDisabled) {
-                                        thisState.weighing.reference.vehicleNoReference.current.focus();
+                                        thisState.weighing.reference.vehicleNoReference.reference.current.focus();
                                         break;
                                     }
                                 // falls through
@@ -682,7 +686,7 @@ class App extends Component {
                                 // falls through
                                 default:
                                     if (!thisState.weighing.disable.vehicleNoDisabled) {
-                                        thisState.weighing.reference.vehicleNoReference.current.focus();
+                                        thisState.weighing.reference.vehicleNoReference.reference.current.focus();
                                     }
                             }
                         }
@@ -1003,7 +1007,7 @@ class App extends Component {
                                 css={css`display: block; margin: 0 auto; border-color: red;`}
                                 size={15}
                                 color={"#123abc"}
-                                loading={true}
+                                loading
                             />
                         </Col>
                     </Row>

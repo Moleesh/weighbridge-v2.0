@@ -24,7 +24,7 @@ const TareWeight = props => {
                             size="lg"
                             offstyle="danger"
                             active={thisState.configuration.tareWeight.unlock}
-                            recalculateOnResize={true}
+                            recalculateOnResize
                             disabled={thisState.SETTING_DISABLED}
                         />
                     </Row>

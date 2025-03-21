@@ -24,7 +24,7 @@ const Place = props => {
                             size="lg"
                             offstyle="danger"
                             active={thisState.configuration.place.unlock}
-                            recalculateOnResize={true}
+                            recalculateOnResize
                             disabled={thisState.SETTING_DISABLED}
                         />
                     </Row>

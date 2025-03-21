@@ -74,7 +74,7 @@ const Invoice = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={JSON.parse(thisState.invoice.dummy)}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                                 disabled={thisState.invoices.disable.selector}
                             />
                         </Col>

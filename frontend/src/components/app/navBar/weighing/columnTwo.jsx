@@ -108,7 +108,7 @@ const ColumnTwo = props => {
                     <Typeahead
                         highlightOnlyResult
                         id="place"
-                        shouldSelect={true}
+                        shouldSelect
                         filterBy={["placeId", "place"]}
                         labelKey={option => option.place}
                         className={thisState.settings.value.hidePlace ? "hide" : ""}
@@ -128,7 +128,7 @@ const ColumnTwo = props => {
                             ) : null
                         }
                         options={thisState.configuration.place.list}
-                        maxHeight={200}
+                        maxHeight={'200px'}
                         selected={thisState.weighing.reference.placeReference.value}
                         disabled={thisState.settings.value.hidePlace || thisState.weighing.disable.placeDisabled}
                         open={thisState.weighing.reference.placeReference.open}

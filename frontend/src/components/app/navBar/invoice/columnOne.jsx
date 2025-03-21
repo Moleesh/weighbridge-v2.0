@@ -35,7 +35,6 @@ const ColumnOne = props => {
                         disabled={thisState.invoices.disable.referenceSlipNoDisabled}
                         ref={thisState.invoices.reference.referenceSlipNoReference}
                         value={thisState.invoice.referenceSlipNo}
-                        autoFocus={true}
                         onChange={event => {
                             thisState.invoice.referenceSlipNo =
                                 (event.target.value.match("[0-9]+") || []).pop() || "";
@@ -93,7 +92,7 @@ const ColumnOne = props => {
                     <Typeahead
                         highlightOnlyResult
                         id="customersName"
-                        shouldSelect={true}
+                        shouldSelect
                         filterBy={["customerId", "customerName"]}
                         labelKey={option => option.customerName}
                         renderMenu={(results, menuProps) =>
@@ -112,7 +111,7 @@ const ColumnOne = props => {
                             ) : null
                         }
                         options={thisState.configuration.customer.list}
-                        maxHeight={200}
+                        maxHeight={'200px'}
                         selected={thisState.invoices.reference.customersNameReference.value}
                         disabled={thisState.invoices.disable.customersNameDisabled}
                         open={thisState.invoices.reference.customersNameReference.open}

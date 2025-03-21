@@ -24,7 +24,7 @@ const Material = props => {
                             size="lg"
                             offstyle="danger"
                             active={thisState.configuration.material.unlock}
-                            recalculateOnResize={true}
+                            recalculateOnResize
                             disabled={thisState.SETTING_DISABLED}
                         />
                     </Row>

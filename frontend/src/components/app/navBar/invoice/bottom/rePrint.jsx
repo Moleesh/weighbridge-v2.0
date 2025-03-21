@@ -11,7 +11,7 @@ const RePrint = props => {
                 thisState.invoices.reprint = false;
                 thisState.setMyState(thisState);
             }}
-            restoreFocus={true}
+            restoreFocus
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered

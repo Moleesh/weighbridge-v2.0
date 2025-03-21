@@ -36,7 +36,7 @@ const AdminSettings = props => {
                         size="lg"
                         offstyle="danger"
                         active={thisState.settings.settings}
-                        recalculateOnResize={true}
+                        recalculateOnResize
                     />
                     <Invoice preState={thisState} />
                 </Col>
@@ -105,7 +105,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.value.secondWeight}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                             <Invoice preState={thisState} />
                         </Col>
@@ -134,7 +134,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.manualEntry}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                             <ManualEntry preState={thisState} />
                         </Col>
@@ -163,7 +163,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.editEnable}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                             <EditEnable preState={thisState} />
                         </Col>
@@ -231,7 +231,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.hideFields}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                         </Col>
                     </Form.Group>
@@ -259,7 +259,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.value.invoice}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                             <Invoice preState={thisState} />
                         </Col>
@@ -279,7 +279,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.value.tonnage}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                             <Invoice preState={thisState} />
                         </Col>
@@ -308,7 +308,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.value.webcams}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                             <Webcams preState={thisState} />
                         </Col>
@@ -428,7 +428,7 @@ const AdminSettings = props => {
                                 size="lg"
                                 offstyle="danger"
                                 active={thisState.settings.value.automation}
-                                recalculateOnResize={true}
+                                recalculateOnResize
                             />
                         </Col>
                     </Form.Group>

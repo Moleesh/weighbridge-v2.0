@@ -48,8 +48,7 @@ public class TransactionFilter implements Filter {
 //				} else {
 //					((HttpServletResponse) response).sendRedirect("/loginForm");
 //				}
-            }
-
+            } else {
 //			else if (TransactionFilter.list.contains(clientIp)) {
 //				chain.doFilter(request, response);
 //			} else if (Stream.of("getNextSlipNoByProfile", "getNextInvoiceNoByProfile", "getNextDummyInvoiceNoByProfile").anyMatch(value -> httpServletRequest.getRequestURI().contains(value))) {
@@ -57,7 +56,8 @@ public class TransactionFilter implements Filter {
 //			} else if (!TransactionFilter.list.contains(httpServletRequest.getSession().getId())) {
 //				((HttpServletResponse) response).sendRedirect("/loginForm");
 //			}
-            chain.doFilter(request, response);
+                chain.doFilter(request, response);
+            }
 
         } catch (IOException | ServletException ignored) {
         }

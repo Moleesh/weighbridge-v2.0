@@ -14,7 +14,7 @@ const ColumnTwo = props => {
                     <Typeahead
                         highlightOnlyResult
                         id="material"
-                        shouldSelect={true}
+                        shouldSelect
                         filterBy={["materialId", "material"]}
                         labelKey={option => option.material}
                         renderMenu={(results, menuProps) =>
@@ -33,7 +33,7 @@ const ColumnTwo = props => {
                             ) : null
                         }
                         options={thisState.configuration.material.list}
-                        maxHeight={200}
+                        maxHeight={'200px'}
                         selected={thisState.invoices.reference.materialReference.value}
                         disabled={thisState.invoices.disable.materialDisabled}
                         open={thisState.invoices.reference.materialReference.open}
@@ -251,9 +251,9 @@ const ColumnTwo = props => {
                         className={thisState.settings.value.hideModeOfPayment ? "hide" : ""}
                         highlightOnlyResult
                         id="modeOfPayment"
-                        shouldSelect={true}
+                        shouldSelect
                         options={thisState.configuration.modeOfPayment.list}
-                        maxHeight={200}
+                        maxHeight={'200px'}
                         selected={thisState.invoices.reference.modeOfPaymentReference.value}
                         disabled={thisState.invoices.disable.modeOfPaymentDisabled || thisState.settings.value.hideModeOfPayment}
                         open={thisState.invoices.reference.modeOfPaymentReference.open}
