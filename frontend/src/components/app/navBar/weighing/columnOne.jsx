@@ -1,9 +1,9 @@
 import React from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import Clock from "react-live-clock";
 import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 
 import PreviousWeight from './columnOne/previousWeight';
+import Clock from "../../../clock";
 
 const ColumnOne = props => {
     let thisState = props.preState;
@@ -30,7 +30,7 @@ const ColumnOne = props => {
                     Date & Time
                 </Form.Label>
                 <Col sm="6" style={{ textAlign: "center" }}>
-                    <Clock format={"DD-MM-YYYY HH:mm:ss"} ticking={true} />
+                    <Clock />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>

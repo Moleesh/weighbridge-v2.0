@@ -274,3 +274,7 @@ a.nav-item.nav-link,
 button {
     outline: none !important;
 }
+
+.float-left{
+    float: left;
+}

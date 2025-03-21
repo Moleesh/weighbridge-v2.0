@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import DatetimeRangePicker from "react-datetime-range-picker";
+import DateTime from 'react-datetime';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faFileDownload, faFilter, faPrint } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
@@ -361,19 +361,34 @@ const Report = props => {
                         <Form.Group as={Row}>
                             <Form.Label column sm="3">Choose Date</Form.Label>
                             <Col sm="9">
-                                <DatetimeRangePicker
-                                    startDate={thisState.report.date.start}
-                                    endDate={thisState.report.date.end}
+                                <DateTime
                                     dateFormat="DD-MM-YYYY"
                                     timeFormat="HH:mm:ss"
-                                    pickerClassName="col-sm-6 float-left"
+                                    value={thisState.report.date.start}
+                                    className="col-sm-6 float-left"
+                                    inputProps={{
+                                        disabled: thisState.report.dateDisabled,
+                                        className: "form-control"
+                                    }}
                                     onChange={date => {
-                                        thisState.report.date = date;
+                                        thisState.report.date.start = date;
                                         thisState.setMyState(thisState);
                                     }}
-                                    isValidEndDate={() => true}
-                                    inputProps={{ disabled: thisState.report.dateDisabled }}
                                 />
+                                <DateTime
+                                    dateFormat="DD-MM-YYYY"
+                                    timeFormat="HH:mm:ss"
+                                    value={thisState.report.date.end}
+                                    className="col-sm-6 float-left"
+                                    inputProps={{
+                                        disabled: thisState.report.dateDisabled,
+                                        className: "form-control"
+                                    }}
+                                    onChange={date => {
+                                        thisState.report.date.end = date;
+                                        thisState.setMyState(thisState);
+                                    }}
+                                />                            
                             </Col>
                         </Form.Group>
                     </Col>

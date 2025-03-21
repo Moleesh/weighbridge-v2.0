@@ -22,7 +22,7 @@
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.9.0</version>
                 <configuration>
-                    <nodeVersion>v15.3.0</nodeVersion>
+                    <nodeVersion>v23.1.0</nodeVersion>
                 </configuration>
                 <executions>
                     <execution>
