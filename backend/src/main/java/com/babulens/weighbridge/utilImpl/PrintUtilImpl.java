@@ -328,7 +328,7 @@ public class PrintUtilImpl implements PrintUtil {
             graphics.setFont(new Font("Courier New", Font.BOLD, 14));
             drawStringAsColumn(graphics, StringUtils.center("WEIGHMENT CERTIFICATE", 30), margin, len += height);
             graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, "TOKEN SLNO     : " + printWeight.getWeight().getSlipNo() , margin, len += height + 8);
+            drawStringAsColumn(graphics, "TOKEN SLNO     : " + printWeight.getWeight().getSlipNo(), margin, len += height + 8);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             drawStringAsColumn(graphics, "DATE           : " + simpleDateFormat.format(printWeight.getWeight().getNettTime()), margin, len += height);
