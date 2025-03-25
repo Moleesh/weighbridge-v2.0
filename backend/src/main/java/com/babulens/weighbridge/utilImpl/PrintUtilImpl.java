@@ -316,41 +316,41 @@ public class PrintUtilImpl implements PrintUtil {
         book.append((graphics, _, _) -> {
             int margin = 20;
             int len = 0;
-            int height = 18;
+            int height = 15;
 
-            graphics.setFont(new Font("Courier New", Font.BOLD, 14));
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
             String[] temp = printWeight.getWeighbridgeName().trim().split("\\|");
             for (String text : temp) {
                 drawStringAsColumn(graphics, StringUtils.center(text, 30), margin, len += height);
             }
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
             drawStringAsColumn(graphics, StringUtils.center(printWeight.getWeighbridgeAddress(), 35), margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.BOLD, 14));
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
             drawStringAsColumn(graphics, StringUtils.center("WEIGHMENT CERTIFICATE", 30), margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, "TOKEN SLNO     : " + printWeight.getWeight().getSlipNo(), margin, len += height + 8);
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
+            drawStringAsColumn(graphics, "TOKEN SLNO : " + printWeight.getWeight().getSlipNo(), margin, len += height + 8);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            drawStringAsColumn(graphics, "DATE           : " + simpleDateFormat.format(printWeight.getWeight().getNettTime()), margin, len += height);
+            drawStringAsColumn(graphics, "DATE       : " + simpleDateFormat.format(printWeight.getWeight().getNettTime()), margin, len += height);
             simpleDateFormat = new SimpleDateFormat("hh:mm aaa");
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            drawStringAsColumn(graphics, "TIME           : " + simpleDateFormat.format(printWeight.getWeight().getNettTime()), margin, len += height);
-            drawStringAsColumn(graphics, "VEHICLE NO     : " + printWeight.getWeight().getVehicleNo(), margin, len += height);
-            drawStringAsColumn(graphics, "PLACE          : " + printWeight.getWeight().getPlace(), margin, len += height);
-            drawStringAsColumn(graphics, "MATERIAL       : " + printWeight.getWeight().getMaterial(), margin, len += height);
-            height = 22;
-            drawStringAsColumn(graphics, "GROSS WT       : ", margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.BOLD, 14));
-            drawStringAsColumn(graphics, "               " + StringUtils.leftPad("" + printWeight.getWeight().getGrossWeight(), 8, " "), margin, len - 2);
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, "TARE WT        : ", margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.BOLD, 14));
-            drawStringAsColumn(graphics, "               " + StringUtils.leftPad("" + printWeight.getWeight().getTareWeight(), 8, " "), margin, len - 2);
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, "NET WT         : ", margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.BOLD, 14));
-            drawStringAsColumn(graphics, "               " + StringUtils.leftPad("" + printWeight.getWeight().getNettWeight(), 8, " "), margin, len - 2);
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
+            drawStringAsColumn(graphics, "TIME       : " + simpleDateFormat.format(printWeight.getWeight().getNettTime()), margin, len += height);
+            drawStringAsColumn(graphics, "VEHICLE NO : " + printWeight.getWeight().getVehicleNo(), margin, len += height);
+            drawStringAsColumn(graphics, "PLACE      : " + printWeight.getWeight().getPlace(), margin, len += height);
+            drawStringAsColumn(graphics, "MATERIAL   : " + printWeight.getWeight().getMaterial(), margin, len += height);
+            height = 16;
+            drawStringAsColumn(graphics, "GROSS WT   : ", margin, len += height);
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
+            drawStringAsColumn(graphics, "            " + StringUtils.leftPad("" + printWeight.getWeight().getGrossWeight(), 8, " "), margin, len - 2);
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
+            drawStringAsColumn(graphics, "TARE WT    : ", margin, len += height);
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
+            drawStringAsColumn(graphics, "            " + StringUtils.leftPad("" + printWeight.getWeight().getTareWeight(), 8, " "), margin, len - 2);
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
+            drawStringAsColumn(graphics, "NET WT     : ", margin, len += height);
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
+            drawStringAsColumn(graphics, "            " + StringUtils.leftPad("" + printWeight.getWeight().getNettWeight(), 8, " "), margin, len - 2);
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
             drawStringAsColumn(graphics, printWeight.getFooter(), margin, len + 32);
 
             return Printable.PAGE_EXISTS;
