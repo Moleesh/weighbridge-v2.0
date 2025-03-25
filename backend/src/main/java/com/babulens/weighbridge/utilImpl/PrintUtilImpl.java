@@ -338,18 +338,18 @@ public class PrintUtilImpl implements PrintUtil {
             drawStringAsColumn(graphics, "VEHICLE NO : " + printWeight.getWeight().getVehicleNo(), margin, len += height);
             drawStringAsColumn(graphics, "PLACE      : " + printWeight.getWeight().getPlace(), margin, len += height);
             drawStringAsColumn(graphics, "MATERIAL   : " + printWeight.getWeight().getMaterial(), margin, len += height);
-            height = 17;
+            height = 18;
             drawStringAsColumn(graphics, "GROSS WT   : ", margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, "            " + printWeight.getWeight().getGrossWeight(), margin, len - 2);
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
+            drawStringAsColumn(graphics, "            " + StringUtils.leftPad("" + printWeight.getWeight().getGrossWeight(), 5, " "), margin, len - 2);
             graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
             drawStringAsColumn(graphics, "TARE WT    : ", margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, "            " + printWeight.getWeight().getTareWeight(), margin, len - 2);
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
+            drawStringAsColumn(graphics, "            " + StringUtils.leftPad("" + printWeight.getWeight().getTareWeight(), 5, " "), margin, len - 2);
             graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
             drawStringAsColumn(graphics, "NET WT     : ", margin, len += height);
-            graphics.setFont(new Font("Courier New", Font.PLAIN, 12));
-            drawStringAsColumn(graphics, "            " + printWeight.getWeight().getNettWeight(), margin, len - 2);
+            graphics.setFont(new Font("Courier New", Font.BOLD, 12));
+            drawStringAsColumn(graphics, "            " + StringUtils.leftPad("" + printWeight.getWeight().getNettWeight(), 5, " "), margin, len - 2);
             graphics.setFont(new Font("Courier New", Font.PLAIN, 10));
             drawStringAsColumn(graphics, printWeight.getFooter(), margin, len + 32);
 
