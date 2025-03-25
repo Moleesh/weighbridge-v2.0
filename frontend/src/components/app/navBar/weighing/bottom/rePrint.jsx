@@ -77,6 +77,9 @@ const RePrint = props => {
                                 thisState.weighing.disable.printDisabled = false;
                                 thisState.weighing.disable.secondWeightDisabled = true;
                                 thisState.weight = result;
+                                thisState.weighing.reference.vehicleNoReference.value = [
+                                    { vehicleNo: thisState.weight.vehicleNo }
+                                ];
                                 thisState.weighing.reference.materialReference.value = [
                                     { material: thisState.weight.material }
                                 ];

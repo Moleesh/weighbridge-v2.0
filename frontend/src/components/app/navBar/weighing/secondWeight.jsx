@@ -79,6 +79,9 @@ const SecondWeight = props => {
                                     thisState.weight.grossWeight = result.grossWeight;
                                     thisState.weight.grossTime = result.grossTime;
                                     thisState.weight.vehicleNo = result.vehicleNo;
+                                    thisState.weighing.reference.vehicleNoReference.value = [
+                                        { vehicleNo: result.vehicleNo }
+                                    ];
                                     thisState.weight.customersName = result.customersName;
                                     thisState.weight.transporterName = result.transporterName;
                                     thisState.weight.place = result.place;
@@ -96,6 +99,9 @@ const SecondWeight = props => {
                                     thisState.weight.tareWeight = result.tareWeight;
                                     thisState.weight.tareTime = result.tareTime;
                                     thisState.weight.vehicleNo = result.vehicleNo;
+                                    thisState.weighing.reference.vehicleNoReference.value = [
+                                        { vehicleNo: result.vehicleNo }
+                                    ];
                                     thisState.weight.customersName = result.customersName;
                                     thisState.weight.transporterName = result.transporterName;
                                     thisState.weight.place = result.place;

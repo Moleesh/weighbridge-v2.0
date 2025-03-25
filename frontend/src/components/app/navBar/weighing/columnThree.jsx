@@ -155,9 +155,13 @@ const ColumnThree = props => {
                                                 }).then(result => {
                                                     thisState.weight.slipNo = result;
                                                     thisState.weight.vehicleNo = "";
+                                                    thisState.weighing.reference.vehicleNoReference.value = [
+                                                        { vehicleNo: "" }
+                                                    ];
                                                     thisState.weight.customersName = "";
                                                     thisState.weight.transporterName = "";
-                                                    thisState.weight.place = ""; thisState.weighing.reference.placeReference.value = [
+                                                    thisState.weight.place = "";
+                                                    thisState.weighing.reference.placeReference.value = [
                                                         { place: "" }
                                                     ];
                                                     thisState.weight.material = "";

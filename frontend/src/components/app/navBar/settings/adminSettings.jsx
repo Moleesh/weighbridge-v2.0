@@ -205,6 +205,9 @@ const AdminSettings = props => {
                                             thisState.SETTING_DISABLED = true;
                                         }
                                         thisState.weight.vehicleNo = "";
+                                        thisState.weighing.reference.vehicleNoReference.value = [
+                                            { vehicleNo: "" }
+                                        ];
                                         thisState.weight.customersName = "";
                                         thisState.weight.transporterName = "";
                                         thisState.weight.place = "";
@@ -352,6 +355,9 @@ const AdminSettings = props => {
                                                 thisState.SETTING_DISABLED = true;
                                             }
                                             thisState.weight.vehicleNo = "";
+                                            thisState.weighing.reference.vehicleNoReference.value = [
+                                                { vehicleNo: "" }
+                                            ];
                                             thisState.weight.customersName = "";
                                             thisState.weight.transporterName = "";
                                             thisState.weight.place = "";
@@ -402,9 +408,13 @@ const AdminSettings = props => {
                                                 thisState.SETTING_DISABLED = true;
                                             }
                                             thisState.weight.vehicleNo = "";
+                                            thisState.weighing.reference.vehicleNoReference.value = [
+                                                { vehicleNo: "" }
+                                            ];
                                             thisState.weight.customersName = "";
                                             thisState.weight.transporterName = "";
-                                            thisState.weight.place = ""; thisState.weighing.reference.placeReference.value = [
+                                            thisState.weight.place = "";
+                                            thisState.weighing.reference.placeReference.value = [
                                                 { place: "" }
                                             ];
                                             thisState.weight.material = "";

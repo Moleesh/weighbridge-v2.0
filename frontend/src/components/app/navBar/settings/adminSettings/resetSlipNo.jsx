@@ -117,6 +117,9 @@ const ResetSlipNo = props => {
                                             thisState.SETTING_DISABLED = true;
                                         }
                                         thisState.weight.vehicleNo = "";
+                                        thisState.weighing.reference.vehicleNoReference.value = [
+                                            { vehicleNo: "" }
+                                        ];
                                         thisState.weight.customersName = "";
                                         thisState.weight.transporterName = "";
                                         thisState.weight.place = "";
